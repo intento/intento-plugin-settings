@@ -12,6 +12,10 @@ using System.Windows.Forms;
 
 namespace TestForm
 {
+    // Version history
+    // 1.2.4: 2019-05-21
+    // - List of providers is requested now in sync mode to get real format options to send translate request with th best html or xml option
+
     public partial class Form1 : Form
     {
         IntentoMTFormOptions options;

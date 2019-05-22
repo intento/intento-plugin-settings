@@ -53,7 +53,6 @@ namespace IntentoMT.Plugin.PropertiesForm
         EApiKeyStatus apiKeyStatus = EApiKeyStatus.start;
         string error_reason;    // used only in case of error check
         public static DateTime TraceEndTime;
-        const string ulrAdditionalParams = "?fields=auth,custom_glossary&mode=async";
         private Dictionary<string, string> providerDataAuthDict;
         private Dictionary<string, dynamic> _providerModels;
         private Dictionary<string, dynamic> _providerGlossaries;
@@ -622,7 +621,9 @@ namespace IntentoMT.Plugin.PropertiesForm
                 }
 
                 // Getting provider parameters
-                providerData = _translate.Provider(providers[comboBoxProviders.Text], ulrAdditionalParams);
+                // Importnant! Provider flags are obtained for SYNC mode (not async) to provide best tranlstion in case
+                // provider may process xml or html formats and sent translate request with correspondent format option. 
+                providerData = _translate.Provider(providers[comboBoxProviders.Text], "?fields=auth,custom_glossary");
                 if (providerData != null)
                 {
                     //set flags for selected provider
