@@ -15,6 +15,7 @@ In case you don't have a key to use Intento API, please register here [console.i
 ## Development
 
 This code is required for developing [Intento memoQ plugin](https://github.com/intento/intento-plugin-memoq) and [Intento Trados plugin](https://github.com/intento/intento-plugin-trados).
+Compile by Visual Studio 2017. 
 
 ### Dependencies
 
