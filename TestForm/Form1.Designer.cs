@@ -44,6 +44,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxGlossary = new System.Windows.Forms.TextBox();
             this.checkBoxSmartRouting = new System.Windows.Forms.CheckBox();
+            this.buttonSaveData = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonShow
@@ -52,7 +53,7 @@
             this.buttonShow.Name = "buttonShow";
             this.buttonShow.Size = new System.Drawing.Size(80, 30);
             this.buttonShow.TabIndex = 0;
-            this.buttonShow.Text = "button1";
+            this.buttonShow.Text = "Start";
             this.buttonShow.UseVisualStyleBackColor = true;
             this.buttonShow.Click += new System.EventHandler(this.buttonShow_Click);
             // 
@@ -181,13 +182,23 @@
             this.checkBoxSmartRouting.TabIndex = 16;
             this.checkBoxSmartRouting.Text = "Smart routing";
             this.checkBoxSmartRouting.UseVisualStyleBackColor = true;
-            this.checkBoxSmartRouting.CheckedChanged += new System.EventHandler(this.checkBoxSmartRouting_CheckedChanged);
+            // 
+            // buttonSaveData
+            // 
+            this.buttonSaveData.Location = new System.Drawing.Point(267, 258);
+            this.buttonSaveData.Name = "buttonSaveData";
+            this.buttonSaveData.Size = new System.Drawing.Size(75, 30);
+            this.buttonSaveData.TabIndex = 17;
+            this.buttonSaveData.Text = "Save Data";
+            this.buttonSaveData.UseVisualStyleBackColor = true;
+            this.buttonSaveData.Click += new System.EventHandler(this.buttonSaveData_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(453, 301);
+            this.Controls.Add(this.buttonSaveData);
             this.Controls.Add(this.checkBoxSmartRouting);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBoxGlossary);
@@ -230,6 +241,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxGlossary;
         private System.Windows.Forms.CheckBox checkBoxSmartRouting;
+        private System.Windows.Forms.Button buttonSaveData;
     }
 }
 

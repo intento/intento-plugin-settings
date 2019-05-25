@@ -34,22 +34,21 @@
             this.label5 = new System.Windows.Forms.Label();
             this.buttonContinue = new System.Windows.Forms.Button();
             this.groupBoxProviderSettings = new System.Windows.Forms.GroupBox();
+            this.groupBoxAuth = new System.Windows.Forms.GroupBox();
+            this.buttonWizard = new System.Windows.Forms.Button();
+            this.textBoxCredentials = new System.Windows.Forms.TextBox();
             this.checkBoxUseCustomModel = new System.Windows.Forms.CheckBox();
-            this.groupBoxGlossary = new System.Windows.Forms.GroupBox();
-            this.textBoxGlossary = new System.Windows.Forms.TextBox();
-            this.comboBoxGlossaries = new System.Windows.Forms.ComboBox();
             this.groupBoxAuthCredentialId = new System.Windows.Forms.GroupBox();
             this.comboBoxCredentialId = new System.Windows.Forms.ComboBox();
             this.labelStoredCredential1 = new System.Windows.Forms.Label();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.label8 = new System.Windows.Forms.Label();
+            this.groupBoxGlossary = new System.Windows.Forms.GroupBox();
+            this.textBoxGlossary = new System.Windows.Forms.TextBox();
+            this.comboBoxGlossaries = new System.Windows.Forms.ComboBox();
             this.groupBoxModel = new System.Windows.Forms.GroupBox();
             this.textBoxModel = new System.Windows.Forms.TextBox();
             this.comboBoxModels = new System.Windows.Forms.ComboBox();
-            this.groupBoxAuth = new System.Windows.Forms.GroupBox();
-            this.buttonWizard = new System.Windows.Forms.Button();
-            this.textBoxCredentials = new System.Windows.Forms.TextBox();
-            this.labelName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxProviders = new System.Windows.Forms.ComboBox();
             this.checkBoxUseOwnCred = new System.Windows.Forms.CheckBox();
@@ -67,10 +66,10 @@
             this.checkBoxSmartRouting = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBoxProviderSettings.SuspendLayout();
-            this.groupBoxGlossary.SuspendLayout();
-            this.groupBoxAuthCredentialId.SuspendLayout();
-            this.groupBoxModel.SuspendLayout();
             this.groupBoxAuth.SuspendLayout();
+            this.groupBoxAuthCredentialId.SuspendLayout();
+            this.groupBoxGlossary.SuspendLayout();
+            this.groupBoxModel.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,7 +93,7 @@
             this.apiKey_tb.TabIndex = 3;
             this.apiKey_tb.UseSystemPasswordChar = true;
             this.apiKey_tb.WordWrap = false;
-            this.apiKey_tb.TextChanged += new System.EventHandler(this.apiKey_tb_TextChanged_1);
+            this.apiKey_tb.TextChanged += new System.EventHandler(this.apiKey_tb_TextChanged);
             // 
             // label5
             // 
@@ -124,11 +123,11 @@
             this.groupBoxProviderSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxProviderSettings.Controls.Add(this.groupBoxAuthCredentialId);
+            this.groupBoxProviderSettings.Controls.Add(this.groupBoxAuth);
             this.groupBoxProviderSettings.Controls.Add(this.checkBoxUseCustomModel);
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxGlossary);
-            this.groupBoxProviderSettings.Controls.Add(this.groupBoxAuthCredentialId);
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxModel);
-            this.groupBoxProviderSettings.Controls.Add(this.groupBoxAuth);
             this.groupBoxProviderSettings.Controls.Add(this.label1);
             this.groupBoxProviderSettings.Controls.Add(this.comboBoxProviders);
             this.groupBoxProviderSettings.Controls.Add(this.checkBoxUseOwnCred);
@@ -139,6 +138,45 @@
             this.groupBoxProviderSettings.TabIndex = 10;
             this.groupBoxProviderSettings.TabStop = false;
             this.groupBoxProviderSettings.Text = "MT Provider settings";
+            // 
+            // groupBoxAuth
+            // 
+            this.groupBoxAuth.Controls.Add(this.buttonWizard);
+            this.groupBoxAuth.Controls.Add(this.textBoxCredentials);
+            this.groupBoxAuth.Enabled = false;
+            this.groupBoxAuth.Location = new System.Drawing.Point(10, 84);
+            this.groupBoxAuth.Name = "groupBoxAuth";
+            this.groupBoxAuth.Size = new System.Drawing.Size(511, 89);
+            this.groupBoxAuth.TabIndex = 23;
+            this.groupBoxAuth.TabStop = false;
+            this.groupBoxAuth.Text = "Authorization parameters";
+            // 
+            // buttonWizard
+            // 
+            this.buttonWizard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonWizard.Location = new System.Drawing.Point(414, 31);
+            this.buttonWizard.Name = "buttonWizard";
+            this.buttonWizard.Size = new System.Drawing.Size(81, 23);
+            this.buttonWizard.TabIndex = 24;
+            this.buttonWizard.Text = "Fill or edit";
+            this.buttonWizard.UseVisualStyleBackColor = true;
+            this.buttonWizard.Click += new System.EventHandler(this.buttonWizard_Click);
+            // 
+            // textBoxCredentials
+            // 
+            this.textBoxCredentials.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxCredentials.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxCredentials.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.textBoxCredentials.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBoxCredentials.Location = new System.Drawing.Point(21, 31);
+            this.textBoxCredentials.Name = "textBoxCredentials";
+            this.textBoxCredentials.ReadOnly = true;
+            this.textBoxCredentials.Size = new System.Drawing.Size(387, 20);
+            this.textBoxCredentials.TabIndex = 25;
+            this.textBoxCredentials.UseSystemPasswordChar = true;
+            this.textBoxCredentials.Click += new System.EventHandler(this.textBoxCredentials_Enter);
+            this.textBoxCredentials.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBoxCredentials.Enter += new System.EventHandler(this.textBoxCredentials_Enter);
             // 
             // checkBoxUseCustomModel
             // 
@@ -152,6 +190,59 @@
             this.checkBoxUseCustomModel.Text = "use your custom model";
             this.checkBoxUseCustomModel.UseVisualStyleBackColor = true;
             this.checkBoxUseCustomModel.CheckedChanged += new System.EventHandler(this.checkBoxUseCustomModel_CheckedChanged);
+            // 
+            // groupBoxAuthCredentialId
+            // 
+            this.groupBoxAuthCredentialId.Controls.Add(this.comboBoxCredentialId);
+            this.groupBoxAuthCredentialId.Controls.Add(this.labelStoredCredential1);
+            this.groupBoxAuthCredentialId.Controls.Add(this.linkLabel3);
+            this.groupBoxAuthCredentialId.Controls.Add(this.label8);
+            this.groupBoxAuthCredentialId.Location = new System.Drawing.Point(5, 103);
+            this.groupBoxAuthCredentialId.Name = "groupBoxAuthCredentialId";
+            this.groupBoxAuthCredentialId.Size = new System.Drawing.Size(512, 86);
+            this.groupBoxAuthCredentialId.TabIndex = 32;
+            this.groupBoxAuthCredentialId.TabStop = false;
+            this.groupBoxAuthCredentialId.Text = "Stored Credentials";
+            this.groupBoxAuthCredentialId.Visible = false;
+            // 
+            // comboBoxCredentialId
+            // 
+            this.comboBoxCredentialId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCredentialId.Enabled = false;
+            this.comboBoxCredentialId.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxCredentialId.FormattingEnabled = true;
+            this.comboBoxCredentialId.Location = new System.Drawing.Point(42, 21);
+            this.comboBoxCredentialId.Name = "comboBoxCredentialId";
+            this.comboBoxCredentialId.Size = new System.Drawing.Size(387, 21);
+            this.comboBoxCredentialId.TabIndex = 34;
+            this.comboBoxCredentialId.SelectedIndexChanged += new System.EventHandler(this.comboBoxCredentialId_SelectedIndexChanged);
+            // 
+            // labelStoredCredential1
+            // 
+            this.labelStoredCredential1.AutoSize = true;
+            this.labelStoredCredential1.Location = new System.Drawing.Point(40, 59);
+            this.labelStoredCredential1.Name = "labelStoredCredential1";
+            this.labelStoredCredential1.Size = new System.Drawing.Size(216, 13);
+            this.labelStoredCredential1.TabIndex = 33;
+            this.labelStoredCredential1.Text = "More information on Stored Credentials here:";
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(255, 59);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(174, 13);
+            this.linkLabel3.TabIndex = 32;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "https://console.inten.to/credentials";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 21);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(0, 13);
+            this.label8.TabIndex = 27;
             // 
             // groupBoxGlossary
             // 
@@ -182,59 +273,6 @@
             this.comboBoxGlossaries.Name = "comboBoxGlossaries";
             this.comboBoxGlossaries.Size = new System.Drawing.Size(485, 21);
             this.comboBoxGlossaries.TabIndex = 37;
-            // 
-            // groupBoxAuthCredentialId
-            // 
-            this.groupBoxAuthCredentialId.Controls.Add(this.comboBoxCredentialId);
-            this.groupBoxAuthCredentialId.Controls.Add(this.labelStoredCredential1);
-            this.groupBoxAuthCredentialId.Controls.Add(this.linkLabel3);
-            this.groupBoxAuthCredentialId.Controls.Add(this.label8);
-            this.groupBoxAuthCredentialId.Location = new System.Drawing.Point(6, 79);
-            this.groupBoxAuthCredentialId.Name = "groupBoxAuthCredentialId";
-            this.groupBoxAuthCredentialId.Size = new System.Drawing.Size(512, 98);
-            this.groupBoxAuthCredentialId.TabIndex = 32;
-            this.groupBoxAuthCredentialId.TabStop = false;
-            this.groupBoxAuthCredentialId.Visible = false;
-            // 
-            // comboBoxCredentialId
-            // 
-            this.comboBoxCredentialId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxCredentialId.Enabled = false;
-            this.comboBoxCredentialId.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBoxCredentialId.FormattingEnabled = true;
-            this.comboBoxCredentialId.Location = new System.Drawing.Point(24, 43);
-            this.comboBoxCredentialId.Name = "comboBoxCredentialId";
-            this.comboBoxCredentialId.Size = new System.Drawing.Size(387, 21);
-            this.comboBoxCredentialId.TabIndex = 34;
-            this.comboBoxCredentialId.SelectedIndexChanged += new System.EventHandler(this.comboBoxCredentialId_SelectedIndexChanged);
-            // 
-            // labelStoredCredential1
-            // 
-            this.labelStoredCredential1.AutoSize = true;
-            this.labelStoredCredential1.Location = new System.Drawing.Point(39, 72);
-            this.labelStoredCredential1.Name = "labelStoredCredential1";
-            this.labelStoredCredential1.Size = new System.Drawing.Size(216, 13);
-            this.labelStoredCredential1.TabIndex = 33;
-            this.labelStoredCredential1.Text = "More information on Stored Credentials here:";
-            // 
-            // linkLabel3
-            // 
-            this.linkLabel3.AutoSize = true;
-            this.linkLabel3.Location = new System.Drawing.Point(253, 72);
-            this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(174, 13);
-            this.linkLabel3.TabIndex = 32;
-            this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "https://console.inten.to/credentials";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 21);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(69, 13);
-            this.label8.TabIndex = 27;
-            this.label8.Text = "Credential Id:";
             // 
             // groupBoxModel
             // 
@@ -269,54 +307,6 @@
             this.comboBoxModels.TabIndex = 28;
             this.comboBoxModels.Visible = false;
             this.comboBoxModels.SelectedIndexChanged += new System.EventHandler(this.comboBoxModels_SelectedIndexChanged);
-            // 
-            // groupBoxAuth
-            // 
-            this.groupBoxAuth.Controls.Add(this.buttonWizard);
-            this.groupBoxAuth.Controls.Add(this.textBoxCredentials);
-            this.groupBoxAuth.Controls.Add(this.labelName);
-            this.groupBoxAuth.Enabled = false;
-            this.groupBoxAuth.Location = new System.Drawing.Point(8, 75);
-            this.groupBoxAuth.Name = "groupBoxAuth";
-            this.groupBoxAuth.Size = new System.Drawing.Size(512, 98);
-            this.groupBoxAuth.TabIndex = 23;
-            this.groupBoxAuth.TabStop = false;
-            // 
-            // buttonWizard
-            // 
-            this.buttonWizard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonWizard.Location = new System.Drawing.Point(425, 40);
-            this.buttonWizard.Name = "buttonWizard";
-            this.buttonWizard.Size = new System.Drawing.Size(81, 23);
-            this.buttonWizard.TabIndex = 24;
-            this.buttonWizard.Text = "Fill or edit";
-            this.buttonWizard.UseVisualStyleBackColor = true;
-            this.buttonWizard.Click += new System.EventHandler(this.buttonWizard_Click);
-            // 
-            // textBoxCredentials
-            // 
-            this.textBoxCredentials.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxCredentials.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxCredentials.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.textBoxCredentials.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxCredentials.Location = new System.Drawing.Point(22, 42);
-            this.textBoxCredentials.Name = "textBoxCredentials";
-            this.textBoxCredentials.ReadOnly = true;
-            this.textBoxCredentials.Size = new System.Drawing.Size(387, 20);
-            this.textBoxCredentials.TabIndex = 25;
-            this.textBoxCredentials.UseSystemPasswordChar = true;
-            this.textBoxCredentials.Click += new System.EventHandler(this.textBoxCredentials_Enter);
-            this.textBoxCredentials.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-            this.textBoxCredentials.Enter += new System.EventHandler(this.textBoxCredentials_Enter);
-            // 
-            // labelName
-            // 
-            this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(12, 21);
-            this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(152, 13);
-            this.labelName.TabIndex = 27;
-            this.labelName.Text = "Authorization parameters used:";
             // 
             // label1
             // 
@@ -424,17 +414,17 @@
             // 
             this.toolStripStatusLabel1.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(479, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(476, 17);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripStatusLabel2.Font = new System.Drawing.Font("Monotype Corsiva", 9F, System.Drawing.FontStyle.Italic);
+            this.toolStripStatusLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolStripStatusLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(52, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(55, 17);
             this.toolStripStatusLabel2.Text = "x.x.x/20xx";
             // 
             // checkBoxShowHidden
@@ -504,14 +494,14 @@
             this.Shown += new System.EventHandler(this.IntentoTranslationProviderOptionsForm_Shown);
             this.groupBoxProviderSettings.ResumeLayout(false);
             this.groupBoxProviderSettings.PerformLayout();
-            this.groupBoxGlossary.ResumeLayout(false);
-            this.groupBoxGlossary.PerformLayout();
-            this.groupBoxAuthCredentialId.ResumeLayout(false);
-            this.groupBoxAuthCredentialId.PerformLayout();
-            this.groupBoxModel.ResumeLayout(false);
-            this.groupBoxModel.PerformLayout();
             this.groupBoxAuth.ResumeLayout(false);
             this.groupBoxAuth.PerformLayout();
+            this.groupBoxAuthCredentialId.ResumeLayout(false);
+            this.groupBoxAuthCredentialId.PerformLayout();
+            this.groupBoxGlossary.ResumeLayout(false);
+            this.groupBoxGlossary.PerformLayout();
+            this.groupBoxModel.ResumeLayout(false);
+            this.groupBoxModel.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -527,8 +517,8 @@
         private System.Windows.Forms.Button buttonContinue;
         private System.Windows.Forms.GroupBox groupBoxProviderSettings;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBoxProviders;
-        private System.Windows.Forms.CheckBox checkBoxUseOwnCred;
+        public System.Windows.Forms.ComboBox comboBoxProviders;
+        public System.Windows.Forms.CheckBox checkBoxUseOwnCred;
         private System.Windows.Forms.ToolTip toolTipFormat;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label2;
@@ -538,18 +528,17 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.CheckBox checkBoxShowHidden;
-        private System.Windows.Forms.GroupBox groupBoxAuth;
+        public System.Windows.Forms.CheckBox checkBoxShowHidden;
+        public System.Windows.Forms.GroupBox groupBoxAuth;
         private System.Windows.Forms.Button buttonWizard;
-        private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.TextBox textBoxCredentials;
-        private System.Windows.Forms.CheckBox checkBoxUseCustomModel;
-        private System.Windows.Forms.GroupBox groupBoxModel;
-        private System.Windows.Forms.ComboBox comboBoxModels;
+        public System.Windows.Forms.CheckBox checkBoxUseCustomModel;
+        public System.Windows.Forms.GroupBox groupBoxModel;
+        public System.Windows.Forms.ComboBox comboBoxModels;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.CheckBox checkBoxSmartRouting;
-        private System.Windows.Forms.TextBox textBoxModel;
-        private System.Windows.Forms.GroupBox groupBoxAuthCredentialId;
+        public System.Windows.Forms.CheckBox checkBoxSmartRouting;
+        public System.Windows.Forms.TextBox textBoxModel;
+        public System.Windows.Forms.GroupBox groupBoxAuthCredentialId;
         private System.Windows.Forms.ComboBox comboBoxCredentialId;
         private System.Windows.Forms.Label labelStoredCredential1;
         private System.Windows.Forms.LinkLabel linkLabel3;
