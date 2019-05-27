@@ -53,22 +53,34 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         List<string> errors;
 
+        // Fabric to create intento connection. Parameters: apiKey and UserAgent for Settings Form 
+        Func<string, string, IntentoAiTextTranslate> intentoConnection;
+
+        string version;
+
         #endregion vars
 
-        public IntentoTranslationProviderOptionsForm(IntentoMTFormOptions options, IntentoAiTextTranslate translate, LangPair[] languagePairs)
+        public IntentoTranslationProviderOptionsForm(IntentoMTFormOptions options, 
+            LangPair[] languagePairs, Func<string, string, IntentoAiTextTranslate> intentoConnection)
         {
+            this.intentoConnection = intentoConnection;
+
             InitializeComponent();
-            //Options.SetAuthDict(null);
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            this.version = string.Format("{0}.{1}.{2}", fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart);
+
             Options = options;
-            _translate = translate;
             _languagePairs = languagePairs;
             DialogResult = DialogResult.None;
 
             var tmp = TraceEndTime;
             checkBoxTrace.Checked = (TraceEndTime - DateTime.Now).Minutes > 0;
             TraceEndTime = tmp;
-            string pluginFor = string.IsNullOrEmpty(Options.PluginFor) ? "" : Options.PluginFor + '/';
-            toolStripStatusLabel2.Text = String.Format("{0} {1}{2}", Options.PluginName, pluginFor, Options.AssemblyVersion);
+            // string pluginFor = string.IsNullOrEmpty(Options.PluginFor) ? "" : Options.PluginFor + '/';
+            // toolStripStatusLabel2.Text = String.Format("{0} {1}{2}", Options.PluginName, pluginFor, Options.AssemblyVersion);
+            toolStripStatusLabel2.Text = Options.Signature;
             textBoxModel.Location = comboBoxModels.Location; // new Point(comboBoxModels.Location.X, comboBoxModels.Location.Y);
             textBoxGlossary.Location = comboBoxGlossaries.Location; // new Point(comboBoxGlossaries.Location.X, comboBoxGlossaries.Location.Y);
             groupBoxAuthCredentialId.Location = groupBoxAuth.Location; // new Point(groupBoxAuth.Location.X, groupBoxAuth.Location.Y)
@@ -92,12 +104,7 @@ namespace IntentoMT.Plugin.PropertiesForm
             }
             else if (apiKeyState.apiKeyStatus == ApiKeyState.EApiKeyStatus.download)
             {
-                var _intento = IntentoSDK.Intento.Create(
-                    apiKeyState.apiKey,
-                    path: "https://api.inten.to/",
-                    userAgent: String.Format("{1}/{0}", Options.AssemblyVersion, Options.PluginName)
-                );
-                _translate = _intento.Ai.Text.Translate;
+                CreateIntentoConnection();
 
                 providerState = null;
             }
@@ -106,6 +113,11 @@ namespace IntentoMT.Plugin.PropertiesForm
                 providerState = null;
             }
             EnableDisable();
+        }
+
+        private void CreateIntentoConnection()
+        {
+            _translate = intentoConnection(apiKeyState.apiKey, String.Format("{1}/{2}", Options.UserAgent, "Intento.PluginSettingsForm", version));
         }
 
         private void apiKey_tb_TextChanged(object sender, EventArgs e)
@@ -348,6 +360,7 @@ namespace IntentoMT.Plugin.PropertiesForm
         private void buttonContinue_Click(object sender, EventArgs e)
         {
             Options.ApiKey = apiKeyState.apiKey;
+            Options.Translate = _translate;
 
             Options.SmartRouting = checkBoxSmartRouting.Checked;
             if (Options.SmartRouting)
@@ -359,6 +372,7 @@ namespace IntentoMT.Plugin.PropertiesForm
                 Options.UseCustomModel = false;
                 Options.CustomModel = null;
                 Options.Glossary = null;
+                Options.Format = null;
             }
             else
             {
@@ -376,6 +390,8 @@ namespace IntentoMT.Plugin.PropertiesForm
 
                 Options.Glossary = textBoxGlossary.Visible ? textBoxGlossary.Text : 
                         string.IsNullOrEmpty(comboBoxGlossaries.Text) ? null : (string)providerState.GetGlossaries(authState.providerDataAuthDict)[comboBoxGlossaries.Text].id;
+
+                Options.Format = providerState.format;
             }
             Close();
         }

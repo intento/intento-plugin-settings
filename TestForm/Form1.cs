@@ -66,17 +66,26 @@ namespace TestForm
             options.CustomAuth = textBoxAuth.Text;
             options.UseCustomModel = checkBoxModel.Checked;
             options.CustomModel = textBoxModel.Text;
-            options.AssemblyVersion = "1.0.0";
-            options.PluginName = "Intento.SDLTradosPlugin.TestForm";
+            options.UserAgent = "TestForm/1.0.0";
+            options.Signature = "TestForm";
             options.Glossary = checkBoxSmartRouting.Checked ? string.Empty : textBoxGlossary.Text;
 
             IntentoTranslationProviderOptionsForm.LangPair[] languagePair = new IntentoTranslationProviderOptionsForm.LangPair[1] 
                 { new IntentoTranslationProviderOptionsForm.LangPair("en", "de") };
             
 
-            IntentoTranslationProviderOptionsForm form = new IntentoTranslationProviderOptionsForm(options, null, languagePair);
+            IntentoTranslationProviderOptionsForm form = new IntentoTranslationProviderOptionsForm(options, languagePair, Fabric);
             form.FormClosed += Form_Closed;
             form.Show(); 
+        }
+
+        private IntentoSDK.IntentoAiTextTranslate Fabric(string apiKey, string userAgent)
+        {
+            var _intento = IntentoSDK.Intento.Create(apiKey, null, 
+                userAgent: String.Format("{0} {1}", userAgent, "TestForm")
+            );
+            var _translate = _intento.Ai.Text.Translate;
+            return _translate;
         }
 
         private void Form_Closed(Object sender, FormClosedEventArgs e)

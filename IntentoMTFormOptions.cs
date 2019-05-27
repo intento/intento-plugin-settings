@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IntentoSDK;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -28,14 +29,21 @@ namespace IntentoMT.Plugin.PropertiesForm
         public string Glossary { get; set; }
         // string of custom model
         public string CustomModel { get; set; }
-        // source format that the selected provider accepts for translation (text, html, xml....)
+        // formats supported by provider (text, html, xml.. - to check by contains), for smart routing not used
         public string Format { get; set; }
         // information about the assembly version of the plugin that uses this form
-        public string AssemblyVersion { get; set; }
+        // public string AssemblyVersion { get; set; }
         // information about version of the the main program that uses plugin
-        public string PluginFor { get; set; }
+        // public string PluginFor { get; set; }
         // Plugin name
-        public string PluginName { get; set; }
+        // public string PluginName { get; set; }
+
+        // User-Agent of plugin
+        public string UserAgent { get; set; }
+        // Signature in botton right corner of settinga form
+        public string Signature { get; set; }
+
+        public IntentoAiTextTranslate Translate { get; set; }
 
         private Dictionary<string, string> _authDict = null;
 

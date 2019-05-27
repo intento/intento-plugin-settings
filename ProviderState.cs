@@ -19,6 +19,7 @@ namespace IntentoMT.Plugin.PropertiesForm
         private Dictionary<string, string> providersNames;
 
         dynamic providerData;
+        public string currentProviderId;
 
         private Dictionary<string, dynamic> _providerModels;
         private Dictionary<string, dynamic> _providerGlossaries;
@@ -26,7 +27,7 @@ namespace IntentoMT.Plugin.PropertiesForm
         LangPair[] languagePairs;
         System.Windows.Forms.ComboBox comboBoxProviders;
         System.Windows.Forms.GroupBox groupBoxProviderSettings;
-        public string currentProviderId;
+
         bool isInitialized = false;
 
         // Provider features
@@ -45,9 +46,7 @@ namespace IntentoMT.Plugin.PropertiesForm
             IntentoMTFormOptions options, LangPair[] _languagePairs)
         {
             form = _form;
-            providersRaw = null;
-            providersData = null;
-            providersNames = null;
+            Init();
             languagePairs = _languagePairs;
             comboBoxProviders = _comboBoxProviders;
             groupBoxProviderSettings = _groupBoxProviderSettings;
@@ -55,8 +54,25 @@ namespace IntentoMT.Plugin.PropertiesForm
             _translate = _form._translate;
         }
 
-        // process a list of providers with their features from Intento API
-        public void Fill(List<dynamic> data)
+        private void Init()
+        {
+            providerData = null;
+
+            billable = false; ;
+            stock_model = false;
+            own_auth = false; 
+            custom_model = false;
+            custom_glossary = false;
+            delegated_credentials = false;
+            providerAuthList = null;
+            format = null;
+
+            _providerModels = null;
+            _providerGlossaries = null;
+    }
+
+    // process a list of providers with their features from Intento API
+    public void Fill(List<dynamic> data)
         {
             if (form.checkBoxSmartRouting.Checked)
                 return;
@@ -92,6 +108,12 @@ namespace IntentoMT.Plugin.PropertiesForm
 
             try
             {
+                if (string.IsNullOrEmpty(currentProviderId))
+                {   // Provider is not choosen
+                    Init();
+                    return;
+                }
+
                 providerData = _translate.Provider(currentProviderId, "?fields=auth,custom_glossary");
                 if (providerData != null)
                 {
