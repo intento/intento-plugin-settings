@@ -35,7 +35,7 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         #region vars
         public IntentoMTFormOptions originalOptions;
-        public IntentoMTFormOptions Options;
+        public IntentoMTFormOptions currentOptions;
         public IntentoAiTextTranslate _translate;
 
         // Languages filter 
@@ -71,7 +71,8 @@ namespace IntentoMT.Plugin.PropertiesForm
             var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
             this.version = string.Format("{0}.{1}.{2}", fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart);
 
-            Options = options;
+            originalOptions = options;
+            currentOptions = originalOptions;
             _languagePairs = languagePairs;
             DialogResult = DialogResult.None;
 
@@ -80,26 +81,48 @@ namespace IntentoMT.Plugin.PropertiesForm
             TraceEndTime = tmp;
             // string pluginFor = string.IsNullOrEmpty(Options.PluginFor) ? "" : Options.PluginFor + '/';
             // toolStripStatusLabel2.Text = String.Format("{0} {1}{2}", Options.PluginName, pluginFor, Options.AssemblyVersion);
-            toolStripStatusLabel2.Text = Options.Signature;
+            toolStripStatusLabel2.Text = originalOptions.Signature;
             textBoxModel.Location = comboBoxModels.Location; // new Point(comboBoxModels.Location.X, comboBoxModels.Location.Y);
             textBoxGlossary.Location = comboBoxGlossaries.Location; // new Point(comboBoxGlossaries.Location.X, comboBoxGlossaries.Location.Y);
             groupBoxAuthCredentialId.Location = groupBoxAuth.Location; // new Point(groupBoxAuth.Location.X, groupBoxAuth.Location.Y)
 
-            apiKeyState = new ApiKeyState(this, apiKey_tb, Options);
+            apiKeyState = new ApiKeyState(this, apiKey_tb, currentOptions);
             apiKeyState.apiKeyChangedEvent += ChangeApiKeyStatusDelegate;
 
             EnableDisable();
+        }
+
+        private IntentoMTFormOptions GetOptions()
+        {
+            if (providerState == null || !providerState.IsOK || checkBoxSmartRouting.Checked)
+                return currentOptions;
+            if (providerState.currentProviderId == currentOptions.ProviderId && apiKeyState.apiKey == currentOptions.ApiKey)
+                return currentOptions;
+
+            // return to original
+            if (providerState.currentProviderId == originalOptions.ProviderId && apiKeyState.apiKey == originalOptions.ApiKey)
+            {
+                currentOptions = originalOptions;
+                return currentOptions;
+            }
+
+            currentOptions = new IntentoMTFormOptions()
+            {
+                ApiKey = apiKeyState.apiKey,
+                ProviderId = providerState.currentProviderId
+            };
+            return currentOptions;
         }
 
         public void ChangeApiKeyStatusDelegate(bool isOK)
         {
             if (isOK)
             {
-                providerState = new ProviderState(this, groupBoxProviderSettings, comboBoxProviders, Options, _languagePairs);
+                providerState = new ProviderState(this, groupBoxProviderSettings, comboBoxProviders, GetOptions(), _languagePairs);
                 providerState.Fill(apiKeyState.Providers);
-                authState = new AuthState(this, checkBoxUseOwnCred, groupBoxAuthCredentialId, comboBoxCredentialId, groupBoxAuth, textBoxCredentials, Options);
+                authState = new AuthState(this, checkBoxUseOwnCred, groupBoxAuthCredentialId, comboBoxCredentialId, groupBoxAuth, textBoxCredentials, GetOptions());
                 authState.Fill();
-                modelState = new ModelState(this, Options);
+                modelState = new ModelState(this, GetOptions());
                 modelState.Fill();
             }
             else if (apiKeyState.apiKeyStatus == ApiKeyState.EApiKeyStatus.download)
@@ -117,7 +140,7 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         private void CreateIntentoConnection()
         {
-            _translate = intentoConnection(apiKeyState.apiKey, String.Format("{1}/{2}", Options.UserAgent, "Intento.PluginSettingsForm", version));
+            _translate = intentoConnection(apiKeyState.apiKey, String.Format("{1}/{2}", originalOptions.UserAgent, "Intento.PluginSettingsForm", version));
         }
 
         private void apiKey_tb_TextChanged(object sender, EventArgs e)
@@ -271,10 +294,13 @@ namespace IntentoMT.Plugin.PropertiesForm
         {
             clearParameters();
 
+            providerState.HideProviderInformation();
+            EnableDisable();
+
             providerState.SelectedIndexChanged();
-            authState = new AuthState(this, checkBoxUseOwnCred, groupBoxAuthCredentialId, comboBoxCredentialId, groupBoxAuth, textBoxCredentials, Options);
+            authState = new AuthState(this, checkBoxUseOwnCred, groupBoxAuthCredentialId, comboBoxCredentialId, groupBoxAuth, textBoxCredentials, GetOptions());
             authState.Fill();
-            modelState = new ModelState(this, Options);
+            modelState = new ModelState(this, GetOptions());
             modelState.Fill();
 
             EnableDisable();
@@ -307,7 +333,7 @@ namespace IntentoMT.Plugin.PropertiesForm
                     foreach (string x in _providerGlossaries.Select(x => (string)x.Key).OrderBy(x => x))
                     {
                         int n = comboBoxGlossaries.Items.Add(x);
-                        if ((string)_providerGlossaries[x].id == Options.Glossary)
+                        if ((string)_providerGlossaries[x].id == GetOptions().Glossary)
                             comboBoxGlossaries.SelectedIndex = n;
                     }
                     textBoxGlossary.Text = null;
@@ -321,7 +347,7 @@ namespace IntentoMT.Plugin.PropertiesForm
             }
 
             if (_providerGlossaries == null)
-                textBoxGlossary.Text = Options.Glossary;
+                textBoxGlossary.Text = GetOptions().Glossary;
 
             EnableDisable();
         }
@@ -332,7 +358,7 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         private void IntentoTranslationProviderOptionsForm_Shown(object sender, EventArgs e)
         {
-            checkBoxSmartRouting.Checked = Options.SmartRouting;
+            checkBoxSmartRouting.Checked = GetOptions().SmartRouting;
             ConnectIntento();
             EnableDisable();
         }
@@ -359,39 +385,39 @@ namespace IntentoMT.Plugin.PropertiesForm
         // Save settings
         private void buttonContinue_Click(object sender, EventArgs e)
         {
-            Options.ApiKey = apiKeyState.apiKey;
-            Options.Translate = _translate;
+            originalOptions.ApiKey = apiKeyState.apiKey;
+            originalOptions.Translate = _translate;
 
-            Options.SmartRouting = checkBoxSmartRouting.Checked;
-            if (Options.SmartRouting)
+            originalOptions.SmartRouting = checkBoxSmartRouting.Checked;
+            if (originalOptions.SmartRouting)
             {
-                Options.ProviderId = null;
-                Options.ProviderName = null;
-                Options.UseCustomAuth = false;
-                Options.CustomAuth = null;
-                Options.UseCustomModel = false;
-                Options.CustomModel = null;
-                Options.Glossary = null;
-                Options.Format = null;
+                originalOptions.ProviderId = null;
+                originalOptions.ProviderName = null;
+                originalOptions.UseCustomAuth = false;
+                originalOptions.CustomAuth = null;
+                originalOptions.UseCustomModel = false;
+                originalOptions.CustomModel = null;
+                originalOptions.Glossary = null;
+                originalOptions.Format = null;
             }
             else
             {
-                Options.ProviderId = providerState.currentProviderId;
-                Options.ProviderName = providerState.CurrentProviderName;
+                originalOptions.ProviderId = providerState.currentProviderId;
+                originalOptions.ProviderName = providerState.CurrentProviderName;
 
-                Options.UseCustomAuth = authState.UseCustomAuth;
-                if (Options.UseCustomAuth)
-                    Options.SetAuthDict(authState.providerDataAuthDict);
+                originalOptions.UseCustomAuth = authState.UseCustomAuth;
+                if (originalOptions.UseCustomAuth)
+                    originalOptions.SetAuthDict(authState.providerDataAuthDict);
                 else
-                    Options.CustomAuth = null;
+                    originalOptions.CustomAuth = null;
 
-                Options.UseCustomModel = modelState.UseCustomModel;
-                Options.CustomModel = modelState.CustomModel;
+                originalOptions.UseCustomModel = modelState.UseCustomModel;
+                originalOptions.CustomModel = modelState.CustomModel;
 
-                Options.Glossary = textBoxGlossary.Visible ? textBoxGlossary.Text : 
+                originalOptions.Glossary = textBoxGlossary.Visible ? textBoxGlossary.Text : 
                         string.IsNullOrEmpty(comboBoxGlossaries.Text) ? null : (string)providerState.GetGlossaries(authState.providerDataAuthDict)[comboBoxGlossaries.Text].id;
 
-                Options.Format = providerState.format;
+                originalOptions.Format = providerState.format;
             }
             Close();
         }
@@ -401,17 +427,17 @@ namespace IntentoMT.Plugin.PropertiesForm
             System.Diagnostics.Process.Start(((LinkLabel)sender).Text);
         }
 
-        private void textBox_TextChanged(object sender, EventArgs e)
-        {   // text box in auth WizardForm
-            label7.Text = textBoxCredentials.Text;
-            EnableDisable();
-        }
+        // private void textBox_TextChanged(object sender, EventArgs e)
+        // {   // text box in auth WizardForm
+        // label7.Text = textBoxCredentials.Text;
+        // EnableDisable();
+        // }
 
         private void buttonWizard_Click(object sender, EventArgs e)
         {
             authState.buttonWizard_Click();
 
-            modelState = new ModelState(this, Options);
+            modelState = new ModelState(this, GetOptions());
             modelState.Fill();
 
             if (providerState.custom_glossary)
@@ -446,7 +472,7 @@ namespace IntentoMT.Plugin.PropertiesForm
         {
             authState.comboBoxCredentialId_SelectedIndexChanged();
 
-            modelState = new ModelState(this, Options);
+            modelState = new ModelState(this, GetOptions());
             modelState.Fill();
 
             FillProviderGlossaries();
@@ -472,18 +498,18 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         private void checkBoxSmartRouting_CheckedChanged(object sender, EventArgs e)
         {
-            providerState = new ProviderState(this, groupBoxProviderSettings, comboBoxProviders, Options, _languagePairs);
+            providerState = new ProviderState(this, groupBoxProviderSettings, comboBoxProviders, GetOptions(), _languagePairs);
             providerState.Fill(apiKeyState.Providers);
-            authState = new AuthState(this, checkBoxUseOwnCred, groupBoxAuthCredentialId, comboBoxCredentialId, groupBoxAuth, textBoxCredentials, Options);
+            authState = new AuthState(this, checkBoxUseOwnCred, groupBoxAuthCredentialId, comboBoxCredentialId, groupBoxAuth, textBoxCredentials, GetOptions());
             authState.Fill();
-            modelState = new ModelState(this, Options);
+            modelState = new ModelState(this, GetOptions());
             modelState.Fill();
 
             if (checkBoxSmartRouting.Checked)
             {
                 comboBoxGlossaries.Items.Clear();
                 textBoxGlossary.Text = null;
-                Options.Format = "[\"text\",\"html\",\"xml\"]";
+                GetOptions().Format = "[\"text\",\"html\",\"xml\"]";
 
                 providerState = null;
             }

@@ -151,7 +151,11 @@ namespace Intento.MT.Plugin.PropertiesForm
                 groupBoxAuth.Visible = true;
                 groupBoxAuth.Enabled = true;
                 groupBoxAuth.BringToFront();
+                textBoxCredentials.Visible = true;
             }
+
+            comboBoxCredentialId.Enabled = checkBoxUseOwnCred.Checked;
+            textBoxCredentials.Enabled = checkBoxUseOwnCred.Checked;
 
             // checkBoxUseOwnCred
             if (checkBoxUseOwnCred.Checked && (providerDataAuthDict == null || providerDataAuthDict.Any(x => string.IsNullOrWhiteSpace(x.Value))))

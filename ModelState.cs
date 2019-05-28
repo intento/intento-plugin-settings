@@ -47,7 +47,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 customModelMode = "prohibited";
             else 
                 customModelMode = "optional";
-
+            FillProviderModels();
         }
 
         public static string Draw(IntentoTranslationProviderOptionsForm form, ModelState state)
@@ -89,6 +89,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     break;
 
                 case "prohibited":
+                case null:
                     checkBoxUseCustomModel.Enabled = false;
                     checkBoxUseCustomModel.Checked = false;
                     groupBoxModel.Enabled = false;
@@ -163,6 +164,10 @@ namespace Intento.MT.Plugin.PropertiesForm
         {   // Fill combo or text box depending on provider features
             comboBoxModels.Items.Clear();
             Dictionary<string, dynamic> _providerModels = null;
+
+            if (!providerState.IsOK)
+                return;
+
             try
             {
                 _providerModels = providerState.GetModels(authState.providerDataAuthDict);

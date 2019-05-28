@@ -160,15 +160,21 @@ namespace IntentoMT.Plugin.PropertiesForm
             format = null;
         }
 
+        public void HideProviderInformation()
+        {
+            providerData = null;
+            currentProviderId = null;
+            ExtractProviderData();
+            return;
+
+        }
 
         public void SelectedIndexChanged()
         {
             if (string.IsNullOrWhiteSpace(comboBoxProviders.Text) || form.checkBoxSmartRouting.Checked)
             {
                 // No provider choosed
-                providerData = null;
-                currentProviderId = null;
-                ExtractProviderData();
+                HideProviderInformation();
                 return;
             }
 
