@@ -278,7 +278,7 @@
             // 
             this.groupBoxModel.Controls.Add(this.textBoxModel);
             this.groupBoxModel.Controls.Add(this.comboBoxModels);
-            this.groupBoxModel.Enabled = false;
+            this.groupBoxModel.Enabled = true;
             this.groupBoxModel.Location = new System.Drawing.Point(9, 208);
             this.groupBoxModel.Name = "groupBoxModel";
             this.groupBoxModel.Size = new System.Drawing.Size(512, 66);

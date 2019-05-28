@@ -66,7 +66,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             string errorMessage = null;
             // If smart routing or provider is not initialized or no custom auth - no model selection
-            if (!providerState.IsOK || !authState.IsSelected)
+            if (!providerState.IsOK)
             {   // Model is not used
                 checkBoxUseCustomModel.Visible = false;
                 groupBoxModel.Visible = false;
@@ -81,6 +81,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                     checkBoxUseCustomModel.Enabled = false;
                     checkBoxUseCustomModel.Checked = true;
                     groupBoxModel.Enabled = true;
+                    textBoxModel.Enabled = true;
+                    comboBoxModels.Enabled = true;
 
                     if (string.IsNullOrEmpty(Model()))
                         errorMessage = "You must specify a model for this provider";
@@ -90,14 +92,17 @@ namespace Intento.MT.Plugin.PropertiesForm
                     checkBoxUseCustomModel.Enabled = false;
                     checkBoxUseCustomModel.Checked = false;
                     groupBoxModel.Enabled = false;
+                    textBoxModel.Enabled = false;
+                    comboBoxModels.Enabled = false;
+
                     break;
 
                 case "optional":
                     checkBoxUseCustomModel.Enabled = true;
                     groupBoxModel.Enabled = true;
+                    textBoxModel.Enabled = true;
+                    comboBoxModels.Enabled = true;
 
-                    if (checkBoxUseCustomModel.Checked && string.IsNullOrEmpty(Model()))
-                        errorMessage = "You must specify a custom model or uncheck \"use your custom model\"";
                     break;
 
                 default:
@@ -117,14 +122,14 @@ namespace Intento.MT.Plugin.PropertiesForm
             textBoxModel.Visible = providerState.GetModels(authState.providerDataAuthDict).Count == 0;
             comboBoxModels.Visible = !textBoxModel.Visible;
 
-            if (!authState.IsSelected)
-                groupBoxModel.Enabled = false;
-
             // set back color 
             if (textBoxModel.Visible)
                 textBoxModel.BackColor = string.IsNullOrEmpty(Model()) ? Color.LightPink : SystemColors.Window;
             else
                 comboBoxModels.BackColor = string.IsNullOrEmpty(Model()) ? Color.LightPink : SystemColors.Window;
+
+            if (checkBoxUseCustomModel.Checked && string.IsNullOrEmpty(Model()))
+                errorMessage = "You must specify a custom model or uncheck \"use your custom model\"";
 
             return errorMessage;
         }
@@ -156,8 +161,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private void FillProviderModels()
         {   // Fill combo or text box depending on provider features
-            if (!authState.IsSelected)
-                return;
             comboBoxModels.Items.Clear();
             Dictionary<string, dynamic> _providerModels = null;
             try

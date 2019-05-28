@@ -253,7 +253,7 @@ namespace IntentoMT.Plugin.PropertiesForm
         string authModelHash = null;
         public Dictionary<string, dynamic> GetModels(Dictionary<string, string> providerDataAuthDict)
         {
-            string z = string.Join(",", providerDataAuthDict.Keys.Select(i => string.Format("{0}-{1}", i, providerDataAuthDict[i])));
+            string z = providerDataAuthDict ==null ? "" : string.Join(",", providerDataAuthDict.Keys.Select(i => string.Format("{0}-{1}", i, providerDataAuthDict[i])));
             if (_providerModels != null && z == authModelHash)
                 return _providerModels;
 

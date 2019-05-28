@@ -20,11 +20,18 @@ namespace TestForm
     public partial class Form1 : Form
     {
         IntentoMTFormOptions options;
-        string REG_PATH = "HKEY_CURRENT_USER\\Software\\Intento\\PluginForm\\TestForm";
+        string REG_PATH = "Software\\Intento\\PluginForm\\TestForm";
 
         public Form1()
         {
             InitializeComponent();
+            FillTestNames();
+        }
+
+        private void FillTestNames()
+        {
+            comboBoxTestName.Items.Clear();
+            comboBoxTestName.Items.AddRange(GetSettingNames());
         }
 
         private bool str2bool(object z)
@@ -38,21 +45,77 @@ namespace TestForm
             throw new Exception();
         }
 
+        private RegistryKey GetKey(string name)
+        {
+            var res = Registry.CurrentUser.CreateSubKey(REG_PATH);
+            if (!string.IsNullOrEmpty(name))
+                res = res.CreateSubKey(name);
+            return res;
+        }
+
+        private void ReadSettings(string name)
+        {
+            var key = GetKey(name);
+
+            checkBoxStage.Checked = str2bool(key.GetValue("Stage", false));
+            textBoxApiKey.Text = (string)key.GetValue("ApiKey", null);
+
+            checkBoxSmartRouting.Checked = str2bool(key.GetValue("SmartRouting", null));
+
+            textBoxProviderId.Text = (string)key.GetValue("ProviderId", null);
+            textBoxFormat.Text = (string)key.GetValue("Format", null);
+
+            checkBoxAuth.Checked = str2bool(key.GetValue("AuthUse", false));
+            textBoxAuth.Text = (string)key.GetValue("Auth", null);
+
+            checkBoxModel.Checked = str2bool(key.GetValue("ModelUse", false));
+            textBoxModel.Text = (string)key.GetValue("Model", null);
+            textBoxGlossary.Text = (string)key.GetValue("Glossary", null);
+
+            textBoxFrom.Text = (string)key.GetValue("From", null);
+            textBoxTo.Text = (string)key.GetValue("To", null);
+            textBoxText.Text = (string)key.GetValue("Text", null);
+            textBoxExpected.Text = (string)key.GetValue("Expected", null);
+            checkBoxFormatted.Checked = str2bool(key.GetValue("Formatted", false));
+        }
+
+        private void SaveSettings(string name)
+        {
+            var key = GetKey(name);
+
+            key.SetValue("Stage", checkBoxStage.Checked);
+            key.SetValue("ApiKey", textBoxApiKey.Text);
+
+            key.SetValue("SmartRouting", checkBoxSmartRouting.Checked);
+
+            key.SetValue("ProviderId", textBoxProviderId.Text);
+            key.SetValue("Format", textBoxFormat.Text);
+
+            key.SetValue("AuthUse", checkBoxAuth.Checked);
+            key.SetValue("Auth", textBoxAuth.Text);
+
+            key.SetValue("ModelUse", checkBoxModel.Checked);
+            key.SetValue("Model", textBoxModel.Text);
+            key.SetValue("Glossary", textBoxGlossary.Text);
+
+            key.SetValue("From", textBoxFrom.Text);
+            key.SetValue("To", textBoxTo.Text);
+            key.SetValue("Text", textBoxText.Text);
+            key.SetValue("Expected", textBoxExpected.Text);
+            key.SetValue("Formatted", checkBoxFormatted.Checked);
+        }
+
+        private string[] GetSettingNames()
+        {
+            var key = GetKey(null);
+            var res = key.GetSubKeyNames().ToList();
+            res.Add("");
+            return res.ToArray();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            textBoxApiKey.Text = (string)Registry.GetValue(REG_PATH, "ApiKey", null);
-
-            checkBoxSmartRouting.Checked = str2bool(Registry.GetValue(REG_PATH, "SmartRouting", null));
-
-            textBoxProviderId.Text = (string)Registry.GetValue(REG_PATH, "ProviderId", null);
-            textBoxProviderName.Text = (string)Registry.GetValue(REG_PATH, "ProviderName", null);
-
-            checkBoxAuth.Checked = str2bool(Registry.GetValue(REG_PATH, "AuthUse", null));
-            textBoxAuth.Text = (string)Registry.GetValue(REG_PATH, "Auth", null);
-
-            checkBoxModel.Checked = str2bool(Registry.GetValue(REG_PATH, "ModelUse", null));
-            textBoxModel.Text = (string)Registry.GetValue(REG_PATH, "Model", null);
-            textBoxGlossary.Text = (string)Registry.GetValue(REG_PATH, "Glossary", null);
+            ReadSettings(null);
         }
 
         private void buttonShow_Click(object sender, EventArgs e)
@@ -61,7 +124,7 @@ namespace TestForm
             options.ApiKey = textBoxApiKey.Text;
             options.SmartRouting = checkBoxSmartRouting.Checked;
             options.ProviderId = textBoxProviderId.Text;
-            options.ProviderName = textBoxProviderName.Text;
+            options.Format = textBoxFormat.Text;
             options.UseCustomAuth = checkBoxAuth.Checked;
             options.CustomAuth = textBoxAuth.Text;
             options.UseCustomModel = checkBoxModel.Checked;
@@ -72,7 +135,6 @@ namespace TestForm
 
             IntentoTranslationProviderOptionsForm.LangPair[] languagePair = new IntentoTranslationProviderOptionsForm.LangPair[1] 
                 { new IntentoTranslationProviderOptionsForm.LangPair("en", "de") };
-            
 
             IntentoTranslationProviderOptionsForm form = new IntentoTranslationProviderOptionsForm(options, languagePair, Fabric);
             form.FormClosed += Form_Closed;
@@ -81,7 +143,8 @@ namespace TestForm
 
         private IntentoSDK.IntentoAiTextTranslate Fabric(string apiKey, string userAgent)
         {
-            var _intento = IntentoSDK.Intento.Create(apiKey, null, 
+            var _intento = IntentoSDK.Intento.Create(apiKey, null,
+                path: checkBoxStage.Checked ? "https://api2.inten.to/" : "https://api.inten.to/", 
                 userAgent: String.Format("{0} {1}", userAgent, "TestForm")
             );
             var _translate = _intento.Ai.Text.Translate;
@@ -93,7 +156,7 @@ namespace TestForm
             textBoxApiKey.Text = options.ApiKey;
             checkBoxSmartRouting.Checked = options.SmartRouting;
             textBoxProviderId.Text = options.ProviderId;
-            textBoxProviderName.Text = options.ProviderName;
+            textBoxFormat.Text = options.Format;
             checkBoxAuth.Checked = options.UseCustomAuth;
             textBoxAuth.Text = options.CustomAuth;
             checkBoxModel.Checked = options.UseCustomModel;
@@ -104,19 +167,68 @@ namespace TestForm
 
         private void buttonSaveData_Click(object sender, EventArgs e)
         {
-            Registry.SetValue(REG_PATH, "ApiKey", textBoxApiKey.Text);
+            string name;
+            if (comboBoxTestName.SelectedIndex == -1)
+                name = comboBoxTestName.Text;
+            else
+                name = (string)comboBoxTestName.SelectedItem;
+            SaveSettings(name);
+            FillTestNames();
+        }
 
-            Registry.SetValue(REG_PATH, "SmartRouting", checkBoxSmartRouting.Checked);
+        private void buttonTestReadData_Click(object sender, EventArgs e)
+        {
+            ReadData();
+        }
 
-            Registry.SetValue(REG_PATH, "ProviderId", textBoxProviderId.Text);
-            Registry.SetValue(REG_PATH, "ProviderName", textBoxProviderName.Text);
+        void ReadData()
+        {
+            string name;
+            if (comboBoxTestName.SelectedIndex == -1)
+                name = comboBoxTestName.Text;
+            else
+                name = (string)comboBoxTestName.SelectedItem;
+            ReadSettings(name);
+        }
 
-            Registry.SetValue(REG_PATH, "AuthUse", checkBoxAuth.Checked);
-            Registry.SetValue(REG_PATH, "Auth", textBoxAuth.Text);
+        private void buttonTranslatePlain_Click(object sender, EventArgs e)
+        {
+            textBoxExpected.Enabled = false;
+            buttonTranslatePlain.Enabled = false;
 
-            Registry.SetValue(REG_PATH, "ModelUse", checkBoxModel.Checked);
-            Registry.SetValue(REG_PATH, "Model", textBoxModel.Text);
-            Registry.SetValue(REG_PATH, "Glossary", textBoxGlossary.Text);
+            IntentoSDK.IntentoAiTextTranslate translate = Fabric(textBoxApiKey.Text, "TestForm");
+            dynamic res = translate.Fulfill(textBoxText.Text, textBoxTo.Text, textBoxFrom.Text, provider: textBoxProviderId.Text, 
+                async: true, wait_async: true, format: null,
+                auth: checkBoxAuth.Checked ? string.Format("{{\"{0}\": [{1}]}}", textBoxProviderId.Text, textBoxAuth.Text) : null,
+                custom_model: checkBoxModel.Checked ? textBoxModel.Text : null,
+                glossary: !string.IsNullOrEmpty(textBoxGlossary.Text) ? textBoxGlossary.Text : null
+                );
+            string id = res.id;
+            if (res.error == null)
+            {
+                string result = res.response[0].results[0];
+                textBoxResult.Text = result;
+            }
+            else
+            {
+                textBoxResult.Text = string.Format("error: {0}", id);
+            }
+
+            textBoxExpected.Enabled = true;
+            buttonTranslatePlain.Enabled = true;
+        }
+
+        private void comboBoxTestName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ReadData();
+        }
+
+        private void textBoxResult_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBoxExpected.Text) && textBoxExpected.Text != textBoxResult.Text)
+                textBoxExpected.BackColor = Color.LightPink;
+            else
+                textBoxExpected.BackColor = Color.White;
         }
     }
 }
