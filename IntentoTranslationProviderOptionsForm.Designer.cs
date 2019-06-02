@@ -123,7 +123,6 @@
             this.groupBoxProviderSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxProviderSettings.Controls.Add(this.groupBoxAuthCredentialId);
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxAuth);
             this.groupBoxProviderSettings.Controls.Add(this.checkBoxUseCustomModel);
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxGlossary);
@@ -146,7 +145,7 @@
             this.groupBoxAuthCredentialId.Controls.Add(this.labelStoredCredential1);
             this.groupBoxAuthCredentialId.Controls.Add(this.linkLabel3);
             this.groupBoxAuthCredentialId.Controls.Add(this.label8);
-            this.groupBoxAuthCredentialId.Location = new System.Drawing.Point(5, 103);
+            this.groupBoxAuthCredentialId.Location = new System.Drawing.Point(0, 7);
             this.groupBoxAuthCredentialId.Name = "groupBoxAuthCredentialId";
             this.groupBoxAuthCredentialId.Size = new System.Drawing.Size(512, 86);
             this.groupBoxAuthCredentialId.TabIndex = 32;
@@ -195,6 +194,7 @@
             // 
             // groupBoxAuth
             // 
+            this.groupBoxAuth.Controls.Add(this.groupBoxAuthCredentialId);
             this.groupBoxAuth.Controls.Add(this.buttonWizard);
             this.groupBoxAuth.Controls.Add(this.textBoxCredentials);
             this.groupBoxAuth.Enabled = false;
@@ -338,9 +338,9 @@
             this.checkBoxUseOwnCred.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxUseOwnCred.Location = new System.Drawing.Point(15, 61);
             this.checkBoxUseOwnCred.Name = "checkBoxUseOwnCred";
-            this.checkBoxUseOwnCred.Size = new System.Drawing.Size(140, 17);
+            this.checkBoxUseOwnCred.Size = new System.Drawing.Size(142, 17);
             this.checkBoxUseOwnCred.TabIndex = 2;
-            this.checkBoxUseOwnCred.Text = "use your own credentials";
+            this.checkBoxUseOwnCred.Text = "Use your own credentials";
             this.checkBoxUseOwnCred.UseVisualStyleBackColor = true;
             this.checkBoxUseOwnCred.CheckedChanged += new System.EventHandler(this.checkBoxUseOwnCred_CheckedChanged);
             // 
