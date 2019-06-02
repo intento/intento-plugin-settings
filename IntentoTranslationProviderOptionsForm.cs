@@ -1,5 +1,6 @@
 ﻿using Intento.MT.Plugin.PropertiesForm;
 using IntentoSDK;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -419,7 +420,34 @@ namespace IntentoMT.Plugin.PropertiesForm
 
                 originalOptions.Format = providerState.format;
             }
+
+            // originalOptions.StoreApikeyInRegistry = checkBoxSaveApiKeyInRegistry.Checked;
+            if (!string.IsNullOrEmpty(originalOptions.ApiKey))
+                SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
+            else
+                SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
+
             Close();
+        }
+
+        public string GetValueFromRegistry(string name)
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}", originalOptions.AppName));
+                return (string)key.GetValue(name, null);
+            }
+            catch { }
+            return null;
+        }
+        public void SaveValueToRegistry(string name, string value)
+        {
+            try
+            {
+                RegistryKey key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}", originalOptions.AppName));
+                key.SetValue(name, value);
+            }
+            catch { }
         }
 
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -526,5 +554,9 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         #endregion events
 
+        private void checkBoxSaveApiKeyInRegistry_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

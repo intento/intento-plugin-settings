@@ -1,5 +1,6 @@
 ﻿using IntentoMT.Plugin.PropertiesForm;
 using IntentoSDK;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -35,13 +36,25 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         public delegate void ApiKeyChanged(bool isOK);
         public event ApiKeyChanged apiKeyChangedEvent;
+        IntentoMTFormOptions options;
 
         public ApiKeyState(IntentoTranslationProviderOptionsForm _form, System.Windows.Forms.TextBox _apiKey_tb, 
             IntentoMTFormOptions options)
         {
-            apiKey = options.ApiKey;
-            apiKey_tb = _apiKey_tb;
             form = _form;
+
+            apiKey = options.ApiKey;
+            string apiKey2 = form.GetValueFromRegistry("ApiKey");
+            if (string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(options.AppName))
+            {   // read ApiKey from registry
+                apiKey = apiKey2;
+            }
+            if (!string.IsNullOrEmpty(apiKey2))
+                _form.checkBoxSaveApiKeyInRegistry.Checked = true;
+
+            this.options = options;
+
+            apiKey_tb = _apiKey_tb;
         }
 
         public void SetValue(string _apiKey)

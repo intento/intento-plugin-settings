@@ -77,8 +77,7 @@ namespace IntentoMT.Plugin.PropertiesForm
             if (form.checkBoxSmartRouting.Checked)
                 return;
 
-            providersRaw = data;
-            // List<dynamic> recProviders = filterByLanguagePairs(providersRaw);
+            providersRaw = filterByLanguagePairs(data);
 
             providersData = providersRaw.ToDictionary(s => (string)s.id, q => q);
             providersNames = providersRaw.ToDictionary(s => (string)s.name, q => (string)q.id);

@@ -42,6 +42,8 @@ namespace IntentoMT.Plugin.PropertiesForm
         public string UserAgent { get; set; }
         // Signature in botton right corner of settinga form
         public string Signature { get; set; }
+        // Plugin name. User to store ApiKey in registry by this name
+        public string AppName { get; set; }
 
         public IntentoAiTextTranslate Translate { get; set; }
 

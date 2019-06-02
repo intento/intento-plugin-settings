@@ -44,7 +44,6 @@
             this.checkBoxSmartRouting = new System.Windows.Forms.CheckBox();
             this.buttonSaveData = new System.Windows.Forms.Button();
             this.comboBoxTestName = new System.Windows.Forms.ComboBox();
-            this.buttonTestReadData = new System.Windows.Forms.Button();
             this.textBoxFormat = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonTranslatePlain = new System.Windows.Forms.Button();
@@ -55,11 +54,13 @@
             this.checkBoxFormatted = new System.Windows.Forms.CheckBox();
             this.textBoxResult = new System.Windows.Forms.TextBox();
             this.textBoxExpected = new System.Windows.Forms.TextBox();
+            this.buttonTestReadData = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonShow
             // 
-            this.buttonShow.Location = new System.Drawing.Point(103, 258);
+            this.buttonShow.Location = new System.Drawing.Point(32, 309);
             this.buttonShow.Name = "buttonShow";
             this.buttonShow.Size = new System.Drawing.Size(80, 30);
             this.buttonShow.TabIndex = 0;
@@ -179,7 +180,7 @@
             // 
             // buttonSaveData
             // 
-            this.buttonSaveData.Location = new System.Drawing.Point(245, 310);
+            this.buttonSaveData.Location = new System.Drawing.Point(333, 309);
             this.buttonSaveData.Name = "buttonSaveData";
             this.buttonSaveData.Size = new System.Drawing.Size(75, 30);
             this.buttonSaveData.TabIndex = 17;
@@ -190,21 +191,11 @@
             // comboBoxTestName
             // 
             this.comboBoxTestName.FormattingEnabled = true;
-            this.comboBoxTestName.Location = new System.Drawing.Point(32, 310);
+            this.comboBoxTestName.Location = new System.Drawing.Point(118, 309);
             this.comboBoxTestName.Name = "comboBoxTestName";
             this.comboBoxTestName.Size = new System.Drawing.Size(192, 21);
             this.comboBoxTestName.TabIndex = 18;
             this.comboBoxTestName.SelectedIndexChanged += new System.EventHandler(this.comboBoxTestName_SelectedIndexChanged);
-            // 
-            // buttonTestReadData
-            // 
-            this.buttonTestReadData.Location = new System.Drawing.Point(333, 310);
-            this.buttonTestReadData.Name = "buttonTestReadData";
-            this.buttonTestReadData.Size = new System.Drawing.Size(75, 30);
-            this.buttonTestReadData.TabIndex = 19;
-            this.buttonTestReadData.Text = "Read Data";
-            this.buttonTestReadData.UseVisualStyleBackColor = true;
-            this.buttonTestReadData.Click += new System.EventHandler(this.buttonTestReadData_Click);
             // 
             // textBoxFormat
             // 
@@ -289,11 +280,34 @@
             this.textBoxExpected.Size = new System.Drawing.Size(376, 20);
             this.textBoxExpected.TabIndex = 28;
             // 
+            // buttonTestReadData
+            // 
+            this.buttonTestReadData.Location = new System.Drawing.Point(348, 300);
+            this.buttonTestReadData.Name = "buttonTestReadData";
+            this.buttonTestReadData.Size = new System.Drawing.Size(75, 30);
+            this.buttonTestReadData.TabIndex = 19;
+            this.buttonTestReadData.Text = "Read Data";
+            this.buttonTestReadData.UseVisualStyleBackColor = true;
+            this.buttonTestReadData.Visible = false;
+            this.buttonTestReadData.Click += new System.EventHandler(this.buttonTestReadData_Click);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(103, 245);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(80, 17);
+            this.checkBox1.TabIndex = 29;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(435, 519);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.buttonSaveData);
             this.Controls.Add(this.textBoxExpected);
             this.Controls.Add(this.textBoxResult);
             this.Controls.Add(this.checkBoxFormatted);
@@ -304,7 +318,6 @@
             this.Controls.Add(this.buttonTranslatePlain);
             this.Controls.Add(this.buttonTestReadData);
             this.Controls.Add(this.comboBoxTestName);
-            this.Controls.Add(this.buttonSaveData);
             this.Controls.Add(this.checkBoxSmartRouting);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBoxGlossary);
@@ -347,7 +360,6 @@
         private System.Windows.Forms.CheckBox checkBoxSmartRouting;
         private System.Windows.Forms.Button buttonSaveData;
         private System.Windows.Forms.ComboBox comboBoxTestName;
-        private System.Windows.Forms.Button buttonTestReadData;
         private System.Windows.Forms.TextBox textBoxFormat;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonTranslatePlain;
@@ -358,6 +370,8 @@
         private System.Windows.Forms.CheckBox checkBoxFormatted;
         private System.Windows.Forms.TextBox textBoxResult;
         private System.Windows.Forms.TextBox textBoxExpected;
+        private System.Windows.Forms.Button buttonTestReadData;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

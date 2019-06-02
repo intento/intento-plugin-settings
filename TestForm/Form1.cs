@@ -132,6 +132,7 @@ namespace TestForm
             options.UserAgent = "TestForm/1.0.0";
             options.Signature = "TestForm";
             options.Glossary = checkBoxSmartRouting.Checked ? string.Empty : textBoxGlossary.Text;
+            options.AppName = "PluginForm\\TestForm";
 
             IntentoTranslationProviderOptionsForm.LangPair[] languagePair = new IntentoTranslationProviderOptionsForm.LangPair[1] 
                 { new IntentoTranslationProviderOptionsForm.LangPair("en", "de") };

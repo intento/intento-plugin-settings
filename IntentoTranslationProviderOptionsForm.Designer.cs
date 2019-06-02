@@ -64,6 +64,7 @@
             this.checkBoxShowHidden = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.checkBoxSmartRouting = new System.Windows.Forms.CheckBox();
+            this.checkBoxSaveApiKeyInRegistry = new System.Windows.Forms.CheckBox();
             this.groupBoxProviderSettings.SuspendLayout();
             this.groupBoxAuthCredentialId.SuspendLayout();
             this.groupBoxAuth.SuspendLayout();
@@ -458,11 +459,25 @@
             this.checkBoxSmartRouting.UseVisualStyleBackColor = true;
             this.checkBoxSmartRouting.CheckedChanged += new System.EventHandler(this.checkBoxSmartRouting_CheckedChanged);
             // 
+            // checkBoxSaveApiKeyInRegistry
+            // 
+            this.checkBoxSaveApiKeyInRegistry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxSaveApiKeyInRegistry.AutoSize = true;
+            this.checkBoxSaveApiKeyInRegistry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxSaveApiKeyInRegistry.Location = new System.Drawing.Point(125, 498);
+            this.checkBoxSaveApiKeyInRegistry.Name = "checkBoxSaveApiKeyInRegistry";
+            this.checkBoxSaveApiKeyInRegistry.Size = new System.Drawing.Size(121, 17);
+            this.checkBoxSaveApiKeyInRegistry.TabIndex = 23;
+            this.checkBoxSaveApiKeyInRegistry.Text = "Save API Key locally";
+            this.checkBoxSaveApiKeyInRegistry.UseVisualStyleBackColor = true;
+            this.checkBoxSaveApiKeyInRegistry.CheckedChanged += new System.EventHandler(this.checkBoxSaveApiKeyInRegistry_CheckedChanged);
+            // 
             // IntentoTranslationProviderOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(546, 548);
+            this.Controls.Add(this.checkBoxSaveApiKeyInRegistry);
             this.Controls.Add(this.checkBoxSmartRouting);
             this.Controls.Add(this.checkBoxShowHidden);
             this.Controls.Add(this.statusStrip1);
@@ -538,5 +553,6 @@
         private System.Windows.Forms.GroupBox groupBoxGlossary;
         private System.Windows.Forms.TextBox textBoxGlossary;
         private System.Windows.Forms.ComboBox comboBoxGlossaries;
+        public System.Windows.Forms.CheckBox checkBoxSaveApiKeyInRegistry;
     }
 }
