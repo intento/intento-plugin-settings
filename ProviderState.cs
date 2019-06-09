@@ -20,6 +20,7 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         dynamic providerData;
         public string currentProviderId;
+        public string currentProviderName;
 
         private Dictionary<string, dynamic> _providerModels;
         private Dictionary<string, dynamic> _providerGlossaries;
@@ -51,6 +52,7 @@ namespace IntentoMT.Plugin.PropertiesForm
             comboBoxProviders = _comboBoxProviders;
             groupBoxProviderSettings = _groupBoxProviderSettings;
             currentProviderId = options.ProviderId;
+            currentProviderName = options.ProviderName;
             _translate = _form._translate;
         }
 
@@ -91,7 +93,10 @@ namespace IntentoMT.Plugin.PropertiesForm
                 comboBoxProviders.SelectedItem = (string)providerDataFromList.name;
             }
             else
+            {
                 currentProviderId = null;
+                currentProviderName = null;
+            }
 
             ExtractProviderData();
             isInitialized = true;
@@ -163,6 +168,7 @@ namespace IntentoMT.Plugin.PropertiesForm
         {
             providerData = null;
             currentProviderId = null;
+            currentProviderName = null;
             ExtractProviderData();
             return;
 
@@ -182,6 +188,7 @@ namespace IntentoMT.Plugin.PropertiesForm
                 // another provider choosed
                 currentProviderId = providersNames[comboBoxProviders.Text];
                 providerData = providersData[currentProviderId];
+                currentProviderName = providerData.name;
                 ExtractProviderData();
                 return;
             }
@@ -253,7 +260,7 @@ namespace IntentoMT.Plugin.PropertiesForm
         { get { return providerData != null && isInitialized; } }
 
         public string CurrentProviderName
-        { get { return IsOK ? providerData.name : null; } }
+        { get { return IsOK ? currentProviderName : null; } }
 
         string authModelHash = null;
         public Dictionary<string, dynamic> GetModels(Dictionary<string, string> providerDataAuthDict)
