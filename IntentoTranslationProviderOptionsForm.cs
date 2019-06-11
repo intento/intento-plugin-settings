@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -17,6 +18,19 @@ using System.Windows.Forms;
 
 namespace IntentoMT.Plugin.PropertiesForm
 {
+    // Version history
+    // 1.0.0: 2019-03-13
+    //   - A separate solution has been created for the plugin configuration form.
+    // 1.0.1: 2019-04-05
+    //   - Supports Smart Routing setting
+    // 1.2.4: 2019-05-21
+    // - List of providers is requested now in sync mode to get real format options to send translate request with th best html or xml option
+    // 1.3.0: 
+    // - Smart routing
+    // - Refactoring form processing
+    // 1.3.1: 2019-06-10
+    // - Local logs
+
     public partial class IntentoTranslationProviderOptionsForm : Form
     {
         public class LangPair
@@ -61,8 +75,17 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         #endregion vars
 
-        public IntentoTranslationProviderOptionsForm(IntentoMTFormOptions options, 
-            LangPair[] languagePairs, Func<string, string, IntentoAiTextTranslate> intentoConnection)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <param name="languagePairs"></param>
+        /// <param name="intentoConnection"></param>
+        public IntentoTranslationProviderOptionsForm(
+            IntentoMTFormOptions options, 
+            LangPair[] languagePairs, 
+            Func<string, string, IntentoAiTextTranslate> intentoConnection
+            )
         {
             this.intentoConnection = intentoConnection;
 
@@ -558,5 +581,50 @@ namespace IntentoMT.Plugin.PropertiesForm
         {
 
         }
+
+        public static void Logging(string subject, string comment = null, Exception ex = null)
+        {
+            if (!IntentoTranslationProviderOptionsForm.IsTrace())
+                return;
+
+            try
+            {
+
+                string path = Environment.GetEnvironmentVariable("temp");
+                if (string.IsNullOrEmpty(path))
+                    path = Environment.GetEnvironmentVariable("tmp");
+                if (string.IsNullOrEmpty(path))
+                    return;
+
+                DateTime now = DateTime.UtcNow;
+                List<string> content = new List<string>();
+                content.Add("------------------------");
+                content.Add(string.Format("{0} {1}", now.ToString("yyyy-MM-dd HH:mm:ss.fffff"), subject));
+                if (comment != null)
+                    content.Add(comment);
+                if (ex != null)
+                    content.AddRange(LoggingEx(ex));
+
+                string filename = string.Format("{0}\\Intento_Logs_{1}", path, now.ToString("yyyy-MM-dd-HH"));
+                File.AppendAllLines(filename, content);
+            }
+            catch { }
+        }
+
+        public static IEnumerable<string> LoggingEx(Exception ex)
+        {
+            List<string> items = new List<string>();
+            items.Add(string.Format("Exception {0}", ex.Message));
+            if (ex.StackTrace != null)
+            {
+                items.Add("Stack Trace:");
+                items.Add(ex.StackTrace);
+            }
+            if (ex.InnerException != null)
+                items.AddRange(LoggingEx(ex.InnerException));
+            return items;
+        }
+
+
     }
 }

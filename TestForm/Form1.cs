@@ -13,9 +13,6 @@ using System.Windows.Forms;
 
 namespace TestForm
 {
-    // Version history
-    // 1.2.4: 2019-05-21
-    // - List of providers is requested now in sync mode to get real format options to send translate request with th best html or xml option
 
     public partial class Form1 : Form
     {
@@ -146,7 +143,8 @@ namespace TestForm
         {
             var _intento = IntentoSDK.Intento.Create(apiKey, null,
                 path: checkBoxStage.Checked ? "https://api2.inten.to/" : "https://api.inten.to/", 
-                userAgent: String.Format("{0} {1}", userAgent, "TestForm")
+                userAgent: String.Format("{0} {1}", userAgent, "TestForm"),
+                loggingCallback: IntentoTranslationProviderOptionsForm.Logging
             );
             var _translate = _intento.Ai.Text.Translate;
             return _translate;
