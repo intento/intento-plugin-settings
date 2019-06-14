@@ -55,8 +55,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (state == null)
             {
                 form.checkBoxUseOwnCred.Visible = false;
-                form.groupBoxAuthCredentialId.Visible = false;
-                form.groupBoxAuth.Visible = false;
+                form.textBoxModel.Visible = false;
+                form.comboBoxModels.Visible = false;
+                form.groupBoxModel.Visible = false;
                 return null;
             }
             return state.Draw();

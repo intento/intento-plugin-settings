@@ -34,12 +34,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.buttonContinue = new System.Windows.Forms.Button();
             this.groupBoxProviderSettings = new System.Windows.Forms.GroupBox();
+            this.groupBoxAuth = new System.Windows.Forms.GroupBox();
             this.groupBoxAuthCredentialId = new System.Windows.Forms.GroupBox();
             this.comboBoxCredentialId = new System.Windows.Forms.ComboBox();
             this.labelStoredCredential1 = new System.Windows.Forms.Label();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.label8 = new System.Windows.Forms.Label();
-            this.groupBoxAuth = new System.Windows.Forms.GroupBox();
             this.buttonWizard = new System.Windows.Forms.Button();
             this.textBoxCredentials = new System.Windows.Forms.TextBox();
             this.checkBoxUseCustomModel = new System.Windows.Forms.CheckBox();
@@ -66,8 +66,8 @@
             this.checkBoxSmartRouting = new System.Windows.Forms.CheckBox();
             this.checkBoxSaveApiKeyInRegistry = new System.Windows.Forms.CheckBox();
             this.groupBoxProviderSettings.SuspendLayout();
-            this.groupBoxAuthCredentialId.SuspendLayout();
             this.groupBoxAuth.SuspendLayout();
+            this.groupBoxAuthCredentialId.SuspendLayout();
             this.groupBoxGlossary.SuspendLayout();
             this.groupBoxModel.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -124,6 +124,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxAuth);
+            this.groupBoxProviderSettings.Controls.Add(this.groupBoxAuthCredentialId);
             this.groupBoxProviderSettings.Controls.Add(this.checkBoxUseCustomModel);
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxGlossary);
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxModel);
@@ -139,19 +140,30 @@
             this.groupBoxProviderSettings.Text = "MT Provider settings";
             this.groupBoxProviderSettings.Visible = false;
             // 
+            // groupBoxAuth
+            // 
+            this.groupBoxAuth.Controls.Add(this.buttonWizard);
+            this.groupBoxAuth.Controls.Add(this.textBoxCredentials);
+            this.groupBoxAuth.Enabled = false;
+            this.groupBoxAuth.Location = new System.Drawing.Point(10, 84);
+            this.groupBoxAuth.Name = "groupBoxAuth";
+            this.groupBoxAuth.Size = new System.Drawing.Size(511, 89);
+            this.groupBoxAuth.TabIndex = 23;
+            this.groupBoxAuth.TabStop = false;
+            this.groupBoxAuth.Text = "Authorization parameters";
+            // 
             // groupBoxAuthCredentialId
             // 
             this.groupBoxAuthCredentialId.Controls.Add(this.comboBoxCredentialId);
             this.groupBoxAuthCredentialId.Controls.Add(this.labelStoredCredential1);
             this.groupBoxAuthCredentialId.Controls.Add(this.linkLabel3);
             this.groupBoxAuthCredentialId.Controls.Add(this.label8);
-            this.groupBoxAuthCredentialId.Location = new System.Drawing.Point(0, 7);
+            this.groupBoxAuthCredentialId.Location = new System.Drawing.Point(21, 31);
             this.groupBoxAuthCredentialId.Name = "groupBoxAuthCredentialId";
             this.groupBoxAuthCredentialId.Size = new System.Drawing.Size(512, 86);
             this.groupBoxAuthCredentialId.TabIndex = 32;
             this.groupBoxAuthCredentialId.TabStop = false;
             this.groupBoxAuthCredentialId.Text = "Stored Credentials";
-            this.groupBoxAuthCredentialId.Visible = false;
             // 
             // comboBoxCredentialId
             // 
@@ -191,19 +203,6 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(0, 13);
             this.label8.TabIndex = 27;
-            // 
-            // groupBoxAuth
-            // 
-            this.groupBoxAuth.Controls.Add(this.groupBoxAuthCredentialId);
-            this.groupBoxAuth.Controls.Add(this.buttonWizard);
-            this.groupBoxAuth.Controls.Add(this.textBoxCredentials);
-            this.groupBoxAuth.Enabled = false;
-            this.groupBoxAuth.Location = new System.Drawing.Point(10, 84);
-            this.groupBoxAuth.Name = "groupBoxAuth";
-            this.groupBoxAuth.Size = new System.Drawing.Size(511, 89);
-            this.groupBoxAuth.TabIndex = 23;
-            this.groupBoxAuth.TabStop = false;
-            this.groupBoxAuth.Text = "Authorization parameters";
             // 
             // buttonWizard
             // 
@@ -261,7 +260,7 @@
             // 
             this.textBoxGlossary.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxGlossary.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxGlossary.Location = new System.Drawing.Point(11, 33);
+            this.textBoxGlossary.Location = new System.Drawing.Point(11, 19);
             this.textBoxGlossary.Name = "textBoxGlossary";
             this.textBoxGlossary.Size = new System.Drawing.Size(485, 20);
             this.textBoxGlossary.TabIndex = 39;
@@ -292,7 +291,7 @@
             // 
             this.textBoxModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxModel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxModel.Location = new System.Drawing.Point(11, 37);
+            this.textBoxModel.Location = new System.Drawing.Point(11, 30);
             this.textBoxModel.Name = "textBoxModel";
             this.textBoxModel.Size = new System.Drawing.Size(485, 20);
             this.textBoxModel.TabIndex = 32;
@@ -501,10 +500,10 @@
             this.Shown += new System.EventHandler(this.IntentoTranslationProviderOptionsForm_Shown);
             this.groupBoxProviderSettings.ResumeLayout(false);
             this.groupBoxProviderSettings.PerformLayout();
-            this.groupBoxAuthCredentialId.ResumeLayout(false);
-            this.groupBoxAuthCredentialId.PerformLayout();
             this.groupBoxAuth.ResumeLayout(false);
             this.groupBoxAuth.PerformLayout();
+            this.groupBoxAuthCredentialId.ResumeLayout(false);
+            this.groupBoxAuthCredentialId.PerformLayout();
             this.groupBoxGlossary.ResumeLayout(false);
             this.groupBoxGlossary.PerformLayout();
             this.groupBoxModel.ResumeLayout(false);
