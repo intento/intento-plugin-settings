@@ -1,0 +1,3 @@
+[submodule "intento-csharp"]
+	path = intento-csharp
+	url = https://github.com/intento/intento-csharp
