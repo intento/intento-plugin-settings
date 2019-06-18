@@ -39,7 +39,7 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>intento-csharp\bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\intento-csharp\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -84,7 +84,7 @@
     <None Include="intento.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="intento-csharp\IntentoSDK.csproj">
+    <ProjectReference Include="..\intento-csharp\IntentoSDK.csproj">
       <Project>{14d9da22-f8d4-4f62-975a-7bd821807528}</Project>
       <Name>IntentoSDK</Name>
     </ProjectReference>
