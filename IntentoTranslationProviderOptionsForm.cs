@@ -30,6 +30,8 @@ namespace IntentoMT.Plugin.PropertiesForm
     // - Refactoring form processing
     // 1.3.1: 2019-06-10
     // - Local logs
+    // 1.3.3: 2019-06-18
+    // - Using GitHub submodules to assemble result
 
     public partial class IntentoTranslationProviderOptionsForm : Form
     {
