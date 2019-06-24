@@ -618,7 +618,7 @@ namespace IntentoMT.Plugin.PropertiesForm
                 else
                     checkBoxProxy.Checked = false;
             }
-            else
+            else if (currentOptions.proxySettings != null)
             {
                 currentOptions.proxySettings.ProxyEnabled = false;
             }
