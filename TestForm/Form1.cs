@@ -74,6 +74,14 @@ namespace TestForm
             textBoxText.Text = (string)key.GetValue("Text", null);
             textBoxExpected.Text = (string)key.GetValue("Expected", null);
             checkBoxFormatted.Checked = str2bool(key.GetValue("Formatted", false));
+
+            checkBoxProxy.Checked = (string)key.GetValue("ProxyEnabled", "0") != "0";
+            textBoxAddress.Text = (string)key.GetValue("ProxyAddress", null);
+            textBoxPort.Text = (string)key.GetValue("ProxyPort", null);
+            textBoxUserName.Text = (string)key.GetValue("ProxyUserName", null);
+            textBoxPassword.Text = (string)key.GetValue("ProxyPassw", null);
+
+
         }
 
         private void SaveSettings(string name)
@@ -100,6 +108,13 @@ namespace TestForm
             key.SetValue("Text", textBoxText.Text);
             key.SetValue("Expected", textBoxExpected.Text);
             key.SetValue("Formatted", checkBoxFormatted.Checked);
+
+            key.SetValue("ProxyEnabled", checkBoxProxy.Checked ? "1" : "0");
+            key.SetValue("ProxyAddress", textBoxAddress.Text);
+            key.SetValue("ProxyPort", textBoxPort.Text);
+            key.SetValue("ProxyUserName", textBoxUserName.Text);
+            key.SetValue("ProxyPassw", textBoxPassword.Text);
+
         }
 
         private string[] GetSettingNames()
@@ -130,6 +145,15 @@ namespace TestForm
             options.Signature = "TestForm";
             options.Glossary = checkBoxSmartRouting.Checked ? string.Empty : textBoxGlossary.Text;
             options.AppName = "PluginForm\\TestForm";
+            options.proxySettings = new IntentoSDK.ProxySettings()
+            {
+                ProxyAddress = textBoxAddress.Text,
+                ProxyPort = textBoxPort.Text,
+                ProxyUserName = textBoxUserName.Text,
+                ProxyPassword = textBoxPassword.Text,
+                ProxyEnabled = checkBoxProxy.Checked
+            };
+
 
             IntentoTranslationProviderOptionsForm.LangPair[] languagePair = new IntentoTranslationProviderOptionsForm.LangPair[1] 
                 { new IntentoTranslationProviderOptionsForm.LangPair("en", "de") };
@@ -144,7 +168,8 @@ namespace TestForm
             var _intento = IntentoSDK.Intento.Create(apiKey, null,
                 path: checkBoxStage.Checked ? "https://api2.inten.to/" : "https://api.inten.to/", 
                 userAgent: String.Format("{0} {1}", userAgent, "TestForm"),
-                loggingCallback: IntentoTranslationProviderOptionsForm.Logging
+                loggingCallback: IntentoTranslationProviderOptionsForm.Logging,
+                proxySet: options.proxySettings
             );
             var _translate = _intento.Ai.Text.Translate;
             return _translate;
@@ -161,7 +186,15 @@ namespace TestForm
             checkBoxModel.Checked = options.UseCustomModel;
             textBoxModel.Text = options.CustomModel;
             textBoxGlossary.Text = options.Glossary;
+            if (options.proxySettings !=null)
+            {
+                textBoxAddress.Text = options.proxySettings.ProxyAddress;
+                textBoxPort.Text = options.proxySettings.ProxyPort;
+                textBoxUserName.Text = options.proxySettings.ProxyUserName;
+                textBoxPassword.Text = options.proxySettings.ProxyPassword;
+                checkBoxProxy.Checked = options.proxySettings.ProxyEnabled;
 
+            }
         }
 
         private void buttonSaveData_Click(object sender, EventArgs e)

@@ -35,13 +35,13 @@
             this.buttonContinue = new System.Windows.Forms.Button();
             this.groupBoxProviderSettings = new System.Windows.Forms.GroupBox();
             this.groupBoxAuth = new System.Windows.Forms.GroupBox();
+            this.buttonWizard = new System.Windows.Forms.Button();
+            this.textBoxCredentials = new System.Windows.Forms.TextBox();
             this.groupBoxAuthCredentialId = new System.Windows.Forms.GroupBox();
             this.comboBoxCredentialId = new System.Windows.Forms.ComboBox();
             this.labelStoredCredential1 = new System.Windows.Forms.Label();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.label8 = new System.Windows.Forms.Label();
-            this.buttonWizard = new System.Windows.Forms.Button();
-            this.textBoxCredentials = new System.Windows.Forms.TextBox();
             this.checkBoxUseCustomModel = new System.Windows.Forms.CheckBox();
             this.groupBoxGlossary = new System.Windows.Forms.GroupBox();
             this.textBoxGlossary = new System.Windows.Forms.TextBox();
@@ -65,6 +65,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.checkBoxSmartRouting = new System.Windows.Forms.CheckBox();
             this.checkBoxSaveApiKeyInRegistry = new System.Windows.Forms.CheckBox();
+            this.checkBoxProxy = new System.Windows.Forms.CheckBox();
             this.groupBoxProviderSettings.SuspendLayout();
             this.groupBoxAuth.SuspendLayout();
             this.groupBoxAuthCredentialId.SuspendLayout();
@@ -76,7 +77,7 @@
             // buttonCheck
             // 
             this.buttonCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonCheck.Location = new System.Drawing.Point(446, 54);
+            this.buttonCheck.Location = new System.Drawing.Point(446, 92);
             this.buttonCheck.Name = "buttonCheck";
             this.buttonCheck.Size = new System.Drawing.Size(81, 23);
             this.buttonCheck.TabIndex = 1;
@@ -87,7 +88,7 @@
             // apiKey_tb
             // 
             this.apiKey_tb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.apiKey_tb.Location = new System.Drawing.Point(55, 56);
+            this.apiKey_tb.Location = new System.Drawing.Point(55, 94);
             this.apiKey_tb.Name = "apiKey_tb";
             this.apiKey_tb.Size = new System.Drawing.Size(369, 20);
             this.apiKey_tb.TabIndex = 3;
@@ -98,7 +99,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 59);
+            this.label5.Location = new System.Drawing.Point(4, 97);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(45, 13);
             this.label5.TabIndex = 7;
@@ -110,7 +111,7 @@
             this.buttonContinue.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonContinue.Enabled = false;
             this.buttonContinue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonContinue.Location = new System.Drawing.Point(7, 495);
+            this.buttonContinue.Location = new System.Drawing.Point(7, 523);
             this.buttonContinue.Name = "buttonContinue";
             this.buttonContinue.Size = new System.Drawing.Size(75, 23);
             this.buttonContinue.TabIndex = 9;
@@ -132,9 +133,9 @@
             this.groupBoxProviderSettings.Controls.Add(this.comboBoxProviders);
             this.groupBoxProviderSettings.Controls.Add(this.checkBoxUseOwnCred);
             this.groupBoxProviderSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBoxProviderSettings.Location = new System.Drawing.Point(7, 118);
+            this.groupBoxProviderSettings.Location = new System.Drawing.Point(7, 154);
             this.groupBoxProviderSettings.Name = "groupBoxProviderSettings";
-            this.groupBoxProviderSettings.Size = new System.Drawing.Size(531, 356);
+            this.groupBoxProviderSettings.Size = new System.Drawing.Size(531, 348);
             this.groupBoxProviderSettings.TabIndex = 10;
             this.groupBoxProviderSettings.TabStop = false;
             this.groupBoxProviderSettings.Text = "MT Provider settings";
@@ -151,6 +152,32 @@
             this.groupBoxAuth.TabIndex = 23;
             this.groupBoxAuth.TabStop = false;
             this.groupBoxAuth.Text = "Authorization parameters";
+            // 
+            // buttonWizard
+            // 
+            this.buttonWizard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonWizard.Location = new System.Drawing.Point(414, 31);
+            this.buttonWizard.Name = "buttonWizard";
+            this.buttonWizard.Size = new System.Drawing.Size(81, 23);
+            this.buttonWizard.TabIndex = 24;
+            this.buttonWizard.Text = "Fill or edit";
+            this.buttonWizard.UseVisualStyleBackColor = true;
+            this.buttonWizard.Click += new System.EventHandler(this.buttonWizard_Click);
+            // 
+            // textBoxCredentials
+            // 
+            this.textBoxCredentials.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxCredentials.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxCredentials.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.textBoxCredentials.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBoxCredentials.Location = new System.Drawing.Point(21, 31);
+            this.textBoxCredentials.Name = "textBoxCredentials";
+            this.textBoxCredentials.ReadOnly = true;
+            this.textBoxCredentials.Size = new System.Drawing.Size(387, 20);
+            this.textBoxCredentials.TabIndex = 25;
+            this.textBoxCredentials.UseSystemPasswordChar = true;
+            this.textBoxCredentials.Click += new System.EventHandler(this.textBoxCredentials_Enter);
+            this.textBoxCredentials.Enter += new System.EventHandler(this.textBoxCredentials_Enter);
             // 
             // groupBoxAuthCredentialId
             // 
@@ -203,32 +230,6 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(0, 13);
             this.label8.TabIndex = 27;
-            // 
-            // buttonWizard
-            // 
-            this.buttonWizard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonWizard.Location = new System.Drawing.Point(414, 31);
-            this.buttonWizard.Name = "buttonWizard";
-            this.buttonWizard.Size = new System.Drawing.Size(81, 23);
-            this.buttonWizard.TabIndex = 24;
-            this.buttonWizard.Text = "Fill or edit";
-            this.buttonWizard.UseVisualStyleBackColor = true;
-            this.buttonWizard.Click += new System.EventHandler(this.buttonWizard_Click);
-            // 
-            // textBoxCredentials
-            // 
-            this.textBoxCredentials.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxCredentials.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxCredentials.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.textBoxCredentials.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxCredentials.Location = new System.Drawing.Point(21, 31);
-            this.textBoxCredentials.Name = "textBoxCredentials";
-            this.textBoxCredentials.ReadOnly = true;
-            this.textBoxCredentials.Size = new System.Drawing.Size(387, 20);
-            this.textBoxCredentials.TabIndex = 25;
-            this.textBoxCredentials.UseSystemPasswordChar = true;
-            this.textBoxCredentials.Click += new System.EventHandler(this.textBoxCredentials_Enter);
-            this.textBoxCredentials.Enter += new System.EventHandler(this.textBoxCredentials_Enter);
             // 
             // checkBoxUseCustomModel
             // 
@@ -392,7 +393,7 @@
             this.checkBoxTrace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxTrace.AutoSize = true;
             this.checkBoxTrace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxTrace.Location = new System.Drawing.Point(383, 498);
+            this.checkBoxTrace.Location = new System.Drawing.Point(383, 526);
             this.checkBoxTrace.Name = "checkBoxTrace";
             this.checkBoxTrace.Size = new System.Drawing.Size(155, 17);
             this.checkBoxTrace.TabIndex = 17;
@@ -405,7 +406,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 526);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 554);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(546, 22);
             this.statusStrip1.TabIndex = 20;
@@ -433,7 +434,7 @@
             this.checkBoxShowHidden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxShowHidden.AutoSize = true;
             this.checkBoxShowHidden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxShowHidden.Location = new System.Drawing.Point(266, 498);
+            this.checkBoxShowHidden.Location = new System.Drawing.Point(266, 526);
             this.checkBoxShowHidden.Name = "checkBoxShowHidden";
             this.checkBoxShowHidden.Size = new System.Drawing.Size(105, 17);
             this.checkBoxShowHidden.TabIndex = 21;
@@ -450,7 +451,7 @@
             // 
             this.checkBoxSmartRouting.AutoSize = true;
             this.checkBoxSmartRouting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxSmartRouting.Location = new System.Drawing.Point(55, 82);
+            this.checkBoxSmartRouting.Location = new System.Drawing.Point(55, 120);
             this.checkBoxSmartRouting.Name = "checkBoxSmartRouting";
             this.checkBoxSmartRouting.Size = new System.Drawing.Size(85, 17);
             this.checkBoxSmartRouting.TabIndex = 22;
@@ -463,7 +464,7 @@
             this.checkBoxSaveApiKeyInRegistry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxSaveApiKeyInRegistry.AutoSize = true;
             this.checkBoxSaveApiKeyInRegistry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxSaveApiKeyInRegistry.Location = new System.Drawing.Point(125, 498);
+            this.checkBoxSaveApiKeyInRegistry.Location = new System.Drawing.Point(125, 526);
             this.checkBoxSaveApiKeyInRegistry.Name = "checkBoxSaveApiKeyInRegistry";
             this.checkBoxSaveApiKeyInRegistry.Size = new System.Drawing.Size(121, 17);
             this.checkBoxSaveApiKeyInRegistry.TabIndex = 23;
@@ -471,11 +472,26 @@
             this.checkBoxSaveApiKeyInRegistry.UseVisualStyleBackColor = true;
             this.checkBoxSaveApiKeyInRegistry.CheckedChanged += new System.EventHandler(this.checkBoxSaveApiKeyInRegistry_CheckedChanged);
             // 
+            // checkBoxProxy
+            // 
+            this.checkBoxProxy.AutoSize = true;
+            this.checkBoxProxy.Checked = true;
+            this.checkBoxProxy.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxProxy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxProxy.Location = new System.Drawing.Point(7, 60);
+            this.checkBoxProxy.Name = "checkBoxProxy";
+            this.checkBoxProxy.Size = new System.Drawing.Size(116, 17);
+            this.checkBoxProxy.TabIndex = 26;
+            this.checkBoxProxy.Text = "Enable proxy server";
+            this.checkBoxProxy.UseVisualStyleBackColor = true;
+            this.checkBoxProxy.CheckedChanged += new System.EventHandler(this.checkBoxProxy_CheckedChanged);
+            // 
             // IntentoTranslationProviderOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(546, 548);
+            this.ClientSize = new System.Drawing.Size(546, 576);
+            this.Controls.Add(this.checkBoxProxy);
             this.Controls.Add(this.checkBoxSaveApiKeyInRegistry);
             this.Controls.Add(this.checkBoxSmartRouting);
             this.Controls.Add(this.checkBoxShowHidden);
@@ -553,5 +569,6 @@
         private System.Windows.Forms.TextBox textBoxGlossary;
         private System.Windows.Forms.ComboBox comboBoxGlossaries;
         public System.Windows.Forms.CheckBox checkBoxSaveApiKeyInRegistry;
+        public System.Windows.Forms.CheckBox checkBoxProxy;
     }
 }

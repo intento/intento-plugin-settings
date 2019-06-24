@@ -99,6 +99,20 @@ namespace IntentoMT.Plugin.PropertiesForm
 
             originalOptions = options;
             currentOptions = originalOptions;
+            if (GetValueFromRegistry("ProxyEnabled") == "1")
+            {
+                currentOptions.proxySettings = new ProxySettings()
+                {
+                    ProxyAddress = GetValueFromRegistry("ProxyAddress"),
+                    ProxyPort = GetValueFromRegistry("ProxyPort"),
+                    ProxyUserName = GetValueFromRegistry("ProxyUserName"),
+                    ProxyPassword = GetValueFromRegistry("ProxyPassw"),
+                    ProxyEnabled = true
+                };
+            }
+            else
+                checkBoxProxy.Checked = false;
+
             _languagePairs = languagePairs;
             DialogResult = DialogResult.None;
 
@@ -452,6 +466,18 @@ namespace IntentoMT.Plugin.PropertiesForm
             else
                 SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
 
+            originalOptions.proxySettings = currentOptions.proxySettings;
+            if (checkBoxProxy.Checked)
+            {
+                SaveValueToRegistry("ProxyAddress", originalOptions.proxySettings.ProxyAddress);
+                SaveValueToRegistry("ProxyPort", originalOptions.proxySettings.ProxyPort);
+                SaveValueToRegistry("ProxyUserName", originalOptions.proxySettings.ProxyUserName);
+                SaveValueToRegistry("ProxyPassw", originalOptions.proxySettings.ProxyPassword);
+                SaveValueToRegistry("ProxyEnabled", "1");
+            }
+            else
+                SaveValueToRegistry("ProxyEnabled", "0");
+
             Close();
         }
 
@@ -577,12 +603,32 @@ namespace IntentoMT.Plugin.PropertiesForm
             buttonWizard_Click(null, null);
         }
 
-        #endregion events
+        private void checkBoxProxy_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxProxy.Checked)
+            {
+                var form = new IntentoTranslationProviderProxySettingsForm(this);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    //    if (currentOptions.proxySettings.ProxyUri != null)
+                    //        buttonProxySettings.Text = "The proxy server is currently in use. Change.";
+                    //    else
+                    //        buttonProxySettings.Text = "The proxy server is currently not used. Change.";
+                }
+                else
+                    checkBoxProxy.Checked = false;
+            }
+            else
+            {
+                currentOptions.proxySettings.ProxyEnabled = false;
+            }
+        }
 
         private void checkBoxSaveApiKeyInRegistry_CheckedChanged(object sender, EventArgs e)
         {
 
         }
+        #endregion events
 
         public static void Logging(string subject, string comment = null, Exception ex = null)
         {
@@ -626,7 +672,6 @@ namespace IntentoMT.Plugin.PropertiesForm
                 items.AddRange(LoggingEx(ex.InnerException));
             return items;
         }
-
 
     }
 }

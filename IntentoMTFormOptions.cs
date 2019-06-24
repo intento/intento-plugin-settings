@@ -44,6 +44,8 @@ namespace IntentoMT.Plugin.PropertiesForm
         public string Signature { get; set; }
         // Plugin name. User to store ApiKey in registry by this name
         public string AppName { get; set; }
+        // Proxy server configuration class for service requests
+        public ProxySettings proxySettings { get; set; }
 
         public IntentoAiTextTranslate Translate { get; set; }
 

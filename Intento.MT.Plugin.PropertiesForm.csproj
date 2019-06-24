@@ -71,6 +71,12 @@
     <Compile Include="IntentoTranslationProviderOptionsForm.Designer.cs">
       <DependentUpon>IntentoTranslationProviderOptionsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IntentoTranslationProviderProxySettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IntentoTranslationProviderProxySettingsForm.Designer.cs">
+      <DependentUpon>IntentoTranslationProviderProxySettingsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModelState.cs" />
     <Compile Include="ProviderState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IntentoTranslationProviderOptionsForm.resx">
       <DependentUpon>IntentoTranslationProviderOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IntentoTranslationProviderProxySettingsForm.resx">
+      <DependentUpon>IntentoTranslationProviderProxySettingsForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
