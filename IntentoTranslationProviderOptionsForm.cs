@@ -32,6 +32,8 @@ namespace IntentoMT.Plugin.PropertiesForm
     // - Local logs
     // 1.3.3: 2019-06-18
     // - Using GitHub submodules to assemble result
+    // 1.3.4: 2019-06-25
+    // - Bug with extracting version from dll
 
     public partial class IntentoTranslationProviderOptionsForm : Form
     {
@@ -94,8 +96,11 @@ namespace IntentoMT.Plugin.PropertiesForm
             InitializeComponent();
 
             var assembly = Assembly.GetExecutingAssembly();
-            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            this.version = string.Format("{0}.{1}.{2}", fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart);
+            var fvi = assembly.GetName().Version;
+            this.version = string.Format("{0}.{1}.{2}", fvi.Major, fvi.Minor, fvi.Build);
+            //var assembly = Assembly.GetExecutingAssembly();
+            //var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            //this.version = string.Format("{0}.{1}.{2}", fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart);
 
             originalOptions = options;
             currentOptions = originalOptions;
