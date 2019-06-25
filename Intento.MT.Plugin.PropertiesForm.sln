@@ -4,16 +4,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intento.MT.Plugin.PropertiesForm", "Intento.MT.Plugin.PropertiesForm.csproj", "{A4374128-DD01-4CE3-B62C-4CC3460620C0}"
-	ProjectSection(ProjectDependencies) = postProject
-		{14D9DA22-F8D4-4F62-975A-7BD821807528} = {14D9DA22-F8D4-4F62-975A-7BD821807528}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForm", "TestForm\TestForm.csproj", "{A963C442-DFD3-4FE8-A2E1-9917AC274695}"
-	ProjectSection(ProjectDependencies) = postProject
-		{14D9DA22-F8D4-4F62-975A-7BD821807528} = {14D9DA22-F8D4-4F62-975A-7BD821807528}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntentoSDK", "intento-csharp\IntentoSDK.csproj", "{14D9DA22-F8D4-4F62-975A-7BD821807528}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +21,6 @@ Global
 		{A963C442-DFD3-4FE8-A2E1-9917AC274695}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A963C442-DFD3-4FE8-A2E1-9917AC274695}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A963C442-DFD3-4FE8-A2E1-9917AC274695}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14D9DA22-F8D4-4F62-975A-7BD821807528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14D9DA22-F8D4-4F62-975A-7BD821807528}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14D9DA22-F8D4-4F62-975A-7BD821807528}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14D9DA22-F8D4-4F62-975A-7BD821807528}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
