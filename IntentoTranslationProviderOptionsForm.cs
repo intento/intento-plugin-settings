@@ -119,6 +119,7 @@ namespace IntentoMT.Plugin.PropertiesForm
 
             apiKeyState = new ApiKeyState(this, apiKey_tb, currentOptions);
             apiKeyState.apiKeyChangedEvent += ChangeApiKeyStatusDelegate;
+            apiKey_tb.Select();
 
             EnableDisable();
         }
@@ -485,6 +486,16 @@ namespace IntentoMT.Plugin.PropertiesForm
             System.Diagnostics.Process.Start(((LinkLabel)sender).Text);
         }
 
+        private void linkLabel_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+        {
+            System.Windows.Forms.LinkLabel control = (System.Windows.Forms.LinkLabel)sender;
+            SizeF stringSize = e.Graphics.MeasureString(control.Text, control.Font);
+            // control.Size = new Size((int)(stringSize.Width + 0.99), (int)(stringSize.Height + 0.99));
+            control.Font = new Font(FontFamily.GenericSansSerif, control.Font.Size);
+            // control.Width = (int)(stringSize.Width + 0.99);
+            // control.Height = (int)(stringSize.Height + 0.99);
+        }
+
         // private void textBox_TextChanged(object sender, EventArgs e)
         // {   // text box in auth WizardForm
         // label7.Text = textBoxCredentials.Text;
@@ -632,6 +643,9 @@ namespace IntentoMT.Plugin.PropertiesForm
             return items;
         }
 
-
+        private void textBoxLabel_Enter(object sender, System.EventArgs e)
+        {
+            System.Diagnostics.Process.Start(((TextBox)sender).Text);
+        }
     }
 }
