@@ -533,8 +533,6 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         private void IntentoTranslationProviderOptionsForm_Load(object sender, EventArgs e)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
         }
 
         private void comboBoxCredentialId_SelectedIndexChanged(object sender, EventArgs e)
