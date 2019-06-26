@@ -124,6 +124,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxAuth);
+            this.groupBoxProviderSettings.Controls.Add(this.groupBoxAuthCredentialId);
             this.groupBoxProviderSettings.Controls.Add(this.checkBoxUseCustomModel);
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxGlossary);
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxModel);
@@ -142,7 +143,6 @@
             // groupBoxAuth
             // 
             this.groupBoxAuth.Controls.Add(this.buttonWizard);
-            this.groupBoxAuth.Controls.Add(this.groupBoxAuthCredentialId);
             this.groupBoxAuth.Controls.Add(this.textBoxCredentials);
             this.groupBoxAuth.Enabled = false;
             this.groupBoxAuth.Location = new System.Drawing.Point(10, 84);

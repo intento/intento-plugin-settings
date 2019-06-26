@@ -34,6 +34,8 @@ namespace IntentoMT.Plugin.PropertiesForm
     // - Using GitHub submodules to assemble result
     // 1.3.4: 2019-06-25
     // - Bug with extracting version from dll
+    // 1.3.5: 2019-06-26
+    // - Bug with visiblity of credential_if list
 
     public partial class IntentoTranslationProviderOptionsForm : Form
     {
