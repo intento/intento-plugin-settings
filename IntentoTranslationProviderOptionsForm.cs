@@ -36,6 +36,9 @@ namespace IntentoMT.Plugin.PropertiesForm
     // - Bug with extracting version from dll
     // 1.3.5: 2019-06-26
     // - Bug with visiblity of credential_if list
+    // 1.3.6: 2019-07-02
+    // - waitAsyncDelay
+
 
     public partial class IntentoTranslationProviderOptionsForm : Form
     {
