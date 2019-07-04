@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="ApiKeyState.cs" />
     <Compile Include="AuthState.cs" />
+    <Compile Include="GitHash.cs" />
     <Compile Include="IntentoMTFormOptions.cs" />
     <Compile Include="IntentoTranslationProviderAuthWizardForm.cs">
       <SubType>Form</SubType>
@@ -86,5 +87,9 @@
   <ItemGroup>
     <None Include="intento.pfx" />
   </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>$(ProjectDir)githashForm.bat &gt;$(ProjectDir)GitHash.cs</PreBuildEvent>
+  </PropertyGroup>
 </Project>

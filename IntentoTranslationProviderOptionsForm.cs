@@ -38,6 +38,8 @@ namespace IntentoMT.Plugin.PropertiesForm
     // - Bug with visiblity of credential_if list
     // 1.3.6: 2019-07-02
     // - waitAsyncDelay
+    // 1.3.7: 2019-07-02
+    // - The version in useragent now has a commit hash in git
 
 
     public partial class IntentoTranslationProviderOptionsForm : Form
@@ -100,12 +102,10 @@ namespace IntentoMT.Plugin.PropertiesForm
 
             InitializeComponent();
 
-            var assembly = Assembly.GetExecutingAssembly();
-            var fvi = assembly.GetName().Version;
-            this.version = string.Format("{0}.{1}.{2}", fvi.Major, fvi.Minor, fvi.Build);
-            //var assembly = Assembly.GetExecutingAssembly();
-            //var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            //this.version = string.Format("{0}.{1}.{2}", fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart);
+            Assembly currentAssem = typeof(IntentoTranslationProviderOptionsForm).Assembly;
+            version = String.Format("{0}-{1}",
+                IntentoHelpers.GetVersion(currentAssem),
+                IntentoHelpers.GetGitCommitHash(currentAssem));
 
             originalOptions = options;
             currentOptions = originalOptions;
@@ -117,7 +117,8 @@ namespace IntentoMT.Plugin.PropertiesForm
             TraceEndTime = tmp;
             // string pluginFor = string.IsNullOrEmpty(Options.PluginFor) ? "" : Options.PluginFor + '/';
             // toolStripStatusLabel2.Text = String.Format("{0} {1}{2}", Options.PluginName, pluginFor, Options.AssemblyVersion);
-            toolStripStatusLabel2.Text = originalOptions.Signature;
+            var arr = originalOptions.Signature.Split('/');
+            toolStripStatusLabel2.Text = arr.Count()==3 ? String.Format("{0}/{1}",arr[0], arr[2]) : originalOptions.Signature;
             textBoxModel.Location = comboBoxModels.Location; // new Point(comboBoxModels.Location.X, comboBoxModels.Location.Y);
             textBoxGlossary.Location = comboBoxGlossaries.Location; // new Point(comboBoxGlossaries.Location.X, comboBoxGlossaries.Location.Y);
             groupBoxAuthCredentialId.Location = groupBoxAuth.Location; // new Point(groupBoxAuth.Location.X, groupBoxAuth.Location.Y)
