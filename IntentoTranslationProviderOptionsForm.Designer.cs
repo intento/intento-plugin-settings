@@ -523,11 +523,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonCheck;
-        private System.Windows.Forms.TextBox apiKey_tb;
+        public System.Windows.Forms.Button buttonCheck;
+        public System.Windows.Forms.TextBox apiKey_tb;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonContinue;
-        private System.Windows.Forms.GroupBox groupBoxProviderSettings;
+        public System.Windows.Forms.GroupBox groupBoxProviderSettings;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.ComboBox comboBoxProviders;
         public System.Windows.Forms.CheckBox checkBoxUseOwnCred;
@@ -541,7 +541,7 @@
         public System.Windows.Forms.CheckBox checkBoxShowHidden;
         public System.Windows.Forms.GroupBox groupBoxAuth;
         private System.Windows.Forms.Button buttonWizard;
-        private System.Windows.Forms.TextBox textBoxCredentials;
+        public System.Windows.Forms.TextBox textBoxCredentials;
         public System.Windows.Forms.CheckBox checkBoxUseCustomModel;
         public System.Windows.Forms.GroupBox groupBoxModel;
         public System.Windows.Forms.ComboBox comboBoxModels;
@@ -549,13 +549,13 @@
         public System.Windows.Forms.CheckBox checkBoxSmartRouting;
         public System.Windows.Forms.TextBox textBoxModel;
         public System.Windows.Forms.GroupBox groupBoxAuthCredentialId;
-        private System.Windows.Forms.ComboBox comboBoxCredentialId;
+        public System.Windows.Forms.ComboBox comboBoxCredentialId;
         private System.Windows.Forms.Label labelStoredCredential1;
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.GroupBox groupBoxGlossary;
-        private System.Windows.Forms.TextBox textBoxGlossary;
-        private System.Windows.Forms.ComboBox comboBoxGlossaries;
+        public System.Windows.Forms.GroupBox groupBoxGlossary;
+        public System.Windows.Forms.TextBox textBoxGlossary;
+        public System.Windows.Forms.ComboBox comboBoxGlossaries;
         public System.Windows.Forms.CheckBox checkBoxSaveApiKeyInRegistry;
         private System.Windows.Forms.TextBox textBoxLabel1;
         private System.Windows.Forms.TextBox textBox1;
