@@ -1,4 +1,5 @@
-﻿using IntentoSDK;
+﻿using Intento.MT.Plugin.PropertiesForm;
+using IntentoSDK;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace IntentoMT.Plugin.PropertiesForm
     public class ProviderState
     {
         private IntentoAiTextTranslate _translate;
+
+        public AuthState authState;
 
         List<dynamic> providersRaw;
         private Dictionary<string, dynamic> providersData;
@@ -40,20 +43,50 @@ namespace IntentoMT.Plugin.PropertiesForm
         public bool delegated_credentials;
         public List<string> providerAuthList;
         public string format;
-        IntentoTranslationProviderOptionsForm form;
+        public IntentoTranslationProviderOptionsForm form;
 
-        public ProviderState(IntentoTranslationProviderOptionsForm _form, System.Windows.Forms.GroupBox _groupBoxProviderSettings,
-            System.Windows.Forms.ComboBox _comboBoxProviders,
-            IntentoMTFormOptions options, LangPair[] _languagePairs)
+        public ProviderState(IntentoTranslationProviderOptionsForm _form, IntentoMTFormOptions options)
         {
             form = _form;
+
             Init();
-            languagePairs = _languagePairs;
-            comboBoxProviders = _comboBoxProviders;
-            groupBoxProviderSettings = _groupBoxProviderSettings;
+
+            languagePairs = _form.LanguagePairs;
+            comboBoxProviders = _form.comboBoxProviders;
+            groupBoxProviderSettings = _form.groupBoxProviderSettings;
             currentProviderId = options.ProviderId;
             currentProviderName = options.ProviderName;
             _translate = _form._translate;
+
+            if (!form.checkBoxSmartRouting.Checked)
+            {
+                providersRaw = FilterByLanguagePairs(form.apiKeyState.Providers);
+
+                providersData = providersRaw.ToDictionary(s => (string)s.id, q => q);
+                providersNames = providersRaw.ToDictionary(s => (string)s.name, q => (string)q.id);
+
+                comboBoxProviders.Items.Clear();
+                comboBoxProviders.Items.AddRange(providersNames.Select(x => (string)x.Key).OrderBy(x => x).ToArray());
+
+                dynamic providerDataFromList = null;
+                if (!string.IsNullOrEmpty(currentProviderId) && providersData.TryGetValue(currentProviderId, out providerDataFromList))
+                {   // Set current provider in combo box 
+                    comboBoxProviders.SelectedItem = (string)providerDataFromList.name;
+                }
+                else
+                {
+                    currentProviderId = null;
+                    currentProviderName = null;
+                }
+
+                ExtractProviderData();
+                isInitialized = true;
+            }
+
+            if (IsOK)
+            {   // if not OK, authState is not created
+                authState = new AuthState(this, form.GetOptions());
+            }
         }
 
         private void Init()
@@ -68,38 +101,6 @@ namespace IntentoMT.Plugin.PropertiesForm
             delegated_credentials = false;
             providerAuthList = null;
             format = null;
-
-            _providerModels = null;
-            _providerGlossaries = null;
-    }
-
-    // process a list of providers with their features from Intento API
-    public void Fill(List<dynamic> data)
-        {
-            if (form.checkBoxSmartRouting.Checked)
-                return;
-
-            providersRaw = filterByLanguagePairs(data);
-
-            providersData = providersRaw.ToDictionary(s => (string)s.id, q => q);
-            providersNames = providersRaw.ToDictionary(s => (string)s.name, q => (string)q.id);
-
-            comboBoxProviders.Items.Clear();
-            comboBoxProviders.Items.AddRange(providersNames.Select(x => (string)x.Key).OrderBy(x => x).ToArray());
-
-            dynamic providerDataFromList = null;
-            if (!string.IsNullOrEmpty(currentProviderId) && providersData.TryGetValue(currentProviderId, out providerDataFromList))
-            {   // Set current provider in combo box 
-                comboBoxProviders.SelectedItem = (string)providerDataFromList.name;
-            }
-            else
-            {
-                currentProviderId = null;
-                currentProviderName = null;
-            }
-
-            ExtractProviderData();
-            isInitialized = true;
         }
 
         private void ExtractProviderData()
@@ -164,22 +165,18 @@ namespace IntentoMT.Plugin.PropertiesForm
             format = null;
         }
 
-        public void HideProviderInformation()
-        {
-            providerData = null;
-            currentProviderId = null;
-            currentProviderName = null;
-            ExtractProviderData();
-            return;
-
-        }
-
         public void SelectedIndexChanged()
         {
             if (string.IsNullOrWhiteSpace(comboBoxProviders.Text) || form.checkBoxSmartRouting.Checked)
             {
                 // No provider choosed
-                HideProviderInformation();
+                providerData = null;
+                currentProviderId = null;
+                currentProviderName = null;
+                ExtractProviderData();
+
+                authState = new AuthState(this, form.GetOptions());
+
                 return;
             }
 
@@ -197,7 +194,7 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         }
 
-        private List<dynamic> filterByLanguagePairs(List<dynamic> recProviders)
+        private List<dynamic> FilterByLanguagePairs(List<dynamic> recProviders)
         {
             if (languagePairs == null)
                 return recProviders;
@@ -229,13 +226,18 @@ namespace IntentoMT.Plugin.PropertiesForm
             if (state == null)
             {
                 form.comboBoxProviders.Enabled = false;
+                AuthState.Draw(form, null);
                 return null;
             }
 
             return state.Draw();
         }
+
+
         public string Draw()
         {
+            AuthState.Draw(form, authState);
+
             if (form.checkBoxSmartRouting.Checked)
             {
                 groupBoxProviderSettings.Visible = false;
@@ -301,5 +303,27 @@ namespace IntentoMT.Plugin.PropertiesForm
 
             return _providerGlossaries;
         }
+
+        public void FillOptions(IntentoMTFormOptions options)
+        {
+            if (options.SmartRouting)
+            {
+                options.ProviderId = null;
+                options.ProviderName = null;
+                options.Format = null;
+            }
+            else
+            {
+                options.ProviderId = currentProviderId;
+                options.ProviderName = CurrentProviderName;
+
+
+                options.Format = format;
+            }
+
+            if (authState != null)
+                authState.FillOptions(options);
+        }
+
     }
-}
+    }

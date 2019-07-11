@@ -38,7 +38,7 @@ namespace IntentoMT.Plugin.PropertiesForm
         public event ApiKeyChanged apiKeyChangedEvent;
         IntentoMTFormOptions options;
 
-        public ApiKeyState(IntentoTranslationProviderOptionsForm _form, System.Windows.Forms.TextBox _apiKey_tb, 
+        public ApiKeyState(IntentoTranslationProviderOptionsForm _form, 
             IntentoMTFormOptions options)
         {
             form = _form;
@@ -54,7 +54,7 @@ namespace IntentoMT.Plugin.PropertiesForm
 
             this.options = options;
 
-            apiKey_tb = _apiKey_tb;
+            apiKey_tb = _form.apiKey_tb;
         }
 
         public void SetValue(string _apiKey)
@@ -69,6 +69,7 @@ namespace IntentoMT.Plugin.PropertiesForm
         {
             apiKey_tb.Text = apiKey;
             apiKey_tb.Visible = true;
+            form.buttonCheck.Enabled = CheckPossible;
 
             switch (apiKeyStatus)
             {
@@ -184,6 +185,12 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         public bool IsOK
         { get { return apiKeyStatus == EApiKeyStatus.ok; } }
+
+        public void FillOptions(IntentoMTFormOptions options)
+        {
+            options.ApiKey = apiKey;
+        }
+
 
     }
 }

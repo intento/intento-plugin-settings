@@ -12,8 +12,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 {
     public class AuthState
     {
-        IntentoTranslationProviderOptionsForm form;
-        ProviderState providerState;
+        public IntentoTranslationProviderOptionsForm form;
+        public ProviderState providerState;
+        public ModelState modelState;
+        public GlossaryState glossaryState;
+
         System.Windows.Forms.GroupBox groupBoxAuthCredentialId;
         System.Windows.Forms.CheckBox checkBoxUseOwnCred;
         System.Windows.Forms.ComboBox comboBoxCredentialId;
@@ -21,60 +24,74 @@ namespace Intento.MT.Plugin.PropertiesForm
         System.Windows.Forms.TextBox textBoxCredentials;
         private IntentoAiTextTranslate _translate;
         private List<string> _delegatedCredentials;
-        string mode; // optional, required, prohibited, hidden
         string error_message;
         IntentoMTFormOptions options;
         bool useComboBox;
 
+        // credentials (in json format) choosen by user, both based on credential_id and on auth. 
+        string credentials;
+
+        public enum EnumMode
+        {
+            optional, required, prohibited, hidden
+        }
+        EnumMode mode;
+
         // current credentials 
         public Dictionary<string, string> providerDataAuthDict;
 
-        public AuthState(IntentoTranslationProviderOptionsForm _form, System.Windows.Forms.CheckBox _checkBoxUseOwnCred, 
-            System.Windows.Forms.GroupBox _groupBoxAuthCredentialId, System.Windows.Forms.ComboBox _comboBoxCredentialId,
-            System.Windows.Forms.GroupBox _groupBoxAuth, System.Windows.Forms.TextBox _textBoxCredentials, IntentoMTFormOptions _options)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_form"></param>
+        /// <param name="_options"></param>
+        /// <param name="fromForm">Call from event, change of form check box may result recourcing</param>
+        public AuthState(ProviderState providerState, IntentoMTFormOptions _options, bool fromForm = false)
         {
-            form = _form;
+            this.providerState = providerState;
+            form = providerState.form;
             options = _options;
-            providerState = _form.providerState;
-            groupBoxAuthCredentialId = _groupBoxAuthCredentialId;
-            checkBoxUseOwnCred = _checkBoxUseOwnCred;
-            comboBoxCredentialId = _comboBoxCredentialId;
-            groupBoxAuth = _groupBoxAuth;
-            textBoxCredentials = _textBoxCredentials;
+            providerState = form.providerState;
+            groupBoxAuthCredentialId = form.groupBoxAuthCredentialId;
+            checkBoxUseOwnCred = form.checkBoxUseOwnCred;
+            comboBoxCredentialId = form.comboBoxCredentialId;
+            groupBoxAuth = form.groupBoxAuth;
+            textBoxCredentials = form.textBoxCredentials;
             _translate = form._translate;
 
             // set mode of checkBoxUseOwnCred
             if (!providerState.IsOK)
             {   // smart routing
-                mode = "hidden";
+                mode = EnumMode.hidden;
                 checkBoxUseOwnCred.Visible = false;
-                checkBoxUseOwnCred.Checked = false;
+                if (!fromForm)
+                    checkBoxUseOwnCred.Checked = false;
             }
             if (!providerState.billable || !providerState.stock_model)  //Required
             {
                 checkBoxUseOwnCred.Visible = true;
                 checkBoxUseOwnCred.Enabled = false;
-                checkBoxUseOwnCred.Checked = true;
-                mode = "required";
+                if (!fromForm)
+                    checkBoxUseOwnCred.Checked = true;
+                mode = EnumMode.required;
             }
             else if (!providerState.own_auth) //Prohibited 
             {
                 checkBoxUseOwnCred.Visible = true;
                 checkBoxUseOwnCred.Enabled = false;
-                checkBoxUseOwnCred.Checked = false;
-                mode = "prohibited";
+                if (!fromForm)
+                    checkBoxUseOwnCred.Checked = false;
+                mode = EnumMode.prohibited;
             }
             else
             {   // optional
                 checkBoxUseOwnCred.Visible = true;
                 checkBoxUseOwnCred.Enabled = true;
-                checkBoxUseOwnCred.Checked = options.UseCustomAuth;
-                mode = "optional";
+                if (!fromForm)
+                    checkBoxUseOwnCred.Checked = options.UseCustomAuth;
+                mode = EnumMode.optional;
             }
-        }
 
-        public void Fill()
-        {
             if (!providerState.IsOK)
                 // smart routing 
                 return;
@@ -111,6 +128,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
             else
                 filltextBoxCredentials();
+
+            modelState = new ModelState(this, form.GetOptions());
+            glossaryState = new GlossaryState(this, form.GetOptions());
         }
 
         public static string Draw(IntentoTranslationProviderOptionsForm form, AuthState state)
@@ -120,6 +140,10 @@ namespace Intento.MT.Plugin.PropertiesForm
                 form.checkBoxUseOwnCred.Visible = false;
                 form.groupBoxAuthCredentialId.Visible = false;
                 form.groupBoxAuth.Visible = false;
+
+                ModelState.Draw(form, null);
+                GlossaryState.Draw(form, null);
+
                 return null;
             }
             return state.Draw();
@@ -127,8 +151,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public string Draw()
         {
+            ModelState.Draw(form, modelState);
+            GlossaryState.Draw(form, glossaryState);
+
             error_message = null;
-            if (!providerState.IsOK || mode == "hidden")
+            if (!providerState.IsOK || mode == EnumMode.hidden)
             {   // smart routing
                 checkBoxUseOwnCred.Visible = false;
                 groupBoxAuthCredentialId.Visible = false;
@@ -179,8 +206,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             Dictionary<string, string> auth = options.authDict();
             if (providerState.providerAuthList != null)
             {
-                foreach(string key in providerState.providerAuthList)
-                { 
+                foreach (string key in providerState.providerAuthList)
+                {
                     if (auth != null && auth.ContainsKey(key))
                         providerDataAuthDict[key] = auth[key];
                     else
@@ -200,30 +227,23 @@ namespace Intento.MT.Plugin.PropertiesForm
                         str += String.Format("{0}:{1} ", val.Key, val.Value);
                 }
             }
-            if (textBoxCredentials.Text != str.TrimEnd(' '))
-                textBoxCredentials.Text = str;
+            if (credentials != str.TrimEnd(' '))
+                credentials = str;
         }
 
-        public void checkBoxUseOwnCred_CheckedChanged()
+        public static void checkBoxUseOwnCred_CheckedChanged(ProviderState providerState, IntentoMTFormOptions options)
         {
-            groupBoxAuth.Enabled = checkBoxUseOwnCred.Checked;
-            textBoxCredentials.Clear();
-            //if (!checkBoxUseOwnCred.Checked)
-            //    Options.SetAuthDict(null);
-            groupBoxAuthCredentialId.Enabled = checkBoxUseOwnCred.Checked;
-            comboBoxCredentialId.Items.Clear();
-            if (checkBoxUseOwnCred.Checked && providerState.delegated_credentials)
-            {
-                comboBoxCredentialId.Items.AddRange(_delegatedCredentials.ToArray());
-                if (_delegatedCredentials.Count > 1) comboBoxCredentialId.Items.Insert(0, "");
-                providerDataAuthDict = new Dictionary<string, string>();
-                providerDataAuthDict.Add("credential_id", "");
-            }
+            providerState.form.Cursor = Cursors.WaitCursor;
 
+            options.UseCustomAuth = providerState.form.checkBoxUseOwnCred.Checked;
+            providerState.authState = new AuthState(providerState, options, true);
+
+            providerState.form.Cursor = Cursors.Default;
+            providerState.form.EnableDisable();
         }
 
         public void buttonWizard_Click()
-        { 
+        {
             var dialog = new IntentoTranslationProviderAuthWizardForm(providerDataAuthDict, form.checkBoxShowHidden.Checked);
             dialog.ShowDialog();
             if (dialog.DialogResult == DialogResult.OK)
@@ -235,8 +255,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public void comboBoxCredentialId_SelectedIndexChanged()
         {
-            providerDataAuthDict["credential_id"] = comboBoxCredentialId.Text;
-            textBoxCredentials.Text = string.IsNullOrEmpty(comboBoxCredentialId.Text) ? string.Empty : "credential_id:" + comboBoxCredentialId.Text;
+            if (string.IsNullOrEmpty(comboBoxCredentialId.Text))
+            {
+                credentials = "";
+                providerDataAuthDict = new Dictionary<string, string>();
+            }
+            else
+            {
+                providerDataAuthDict["credential_id"] = comboBoxCredentialId.Text;
+                credentials = "credential_id:" + comboBoxCredentialId.Text;
+            }
         }
 
         public bool UseCustomAuth
@@ -247,13 +275,60 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             get
             {
-                if (!UseCustomAuth)
-                    return false;
                 if (useComboBox)
                     return !string.IsNullOrEmpty((string)comboBoxCredentialId.SelectedItem);
-                return !string.IsNullOrEmpty(textBoxCredentials.Text);
+                return !string.IsNullOrEmpty(textBoxCredentials.Text) && providerDataAuthDict.Values.Any(i => string.IsNullOrEmpty(i));
             }
         }
 
+        public bool IsOK
+        {
+            get
+            {
+                if (mode == EnumMode.hidden)
+                    return false;
+
+                // check if auth data is not filled in full
+                if (providerDataAuthDict != null && providerDataAuthDict.Count != 0)
+                {
+                    if (providerDataAuthDict.Values.Any(i => string.IsNullOrEmpty(i)))
+                        return false;
+                }
+
+                if (mode == EnumMode.required)
+                    return IsSelected;
+
+                if (mode == EnumMode.optional)
+                {
+                    if (UseCustomAuth && !IsSelected)
+                        return false;
+                    return true;
+                }
+
+                return true;
+            }
+        }
+
+        public void FillOptions(IntentoMTFormOptions options)
+        {
+            if (options.SmartRouting)
+            {
+                options.UseCustomAuth = false;
+                options.CustomAuth = null;
+            }
+            else
+            {
+                options.UseCustomAuth = UseCustomAuth;
+                if (options.UseCustomAuth)
+                    options.SetAuthDict(providerDataAuthDict);
+                else
+                    options.CustomAuth = null;
+            }
+
+            if (modelState != null)
+                modelState.FillOptions(options);
+            if (glossaryState != null)
+                glossaryState.FillOptions(options);
+        }
     }
 }
