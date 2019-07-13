@@ -7,23 +7,27 @@ using System.Threading.Tasks;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
-    public class SmartRoutingState
+    public class SmartRoutingState : BaseState
     {
         bool smartRouting;
-        IntentoTranslationProviderOptionsForm form;
+        public ApiKeyState apiKeyState;
+        public ProviderState providerState;
 
-        public SmartRoutingState(IntentoTranslationProviderOptionsForm _form, IntentoMTFormOptions _options)
+        public SmartRoutingState(ApiKeyState apiKeyState, IntentoMTFormOptions _options) : base(apiKeyState, _options)
         {
-            form = _form;
+            this.apiKeyState = apiKeyState;
             smartRouting = _options.SmartRouting;
-            form.checkBoxSmartRouting.Checked = smartRouting;
+            form.SmartRouting_CheckBox_Checked = smartRouting;
+
+            CreateChildStates();
         }
 
-        public static string Draw(IntentoTranslationProviderOptionsForm form, SmartRoutingState state)
+        public static string Draw(IForm form, SmartRoutingState state)
         {
             if (state == null)
             {
-                form.checkBoxSmartRouting.Enabled = false;
+                form.SmartRouting_CheckBox_Enabled = false;
+                ProviderState.Draw(form, null);
                 return null;
             }
 
@@ -32,44 +36,26 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public string Draw()
         {
-            if (!form.apiKeyState.IsOK)
-            {
-                form.groupBoxProviderSettings.Visible = true;
-                form.groupBoxProviderSettings.Enabled = false;
-                form.checkBoxSmartRouting.Visible = true;
-                form.checkBoxSmartRouting.Enabled = false;
-                return null;
-            }
-            form.groupBoxProviderSettings.Visible = !smartRouting;
-            form.groupBoxProviderSettings.Enabled = !smartRouting;
-            form.checkBoxSmartRouting.Enabled = true;
-            return null;
+            form.SmartRouting_CheckBox_Enabled = true;
+            return ProviderState.Draw(form, providerState);
         }
 
         public void CheckedChanged()
         {
-            smartRouting = form.checkBoxSmartRouting.Checked;
+            smartRouting = form.SmartRouting_CheckBox_Checked;
 
-            form.providerState = new ProviderState(form, form.GetOptions());
+            CreateChildStates();
 
             if (smartRouting)
-            {
-                form.comboBoxGlossaries.Items.Clear();
-                form.textBoxGlossary.Text = null;
-                form.GetOptions().Format = "[\"text\",\"html\",\"xml\"]";
-            }
-            else
-            {
-            }
-            form.EnableDisable();
+                options.Format = "[\"text\",\"html\",\"xml\"]";
+
+            EnableDisable();
         }
 
         public bool IsOK
         {
             get
             {
-                if (!form.apiKeyState.IsOK)
-                    return false;
                 return true;
             }
         }
@@ -77,9 +63,31 @@ namespace Intento.MT.Plugin.PropertiesForm
         public bool SmartRouting
         { get { return smartRouting; } }
 
-        public void FillOptions(IntentoMTFormOptions options)
+        public static void FillOptions(SmartRoutingState state, IntentoMTFormOptions options)
         {
-            options.SmartRouting = SmartRouting;
+            if (state == null)
+            {
+                options.SmartRouting = true;
+                ProviderState.FillOptions(null, options);
+            }
+            else
+            {
+                options.SmartRouting = state.SmartRouting;
+                ProviderState.FillOptions(state.providerState, options);
+            }
+        }
+
+        private void CreateChildStates()
+        {
+            if (IsOK)
+            {
+                if (!SmartRouting)
+                    providerState = new ProviderState(this, options);
+                else
+                    providerState = null;
+            }
+            else
+                providerState = null;
         }
 
     }

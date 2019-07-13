@@ -144,7 +144,6 @@
             // 
             this.groupBoxAuth.Controls.Add(this.buttonWizard);
             this.groupBoxAuth.Controls.Add(this.textBoxCredentials);
-            this.groupBoxAuth.Enabled = false;
             this.groupBoxAuth.Location = new System.Drawing.Point(10, 84);
             this.groupBoxAuth.Name = "groupBoxAuth";
             this.groupBoxAuth.Size = new System.Drawing.Size(511, 89);
@@ -321,7 +320,6 @@
             // comboBoxProviders
             // 
             this.comboBoxProviders.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxProviders.Enabled = false;
             this.comboBoxProviders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxProviders.FormattingEnabled = true;
             this.comboBoxProviders.Location = new System.Drawing.Point(8, 33);
@@ -333,7 +331,6 @@
             // checkBoxUseOwnCred
             // 
             this.checkBoxUseOwnCred.AutoSize = true;
-            this.checkBoxUseOwnCred.Enabled = false;
             this.checkBoxUseOwnCred.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxUseOwnCred.Location = new System.Drawing.Point(15, 61);
             this.checkBoxUseOwnCred.Name = "checkBoxUseOwnCred";
@@ -393,7 +390,7 @@
             // 
             this.toolStripStatusLabel1.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(445, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(476, 17);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 

@@ -42,7 +42,7 @@ namespace IntentoMT.Plugin.PropertiesForm
     // - The version in useragent now has a commit hash in git
 
 
-    public partial class IntentoTranslationProviderOptionsForm : Form
+    public partial class IntentoTranslationProviderOptionsForm : Form, IForm
     {
         public class LangPair
         {
@@ -73,8 +73,6 @@ namespace IntentoMT.Plugin.PropertiesForm
         private int numberOfFlashes;
 
         public ApiKeyState apiKeyState;
-        public SmartRoutingState smartRoutingState;
-        public ProviderState providerState;
 
         List<string> errors;
 
@@ -107,7 +105,7 @@ namespace IntentoMT.Plugin.PropertiesForm
                 IntentoHelpers.GetGitCommitHash(currentAssem));
 
             originalOptions = options;
-            currentOptions = originalOptions;
+            currentOptions = originalOptions.Duplicate();
             _languagePairs = languagePairs;
             DialogResult = DialogResult.None;
 
@@ -126,28 +124,11 @@ namespace IntentoMT.Plugin.PropertiesForm
             apiKeyState.apiKeyChangedEvent += ChangeApiKeyStatusDelegate;
             apiKey_tb.Select();
 
-            EnableDisable();
+            apiKeyState.EnableDisable();
         }
 
         public IntentoMTFormOptions GetOptions()
         {
-            if (providerState == null || !providerState.IsOK || smartRoutingState.SmartRouting)
-                return currentOptions;
-            if (providerState.currentProviderId == currentOptions.ProviderId && apiKeyState.apiKey == currentOptions.ApiKey)
-                return currentOptions;
-
-            // return to original
-            if (providerState.currentProviderId == originalOptions.ProviderId && apiKeyState.apiKey == originalOptions.ApiKey)
-            {
-                currentOptions = originalOptions;
-                return currentOptions;
-            }
-
-            currentOptions = new IntentoMTFormOptions()
-            {
-                ApiKey = apiKeyState.apiKey,
-                ProviderId = providerState.currentProviderId
-            };
             return currentOptions;
         }
 
@@ -156,22 +137,11 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         public void ChangeApiKeyStatusDelegate(bool isOK)
         {
-            if (isOK)
-            {
-                smartRoutingState = new SmartRoutingState(this, GetOptions());
-                providerState = new ProviderState(this, GetOptions());
-            }
-            else if (apiKeyState.apiKeyStatus == ApiKeyState.EApiKeyStatus.download)
+            if (apiKeyState.apiKeyStatus == ApiKeyState.EApiKeyStatus.download)
             {
                 CreateIntentoConnection();
-
-                providerState = null;
             }
-            else
-            {
-                providerState = null;
-            }
-            EnableDisable();
+            apiKeyState.EnableDisable();
         }
 
         private void CreateIntentoConnection()
@@ -182,60 +152,12 @@ namespace IntentoMT.Plugin.PropertiesForm
         private void apiKey_tb_TextChanged(object sender, EventArgs e)
         {
             apiKeyState.SetValue(apiKey_tb.Text.Trim());
-            EnableDisable();
+            apiKeyState.EnableDisable();
         }
 
         public static bool IsTrace()
         {
             return (TraceEndTime - DateTime.Now).Minutes > 0;
-        }
-
-        #region custom helper methods
-        public void ConnectIntento()
-        {
-            apiKeyState.Validate();
-            EnableDisable();
-        }
-
-        bool insideEnableDisable = false;
-        public void EnableDisable()
-        {
-            if (insideEnableDisable)
-                return;
-
-            try
-            {
-                insideEnableDisable = true;
-                errors = new List<string>();
-
-                errors.Add(apiKeyState.Draw());
-                errors.Add(SmartRoutingState.Draw(this, smartRoutingState));
-                errors.Add(ProviderState.Draw(this, providerState));
-
-            }
-            finally
-            {
-                insideEnableDisable = false;
-            }
-            ShowErrorMessage();
-            this.ResumeLayout();
-        }
-
-        private bool ShowErrorMessage()
-        {
-            errors = errors.Where(i => i != null).ToList();
-            if ((errors == null || errors.Count == 0))
-            {
-                buttonContinue.Enabled = true;
-                setErrorMessage();
-                return true;
-            }
-            else
-            {
-                setErrorMessage(string.Join(", ", errors.Where(i => i != null)));
-                buttonContinue.Enabled = false;
-                return false;
-            }
         }
 
         private string customAuthJsonToString(string authJsonString)
@@ -268,28 +190,14 @@ namespace IntentoMT.Plugin.PropertiesForm
             return result;
         }
 
-        private void setErrorMessage(string message = null)
-        {
-            if (message != null)
-            {
-                toolStripStatusLabel1.Text = message;
-                toolStripStatusLabel1.BackColor = Color.LightPink;
-            }
-            else
-            {
-                toolStripStatusLabel1.Text = string.Empty;
-                toolStripStatusLabel1.BackColor = SystemColors.Control;
-            }
-        }
-
-        #endregion custom helper methods
 
         #region paramount events 
 
         private void comboBoxProviders_SelectedIndexChanged(object sender, EventArgs e)
         {
-            providerState.SelectedIndexChanged();
-            EnableDisable();
+            if (apiKeyState != null && apiKeyState.smartRoutingState != null && apiKeyState.smartRoutingState.providerState != null)
+                // Can happen during loading data from Options - constructor of ProviderState change settings in a list of providers
+                apiKeyState.smartRoutingState.providerState.SelectedIndexChanged();
         }
 
         private bool filterBy(dynamic x, string lang)
@@ -308,62 +216,51 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         private void IntentoTranslationProviderOptionsForm_Shown(object sender, EventArgs e)
         {
-            checkBoxSmartRouting.Checked = GetOptions().SmartRouting;
-            ConnectIntento();
-            EnableDisable();
+            using (new CursorForm(this))
+            {
+                checkBoxSmartRouting.Checked = GetOptions().SmartRouting;
+                apiKeyState.ReadProviders();
+                CreateIntentoConnection();
+            }
         }
 
         private void buttonCheck_Click(object sender, EventArgs e)
         {
-            apiKeyState.Validate();
-            EnableDisable();
+            using (new CursorForm(this))
+            { 
+                apiKeyState.ReadProviders();
+                apiKeyState.EnableDisable();
+            }
         }
 
         private void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
         {
-            AuthState.checkBoxUseOwnCred_CheckedChanged(providerState, GetOptions());
+            using (new CursorForm(this))
+                apiKeyState?.smartRoutingState?.providerState?.authState?.checkBoxUseOwnCred_CheckedChanged();
         }
 
         private void checkBoxUseCustomModel_CheckedChanged(object sender, EventArgs e)
         {
-            ModelState.checkBoxUseCustomModel_CheckedChanged(providerState.authState, currentOptions);
+            using (new CursorForm(this))
+                apiKeyState?.smartRoutingState?.providerState?.authState?.modelState?.checkBoxUseCustomModel_CheckedChanged();
         }
 
         // Save settings
         private void buttonContinue_Click(object sender, EventArgs e)
         {
-            originalOptions.Translate = _translate;
-            apiKeyState.FillOptions(originalOptions);
-            smartRoutingState.FillOptions(originalOptions);
-            providerState.FillOptions(originalOptions);
-
-            // originalOptions.StoreApikeyInRegistry = checkBoxSaveApiKeyInRegistry.Checked;
-            if (!string.IsNullOrEmpty(originalOptions.ApiKey))
-                SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
-            else
-                SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
-
-            Close();
-        }
-
-        public string GetValueFromRegistry(string name)
-        {
-            try
+            using (new CursorForm(this))
             {
-                RegistryKey key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}", originalOptions.AppName));
-                return (string)key.GetValue(name, null);
+                originalOptions.Translate = _translate;
+                apiKeyState.FillOptions(originalOptions);
+
+                // originalOptions.StoreApikeyInRegistry = checkBoxSaveApiKeyInRegistry.Checked;
+                if (!string.IsNullOrEmpty(originalOptions.ApiKey))
+                    apiKeyState.SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
+                else
+                    apiKeyState.SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
+
+                Close();
             }
-            catch { }
-            return null;
-        }
-        public void SaveValueToRegistry(string name, string value)
-        {
-            try
-            {
-                RegistryKey key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}", originalOptions.AppName));
-                key.SetValue(name, value);
-            }
-            catch { }
         }
 
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -375,34 +272,31 @@ namespace IntentoMT.Plugin.PropertiesForm
         {
             System.Windows.Forms.LinkLabel control = (System.Windows.Forms.LinkLabel)sender;
             SizeF stringSize = e.Graphics.MeasureString(control.Text, control.Font);
-            // control.Size = new Size((int)(stringSize.Width + 0.99), (int)(stringSize.Height + 0.99));
             control.Font = new Font(FontFamily.GenericSansSerif, control.Font.Size);
-            // control.Width = (int)(stringSize.Width + 0.99);
-            // control.Height = (int)(stringSize.Height + 0.99);
         }
-
-        // private void textBox_TextChanged(object sender, EventArgs e)
-        // {   // text box in auth WizardForm
-        // label7.Text = textBoxCredentials.Text;
-        // EnableDisable();
-        // }
 
         private void buttonWizard_Click(object sender, EventArgs e)
         {
-            providerState.authState.buttonWizard_Click();
-            EnableDisable();
+            apiKeyState?.smartRoutingState?.providerState?.authState?.buttonWizard_Click();
+            apiKeyState.EnableDisable();
         }
 
         private void comboBoxModels_SelectedIndexChanged(object sender, EventArgs e)
         {
-            providerState.authState.modelState.comboBoxModels_SelectedIndexChanged();
-            EnableDisable();
+            using (new CursorForm(this))
+            {
+                apiKeyState?.smartRoutingState?.providerState?.authState?.modelState?.comboBoxModels_SelectedIndexChanged();
+                apiKeyState.EnableDisable();
+            }
         }
 
         private void checkBoxShowHidden_CheckedChanged(object sender, EventArgs e)
         {
-            apiKey_tb.UseSystemPasswordChar = !checkBoxShowHidden.Checked;
-            textBoxCredentials.UseSystemPasswordChar = !checkBoxShowHidden.Checked;
+            using (new CursorForm(this))
+            {
+                apiKey_tb.UseSystemPasswordChar = !checkBoxShowHidden.Checked;
+                textBoxCredentials.UseSystemPasswordChar = !checkBoxShowHidden.Checked;
+            }
         }
 
         private void checkBoxTrace_CheckedChanged(object sender, EventArgs e)
@@ -416,13 +310,13 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         private void comboBoxCredentialId_SelectedIndexChanged(object sender, EventArgs e)
         {
-            providerState.authState.comboBoxCredentialId_SelectedIndexChanged();
-            EnableDisable();
+            using (new CursorForm(this))
+                apiKeyState?.smartRoutingState?.providerState?.authState?.comboBoxCredentialId_SelectedIndexChanged();
         }
 
         private void textBoxModel_TextChanged(object sender, EventArgs e)
         {
-            EnableDisable();
+            apiKeyState.EnableDisable();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -438,9 +332,8 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         private void checkBoxSmartRouting_CheckedChanged(object sender, EventArgs e)
         {
-            if (smartRoutingState == null)
-                return;
-            smartRoutingState.CheckedChanged();
+            using (new CursorForm(this))
+                apiKeyState?.smartRoutingState?.CheckedChanged();
         }
 
         private void textBoxCredentials_Enter(object sender, EventArgs e)
@@ -501,5 +394,147 @@ namespace IntentoMT.Plugin.PropertiesForm
         {
             System.Diagnostics.Process.Start(((TextBox)sender).Text);
         }
+
+        private int cursorCount = 0;
+        public class CursorForm : IDisposable
+        {
+            IForm form;
+            public CursorForm(IForm form)
+            {
+                this.form = form;
+                if (form.CursorCount == 0)
+                    form.Cursor = Cursors.WaitCursor;
+                form.CursorCount++;
+            }
+
+            public void Dispose()
+            {
+                form.CursorCount--;
+                if (form.CursorCount == 0)
+                    form.Cursor = Cursors.Default;
+            }
+        }
+
+        #region IForm
+        ApiKeyState IForm.ApiKeyState { get { return apiKeyState; } }
+
+        // ApiKey textBox (apiKey_tb)
+        string IForm.ApiKey_TextBox_Text { get { return apiKey_tb.Text; } set { apiKey_tb.Text = value; } }
+        bool IForm.ApiKey_TextBox_Enabled { set { apiKey_tb.Enabled = value; } }
+        Color IForm.ApiKey_TextBox_BackColor { set { apiKey_tb.BackColor = value; } }
+
+        // ApiKey Check Button (buttonCheck)
+        bool IForm.ApiKeyCheck_Button_Enabled { set { buttonCheck.Enabled = value; } get { return buttonCheck.Enabled; } }
+
+        // SmartRouting_CheckBox (checkBoxSmartRouting)
+        bool IForm.SmartRouting_CheckBox_Checked { get { return checkBoxSmartRouting.Checked; } set { checkBoxSmartRouting.Checked = value; } }
+        bool IForm.SmartRouting_CheckBox_Visible { set { checkBoxSmartRouting.Visible = value; } }
+        bool IForm.SmartRouting_CheckBox_Enabled { set { checkBoxSmartRouting.Enabled = value; } }
+
+        // Providers_ComboBox (comboBoxProviders)
+        void IForm.Providers_ComboBox_Clear() { comboBoxProviders.Items.Clear(); }
+        void IForm.Providers_ComboBox_AddRange(object[] items) { comboBoxProviders.Items.AddRange(items); }
+        string IForm.Providers_ComboBox_SelectedItem { set { comboBoxProviders.SelectedItem = value; } }
+        string IForm.Providers_ComboBox_Text { get { return comboBoxProviders.Text; } }
+        Color IForm.Providers_ComboBox_BackColor { set { comboBoxProviders.BackColor = value; } }
+
+        // Providers_GroupBox (groupBoxProviderSettings)
+        bool IForm.Providers_Group_Visible { set { groupBoxProviderSettings.Visible = value; } }
+        bool IForm.Providers_Group_Enabled { set { groupBoxProviderSettings.Enabled = value; } }
+
+        // Auth_CheckBox (checkBoxUseOwnCred)
+        bool IForm.Auth_CheckBox_Visible { set { checkBoxUseOwnCred.Visible = value; } }
+        bool IForm.Auth_CheckBox_Enabled { set { checkBoxUseOwnCred.Enabled = value; } }
+        bool IForm.Auth_CheckBox_Checked { get { return checkBoxUseOwnCred.Checked; } set { checkBoxUseOwnCred.Checked = value; } }
+
+        // AuthText_Group (groupBoxAuth)
+        bool IForm.AuthText_Group_Visible { set { groupBoxAuth.Visible = value; } }
+
+        // AuthText_TextBox (textBoxCredentials)
+        Color IForm.AuthText_TextBox_BackColor { set { textBoxCredentials.BackColor = value; } }
+        string IForm.AuthText_TextBox_Text { set { textBoxCredentials.Text = value; } }
+
+        // AuthCombo_Group (groupBoxAuthCredentialId)
+        bool IForm.AuthCombo_Group_Visible { set { groupBoxAuthCredentialId.Visible = value; } }
+
+        // AuthCombo_ComboBox (comboBoxCredentialId)
+        void IForm.AuthCombo_ComboBox_Clear() { comboBoxCredentialId.Items.Clear(); }
+        void IForm.AuthCombo_ComboBox_AddRange(object[] items) { comboBoxCredentialId.Items.AddRange(items); }
+        void IForm.AuthCombo_ComboBox_Insert(int n, string text) { comboBoxCredentialId.Items.Insert(n, text); }
+        bool IForm.AuthCombo_ComboBox_Contains(string text) { return comboBoxCredentialId.Items.Contains(text); }
+        object IForm.AuthCombo_ComboBox_SelectedItem { get { return comboBoxCredentialId.SelectedItem; } set { comboBoxCredentialId.SelectedItem = value; } }
+        bool IForm.AuthCombo_ComboBox_Enabled { set { comboBoxCredentialId.Enabled = value; } }
+        int IForm.AuthCombo_ComboBox_Count { get { return comboBoxCredentialId.Items.Count; } }
+        int IForm.AuthCombo_ComboBox_SelectedIndex { set { comboBoxCredentialId.SelectedIndex = value; } }
+        Color IForm.AuthCombo_ComboBox_BackColor { set { comboBoxCredentialId.BackColor = value; } }
+        string IForm.AuthCombo_ComboBox_Text { get { return comboBoxCredentialId.Text; } }
+
+        // Model_CheckBox (checkBoxUseCustomModel)
+        bool IForm.Model_CheckBox_Checked { get { return checkBoxUseCustomModel.Checked; } set { checkBoxUseCustomModel.Checked = value; } }
+        bool IForm.Model_CheckBox_Visible { set { checkBoxUseCustomModel.Visible = value; } }
+        bool IForm.Model_CheckBox_Enabled { set { checkBoxUseCustomModel.Enabled = value; } }
+
+        // Model_Group (groupBoxModel)
+        bool IForm.Model_Group_Visible { set { groupBoxModel.Visible = value; } }
+        bool IForm.Model_Group_Enabled { set { groupBoxModel.Enabled = value; } }
+
+        // Model_ComboBox (comboBoxModels)
+        void IForm.Model_ComboBox_Clear() { comboBoxModels.Items.Clear(); }
+        int IForm.Model_ComboBox_Add(string text) { return comboBoxModels.Items.Add(text); }
+        int IForm.Model_ComboBox_SelectedIndex { set { comboBoxModels.SelectedIndex = value; } }
+        int IForm.Model_ComboBox_Count { get { return comboBoxModels.Items.Count; } }
+        bool IForm.Model_ComboBox_Visible { set { comboBoxModels.Visible = value; } }
+        Color IForm.Model_ComboBox_BackColor { set { comboBoxModels.BackColor = value; } }
+        string IForm.Model_ComboBox_Text { get { return comboBoxModels.Text; } set { comboBoxModels.Text = value; } }
+
+        // Model_TextBox (textBoxModel)
+        bool IForm.Model_TextBox_Visible { set { textBoxModel.Visible = value; } }
+        string IForm.Model_TextBox_Text { get { return textBoxModel.Text; } set { textBoxModel.Text = value; } }
+        Color IForm.Model_TextBox_BackColor { set { textBoxModel.BackColor = value; } }
+
+        // Glossary_Group (groupBoxGlossary)
+        bool IForm.Glossary_Group_Visible { get { return groupBoxGlossary.Visible; } set { groupBoxGlossary.Visible = value; } }
+
+        // Glossary_TextBox (textBoxGlossary)
+        string IForm.Glossary_TextBox_Text { get { return textBoxGlossary.Text; } set { textBoxGlossary.Text = value; } }
+        bool IForm.Glossary_TextBox_Visible { set { textBoxGlossary.Visible = value; } }
+
+        // Glossary_ComboBox (comboBoxGlossaries)
+        void IForm.Glossary_ComboBox_Clear() { comboBoxGlossaries.Items.Clear(); }
+        int IForm.Glossary_ComboBoxAdd(string text) { return comboBoxGlossaries.Items.Add(text); }
+        void IForm.Glossary_ComboBox_Insert(int n, string text) { comboBoxGlossaries.Items.Insert(n, text); }
+        int IForm.Glossary_ComboBox_SelectedIndex { set { comboBoxGlossaries.SelectedIndex = value; } }
+        bool IForm.Glossary_ComboBox_Visible { set { comboBoxGlossaries.Visible = value; } }
+        string IForm.Glossary_ComboBox_Text { get { return comboBoxGlossaries.Text; } }
+
+        // Continue Button (buttonContinue)
+        bool IForm.Continue_Button_Enabled { get { return buttonContinue.Enabled; } set { buttonContinue.Enabled = value; } }
+
+        // ErrorMessage TextBox (toolStripStatusLabel1)
+        string IForm.ErrorMessage_TextBox_Text { get { return toolStripStatusLabel1.Text; } set { toolStripStatusLabel1.Text = value; } }
+        Color IForm.ErrorMessage_TextBox_BackColor { set { toolStripStatusLabel1.BackColor = value; } }
+
+        // SaveApiKeyInRegistry checkBox ()
+        bool IForm.SaveApiKeyInRegistry_CheckBox_Checked { get { return checkBoxSaveApiKeyInRegistry.Checked; } set { checkBoxSaveApiKeyInRegistry.Checked = value; } }
+
+        // ShowHidden_CheckBox (checkBoxShowHidden)
+        bool IForm.ShowHidden_CheckBox_Checked { get { return checkBoxShowHidden.Checked; } }
+
+        // Intento API
+        IEnumerable<dynamic> IForm.Providers(Dictionary<string, string> filter) { return _translate.Providers(filter: filter); }
+        dynamic IForm.Provider(string provider, string additionalParams) { return _translate.Provider(provider: provider, additionalParams: additionalParams); }
+        IList<dynamic> IForm.DelegatedCredentials() { return _translate.DelegatedCredentials(); }
+        IList<dynamic> IForm.Models(string provider, Dictionary<string, string> credential_id) { return _translate.Models(provider: provider, credential_id: credential_id); }
+        IList<dynamic> IForm.Glossaries(string provider, Dictionary<string, string> credential_id) { return _translate.Glossaries(provider: provider, credential_id: credential_id); }
+
+        // Other
+        int IForm.CursorCount { get { return cursorCount; } set { cursorCount = value; } }
+        Cursor IForm.Cursor { set { Cursor = value; } }
+        void IForm.SuspendLayout() { SuspendLayout(); }
+        void IForm.ResumeLayout() { ResumeLayout(); }
+        List<string> IForm.Errors { get { return errors; } set { errors = value; } }
+        LangPair[] IForm.LanguagePairs { get { return _languagePairs; } }
+        #endregion
+
     }
 }

@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="IntentoSDK">
+      <HintPath>..\bin\IntentoSDK.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Newtonsoft.Json.dll</HintPath>
@@ -83,10 +86,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\intento-csharp\IntentoSDK.csproj">
-      <Project>{14d9da22-f8d4-4f62-975a-7bd821807528}</Project>
-      <Name>IntentoSDK</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Intento.MT.Plugin.PropertiesForm.csproj">
       <Project>{a4374128-dd01-4ce3-b62c-4cc3460620c0}</Project>
       <Name>Intento.MT.Plugin.PropertiesForm</Name>

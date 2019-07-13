@@ -10,12 +10,10 @@ using System.Windows.Forms;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
-    public class GlossaryState
+    public class GlossaryState : BaseState
     {
-        IntentoTranslationProviderOptionsForm form;
         ProviderState providerState;
         AuthState authState;
-        IntentoMTFormOptions options;
 
         // List of custom models obtained from provider
         Dictionary<string, dynamic> providerGlossaries = new Dictionary<string, dynamic>();
@@ -26,38 +24,36 @@ namespace Intento.MT.Plugin.PropertiesForm
         /// <param name="_form"></param>
         /// <param name="_options"></param>
         /// <param name="fromForm">Call from event, change of form check box may result recourcing</param>
-        public GlossaryState(AuthState authState, IntentoMTFormOptions _options, bool fromForm = false)
+        public GlossaryState(AuthState authState, IntentoMTFormOptions _options, bool fromForm = false) : base(authState, _options)
         {
             this.authState = authState;
             providerState = authState.providerState;
-            form = providerState.form;
-            options = _options;
-            providerState = form.providerState;
+            providerState = authState.providerState;
 
-            form.textBoxGlossary.Text = string.Empty;
-            form.comboBoxGlossaries.Items.Clear();
+            form.Glossary_TextBox_Text = string.Empty;
+            form.Glossary_ComboBox_Clear();
+
+            FillProviderGlossaries();
         }
 
         private void FillProviderGlossaries()
         {
-            if (!providerState.authState.IsOK)
-                return;
-            form.comboBoxGlossaries.Items.Clear();
-            form.textBoxGlossary.Text = string.Empty;
+            form.Glossary_ComboBox_Clear();
+            form.Glossary_TextBox_Text = string.Empty;
             try
             {
                 providerGlossaries = providerState.GetGlossaries(authState.providerDataAuthDict);
                 if (providerGlossaries.Any())
                 {
                     // Fill Glossary and choose SelectedIndex
-                    form.comboBoxGlossaries.Items.Insert(0, "");
+                    form.Glossary_ComboBox_Insert(0, "");
                     foreach (string x in providerGlossaries.Select(x => (string)x.Key).OrderBy(x => x))
                     {
-                        int n = form.comboBoxGlossaries.Items.Add(x);
+                        int n = form.Glossary_ComboBoxAdd(x);
                         if ((string)providerGlossaries[x].id == options.Glossary)
-                            form.comboBoxGlossaries.SelectedIndex = n;
+                            form.Glossary_ComboBox_SelectedIndex = n;
                     }
-                    form.textBoxGlossary.Text = null;
+                    form.Glossary_TextBox_Text = null;
                 }
                 else
                     providerGlossaries = null;
@@ -68,9 +64,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
 
             if (providerGlossaries == null)
-                form.textBoxGlossary.Text = options.Glossary;
+                form.Glossary_TextBox_Text = options.Glossary;
 
-            form.EnableDisable();
+            EnableDisable();
         }
 
         /// <summary>
@@ -79,12 +75,13 @@ namespace Intento.MT.Plugin.PropertiesForm
         public bool UseEspecialGlossary
         { get { return providerGlossaries == null; } }
 
-        public static string Draw(IntentoTranslationProviderOptionsForm form, GlossaryState state)
+        public static string Draw(IForm form, GlossaryState state)
         {
             if (state == null)
             {
-                form.textBoxGlossary.Visible = false;
-                form.comboBoxGlossaries.Visible = false;
+                form.Glossary_Group_Visible = false;
+                // form.textBoxGlossary.Visible = false;
+                // form.comboBoxGlossaries.Visible = false;
                 return null;
             }
             return state.Draw();
@@ -94,62 +91,54 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             string errorMessage = null;
 
-            // If smart routing or provider is not initialized or no custom auth - no model selection
-            if (form.groupBoxProviderSettings.Enabled)
+            // set state of glossary selection control
+            if (form.Glossary_Group_Visible = providerState.custom_glossary && authState.IsOK)
             {
-                if (form.apiKeyState.IsOK)
+                if (providerState.GetGlossaries(authState.providerDataAuthDict) != null)
                 {
-                    if (providerState.IsOK)
-                    {
-                        // set state of glossary selection control
-                        form.groupBoxGlossary.Visible = providerState.custom_glossary && authState.IsOK;
-                        if (form.groupBoxGlossary.Visible)
-                        {
-                            if (providerState.GetGlossaries(authState.providerDataAuthDict) != null)
-                            {
-                                form.textBoxGlossary.Visible = false;
-                                form.comboBoxGlossaries.Visible = true;
-                                form.comboBoxGlossaries.Enabled = true;
-                            }
-                            else
-                            {
-                                form.textBoxGlossary.Visible = true;
-                                form.textBoxGlossary.Enabled = true;
-                                form.comboBoxGlossaries.Visible = false;
-                            }
-
-                        }
-                    }
+                    form.Glossary_TextBox_Visible = false;
+                    form.Glossary_ComboBox_Visible = true;
                 }
+                else
+                {
+                    form.Glossary_TextBox_Visible = true;
+                    form.Glossary_ComboBox_Visible = false;
+                }
+
             }
             return errorMessage;
         }
 
-        private string Glossary()
+        private string Glossary
         {
-            if (!UseEspecialGlossary)
+            get
             {
-                if (string.IsNullOrEmpty(form.textBoxGlossary.Text))
+                if (!form.Glossary_Group_Visible)
                     return null;
-                return form.textBoxGlossary.Text;
+
+                if (UseEspecialGlossary)
+                {
+                    if (string.IsNullOrEmpty(form.Glossary_TextBox_Text))
+                        return null;
+                    return form.Glossary_TextBox_Text;
+                }
+
+                if (!string.IsNullOrEmpty(form.Glossary_ComboBox_Text) && providerGlossaries != null && providerGlossaries.Count != 0)
+                    return (string)providerGlossaries[form.Glossary_ComboBox_Text].id;
+
+                return null;
             }
-
-            if (!string.IsNullOrEmpty(form.comboBoxGlossaries.Text) && providerGlossaries != null && providerGlossaries.Count != 0)
-                return (string)providerGlossaries[form.comboBoxGlossaries.Text].id;
-
-            return null;
         }
 
-        public void FillOptions(IntentoMTFormOptions options)
+        public static void FillOptions(GlossaryState state, IntentoMTFormOptions options)
         {
-            if (options.SmartRouting)
+            if (state == null)
             {
                 options.Glossary = null;
             }
             else
             {
-                options.Glossary = form.textBoxGlossary.Visible ? form.textBoxGlossary.Text :
-                        string.IsNullOrEmpty(form.comboBoxGlossaries.Text) ? null : (string)providerState.GetGlossaries(providerState.authState.providerDataAuthDict)[form.comboBoxGlossaries.Text].id;
+                options.Glossary = state.Glossary;
             }
         }
 

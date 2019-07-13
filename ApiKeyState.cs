@@ -1,4 +1,5 @@
-﻿using IntentoMT.Plugin.PropertiesForm;
+﻿using Intento.MT.Plugin.PropertiesForm;
+using IntentoMT.Plugin.PropertiesForm;
 using IntentoSDK;
 using Microsoft.Win32;
 using System;
@@ -7,16 +8,16 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static IntentoMT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
 namespace IntentoMT.Plugin.PropertiesForm
 {
-    public class ApiKeyState
+    public class ApiKeyState : BaseState
     {
         public string apiKey;
+        public SmartRoutingState smartRoutingState;
 
-        System.Windows.Forms.TextBox apiKey_tb;
-        IntentoTranslationProviderOptionsForm form;
         public enum EApiKeyStatus
         {
             start,          // just after start of plugin
@@ -30,31 +31,22 @@ namespace IntentoMT.Plugin.PropertiesForm
         // Result of request to read a list of providers
         private List<dynamic> providers;
 
-        private IntentoAiTextTranslate _translate;
-
         string error_reason = null;
 
         public delegate void ApiKeyChanged(bool isOK);
         public event ApiKeyChanged apiKeyChangedEvent;
-        IntentoMTFormOptions options;
 
-        public ApiKeyState(IntentoTranslationProviderOptionsForm _form, 
-            IntentoMTFormOptions options)
+        public ApiKeyState(IForm _form, IntentoMTFormOptions options) : 
+            base(_form, options)
         {
-            form = _form;
-
             apiKey = options.ApiKey;
-            string apiKey2 = form.GetValueFromRegistry("ApiKey");
+            string apiKey2 = GetValueFromRegistry("ApiKey");
             if (string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(options.AppName))
             {   // read ApiKey from registry
                 apiKey = apiKey2;
             }
             if (!string.IsNullOrEmpty(apiKey2))
-                _form.checkBoxSaveApiKeyInRegistry.Checked = true;
-
-            this.options = options;
-
-            apiKey_tb = _form.apiKey_tb;
+                form.SaveApiKeyInRegistry_CheckBox_Checked = true;
         }
 
         public void SetValue(string _apiKey)
@@ -67,54 +59,59 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         public string Draw()
         {
-            apiKey_tb.Text = apiKey;
-            apiKey_tb.Visible = true;
-            form.buttonCheck.Enabled = CheckPossible;
+            form.ApiKey_TextBox_Text = apiKey;
+            form.ApiKeyCheck_Button_Enabled = CheckPossible;
 
             switch (apiKeyStatus)
             {
                 case EApiKeyStatus.start:
                     if (string.IsNullOrEmpty(apiKey))
                     {
-                        apiKey_tb.Enabled = true;
-                        apiKey_tb.BackColor = Color.LightPink;
+                        form.ApiKey_TextBox_Enabled = true;
+                        form.ApiKey_TextBox_BackColor = Color.LightPink;
                         error_reason = "Enter your API key and press \"Check\" button.";
                     }
                     else
                     {
-                        apiKey_tb.Enabled = false;
-                        apiKey_tb.BackColor = Color.White;
+                        form.ApiKey_TextBox_Enabled = false;
+                        form.ApiKey_TextBox_BackColor = Color.White;
                         error_reason = "API key verification in progress ....";
                     }
                     break;
 
                 case EApiKeyStatus.download:
-                    apiKey_tb.Enabled = false;
-                    apiKey_tb.BackColor = Color.White;
+                    form.ApiKey_TextBox_Enabled = false;
+                    form.ApiKey_TextBox_BackColor = Color.White;
                     error_reason = "API key verification in progress ....";
                     break;
 
                 case EApiKeyStatus.ok:
-                    apiKey_tb.Enabled = true;
-                    apiKey_tb.BackColor = Color.White;
+                    form.ApiKey_TextBox_Enabled = true;
+                    form.ApiKey_TextBox_BackColor = Color.White;
                     error_reason = null;
                     break;
 
                 case EApiKeyStatus.error:
-                    apiKey_tb.Enabled = true;
-                    apiKey_tb.BackColor = Color.LightPink;
+                    form.ApiKey_TextBox_Enabled = true;
+                    form.ApiKey_TextBox_BackColor = Color.LightPink;
                     break;
 
                 case EApiKeyStatus.changed:
-                    apiKey_tb.BackColor = Color.LightPink;
-                    apiKey_tb.Enabled = true;
+                    form.ApiKey_TextBox_BackColor = Color.LightPink;
+                    form.ApiKey_TextBox_Enabled = true;
                     if (string.IsNullOrEmpty(apiKey))
                         error_reason = "Enter your API key and press \"Check\" button.";
                     else
                         error_reason = "API key verification required. Press \"Check\" button.";
                     break;
             }
-            return error_reason;
+            if (!IsOK)
+            {
+                SmartRoutingState.Draw(form, null);
+                return error_reason;
+            }
+
+            return SmartRoutingState.Draw(form, smartRoutingState);
         }
 
         public string Error()
@@ -122,59 +119,73 @@ namespace IntentoMT.Plugin.PropertiesForm
             return error_reason;
         }
 
-        public void Validate()
+        public void ReadProviders()
         {
-            ReadProviders();
+            using (new CursorForm(form))
+            {
+                if (string.IsNullOrEmpty(apiKey))
+                {
+                    ChangeStatus(EApiKeyStatus.changed);
+                    EnableDisable();
+                    return;
+                }
+
+                try
+                {
+                    providers = null;
+                    error_reason = null;
+
+                    ChangeStatus(EApiKeyStatus.download);
+
+                    providers = form.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
+
+                    // SmartRoutingState created inside
+                    ChangeStatus(EApiKeyStatus.ok);
+                }
+                catch (AggregateException ex2)
+                {
+                    Exception ex = ex2.InnerExceptions[0];
+                    if (ex is IntentoInvalidApiKeyException)
+                    {
+                        error_reason = "Invalid API key";
+                    }
+                    else
+                    {
+                        if (ex is IntentoInvalidApiKeyException)
+                            error_reason = string.Format("Forbitten. {0}", ((IntentoSDK.IntentoApiException)ex).Content);
+                        else if (ex is IntentoApiException)
+                            error_reason = string.Format("Api Exception {2}: {0}: {1}", ex.Message, ((IntentoApiException)ex).Content, ex.GetType().Name);
+                        else if (ex is IntentoSdkException)
+                            error_reason = string.Format("Sdk Exception {1}: {0}", ex.Message, ex.GetType().Name);
+                        else
+                            error_reason = string.Format("Unexpected exception {0}: {1}", ex.GetType().Name, ex.Message);
+                    }
+
+                    // SmartRoutingState not created inside because status is not ok
+                    ChangeStatus(EApiKeyStatus.error);
+                }
+                finally
+                {
+                    EnableDisable();
+                }
+            }
         }
 
-        private void ReadProviders()
+        private void CreateChildStates()
         {
-            if (string.IsNullOrEmpty(apiKey))
-            {
-                ChangeStatus(EApiKeyStatus.changed);
-                return;
-            }
-
-            try
-            {
-                providers = null;
-                error_reason = null;
-
-                ChangeStatus(EApiKeyStatus.download);
-                _translate = form._translate;
-
-                providers = _translate.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
-
-                ChangeStatus(EApiKeyStatus.ok);
-            }
-            catch (AggregateException ex2)
-            {
-                Exception ex = ex2.InnerExceptions[0];
-                if (ex is IntentoInvalidApiKeyException)
-                {
-                    error_reason = "Invalid API key";
-                }
-                else
-                {
-                    if (ex is IntentoInvalidApiKeyException)
-                        error_reason = string.Format("Forbitten. {0}", ((IntentoSDK.IntentoApiException)ex).Content);
-                    else if (ex is IntentoApiException)
-                        error_reason = string.Format("Api Exception {2}: {0}: {1}", ex.Message, ((IntentoApiException)ex).Content, ex.GetType().Name);
-                    else if (ex is IntentoSdkException)
-                        error_reason = string.Format("Sdk Exception {1}: {0}", ex.Message, ex.GetType().Name);
-                    else
-                        error_reason = string.Format("Unexpected exception {0}: {1}", ex.GetType().Name, ex.Message);
-                }
-                ChangeStatus(EApiKeyStatus.error);
-            }
+            if (IsOK)
+                smartRoutingState = new SmartRoutingState(this, options);
+            else
+                smartRoutingState = null;
         }
 
         private void ChangeStatus(EApiKeyStatus status)
         {
             apiKeyStatus = status;
             ApiKeyChanged handler = apiKeyChangedEvent;
-            if (handler != null)
-                handler(status == EApiKeyStatus.ok);
+            handler(status == EApiKeyStatus.ok);
+
+            CreateChildStates();
         }
 
         public List<dynamic> Providers
@@ -189,6 +200,7 @@ namespace IntentoMT.Plugin.PropertiesForm
         public void FillOptions(IntentoMTFormOptions options)
         {
             options.ApiKey = apiKey;
+            SmartRoutingState.FillOptions(smartRoutingState, options);
         }
 
 
