@@ -58,7 +58,9 @@
   <ItemGroup>
     <Compile Include="ApiKeyState.cs" />
     <Compile Include="AuthState.cs" />
+    <Compile Include="BaseState.cs" />
     <Compile Include="GitHash.cs" />
+    <Compile Include="IForm.cs" />
     <Compile Include="IntentoMTFormOptions.cs" />
     <Compile Include="IntentoTranslationProviderAuthWizardForm.cs">
       <SubType>Form</SubType>
