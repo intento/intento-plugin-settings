@@ -16,31 +16,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+// Version history
+// 1.0.0: 2019-03-13
+//   - A separate solution has been created for the plugin configuration form.
+// 1.0.1: 2019-04-05
+//   - Supports Smart Routing setting
+// 1.2.4: 2019-05-21
+// - List of providers is requested now in sync mode to get real format options to send translate request with th best html or xml option
+// 1.3.0: 
+// - Smart routing
+// - Refactoring form processing
+// 1.3.1: 2019-06-10
+// - Local logs
+// 1.3.3: 2019-06-18
+// - Using GitHub submodules to assemble result
+// 1.3.4: 2019-06-25
+// - Bug with extracting version from dll
+// 1.3.5: 2019-06-26
+// - Bug with visiblity of credential_if list
+// 1.3.6: 2019-07-02
+// - waitAsyncDelay
+// 1.3.7: 2019-07-02
+// - The version in useragent now has a commit hash in git
+// 1.4.0: 2019-07-14
+// - Refactoring to support unit tests (not yet implemented)
+
+
 namespace IntentoMT.Plugin.PropertiesForm
 {
-    // Version history
-    // 1.0.0: 2019-03-13
-    //   - A separate solution has been created for the plugin configuration form.
-    // 1.0.1: 2019-04-05
-    //   - Supports Smart Routing setting
-    // 1.2.4: 2019-05-21
-    // - List of providers is requested now in sync mode to get real format options to send translate request with th best html or xml option
-    // 1.3.0: 
-    // - Smart routing
-    // - Refactoring form processing
-    // 1.3.1: 2019-06-10
-    // - Local logs
-    // 1.3.3: 2019-06-18
-    // - Using GitHub submodules to assemble result
-    // 1.3.4: 2019-06-25
-    // - Bug with extracting version from dll
-    // 1.3.5: 2019-06-26
-    // - Bug with visiblity of credential_if list
-    // 1.3.6: 2019-07-02
-    // - waitAsyncDelay
-    // 1.3.7: 2019-07-02
-    // - The version in useragent now has a commit hash in git
-
 
     public partial class IntentoTranslationProviderOptionsForm : Form, IForm
     {
