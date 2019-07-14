@@ -74,11 +74,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
 
             FillProviderModels();
-
-            if (UseModel)
-                FillProviderModels();
-            else
-                providerModels = null;
         }
 
         // Flag to provide possibility to enter own model
