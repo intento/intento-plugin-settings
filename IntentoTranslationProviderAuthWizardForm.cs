@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using IntentoMTPlugin;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,14 +19,18 @@ namespace IntentoMT.Plugin.PropertiesForm
         private TextBox[] tbs;
         private Label[] lbs;
 
-        public IntentoTranslationProviderAuthWizardForm(Dictionary<string,string> authDict, bool showHidden = false  )
+        public IntentoTranslationProviderAuthWizardForm(Dictionary<string, string> authDict, bool showHidden = false)
         {
             InitializeComponent();
+            LocalizeContent();
 
             authParam = authDict;
 
             byte i = 0;
             int paramsCount = authParam.Count;
+            tlpCustomCredentials.RowCount = paramsCount;
+            for (int j = 0; j < paramsCount-1; j++)
+                this.tlpCustomCredentials.RowStyles.Add(new System.Windows.Forms.RowStyle());
             lbs = new Label[paramsCount];
             tbs = new TextBox[paramsCount];
             foreach (KeyValuePair<string, string> authField in authParam)
@@ -33,16 +38,19 @@ namespace IntentoMT.Plugin.PropertiesForm
                 string key = authField.Key;
                 lbs[i] = new System.Windows.Forms.Label();
                 lbs[i].Parent = this;
-                lbs[i].Location = new System.Drawing.Point(12, 30 + (54 * i));
+                lbs[i].Location = new System.Drawing.Point(0,0);
                 lbs[i].Name = "lbl" + key;
-                lbs[i].Size = new System.Drawing.Size(240, 13);
                 lbs[i].Text = key;
                 lbs[i].Visible = true;
+                lbs[i].AutoSize = true;
+                lbs[i].Margin = new Padding(6);
+                tlpCustomCredentials.Controls.Add(lbs[i], 0, i);
 
                 tbs[i] = new System.Windows.Forms.TextBox();
                 tbs[i].Parent = this;
                 tbs[i].BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-                tbs[i].Location = new System.Drawing.Point(15, 48 + (54 * i));
+                tbs[i].Location = new System.Drawing.Point(0,0);
+
                 tbs[i].Name = key;
                 tbs[i].Size = new System.Drawing.Size(240, 20);
                 tbs[i].Text = authField.Value;
@@ -50,10 +58,10 @@ namespace IntentoMT.Plugin.PropertiesForm
                 tbs[i].Visible = true;
                 tbs[i].TextChanged += new System.EventHandler(this.textBoxes_TextChanged);
                 tbs[i].UseSystemPasswordChar = !checkBoxShowHidden.Checked;
+                tlpCustomCredentials.Controls.Add(tbs[i], 1, i);
 
                 i++;
             }
-            this.Size = new System.Drawing.Size(400, (54 * i)+86);
             textBoxes_TextChanged(this, EventArgs.Empty);
             checkBoxShowHidden.Checked = showHidden;
         }
@@ -71,7 +79,7 @@ namespace IntentoMT.Plugin.PropertiesForm
                 else
                     tb.BackColor = SystemColors.Window;
             }
-            this.buttonContinue.Enabled = checkedForm;
+            this.buttonOK.Enabled = checkedForm;
         }
 
         private void buttonContinue_Click(object sender, EventArgs e)
@@ -88,6 +96,14 @@ namespace IntentoMT.Plugin.PropertiesForm
         {
             foreach (TextBox tb in tbs)
                 tb.UseSystemPasswordChar = !checkBoxShowHidden.Checked;
+        }
+
+        private void LocalizeContent()
+        {
+            Text = LocalizationHelper.Instance.GetResourceString("AuthWizardFormCaption");
+            label1.Text = LocalizationHelper.Instance.GetResourceString("CustomCredentials");
+            buttonOK.Text = LocalizationHelper.Instance.GetResourceString("OKAuthWizardFormLabel");
+            checkBoxShowHidden.Text = LocalizationHelper.Instance.GetResourceString("ShowHiddenTextAuthWizardLabel");
         }
     }
 }

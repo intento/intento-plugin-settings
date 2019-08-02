@@ -1,4 +1,5 @@
 ﻿using IntentoMT.Plugin.PropertiesForm;
+using IntentoMTPlugin;
 using IntentoSDK;
 using System;
 using System.Collections.Generic;
@@ -86,7 +87,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     comboBoxModels.Enabled = true;
 
                     if (string.IsNullOrEmpty(Model()))
-                        errorMessage = "You must specify a model for this provider";
+                        errorMessage = LocalizationHelper.Instance.GetResourceString("ModelRequiredMessage");
                     break;
 
                 case "prohibited":
@@ -131,7 +132,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 comboBoxModels.BackColor = string.IsNullOrEmpty(Model()) ? Color.LightPink : SystemColors.Window;
 
             if (checkBoxUseCustomModel.Checked && string.IsNullOrEmpty(Model()))
-                errorMessage = "You must specify a custom model or uncheck \"use your custom model\"";
+                errorMessage = LocalizationHelper.Instance.GetResourceString("CustomModelRequiredMessage");
 
             return errorMessage;
         }

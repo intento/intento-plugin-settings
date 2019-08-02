@@ -1,4 +1,5 @@
 ﻿using IntentoMT.Plugin.PropertiesForm;
+using IntentoMTPlugin;
 using IntentoSDK;
 using System;
 using System.Collections.Generic;
@@ -162,7 +163,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 textBoxCredentials.BackColor = Color.LightPink;
                 comboBoxCredentialId.BackColor = Color.LightPink;
-                error_message = "You must provide your own credentials for this provider. ";
+                error_message = LocalizationHelper.Instance.GetResourceString("OwnCredentialsNeededErrorMessage");
             }
             else
             {
@@ -212,7 +213,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             //    Options.SetAuthDict(null);
             groupBoxAuthCredentialId.Enabled = checkBoxUseOwnCred.Checked;
             comboBoxCredentialId.Items.Clear();
-            if (checkBoxUseOwnCred.Checked && providerState.delegated_credentials)
+            if (checkBoxUseOwnCred.Checked && providerState.delegated_credentials && _delegatedCredentials != null)
             {
                 comboBoxCredentialId.Items.AddRange(_delegatedCredentials.ToArray());
                 if (_delegatedCredentials.Count > 1) comboBoxCredentialId.Items.Insert(0, "");
@@ -224,7 +225,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public void buttonWizard_Click()
         { 
-            var dialog = new IntentoTranslationProviderAuthWizardForm(providerDataAuthDict, form.checkBoxShowHidden.Checked);
+            var dialog = new IntentoTranslationProviderAuthWizardForm(providerDataAuthDict, false);
             dialog.ShowDialog();
             if (dialog.DialogResult == DialogResult.OK)
             {

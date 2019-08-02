@@ -1,5 +1,7 @@
 ﻿using Intento.MT.Plugin.PropertiesForm;
+using IntentoMTPlugin;
 using IntentoSDK;
+using MemoQ.MTInterfaces;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -58,6 +60,7 @@ namespace IntentoMT.Plugin.PropertiesForm
         // Languages filter 
         public IList<dynamic> languages;
         private LangPair[] _languagePairs;
+        private IEnvironment environment;
 
         public static DateTime TraceEndTime;
 
@@ -84,18 +87,21 @@ namespace IntentoMT.Plugin.PropertiesForm
         /// <param name="languagePairs"></param>
         /// <param name="intentoConnection"></param>
         public IntentoTranslationProviderOptionsForm(
-            IntentoMTFormOptions options, 
-            LangPair[] languagePairs, 
-            Func<string, string, IntentoAiTextTranslate> intentoConnection
+            IntentoMTFormOptions options,
+            LangPair[] languagePairs,
+            Func<string, string, IntentoAiTextTranslate> intentoConnection,
+            IEnvironment environment
             )
         {
             this.intentoConnection = intentoConnection;
+            this.environment = environment;
 
             InitializeComponent();
+            LocalizeContent();
 
             var assembly = Assembly.GetExecutingAssembly();
-            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            this.version = string.Format("{0}.{1}.{2}", fvi.FileMajorPart, fvi.FileMinorPart, fvi.FileBuildPart);
+            var fvi = assembly.GetName().Version;
+            this.version = string.Format("{0}.{1}.{2}", fvi.Major, fvi.Minor, fvi.Build);
 
             originalOptions = options;
             currentOptions = originalOptions;
@@ -105,13 +111,10 @@ namespace IntentoMT.Plugin.PropertiesForm
             var tmp = TraceEndTime;
             checkBoxTrace.Checked = (TraceEndTime - DateTime.Now).Minutes > 0;
             TraceEndTime = tmp;
-            // string pluginFor = string.IsNullOrEmpty(Options.PluginFor) ? "" : Options.PluginFor + '/';
-            // toolStripStatusLabel2.Text = String.Format("{0} {1}{2}", Options.PluginName, pluginFor, Options.AssemblyVersion);
             toolStripStatusLabel2.Text = originalOptions.Signature;
-            textBoxModel.Location = comboBoxModels.Location; // new Point(comboBoxModels.Location.X, comboBoxModels.Location.Y);
-            textBoxGlossary.Location = comboBoxGlossaries.Location; // new Point(comboBoxGlossaries.Location.X, comboBoxGlossaries.Location.Y);
-            groupBoxAuthCredentialId.Location = groupBoxAuth.Location; // new Point(groupBoxAuth.Location.X, groupBoxAuth.Location.Y)
-
+            comboBoxModels.Location = textBoxModel.Location;// new Point(comboBoxModels.Location.X, comboBoxModels.Location.Y);
+            comboBoxGlossaries.Location = textBoxGlossary.Location; // new Point(comboBoxGlossaries.Location.X, comboBoxGlossaries.Location.Y);
+            groupBoxAuthCredentialId.Location = groupBoxAuth.Location; // new Point(groupBoxAuth.Location.X, groupBoxAuth.Location.Y)          
             apiKeyState = new ApiKeyState(this, apiKey_tb, currentOptions);
             apiKeyState.apiKeyChangedEvent += ChangeApiKeyStatusDelegate;
 
@@ -193,6 +196,7 @@ namespace IntentoMT.Plugin.PropertiesForm
             if (insideEnableDisable)
                 return;
 
+            SuspendLayout();
             try
             {
                 insideEnableDisable = true;
@@ -215,7 +219,7 @@ namespace IntentoMT.Plugin.PropertiesForm
                         if (providerState.IsOK)
                         {
                             // set state of glossary selection control
-                            groupBoxGlossary.Visible = providerState.custom_glossary && authState.IsSelected;
+                            groupBoxGlossary.Visible = (providerState.custom_glossary && authState.IsSelected);
                             if (groupBoxGlossary.Visible)
                             {
                                 if (providerState.GetGlossaries(authState.providerDataAuthDict) != null)
@@ -249,14 +253,14 @@ namespace IntentoMT.Plugin.PropertiesForm
             errors = errors.Where(i => i != null).ToList();
             if ((errors == null || errors.Count == 0))
             {
-                buttonContinue.Enabled = true;
+                buttonOK.Enabled = true;
                 setErrorMessage();
                 return true;
             }
             else
             {
-                setErrorMessage(string.Join(", ", errors.Where(i => i != null)));
-                buttonContinue.Enabled = false;
+                setErrorMessage(string.Join("\r\n", errors.Where(i => i != null)));
+                buttonOK.Enabled = false;
                 return false;
             }
         }
@@ -334,7 +338,7 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         private bool filterBy(dynamic x, string lang)
         {
-            if (x == null) return true; 
+            if (x == null) return true;
             if (x.GetType().Name == "JArray")
                 return ((JArray)x).Any(q => (string)q == lang);
             if (x.GetType().Name == "JValue")
@@ -409,7 +413,7 @@ namespace IntentoMT.Plugin.PropertiesForm
         }
 
         // Save settings
-        private void buttonContinue_Click(object sender, EventArgs e)
+        private void buttonOK_Click(object sender, EventArgs e)
         {
             originalOptions.ApiKey = apiKeyState.apiKey;
             originalOptions.Translate = _translate;
@@ -440,17 +444,11 @@ namespace IntentoMT.Plugin.PropertiesForm
                 originalOptions.UseCustomModel = modelState.UseCustomModel;
                 originalOptions.CustomModel = modelState.CustomModel;
 
-                originalOptions.Glossary = textBoxGlossary.Visible ? textBoxGlossary.Text : 
+                originalOptions.Glossary = textBoxGlossary.Visible ? textBoxGlossary.Text :
                         string.IsNullOrEmpty(comboBoxGlossaries.Text) ? null : (string)providerState.GetGlossaries(authState.providerDataAuthDict)[comboBoxGlossaries.Text].id;
 
                 originalOptions.Format = providerState.format;
             }
-
-            // originalOptions.StoreApikeyInRegistry = checkBoxSaveApiKeyInRegistry.Checked;
-            if (!string.IsNullOrEmpty(originalOptions.ApiKey))
-                SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
-            else
-                SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
 
             Close();
         }
@@ -464,15 +462,6 @@ namespace IntentoMT.Plugin.PropertiesForm
             }
             catch { }
             return null;
-        }
-        public void SaveValueToRegistry(string name, string value)
-        {
-            try
-            {
-                RegistryKey key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}", originalOptions.AppName));
-                key.SetValue(name, value);
-            }
-            catch { }
         }
 
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -504,21 +493,9 @@ namespace IntentoMT.Plugin.PropertiesForm
             EnableDisable();
         }
 
-        private void checkBoxShowHidden_CheckedChanged(object sender, EventArgs e)
-        {
-            apiKey_tb.UseSystemPasswordChar = !checkBoxShowHidden.Checked;
-            textBoxCredentials.UseSystemPasswordChar = !checkBoxShowHidden.Checked;
-        }
-
         private void checkBoxTrace_CheckedChanged(object sender, EventArgs e)
         {
             TraceEndTime = DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40);
-        }
-
-        private void IntentoTranslationProviderOptionsForm_Load(object sender, EventArgs e)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
         }
 
         private void comboBoxCredentialId_SelectedIndexChanged(object sender, EventArgs e)
@@ -551,6 +528,7 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         private void checkBoxSmartRouting_CheckedChanged(object sender, EventArgs e)
         {
+            SuspendLayout();
             providerState = new ProviderState(this, groupBoxProviderSettings, comboBoxProviders, GetOptions(), _languagePairs);
             providerState.Fill(apiKeyState.Providers);
             authState = new AuthState(this, checkBoxUseOwnCred, groupBoxAuthCredentialId, comboBoxCredentialId, groupBoxAuth, textBoxCredentials, GetOptions());
@@ -570,6 +548,7 @@ namespace IntentoMT.Plugin.PropertiesForm
             {
             }
             EnableDisable();
+            ResumeLayout();
         }
 
         private void textBoxCredentials_Enter(object sender, EventArgs e)
@@ -578,11 +557,6 @@ namespace IntentoMT.Plugin.PropertiesForm
         }
 
         #endregion events
-
-        private void checkBoxSaveApiKeyInRegistry_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
 
         public static void Logging(string subject, string comment = null, Exception ex = null)
         {
@@ -627,6 +601,38 @@ namespace IntentoMT.Plugin.PropertiesForm
             return items;
         }
 
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            (environment as IEnvironment2)?.ShowHelp("intento-plugin-settings.html");
+        }
 
+        private void LocalizeContent()
+        {
+            Text = LocalizationHelper.Instance.GetResourceString("OptionsFormCaption");
+            label2.Text = LocalizationHelper.Instance.GetResourceString("ApiKeyRegistrationLabel");
+            label3.Text = LocalizationHelper.Instance.GetResourceString("MoreInfo");
+            label5.Text = LocalizationHelper.Instance.GetResourceString("APIKey");
+            checkBoxSmartRouting.Text = LocalizationHelper.Instance.GetResourceString("SmartRouting");
+            buttonCheck.Text = LocalizationHelper.Instance.GetResourceString("Check");
+            groupBoxProviderSettings.Text = LocalizationHelper.Instance.GetResourceString("SettingGroupBoxHeader");
+            label1.Text = LocalizationHelper.Instance.GetResourceString("Provider");
+            checkBoxUseOwnCred.Text = LocalizationHelper.Instance.GetResourceString("UseYourOwnCredentials");
+            groupBoxAuthCredentialId.Text = LocalizationHelper.Instance.GetResourceString("StoredCredentials");
+            labelStoredCredential1.Text = LocalizationHelper.Instance.GetResourceString("MoreInfoOnCredentials");
+            groupBoxAuth.Text = LocalizationHelper.Instance.GetResourceString("AuthorizationParameters");
+            buttonWizard.Text = LocalizationHelper.Instance.GetResourceString("Fill");
+            checkBoxUseCustomModel.Text = LocalizationHelper.Instance.GetResourceString("UseOwnCustomModel");
+            groupBoxModel.Text = LocalizationHelper.Instance.GetResourceString("Model");
+            groupBoxGlossary.Text = LocalizationHelper.Instance.GetResourceString("Glossary");
+            buttonOK.Text = LocalizationHelper.Instance.GetResourceString("OKOptionsFormLabel");
+            buttonHelp.Text = LocalizationHelper.Instance.GetResourceString("Help");
+            checkBoxTrace.Text = LocalizationHelper.Instance.GetResourceString("LogPayloads");
+            buttonCancel.Text = LocalizationHelper.Instance.GetResourceString("CancelOptionsFormLabel");
+        }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://console.inten.to/credentials");
+        }
     }
 }

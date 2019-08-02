@@ -1,4 +1,5 @@
-﻿using IntentoSDK;
+﻿using IntentoMTPlugin;
+using IntentoSDK;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -249,7 +250,7 @@ namespace IntentoMT.Plugin.PropertiesForm
             if (string.IsNullOrEmpty(comboBoxProviders.Text))
             {
                 comboBoxProviders.BackColor = Color.LightPink;
-                return "You need to choose a provider";
+                return LocalizationHelper.Instance.GetResourceString("YouNeedToChooseAProviderMessage");
             }
 
             comboBoxProviders.BackColor = Color.White;

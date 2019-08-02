@@ -1,4 +1,5 @@
 ﻿using IntentoMT.Plugin.PropertiesForm;
+using IntentoMTPlugin;
 using IntentoSDK;
 using Microsoft.Win32;
 using System;
@@ -44,13 +45,6 @@ namespace IntentoMT.Plugin.PropertiesForm
             form = _form;
 
             apiKey = options.ApiKey;
-            string apiKey2 = form.GetValueFromRegistry("ApiKey");
-            if (string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(options.AppName))
-            {   // read ApiKey from registry
-                apiKey = apiKey2;
-            }
-            if (!string.IsNullOrEmpty(apiKey2))
-                _form.checkBoxSaveApiKeyInRegistry.Checked = true;
 
             this.options = options;
 
@@ -77,20 +71,20 @@ namespace IntentoMT.Plugin.PropertiesForm
                     {
                         apiKey_tb.Enabled = true;
                         apiKey_tb.BackColor = Color.LightPink;
-                        error_reason = "Enter your API key and press \"Check\" button.";
+                        error_reason = LocalizationHelper.Instance.GetResourceString("ApiKeyNeededErrorMessage");
                     }
                     else
                     {
                         apiKey_tb.Enabled = false;
                         apiKey_tb.BackColor = Color.White;
-                        error_reason = "API key verification in progress ....";
+                        error_reason = LocalizationHelper.Instance.GetResourceString("ApiKeyVerificationInProgressMessage");
                     }
                     break;
 
                 case EApiKeyStatus.download:
                     apiKey_tb.Enabled = false;
                     apiKey_tb.BackColor = Color.White;
-                    error_reason = "API key verification in progress ....";
+                    error_reason = LocalizationHelper.Instance.GetResourceString("ApiKeyVerificationInProgressMessage");
                     break;
 
                 case EApiKeyStatus.ok:
@@ -108,9 +102,9 @@ namespace IntentoMT.Plugin.PropertiesForm
                     apiKey_tb.BackColor = Color.LightPink;
                     apiKey_tb.Enabled = true;
                     if (string.IsNullOrEmpty(apiKey))
-                        error_reason = "Enter your API key and press \"Check\" button.";
+                        error_reason = LocalizationHelper.Instance.GetResourceString("ApiKeyNeededErrorMessage");
                     else
-                        error_reason = "API key verification required. Press \"Check\" button.";
+                        error_reason = LocalizationHelper.Instance.GetResourceString("ApiKeyVerificationNeededMessage");
                     break;
             }
             return error_reason;
@@ -151,18 +145,18 @@ namespace IntentoMT.Plugin.PropertiesForm
                 Exception ex = ex2.InnerExceptions[0];
                 if (ex is IntentoInvalidApiKeyException)
                 {
-                    error_reason = "Invalid API key";
+                    error_reason = LocalizationHelper.Instance.GetResourceString("InvalidApiKeyMessage");
                 }
                 else
                 {
                     if (ex is IntentoInvalidApiKeyException)
-                        error_reason = string.Format("Forbitten. {0}", ((IntentoSDK.IntentoApiException)ex).Content);
+                        error_reason = string.Format(LocalizationHelper.Instance.GetResourceString("ForbittenMessage"), ((IntentoSDK.IntentoApiException)ex).Content);
                     else if (ex is IntentoApiException)
-                        error_reason = string.Format("Api Exception {2}: {0}: {1}", ex.Message, ((IntentoApiException)ex).Content, ex.GetType().Name);
+                        error_reason = string.Format(LocalizationHelper.Instance.GetResourceString("ApiException"), ex.Message, ((IntentoApiException)ex).Content, ex.GetType().Name);
                     else if (ex is IntentoSdkException)
-                        error_reason = string.Format("Sdk Exception {1}: {0}", ex.Message, ex.GetType().Name);
+                        error_reason = string.Format(LocalizationHelper.Instance.GetResourceString("SDKException"), ex.Message, ex.GetType().Name);
                     else
-                        error_reason = string.Format("Unexpected exception {0}: {1}", ex.GetType().Name, ex.Message);
+                        error_reason = string.Format(LocalizationHelper.Instance.GetResourceString("UnexpectedException"), ex.GetType().Name, ex.Message);
                 }
                 ChangeStatus(EApiKeyStatus.error);
             }
