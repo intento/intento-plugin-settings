@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intento.MT.Plugin.Propertie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForm", "TestForm\TestForm.csproj", "{A963C442-DFD3-4FE8-A2E1-9917AC274695}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRoutingPluginFormattingGenerator", "SmartRoutingPluginFormattingGenerator\SmartRoutingPluginFormattingGenerator.csproj", "{93A16E9A-A9F7-431F-AF85-0AB4AE6D14FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A963C442-DFD3-4FE8-A2E1-9917AC274695}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A963C442-DFD3-4FE8-A2E1-9917AC274695}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A963C442-DFD3-4FE8-A2E1-9917AC274695}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93A16E9A-A9F7-431F-AF85-0AB4AE6D14FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93A16E9A-A9F7-431F-AF85-0AB4AE6D14FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93A16E9A-A9F7-431F-AF85-0AB4AE6D14FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93A16E9A-A9F7-431F-AF85-0AB4AE6D14FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

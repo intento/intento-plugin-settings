@@ -94,7 +94,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             // set state of glossary selection control
             if (form.Glossary_Group_Visible = providerState.custom_glossary && authState.IsOK)
             {
-                if (providerState.GetGlossaries(authState.providerDataAuthDict) != null)
+                var glossaries = providerState.GetGlossaries(authState.providerDataAuthDict);
+                if (glossaries != null && glossaries.Count != 0)
                 {
                     form.Glossary_TextBox_Visible = false;
                     form.Glossary_ComboBox_Visible = true;

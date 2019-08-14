@@ -41,6 +41,9 @@ using System.Windows.Forms;
 // - The version in useragent now has a commit hash in git
 // 1.4.0: 2019-07-14
 // - Refactoring to support unit tests (not yet implemented)
+// 1.4.1: 2019-08-14
+// - SmartRouting generator for formatted docs (not finished yet)
+// - Bug in glossaries: not possible to enter glossary manually
 
 
 namespace IntentoMT.Plugin.PropertiesForm
