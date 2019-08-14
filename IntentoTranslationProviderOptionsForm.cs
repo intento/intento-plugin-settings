@@ -44,6 +44,7 @@ using System.Windows.Forms;
 // 1.4.1: 2019-08-14
 // - SmartRouting generator for formatted docs (not finished yet)
 // - Bug in glossaries: not possible to enter glossary manually
+// - Changed Newtonsoft.dll to be compatible with some other programs (downgrade to 10.0.3)
 
 
 namespace IntentoMT.Plugin.PropertiesForm
