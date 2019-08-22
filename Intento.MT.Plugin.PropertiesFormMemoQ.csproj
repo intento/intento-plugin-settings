@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="GlossaryState.cs" />
     <Compile Include="ModelState.cs" />
+    <Compile Include="PluginHelper.cs" />
     <Compile Include="ProviderState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmartRoutingState.cs" />
@@ -90,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include=".gitmodules" />
     <None Include="githashForm.bat" />
     <None Include="intento.pfx" />
     <None Include="README.md" />

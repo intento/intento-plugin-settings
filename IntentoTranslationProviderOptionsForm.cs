@@ -45,6 +45,9 @@ using System.Windows.Forms;
 // - SmartRouting generator for formatted docs (not finished yet)
 // - Bug in glossaries: not possible to enter glossary manually
 // - Changed Newtonsoft.dll to be compatible with some other programs (downgrade to 10.0.3)
+// 1.4.2: 2019-08-22
+// - Remove of <meta> tag in result of Systran html translation
+// - Pre- and Post-processing moved to PluginHelper in Settings form because it is common for all plugins
 
 
 namespace IntentoMT.Plugin.PropertiesForm
