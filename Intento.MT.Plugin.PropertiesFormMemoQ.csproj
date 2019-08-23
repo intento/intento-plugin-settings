@@ -79,6 +79,7 @@
     <Compile Include="PluginHelper.cs" />
     <Compile Include="ProviderState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RevisionHistory.cs" />
     <Compile Include="SmartRoutingState.cs" />
   </ItemGroup>
   <ItemGroup>
