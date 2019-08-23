@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static IntentoMT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
+using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
-namespace IntentoMT.Plugin.PropertiesForm
+namespace Intento.MT.Plugin.PropertiesForm
 { 
     public class ProviderState : BaseState
     {

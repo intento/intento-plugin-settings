@@ -15,12 +15,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 {
     public partial class SmartRoutingPluginFormatted : Form
     {
-        IntentoAiTextTranslate translate;
+        // IntentoAiTextTranslate translate;
 
         public SmartRoutingPluginFormatted()
         {
             InitializeComponent();
-            IntentoSDK.Intento intento /*= new IntentoSDK.Intento()*/;
+            // IntentoSDK.Intento intento /*= new IntentoSDK.Intento()*/;
         }
 
         private void buttonGenerate_Click(object sender, EventArgs e)

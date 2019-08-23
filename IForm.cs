@@ -1,4 +1,4 @@
-﻿using IntentoMT.Plugin.PropertiesForm;
+﻿using Intento.MT.Plugin.PropertiesForm;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static IntentoMT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
+using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {

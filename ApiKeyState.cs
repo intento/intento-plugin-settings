@@ -1,5 +1,4 @@
 ﻿using Intento.MT.Plugin.PropertiesForm;
-using IntentoMT.Plugin.PropertiesForm;
 using IntentoSDK;
 using Microsoft.Win32;
 using System;
@@ -9,9 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static IntentoMT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
-namespace IntentoMT.Plugin.PropertiesForm
+namespace Intento.MT.Plugin.PropertiesForm
 {
     public class ApiKeyState : BaseState
     {
@@ -121,7 +119,7 @@ namespace IntentoMT.Plugin.PropertiesForm
 
         public void ReadProviders()
         {
-            using (new CursorForm(form))
+            using (new IntentoTranslationProviderOptionsForm.CursorForm(form))
             {
                 if (string.IsNullOrEmpty(apiKey))
                 {
