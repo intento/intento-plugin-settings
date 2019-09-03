@@ -1,4 +1,4 @@
-﻿using IntentoMT.Plugin.PropertiesForm;
+﻿using Intento.MT.Plugin.PropertiesForm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,11 +23,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             var proxy = _parent.currentOptions.proxySettings;
             if (proxy == null)
             {
-                textBoxAddress.Text = _parent.GetValueFromRegistry("ProxyAddress");
-                textBoxPort.Text = _parent.GetValueFromRegistry("ProxyPort");
-                textBoxUserName.Text = _parent.GetValueFromRegistry("ProxyUserName");
-                textBoxPassword.Text = _parent.GetValueFromRegistry("ProxyPassw");
-                checkBoxAuth.Checked = _parent.GetValueFromRegistry("ProxyPassw") == "1";
+                textBoxAddress.Text = _parent.apiKeyState.GetValueFromRegistry("ProxyAddress");
+                textBoxPort.Text = _parent.apiKeyState.GetValueFromRegistry("ProxyPort");
+                textBoxUserName.Text = _parent.apiKeyState.GetValueFromRegistry("ProxyUserName");
+                textBoxPassword.Text = _parent.apiKeyState.GetValueFromRegistry("ProxyPassw");
+                checkBoxAuth.Checked = _parent.apiKeyState.GetValueFromRegistry("ProxyPassw") == "1";
             }
             else
             {
@@ -44,8 +44,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             groupBoxAuth.Enabled = checkBoxAuth.Checked;
             if (checkBoxAuth.Checked)
             {
-                textBoxUserName.Text = _parent.GetValueFromRegistry("ProxyUserName");
-                textBoxPassword.Text = _parent.GetValueFromRegistry("ProxyPassw");
+                textBoxUserName.Text = _parent.apiKeyState.GetValueFromRegistry("ProxyUserName");
+                textBoxPassword.Text = _parent.apiKeyState.GetValueFromRegistry("ProxyPassw");
             }
             else
             {
@@ -83,7 +83,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 new Uri($"http://{textBoxAddress.Text}:{textBoxPort.Text}");
             }
-            catch (Exception ex)
+            catch 
             {
                 textBoxAddress.BackColor = Color.LightPink; 
                 textBoxPort.BackColor = Color.LightPink;
