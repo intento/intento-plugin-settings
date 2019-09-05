@@ -1,4 +1,4 @@
-﻿using IntentoMT.Plugin.PropertiesForm;
+﻿using Intento.MT.Plugin.PropertiesForm;
 using IntentoSDK;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,5 @@
-﻿using IntentoSDK;
+﻿using Intento.MT.Plugin.PropertiesForm;
+using IntentoSDK;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -6,9 +7,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static IntentoMT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
+using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
-namespace IntentoMT.Plugin.PropertiesForm
+namespace Intento.MT.Plugin.PropertiesForm
 {
     public class ProviderState
     {
@@ -40,9 +41,9 @@ namespace IntentoMT.Plugin.PropertiesForm
         public bool delegated_credentials;
         public List<string> providerAuthList;
         public string format;
-        IntentoTranslationProviderOptionsForm form;
+        Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm form;
 
-        public ProviderState(IntentoTranslationProviderOptionsForm _form, System.Windows.Forms.GroupBox _groupBoxProviderSettings,
+        public ProviderState(Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm _form, System.Windows.Forms.GroupBox _groupBoxProviderSettings,
             System.Windows.Forms.ComboBox _comboBoxProviders,
             IntentoMTFormOptions options, LangPair[] _languagePairs)
         {

@@ -1,4 +1,4 @@
-﻿using IntentoMT.Plugin.PropertiesForm;
+﻿using Intento.MT.Plugin.PropertiesForm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -83,7 +83,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 new Uri($"http://{textBoxAddress.Text}:{textBoxPort.Text}");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 textBoxAddress.BackColor = Color.LightPink; 
                 textBoxPort.BackColor = Color.LightPink;

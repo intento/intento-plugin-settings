@@ -7,7 +7,7 @@ using IntentoSDK;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace IntentoMT.Plugin.PropertiesForm
+namespace Intento.MT.Plugin.PropertiesForm
 {
     public class IntentoMTFormOptions
     {

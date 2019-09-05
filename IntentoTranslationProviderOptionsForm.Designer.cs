@@ -1,4 +1,4 @@
-﻿namespace IntentoMT.Plugin.PropertiesForm
+﻿namespace Intento.MT.Plugin.PropertiesForm
 {
     partial class IntentoTranslationProviderOptionsForm
     {

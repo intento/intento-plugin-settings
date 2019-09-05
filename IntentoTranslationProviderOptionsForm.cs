@@ -16,7 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace IntentoMT.Plugin.PropertiesForm
+namespace Intento.MT.Plugin.PropertiesForm
 {
     // Version history
     // 1.0.0: 2019-03-13
