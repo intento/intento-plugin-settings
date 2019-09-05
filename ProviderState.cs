@@ -7,13 +7,16 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
 namespace Intento.MT.Plugin.PropertiesForm
-{
-    public class ProviderState
+{ 
+    public class ProviderState : BaseState
     {
-        private IntentoAiTextTranslate _translate;
+        public SmartRoutingState smartRoutingState;
+
+        public AuthState authState;
 
         List<dynamic> providersRaw;
         private Dictionary<string, dynamic> providersData;
@@ -27,8 +30,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         private Dictionary<string, dynamic> _providerGlossaries;
 
         LangPair[] languagePairs;
-        System.Windows.Forms.ComboBox comboBoxProviders;
-        System.Windows.Forms.GroupBox groupBoxProviderSettings;
 
         bool isInitialized = false;
 
@@ -43,18 +44,39 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string format;
         Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm form;
 
-        public ProviderState(Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm _form, System.Windows.Forms.GroupBox _groupBoxProviderSettings,
-            System.Windows.Forms.ComboBox _comboBoxProviders,
-            IntentoMTFormOptions options, LangPair[] _languagePairs)
+        public ProviderState(SmartRoutingState smartRoutingState, IntentoMTFormOptions options) : base(smartRoutingState, options)
         {
-            form = _form;
+            this.smartRoutingState = smartRoutingState;
+
             Init();
-            languagePairs = _languagePairs;
-            comboBoxProviders = _comboBoxProviders;
-            groupBoxProviderSettings = _groupBoxProviderSettings;
+
+            languagePairs = form.LanguagePairs;
             currentProviderId = options.ProviderId;
             currentProviderName = options.ProviderName;
-            _translate = _form._translate;
+
+            providersRaw = FilterByLanguagePairs(smartRoutingState.apiKeyState.Providers);
+
+            providersData = providersRaw.ToDictionary(s => (string)s.id, q => q);
+            providersNames = providersRaw.ToDictionary(s => (string)s.name, q => (string)q.id);
+
+            form.Providers_ComboBox_Clear();
+            form.Providers_ComboBox_AddRange(providersNames.Select(x => (string)x.Key).OrderBy(x => x).ToArray());
+
+            dynamic providerDataFromList = null;
+            if (!string.IsNullOrEmpty(currentProviderId) && providersData.TryGetValue(currentProviderId, out providerDataFromList))
+            {   // Set current provider in combo box 
+                form.Providers_ComboBox_SelectedItem = (string)providerDataFromList.name;
+            }
+            else
+            {
+                currentProviderId = null;
+                currentProviderName = null;
+            }
+
+            ExtractProviderData();
+            isInitialized = true;
+
+            CreateChildStates();
         }
 
         private void Init()
@@ -69,38 +91,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             delegated_credentials = false;
             providerAuthList = null;
             format = null;
-
-            _providerModels = null;
-            _providerGlossaries = null;
-    }
-
-    // process a list of providers with their features from Intento API
-    public void Fill(List<dynamic> data)
-        {
-            if (form.checkBoxSmartRouting.Checked)
-                return;
-
-            providersRaw = filterByLanguagePairs(data);
-
-            providersData = providersRaw.ToDictionary(s => (string)s.id, q => q);
-            providersNames = providersRaw.ToDictionary(s => (string)s.name, q => (string)q.id);
-
-            comboBoxProviders.Items.Clear();
-            comboBoxProviders.Items.AddRange(providersNames.Select(x => (string)x.Key).OrderBy(x => x).ToArray());
-
-            dynamic providerDataFromList = null;
-            if (!string.IsNullOrEmpty(currentProviderId) && providersData.TryGetValue(currentProviderId, out providerDataFromList))
-            {   // Set current provider in combo box 
-                comboBoxProviders.SelectedItem = (string)providerDataFromList.name;
-            }
-            else
-            {
-                currentProviderId = null;
-                currentProviderName = null;
-            }
-
-            ExtractProviderData();
-            isInitialized = true;
         }
 
         private void ExtractProviderData()
@@ -119,7 +109,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     return;
                 }
 
-                providerData = _translate.Provider(currentProviderId, "?fields=auth,custom_glossary");
+                providerData = form.Provider(currentProviderId, "?fields=auth,custom_glossary");
                 if (providerData != null)
                 {
                     //set flags for selected provider
@@ -165,40 +155,47 @@ namespace Intento.MT.Plugin.PropertiesForm
             format = null;
         }
 
-        public void HideProviderInformation()
-        {
-            providerData = null;
-            currentProviderId = null;
-            currentProviderName = null;
-            ExtractProviderData();
-            return;
-
-        }
-
         public void SelectedIndexChanged()
         {
-            if (string.IsNullOrWhiteSpace(comboBoxProviders.Text) || form.checkBoxSmartRouting.Checked)
+            if (string.IsNullOrWhiteSpace(form.Providers_ComboBox_Text))
             {
                 // No provider choosed
-                HideProviderInformation();
-                return;
-            }
+                providerData = null;
+                currentProviderId = null;
+                currentProviderName = null;
+                ExtractProviderData();
 
-            if (currentProviderId != providersNames[comboBoxProviders.Text])
+                CreateChildStates();
+            }
+            else if (providersNames != null && currentProviderId != providersNames[form.Providers_ComboBox_Text])
             {
                 // another provider choosed
-                currentProviderId = providersNames[comboBoxProviders.Text];
+                currentProviderId = providersNames[form.Providers_ComboBox_Text];
                 providerData = providersData[currentProviderId];
                 currentProviderName = providerData.name;
                 ExtractProviderData();
-                return;
+
+                CreateChildStates();
             }
+            else
+            { // Selected same provider as was selected before. No changes in settings
+            }
+
+            EnableDisable();
 
             return;
 
         }
 
-        private List<dynamic> filterByLanguagePairs(List<dynamic> recProviders)
+        private void CreateChildStates()
+        {
+            if (IsOK)
+                authState = new AuthState(this, options);
+            else
+                authState = null;
+        }
+
+        private List<dynamic> FilterByLanguagePairs(List<dynamic> recProviders)
         {
             if (languagePairs == null)
                 return recProviders;
@@ -225,36 +222,41 @@ namespace Intento.MT.Plugin.PropertiesForm
             return ret;
         }
 
-        public static string Draw(IntentoTranslationProviderOptionsForm form, ProviderState state)
+        public static string Draw(IForm form, ProviderState state)
         {
             if (state == null)
             {
-                form.comboBoxProviders.Enabled = false;
+                form.Providers_Group_Visible = false;
+                form.Providers_Group_Enabled = false;
+
+                AuthState.Draw(form, null);
                 return null;
             }
 
             return state.Draw();
         }
+
+
         public string Draw()
         {
-            if (form.checkBoxSmartRouting.Checked)
-            {
-                groupBoxProviderSettings.Visible = false;
-                return null;
-            }
+            string errors;
 
-            groupBoxProviderSettings.Visible = true;
-            comboBoxProviders.Visible = true;
-            comboBoxProviders.Enabled = true;
+            form.Providers_Group_Visible = true;
+            form.Providers_Group_Enabled = true;
+            // comboBoxProviders.Visible = true;
+            // comboBoxProviders.Enabled = true;
 
-            if (string.IsNullOrEmpty(comboBoxProviders.Text))
+            if (string.IsNullOrEmpty(form.Providers_ComboBox_Text))
             {
-                comboBoxProviders.BackColor = Color.LightPink;
+                form.Providers_ComboBox_BackColor = Color.LightPink;
                 return "You need to choose a provider";
             }
 
-            comboBoxProviders.BackColor = Color.White;
-            return null;
+            form.Providers_ComboBox_BackColor = Color.White;
+
+            errors = AuthState.Draw(form, authState);
+
+            return errors;
         }
 
         public bool IsOK
@@ -274,7 +276,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             _providerModels = new Dictionary<string, dynamic>();
             try
             {
-                IList<dynamic> providerModelsRec = _translate.Models(currentProviderId, providerDataAuthDict);
+                IList<dynamic> providerModelsRec = form.Models(currentProviderId, providerDataAuthDict);
                 if (providerModelsRec != null)
                     _providerModels = providerModelsRec.ToDictionary(s => (string)s.name, q => q);
             }
@@ -294,7 +296,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             _providerGlossaries = new Dictionary<string, dynamic>();
             try
             {
-                IList<dynamic> providerGlossariesRec = _translate.Glossaries(currentProviderId, providerDataAuthDict);
+                IList<dynamic> providerGlossariesRec = form.Glossaries(currentProviderId, providerDataAuthDict);
                 if (providerGlossariesRec != null && providerGlossariesRec.Any())
                     _providerGlossaries = providerGlossariesRec.ToDictionary(s => (string)s.name, q => q);
             }
@@ -302,5 +304,26 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             return _providerGlossaries;
         }
+
+        public static void FillOptions(ProviderState state, IntentoMTFormOptions options)
+        {
+            if (state == null)
+            {
+                options.ProviderId = null;
+                options.ProviderName = null;
+                options.Format = null;
+                AuthState.FillOptions(null, options);
+            }
+            else
+            {
+
+                options.ProviderId = state.currentProviderId;
+                options.ProviderName = state.CurrentProviderName;
+                options.Format = state.format;
+
+                AuthState.FillOptions(state.authState, options);
+            }
+        }
+
     }
-}
+    }

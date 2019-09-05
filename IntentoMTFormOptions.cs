@@ -82,6 +82,29 @@ namespace Intento.MT.Plugin.PropertiesForm
             return null;
         }
 
+        public IntentoMTFormOptions Duplicate()
+        {
+            IntentoMTFormOptions res = new IntentoMTFormOptions()
+            {
+                ApiKey = this.ApiKey,
+                SmartRouting = this.SmartRouting,
+                ProviderId = this.ProviderId,
+                ProviderName = this.ProviderName,
+                UseCustomAuth = this.UseCustomAuth,
+                CustomAuth = this.CustomAuth,
+                UseCustomModel = this.UseCustomModel,
+                Glossary = this.Glossary,
+                CustomModel = this.CustomModel,
+                Format = this.Format,
+                UserAgent = this.UserAgent,
+                Signature = this.Signature,
+                AppName = this.AppName,
+                Translate = this.Translate,
+                _authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),
+            };
+            return res;
+        }
+
     }
 
 }

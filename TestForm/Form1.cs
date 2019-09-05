@@ -163,13 +163,13 @@ namespace TestForm
             form.Show(); 
         }
 
-        private IntentoSDK.IntentoAiTextTranslate Fabric(string apiKey, string userAgent)
+        private IntentoSDK.IntentoAiTextTranslate Fabric(string apiKey, string userAgent, IntentoSDK.ProxySettings proxySettings)
         {
             var _intento = IntentoSDK.Intento.Create(apiKey, null,
                 path: checkBoxStage.Checked ? "https://api2.inten.to/" : "https://api.inten.to/", 
                 userAgent: String.Format("{0} {1}", userAgent, "TestForm"),
                 loggingCallback: IntentoTranslationProviderOptionsForm.Logging,
-                proxySet: options.proxySettings
+                proxySet: proxySettings
             );
             var _translate = _intento.Ai.Text.Translate;
             return _translate;
@@ -228,7 +228,7 @@ namespace TestForm
             textBoxExpected.Enabled = false;
             buttonTranslatePlain.Enabled = false;
 
-            IntentoSDK.IntentoAiTextTranslate translate = Fabric(textBoxApiKey.Text, "TestForm");
+            IntentoSDK.IntentoAiTextTranslate translate = Fabric(textBoxApiKey.Text, "TestForm", options.proxySettings);
             dynamic res = translate.Fulfill(textBoxText.Text, textBoxTo.Text, textBoxFrom.Text, provider: textBoxProviderId.Text, 
                 async: true, wait_async: true, format: null,
                 auth: checkBoxAuth.Checked ? string.Format("{{\"{0}\": [{1}]}}", textBoxProviderId.Text, textBoxAuth.Text) : null,
