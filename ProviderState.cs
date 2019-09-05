@@ -42,7 +42,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         public bool delegated_credentials;
         public List<string> providerAuthList;
         public string format;
-        Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm form;
 
         public ProviderState(SmartRoutingState smartRoutingState, IntentoMTFormOptions options) : base(smartRoutingState, options)
         {

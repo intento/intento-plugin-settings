@@ -36,11 +36,11 @@
       <HintPath>..\bin\Intento.MT.Plugin.PropertiesForm.dll</HintPath>
     </Reference>
     <Reference Include="IntentoSDK">
-      <HintPath>..\..\intento-csharp\bin\IntentoSDK.dll</HintPath>
+      <HintPath>..\bin\IntentoSDK.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\intento-csharp\bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
