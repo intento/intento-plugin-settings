@@ -447,21 +447,6 @@
             this.checkBoxSaveApiKeyInRegistry.UseVisualStyleBackColor = true;
             this.checkBoxSaveApiKeyInRegistry.CheckedChanged += new System.EventHandler(this.checkBoxSaveApiKeyInRegistry_CheckedChanged);
             // 
-            // checkBoxProxy
-            // 
-            this.checkBoxProxy.AutoSize = true;
-            this.checkBoxProxy.Checked = true;
-            this.checkBoxProxy.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxProxy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxProxy.Location = new System.Drawing.Point(7, 60);
-            this.checkBoxProxy.Name = "checkBoxProxy";
-            this.checkBoxProxy.Size = new System.Drawing.Size(116, 17);
-            this.checkBoxProxy.TabIndex = 26;
-            this.checkBoxProxy.Text = "Enable proxy server";
-            this.checkBoxProxy.UseVisualStyleBackColor = true;
-            this.checkBoxProxy.CheckedChanged += new System.EventHandler(this.checkBoxProxy_CheckedChanged);
-            // 
-            // 
             // textBoxLabel1
             // 
             this.textBoxLabel1.BackColor = System.Drawing.SystemColors.Control;
@@ -476,6 +461,18 @@
             this.textBoxLabel1.Text = "https://console.inten.to";
             this.textBoxLabel1.Enter += new System.EventHandler(this.textBoxLabel_Enter);
             // 
+            // checkBoxProxy
+            // 
+            this.checkBoxProxy.AutoSize = true;
+            this.checkBoxProxy.Checked = true;
+            this.checkBoxProxy.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxProxy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxProxy.Location = new System.Drawing.Point(7, 60);
+            this.checkBoxProxy.Name = "checkBoxProxy";
+            this.checkBoxProxy.Size = new System.Drawing.Size(371, 17);
+            this.checkBoxProxy.TabIndex = 26;
+            this.checkBoxProxy.Text = "Enable proxy server (Attention! This setting applies to all Intento MT rules.)";
+            this.checkBoxProxy.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 

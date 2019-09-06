@@ -97,6 +97,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             else
                 checkBoxProxy.Checked = false;
 
+            checkBoxProxy.CheckedChanged += checkBoxProxy_CheckedChanged;
+
             _languagePairs = languagePairs;
             DialogResult = DialogResult.None;
 
@@ -249,18 +251,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                 else
                     apiKeyState.SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
 
-            originalOptions.proxySettings = currentOptions.proxySettings;
-            if (checkBoxProxy.Checked)
-            {
-                apiKeyState.SaveValueToRegistry("ProxyAddress", originalOptions.proxySettings.ProxyAddress);
-                apiKeyState.SaveValueToRegistry("ProxyPort", originalOptions.proxySettings.ProxyPort);
-                apiKeyState.SaveValueToRegistry("ProxyUserName", originalOptions.proxySettings.ProxyUserName);
-                apiKeyState.SaveValueToRegistry("ProxyPassw", originalOptions.proxySettings.ProxyPassword);
-                apiKeyState.SaveValueToRegistry("ProxyEnabled", "1");
-            }
-            else
-                apiKeyState.SaveValueToRegistry("ProxyEnabled", "0");
-
                 Close();
             }
         }
@@ -350,19 +340,24 @@ namespace Intento.MT.Plugin.PropertiesForm
                 var form = new IntentoTranslationProviderProxySettingsForm(this);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    currentOptions.proxySettings.ProxyEnabled = true;
+
+                    apiKeyState.SaveValueToRegistry("ProxyAddress", currentOptions.proxySettings.ProxyAddress);
+                    apiKeyState.SaveValueToRegistry("ProxyPort", currentOptions.proxySettings.ProxyPort);
+                    apiKeyState.SaveValueToRegistry("ProxyUserName", currentOptions.proxySettings.ProxyUserName);
+                    apiKeyState.SaveValueToRegistry("ProxyPassw", currentOptions.proxySettings.ProxyPassword);
+                    apiKeyState.SaveValueToRegistry("ProxyEnabled", "1");
                     apiKeyState.ReadProviders();
-                    //    if (currentOptions.proxySettings.ProxyUri != null)
-                    //        buttonProxySettings.Text = "The proxy server is currently in use. Change.";
-                    //    else
-                    //        buttonProxySettings.Text = "The proxy server is currently not used. Change.";
                 }
                 else
+                {
                     checkBoxProxy.Checked = false;
+                    apiKeyState.SaveValueToRegistry("ProxyEnabled", "0");
+                }
             }
-            else if (currentOptions.proxySettings != null)
+            else
             {
-                currentOptions.proxySettings.ProxyEnabled = false;
+                currentOptions.proxySettings = null;
+                apiKeyState.SaveValueToRegistry("ProxyEnabled", "0");
                 apiKeyState.ReadProviders();
             }
         }

@@ -1,4 +1,5 @@
 ﻿using Intento.MT.Plugin.PropertiesForm;
+using IntentoSDK;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,28 +15,32 @@ namespace Intento.MT.Plugin.PropertiesForm
     public partial class IntentoTranslationProviderProxySettingsForm : Form
     {
         internal IntentoTranslationProviderOptionsForm _parent;
+        ProxySettings currentProxy;
         //bool errAdr, errPort;
         public IntentoTranslationProviderProxySettingsForm(IntentoTranslationProviderOptionsForm parent)
         {
             InitializeComponent();
             DialogResult = DialogResult.None;
             _parent = parent;
-            var proxy = _parent.currentOptions.proxySettings;
-            if (proxy == null)
+            currentProxy = _parent.currentOptions.proxySettings;
+            if (currentProxy == null)
             {
                 textBoxAddress.Text = _parent.apiKeyState.GetValueFromRegistry("ProxyAddress");
                 textBoxPort.Text = _parent.apiKeyState.GetValueFromRegistry("ProxyPort");
                 textBoxUserName.Text = _parent.apiKeyState.GetValueFromRegistry("ProxyUserName");
+                checkBoxAuth.Checked = !string.IsNullOrWhiteSpace(textBoxUserName.Text);
                 textBoxPassword.Text = _parent.apiKeyState.GetValueFromRegistry("ProxyPassw");
-                checkBoxAuth.Checked = _parent.apiKeyState.GetValueFromRegistry("ProxyPassw") == "1";
             }
             else
             {
-                textBoxAddress.Text = proxy.ProxyAddress;
-                textBoxPort.Text = proxy.ProxyPort;
-                textBoxUserName.Text = proxy.ProxyUserName;
-                textBoxPassword.Text = proxy.ProxyPassword;
-                checkBoxAuth.Checked = proxy.ProxyEnabled;
+                textBoxAddress.Text = currentProxy.ProxyAddress;
+                textBoxPort.Text = currentProxy.ProxyPort;
+                if (string.IsNullOrWhiteSpace(currentProxy.ProxyUserName))
+                {
+                    textBoxUserName.Text = currentProxy.ProxyUserName;
+                    textBoxPassword.Text = currentProxy.ProxyPassword;
+                    checkBoxAuth.Checked = true;
+                }
             }
         }
 
@@ -60,14 +65,14 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             if (isValidParams())
             {
-                var set = new IntentoSDK.ProxySettings()
-                {
-                    ProxyAddress = textBoxAddress.Text,
-                    ProxyPort = textBoxPort.Text,
-                    ProxyUserName = textBoxUserName.Text,
-                    ProxyPassword = textBoxPassword.Text
-                };
-                _parent.currentOptions.proxySettings = set;
+                if (currentProxy == null)
+                    currentProxy = new ProxySettings();
+                currentProxy.ProxyAddress = textBoxAddress.Text;
+                currentProxy.ProxyPort = textBoxPort.Text;
+                currentProxy.ProxyUserName = textBoxUserName.Text;
+                currentProxy.ProxyPassword = textBoxPassword.Text;
+                currentProxy.ProxyEnabled = true;
+                _parent.currentOptions.proxySettings = currentProxy;
                 DialogResult = DialogResult.OK;
                 Close();
             }
@@ -81,6 +86,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             try
             {
+                var port = int.Parse(textBoxPort.Text);
                 new Uri($"http://{textBoxAddress.Text}:{textBoxPort.Text}");
             }
             catch 
@@ -101,7 +107,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         private void textBoxPort_KeyPress(object sender, KeyPressEventArgs e)
         {
             char symbol = e.KeyChar;
-            if (!Char.IsDigit(symbol))
+            if (!Char.IsDigit(symbol) && !Char.IsControl(symbol))
             {
                 e.Handled = true;
             }

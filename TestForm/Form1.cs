@@ -186,15 +186,12 @@ namespace TestForm
             checkBoxModel.Checked = options.UseCustomModel;
             textBoxModel.Text = options.CustomModel;
             textBoxGlossary.Text = options.Glossary;
-            if (options.proxySettings !=null)
-            {
-                textBoxAddress.Text = options.proxySettings.ProxyAddress;
-                textBoxPort.Text = options.proxySettings.ProxyPort;
-                textBoxUserName.Text = options.proxySettings.ProxyUserName;
-                textBoxPassword.Text = options.proxySettings.ProxyPassword;
-                checkBoxProxy.Checked = options.proxySettings.ProxyEnabled;
-
-            }
+            var key = GetKey(null);
+            checkBoxProxy.Checked = (string)key.GetValue("ProxyEnabled", "0") != "0";
+            textBoxAddress.Text = (string)key.GetValue("ProxyAddress", null);
+            textBoxPort.Text = (string)key.GetValue("ProxyPort", null);
+            textBoxUserName.Text = (string)key.GetValue("ProxyUserName", null);
+            textBoxPassword.Text = (string)key.GetValue("ProxyPassw", null);
         }
 
         private void buttonSaveData_Click(object sender, EventArgs e)

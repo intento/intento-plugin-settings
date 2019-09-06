@@ -57,15 +57,15 @@
             this.buttonTestReadData = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxPort = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBoxAddress = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.checkBoxProxy = new System.Windows.Forms.CheckBox();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxUserName = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.checkBoxProxy = new System.Windows.Forms.CheckBox();
+            this.textBoxPort = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxAddress = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -323,6 +323,7 @@
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.textBoxAddress);
             this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Enabled = false;
             this.groupBox1.Location = new System.Drawing.Point(48, 268);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(360, 146);
@@ -330,39 +331,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Proxy";
             // 
-            // textBoxPort
+            // checkBoxProxy
             // 
-            this.textBoxPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxPort.Location = new System.Drawing.Point(286, 42);
-            this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(61, 20);
-            this.textBoxPort.TabIndex = 9;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(256, 45);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 13);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Port:";
-            // 
-            // textBoxAddress
-            // 
-            this.textBoxAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxAddress.Location = new System.Drawing.Point(141, 42);
-            this.textBoxAddress.Name = "textBoxAddress";
-            this.textBoxAddress.Size = new System.Drawing.Size(100, 20);
-            this.textBoxAddress.TabIndex = 7;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(14, 45);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(124, 13);
-            this.label10.TabIndex = 6;
-            this.label10.Text = "IP address or host name:";
+            this.checkBoxProxy.AutoSize = true;
+            this.checkBoxProxy.Enabled = false;
+            this.checkBoxProxy.Location = new System.Drawing.Point(253, 19);
+            this.checkBoxProxy.Name = "checkBoxProxy";
+            this.checkBoxProxy.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.checkBoxProxy.Size = new System.Drawing.Size(94, 17);
+            this.checkBoxProxy.TabIndex = 32;
+            this.checkBoxProxy.Text = "Proxy Enabled";
+            this.checkBoxProxy.UseVisualStyleBackColor = true;
             // 
             // textBoxPassword
             // 
@@ -398,16 +377,39 @@
             this.label8.TabIndex = 10;
             this.label8.Text = "User name:";
             // 
-            // checkBoxProxy
+            // textBoxPort
             // 
-            this.checkBoxProxy.AutoSize = true;
-            this.checkBoxProxy.Location = new System.Drawing.Point(253, 19);
-            this.checkBoxProxy.Name = "checkBoxProxy";
-            this.checkBoxProxy.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.checkBoxProxy.Size = new System.Drawing.Size(94, 17);
-            this.checkBoxProxy.TabIndex = 32;
-            this.checkBoxProxy.Text = "Proxy Enabled";
-            this.checkBoxProxy.UseVisualStyleBackColor = true;
+            this.textBoxPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxPort.Location = new System.Drawing.Point(286, 42);
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.Size = new System.Drawing.Size(61, 20);
+            this.textBoxPort.TabIndex = 9;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(256, 45);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(29, 13);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Port:";
+            // 
+            // textBoxAddress
+            // 
+            this.textBoxAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxAddress.Location = new System.Drawing.Point(141, 42);
+            this.textBoxAddress.Name = "textBoxAddress";
+            this.textBoxAddress.Size = new System.Drawing.Size(100, 20);
+            this.textBoxAddress.TabIndex = 7;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(14, 45);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(124, 13);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "IP address or host name:";
             // 
             // Form1
             // 
