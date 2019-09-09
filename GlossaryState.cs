@@ -143,5 +143,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
+        public static void ClearOptions(IntentoMTFormOptions options)
+        {
+            options.Glossary = null;
+        }
+
     }
 }
