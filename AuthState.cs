@@ -12,7 +12,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 {
     public class AuthState : BaseState
     {
+        // Parent component
         public ProviderState providerState;
+
+        // Controlled components
         public ModelState modelState;
         public GlossaryState glossaryState;
 
@@ -180,6 +183,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 form.AuthCombo_ComboBox_BackColor = SystemColors.Window;
                 form.AuthText_TextBox_Text = string.Join(", ", providerDataAuthDict.Select(i => string.Format("{0}:{1}", i.Key, i.Value)));
             }
+            if (!string.IsNullOrEmpty(error_message))
+                return error_message;
 
             error_message = ModelState.Draw(form, modelState);
             string error_message2 = GlossaryState.Draw(form, glossaryState);
@@ -319,6 +324,14 @@ namespace Intento.MT.Plugin.PropertiesForm
                 ModelState.FillOptions(state.modelState, options);
                 GlossaryState.FillOptions(state.glossaryState, options);
             }
+        }
+
+        public static void ClearOptions(IntentoMTFormOptions options)
+        {
+            options.UseCustomAuth = false;
+            options.CustomAuth = null;
+            ModelState.ClearOptions(options);
+            GlossaryState.ClearOptions(options);
         }
     }
 }

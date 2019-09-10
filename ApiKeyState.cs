@@ -15,6 +15,8 @@ namespace Intento.MT.Plugin.PropertiesForm
     public class ApiKeyState : BaseState
     {
         public string apiKey;
+
+        // Controlled components
         public SmartRoutingState smartRoutingState;
 
         public enum EApiKeyStatus

@@ -9,8 +9,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 {
     public class SmartRoutingState : BaseState
     {
-        bool smartRouting;
+        private bool smartRouting;
+
+        // Parent state
         public ApiKeyState apiKeyState;
+
+        // Controlled components
         public ProviderState providerState;
 
         public SmartRoutingState(ApiKeyState apiKeyState, IntentoMTFormOptions _options) : base(apiKeyState, _options)

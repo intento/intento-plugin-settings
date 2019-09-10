@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,7 +41,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Pre- and Post-processing moved to PluginHelper in Settings form because it is common for all plugins
         // 1.4.3: 2019-08-23
         // - Internal refactoring: IntentoMT namespace changed to Intento.MT
-        // 1.4.4: 2019-09-03
+        // 1.4.7: 2019-09-09
+        // - Careful cleaning auth/model/glossary when provider changed
+        // 1.5: 2019-09-10
         // - http(s) proxy support
 
     }

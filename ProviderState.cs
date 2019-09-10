@@ -16,6 +16,7 @@ namespace Intento.MT.Plugin.PropertiesForm
     {
         public SmartRoutingState smartRoutingState;
 
+        // Controlled components
         public AuthState authState;
 
         List<dynamic> providersRaw;
@@ -168,6 +169,12 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
             else if (providersNames != null && currentProviderId != providersNames[form.Providers_ComboBox_Text])
             {
+                if (!string.IsNullOrEmpty(currentProviderName))
+                {   // Prev provider was not empty - need to clear parameters
+                    authState = null;
+                    AuthState.ClearOptions(options);
+                }
+
                 // another provider choosed
                 currentProviderId = providersNames[form.Providers_ComboBox_Text];
                 providerData = providersData[currentProviderId];
