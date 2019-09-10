@@ -1,4 +1,4 @@
-﻿using Intento.MT.Plugin.PropertiesForm;
+using Intento.MT.Plugin.PropertiesForm;
 using System.Reflection;
 using System.Runtime.InteropServices;
 

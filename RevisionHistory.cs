@@ -45,6 +45,5 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Careful cleaning auth/model/glossary when provider changed
         // 1.5: 2019-09-10
         // - http(s) proxy support
-
     }
 }
