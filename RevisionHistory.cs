@@ -43,6 +43,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Internal refactoring: IntentoMT namespace changed to Intento.MT
         // 1.4.7: 2019-09-09
         // - Careful cleaning auth/model/glossary when provider changed
-
+        // 1.5: 2019-09-10
+        // - http(s) proxy support
     }
 }
