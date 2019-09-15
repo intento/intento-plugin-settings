@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 using System.Windows.Forms;
+using System.Net.Http;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
@@ -153,13 +154,20 @@ namespace Intento.MT.Plugin.PropertiesForm
                     else
                     {
                         if (ex is IntentoInvalidApiKeyException)
-                            error_reason = string.Format("Forbitten. {0}", ((IntentoSDK.IntentoApiException)ex).Content);
+                            error_reason = string.Format("Forbidden. {0}", ((IntentoSDK.IntentoApiException)ex).Content);
                         else if (ex is IntentoApiException)
-                            error_reason = string.Format("Api Exception {2}: {0}: {1}", ex.Message, ((IntentoApiException)ex).Content, ex.GetType().Name);
+                            error_reason = string.Format("[Api] {2}: {0}: {1}", ex.Message, ((IntentoApiException)ex).Content, ex.GetType().Name);
                         else if (ex is IntentoSdkException)
-                            error_reason = string.Format("Sdk Exception {1}: {0}", ex.Message, ex.GetType().Name);
+                            error_reason = string.Format("[Sdk] {1}: {0}", ex.Message, ex.GetType().Name);
+                        else if (ex is HttpRequestException)
+                        {
+                            if (ex.InnerException != null)
+                                error_reason = string.Format("[R] {0}: {1}", ex.InnerException.GetType().Name, ex.InnerException.Message);
+                            else
+                                error_reason = string.Format("[R] {0}: {1}", ex.GetType().Name, ex.Message);
+                        }
                         else
-                            error_reason = string.Format("Unexpected exception {0}: {1}", ex.GetType().Name, ex.Message);
+                            error_reason = string.Format("[U] {0}: {1}", ex.GetType().Name, ex.Message);
                     }
 
                     // SmartRoutingState not created inside because status is not ok
