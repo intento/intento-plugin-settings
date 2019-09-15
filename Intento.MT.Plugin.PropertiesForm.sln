@@ -6,8 +6,14 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intento.MT.Plugin.PropertiesForm", "Intento.MT.Plugin.PropertiesForm.csproj", "{A4374128-DD01-4CE3-B62C-4CC3460620C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForm", "TestForm\TestForm.csproj", "{A963C442-DFD3-4FE8-A2E1-9917AC274695}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0} = {A4374128-DD01-4CE3-B62C-4CC3460620C0}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRoutingPluginFormattingGenerator", "SmartRoutingPluginFormattingGenerator\SmartRoutingPluginFormattingGenerator.csproj", "{93A16E9A-A9F7-431F-AF85-0AB4AE6D14FC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0} = {A4374128-DD01-4CE3-B62C-4CC3460620C0}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
