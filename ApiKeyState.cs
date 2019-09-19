@@ -31,7 +31,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         public EApiKeyStatus apiKeyStatus = EApiKeyStatus.start;
 
         // Result of request to read a list of providers
-        private List<dynamic> providers;
+        public List<dynamic> providers;
 
         string error_reason = null;
 

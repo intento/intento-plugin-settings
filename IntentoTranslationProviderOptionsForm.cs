@@ -22,7 +22,7 @@ namespace Intento.MT.Plugin.PropertiesForm
     {
         public class LangPair
         {
-            string _from;
+            public string _from;
             string _to;
 
             public LangPair(string from, string to)
@@ -228,13 +228,13 @@ namespace Intento.MT.Plugin.PropertiesForm
         private void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
         {
             using (new CursorForm(this))
-                apiKeyState?.smartRoutingState?.providerState?.authState?.checkBoxUseOwnCred_CheckedChanged();
+                apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.checkBoxUseOwnCred_CheckedChanged();
         }
 
         private void checkBoxUseCustomModel_CheckedChanged(object sender, EventArgs e)
         {
             using (new CursorForm(this))
-                apiKeyState?.smartRoutingState?.providerState?.authState?.modelState?.checkBoxUseCustomModel_CheckedChanged();
+                apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.GetModelState()?.checkBoxUseCustomModel_CheckedChanged();
         }
 
         // Save settings
@@ -269,7 +269,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private void buttonWizard_Click(object sender, EventArgs e)
         {
-            apiKeyState?.smartRoutingState?.providerState?.authState?.buttonWizard_Click();
+            apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.buttonWizard_Click();
             apiKeyState.EnableDisable();
         }
 
@@ -277,7 +277,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             using (new CursorForm(this))
             {
-                apiKeyState?.smartRoutingState?.providerState?.authState?.modelState?.comboBoxModels_SelectedIndexChanged();
+                apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.GetModelState()?.comboBoxModels_SelectedIndexChanged();
                 apiKeyState.EnableDisable();
             }
         }
@@ -303,7 +303,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         private void comboBoxCredentialId_SelectedIndexChanged(object sender, EventArgs e)
         {
             using (new CursorForm(this))
-                apiKeyState?.smartRoutingState?.providerState?.authState?.comboBoxCredentialId_SelectedIndexChanged();
+                apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.comboBoxCredentialId_SelectedIndexChanged();
         }
 
         private void textBoxModel_TextChanged(object sender, EventArgs e)

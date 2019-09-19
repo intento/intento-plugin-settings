@@ -14,6 +14,7 @@ namespace Intento.MT.Plugin.PropertiesForm
     {
         ProviderState providerState;
         AuthState authState;
+        bool firstTime = true;
 
         // List of custom models obtained from provider
         Dictionary<string, dynamic> providerGlossaries = new Dictionary<string, dynamic>();
@@ -43,7 +44,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             try
             {
                 providerGlossaries = providerState.GetGlossaries(authState.providerDataAuthDict);
-                if (providerGlossaries.Any())
+                if (providerGlossaries != null && providerGlossaries.Any())
                 {
                     // Fill Glossary and choose SelectedIndex
                     form.Glossary_ComboBox_Insert(0, "");
@@ -65,8 +66,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             if (providerGlossaries == null)
                 form.Glossary_TextBox_Text = options.Glossary;
-
-            EnableDisable();
         }
 
         /// <summary>
@@ -90,6 +89,23 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string Draw()
         {
             string errorMessage = null;
+
+            if (firstTime)
+            {
+                if (providerGlossaries != null)
+                {
+                    // Fill Glossary and choose SelectedIndex
+                    form.Glossary_ComboBox_Insert(0, "");
+                    foreach (string x in providerGlossaries.Select(x => (string)x.Key).OrderBy(x => x))
+                    {
+                        int n = form.Glossary_ComboBoxAdd(x);
+                        if ((string)providerGlossaries[x].id == options.Glossary)
+                            form.Glossary_ComboBox_SelectedIndex = n;
+                    }
+                    form.Glossary_TextBox_Text = null;
+                }
+                firstTime = false;
+            }
 
             // set state of glossary selection control
             if (form.Glossary_Group_Visible = providerState.custom_glossary && authState.IsOK)
@@ -143,9 +159,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-        public static void ClearOptions(IntentoMTFormOptions options)
+        public void ClearOptions(IntentoMTFormOptions options)
         {
             options.Glossary = null;
+            form.Glossary_ComboBox_Clear();
         }
 
     }

@@ -16,8 +16,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         public ProviderState providerState;
 
         // Controlled components
-        public ModelState modelState;
-        public GlossaryState glossaryState;
+        private ModelState modelState;
+        private GlossaryState glossaryState;
 
         private List<string> _delegatedCredentials;
         string error_message;
@@ -25,6 +25,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         // credentials (in json format) choosen by user, both based on credential_id and on auth. 
         string credentials;
+
+        bool firstTime = true;
 
         public enum EnumMode
         {
@@ -77,37 +79,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             GetOptionsCredentials();
 
             useComboBox = providerState.delegated_credentials;
-
-            // Read and fill a list of delegated credentials for this provider
-            if (providerState.delegated_credentials)
-            {
-                form.AuthCombo_ComboBox_Clear();
-                IList<dynamic> credentials = form.DelegatedCredentials();
-                IEnumerable<dynamic> cred = credentials.Where(q => q.temporary_credentials != null
-                    && q.temporary_credentials_created_at != null
-                    && q.temporary_credentials_expiry_at != null);
-                _delegatedCredentials = cred.Select(q => (string)q.credential_id).ToList();
-                form.AuthCombo_ComboBox_AddRange(_delegatedCredentials.ToArray());
-                if (_delegatedCredentials.Count > 1)
-                {
-                    form.AuthCombo_ComboBox_Insert(0, "");
-                    string credential_id = providerDataAuthDict["credential_id"];
-                    if (form.AuthCombo_ComboBox_Contains(credential_id))
-                        form.AuthCombo_ComboBox_SelectedItem = credential_id;
-                    form.AuthCombo_ComboBox_Enabled = true;
-                }
-                else if (form.AuthCombo_ComboBox_Count == 1)
-                {
-                    form.AuthCombo_ComboBox_SelectedIndex = 0;
-                    form.AuthCombo_ComboBox_Enabled = false;
-                }
-                else
-                    form.AuthCombo_ComboBox_Enabled = false;
-            }
-            else
-                FilltextBoxCredentials();
-
-            CreateChildStates();
         }
 
         public static string Draw(IForm form, AuthState state)
@@ -126,22 +97,67 @@ namespace Intento.MT.Plugin.PropertiesForm
             return state.Draw();
         }
 
-        private void CreateChildStates()
+        public ModelState GetModelState()
         {
             if (IsOK)
             {
-                modelState = new ModelState(this, options);
-                glossaryState = new GlossaryState(this, options);
+                if (modelState == null)
+                    modelState = new ModelState(this, options);
             }
             else
-            {
                 modelState = null;
-                glossaryState = null;
+            return modelState;
+        }
+
+        public GlossaryState GetGlossaryState()
+        {
+            if (IsOK)
+            {
+                if (glossaryState == null)
+                    glossaryState = new GlossaryState(this, options);
             }
+            else
+                glossaryState = null;
+            return glossaryState;
         }
 
         public string Draw()
         {
+            if (firstTime)
+            {   // Need to fill all items - first tiem drawing after making AuthState
+                firstTime = false;
+
+                // Read and fill a list of delegated credentials for this provider
+                if (providerState.delegated_credentials)
+                {
+                    form.AuthCombo_ComboBox_Clear();
+                    IList<dynamic> credentials = form.DelegatedCredentials();
+                    IEnumerable<dynamic> cred = credentials.Where(q => q.temporary_credentials != null
+                        && q.temporary_credentials_created_at != null
+                        && q.temporary_credentials_expiry_at != null);
+                    _delegatedCredentials = cred.Select(q => (string)q.credential_id).ToList();
+                    form.AuthCombo_ComboBox_AddRange(_delegatedCredentials.ToArray());
+                    if (_delegatedCredentials.Count > 1)
+                    {
+                        form.AuthCombo_ComboBox_Insert(0, "");
+                        string credential_id = providerDataAuthDict["credential_id"];
+                        if (form.AuthCombo_ComboBox_Contains(credential_id))
+                            form.AuthCombo_ComboBox_SelectedItem = credential_id;
+                        form.AuthCombo_ComboBox_Enabled = true;
+                    }
+                    else if (form.AuthCombo_ComboBox_Count == 1)
+                    {
+                        form.AuthCombo_ComboBox_SelectedIndex = 0;
+                        form.AuthCombo_ComboBox_Enabled = false;
+                        providerDataAuthDict["credential_id"] = _delegatedCredentials[0];
+                    }
+                    else
+                        form.AuthCombo_ComboBox_Enabled = false;
+                }
+                else
+                    FilltextBoxCredentials();
+            }
+
             error_message = null;
 
             form.Auth_CheckBox_Visible = true;
@@ -186,8 +202,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (!string.IsNullOrEmpty(error_message))
                 return error_message;
 
-            error_message = ModelState.Draw(form, modelState);
-            string error_message2 = GlossaryState.Draw(form, glossaryState);
+            error_message = ModelState.Draw(form, GetModelState());
+            string error_message2 = GlossaryState.Draw(form, GetGlossaryState());
             if (string.IsNullOrEmpty(error_message))
                 error_message = error_message2;
 
@@ -228,7 +244,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         public void checkBoxUseOwnCred_CheckedChanged()
         {
             options.UseCustomAuth = form.Auth_CheckBox_Checked;
-            CreateChildStates();
 
             EnableDisable();
         }
@@ -241,7 +256,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 providerDataAuthDict = dialog.authParam;
                 FilltextBoxCredentials();
-                CreateChildStates();
             }
             EnableDisable();
         }
@@ -258,7 +272,9 @@ namespace Intento.MT.Plugin.PropertiesForm
                 providerDataAuthDict["credential_id"] = form.AuthCombo_ComboBox_Text;
                 credentials = "credential_id:" + form.AuthCombo_ComboBox_Text;
             }
-            CreateChildStates();
+            modelState = null;
+            glossaryState = null;
+
             EnableDisable();
         }
 
@@ -321,17 +337,27 @@ namespace Intento.MT.Plugin.PropertiesForm
                 else
                     options.CustomAuth = null;
 
-                ModelState.FillOptions(state.modelState, options);
-                GlossaryState.FillOptions(state.glossaryState, options);
+                ModelState.FillOptions(state.GetModelState(), options);
+                GlossaryState.FillOptions(state.GetGlossaryState(), options);
             }
         }
 
-        public static void ClearOptions(IntentoMTFormOptions options)
+        public void ClearOptions(IntentoMTFormOptions options)
         {
             options.UseCustomAuth = false;
             options.CustomAuth = null;
-            ModelState.ClearOptions(options);
-            GlossaryState.ClearOptions(options);
+            form.AuthCombo_ComboBox_Clear();
+
+            if (modelState != null)
+            {
+                modelState.ClearOptions(options);
+                modelState = null;
+            }
+            if (glossaryState != null)
+            {
+                glossaryState.ClearOptions(options);
+                glossaryState = null;
+            }
         }
     }
 }

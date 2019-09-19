@@ -17,7 +17,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         public SmartRoutingState smartRoutingState;
 
         // Controlled components
-        public AuthState authState;
+        private AuthState authState;
 
         List<dynamic> providersRaw;
         private Dictionary<string, dynamic> providersData;
@@ -75,8 +75,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             ExtractProviderData();
             isInitialized = true;
-
-            CreateChildStates();
         }
 
         private void Init()
@@ -164,15 +162,13 @@ namespace Intento.MT.Plugin.PropertiesForm
                 currentProviderId = null;
                 currentProviderName = null;
                 ExtractProviderData();
-
-                CreateChildStates();
             }
             else if (providersNames != null && currentProviderId != providersNames[form.Providers_ComboBox_Text])
             {
                 if (!string.IsNullOrEmpty(currentProviderName))
                 {   // Prev provider was not empty - need to clear parameters
+                    GetAuthState().ClearOptions(options);
                     authState = null;
-                    AuthState.ClearOptions(options);
                 }
 
                 // another provider choosed
@@ -180,8 +176,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                 providerData = providersData[currentProviderId];
                 currentProviderName = providerData.name;
                 ExtractProviderData();
-
-                CreateChildStates();
             }
             else
             { // Selected same provider as was selected before. No changes in settings
@@ -193,12 +187,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         }
 
-        private void CreateChildStates()
+        public AuthState GetAuthState()
         {
             if (IsOK)
-                authState = new AuthState(this, options);
+            {
+                if (authState == null)
+                    authState = new AuthState(this, options);
+            }
             else
                 authState = null;
+            return authState;
         }
 
         private List<dynamic> FilterByLanguagePairs(List<dynamic> recProviders)
@@ -260,7 +258,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             form.Providers_ComboBox_BackColor = Color.White;
 
-            errors = AuthState.Draw(form, authState);
+            errors = AuthState.Draw(form, GetAuthState());
 
             return errors;
         }
@@ -327,7 +325,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 options.ProviderName = state.CurrentProviderName;
                 options.Format = state.format;
 
-                AuthState.FillOptions(state.authState, options);
+                AuthState.FillOptions(state.GetAuthState(), options);
             }
         }
 

@@ -25,10 +25,10 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string CustomAuth { get; set; }
         // sign of using user custom model
         public bool UseCustomModel { get; set; }
-        // string of custom glossary
-        public string Glossary { get; set; }
         // string of custom model
         public string CustomModel { get; set; }
+        // string of custom glossary
+        public string Glossary { get; set; }
         // formats supported by provider (text, html, xml.. - to check by contains), for smart routing not used
         public string Format { get; set; }
         // information about the assembly version of the plugin that uses this form
