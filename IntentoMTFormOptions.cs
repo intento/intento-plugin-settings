@@ -47,6 +47,11 @@ namespace Intento.MT.Plugin.PropertiesForm
         // Proxy server configuration class for service requests
         public ProxySettings proxySettings { get; set; }
 
+        // Forbit to save ApiKey in registry 
+        public bool ForbidSaveApikey { get; }
+        // Hide "Show hidden text" button
+        public bool HideHiddenTextButton { get; }
+
         public IntentoAiTextTranslate Translate { get; set; }
 
         private Dictionary<string, string> _authDict = null;

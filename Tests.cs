@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -412,6 +413,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             bool insideEnableDisable = false;
             bool IForm.InsideEnableDisable { get { return insideEnableDisable; } set { insideEnableDisable = value; } }
+
+            ResourceManager IForm.ResourceManager { get { return IntentoTranslationProviderOptionsForm.resourceManager; } }
         }
 
         [TestMethod]

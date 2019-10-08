@@ -19,12 +19,16 @@ namespace Intento.MT.Plugin.PropertiesForm
         private TextBox[] tbs;
         private Label[] lbs;
 
-        public IntentoTranslationProviderAuthWizardForm(Dictionary<string, string> authDict, bool showHidden = false)
+        public IntentoTranslationProviderAuthWizardForm(
+            Dictionary<string, string> authDict, bool showHidden, bool HideHiddenTextButton)
         {
             InitializeComponent();
             // LocalizeContent();
 
             authParam = authDict;
+
+            if (HideHiddenTextButton)
+                checkBoxShowHidden.Visible = false;
 
             byte i = 0;
             int paramsCount = authParam.Count;

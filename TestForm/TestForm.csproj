@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Intento.MT.Plugin.PropertiesForm">
-      <HintPath>..\bin\Intento.MT.Plugin.PropertiesForm.dll</HintPath>
+      <HintPath>..\obj\Debug\Intento.MT.Plugin.PropertiesForm.dll</HintPath>
     </Reference>
     <Reference Include="IntentoSDK">
       <HintPath>..\bin\IntentoSDK.dll</HintPath>

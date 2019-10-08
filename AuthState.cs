@@ -208,7 +208,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             {   // Credentials required but not filled in full
                 form.AuthText_TextBox_BackColor = Color.LightPink;
                 form.AuthCombo_ComboBox_BackColor = Color.LightPink;
-                error_message = "You must provide your own credentials for this provider. ";
+                error_message = Resource.OwnCredentialsNeededErrorMessage;
             }
             else
             {   // All fields in credentals are filled
@@ -245,7 +245,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public void buttonWizard_Click()
         {
-            var dialog = new IntentoTranslationProviderAuthWizardForm(providerDataAuthDict, form.ShowHidden_CheckBox_Checked);
+            var dialog = new IntentoTranslationProviderAuthWizardForm(providerDataAuthDict, form.ShowHidden_CheckBox_Checked, options.HideHiddenTextButton);
             dialog.ShowDialog();
             if (dialog.DialogResult == DialogResult.OK)
             {

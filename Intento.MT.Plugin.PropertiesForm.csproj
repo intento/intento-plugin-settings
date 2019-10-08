@@ -89,6 +89,11 @@
     <Compile Include="PluginHelper.cs" />
     <Compile Include="ProviderState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="RevisionHistory.cs" />
     <Compile Include="SmartRoutingState.cs" />
     <Compile Include="Tests.cs" />
@@ -102,6 +107,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IntentoTranslationProviderProxySettingsForm.resx">
       <DependentUpon>IntentoTranslationProviderProxySettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

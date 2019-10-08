@@ -1,6 +1,4 @@
-﻿using Intento.MT.Plugin.PropertiesForm;
-using IntentoSDK;
-using Microsoft.Win32;
+﻿using IntentoSDK;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,6 +8,7 @@ using System.Threading.Tasks;
 using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 using System.Windows.Forms;
 using System.Net.Http;
+using System.Resources;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
@@ -42,13 +41,17 @@ namespace Intento.MT.Plugin.PropertiesForm
             base(_form, options)
         {
             apiKey = options.ApiKey;
-            string apiKey2 = GetValueFromRegistry("ApiKey");
-            if (string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(options.AppName))
-            {   // read ApiKey from registry
-                apiKey = apiKey2;
+
+            if (!options.ForbidSaveApikey)
+            {
+                string apiKey2 = GetValueFromRegistry("ApiKey");
+                if (string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(options.AppName))
+                {   // read ApiKey from registry
+                    apiKey = apiKey2;
+                }
+                if (!string.IsNullOrEmpty(apiKey2))
+                    form.SaveApiKeyInRegistry_CheckBox_Checked = true;
             }
-            if (!string.IsNullOrEmpty(apiKey2))
-                form.SaveApiKeyInRegistry_CheckBox_Checked = true;
         }
 
         public void SetValue(string _apiKey)
@@ -71,20 +74,23 @@ namespace Intento.MT.Plugin.PropertiesForm
                     {
                         form.ApiKey_TextBox_Enabled = true;
                         form.ApiKey_TextBox_BackColor = Color.LightPink;
-                        error_reason = "Enter your API key and press \"Check\" button.";
+                        // "Enter your API key and press \"Check\" button."
+                        error_reason = form.ResourceManager.GetString("ApiKeyNeededErrorMessage");
                     }
                     else
                     {
                         form.ApiKey_TextBox_Enabled = false;
                         form.ApiKey_TextBox_BackColor = Color.White;
-                        error_reason = "API key verification in progress ....";
+                        // "API key verification in progress ...."
+                        error_reason = Resource.ApiKeyVerificationInProgressMessage;
                     }
                     break;
 
                 case EApiKeyStatus.download:
                     form.ApiKey_TextBox_Enabled = false;
                     form.ApiKey_TextBox_BackColor = Color.White;
-                    error_reason = "API key verification in progress ....";
+                    // "API key verification in progress ...."
+                    error_reason = Resource.ApiKeyVerificationInProgressMessage;
                     break;
 
                 case EApiKeyStatus.ok:
@@ -102,9 +108,11 @@ namespace Intento.MT.Plugin.PropertiesForm
                     form.ApiKey_TextBox_BackColor = Color.LightPink;
                     form.ApiKey_TextBox_Enabled = true;
                     if (string.IsNullOrEmpty(apiKey))
-                        error_reason = "Enter your API key and press \"Check\" button.";
+                        // Enter your API key and press \"Check\" button.
+                        error_reason = Resource.ApiKeyNeededErrorMessage; 
                     else
-                        error_reason = "API key verification required. Press \"Check\" button.";
+                        // "API key verification in progress ...."
+                        error_reason = Resource.ApiKeyVerificationInProgressMessage;
                     break;
             }
             if (!IsOK)
@@ -149,12 +157,13 @@ namespace Intento.MT.Plugin.PropertiesForm
                     Exception ex = ex2.InnerExceptions[0];
                     if (ex is IntentoInvalidApiKeyException)
                     {
-                        error_reason = "Invalid API key";
+                        // Invalid API key
+                        error_reason = Resource.InvalidApiKeyMessage;
                     }
                     else
                     {
                         if (ex is IntentoInvalidApiKeyException)
-                            error_reason = string.Format("Forbidden. {0}", ((IntentoSDK.IntentoApiException)ex).Content);
+                            error_reason = string.Format("[F] {0}", ((IntentoSDK.IntentoApiException)ex).Content);
                         else if (ex is IntentoApiException)
                             error_reason = string.Format("[Api] {2}: {0}: {1}", ex.Message, ((IntentoApiException)ex).Content, ex.GetType().Name);
                         else if (ex is IntentoSdkException)

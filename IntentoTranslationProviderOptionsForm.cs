@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -74,6 +75,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.fabric = fabric;
 
             InitializeComponent();
+
+            if (options.HideHiddenTextButton)
+                checkBoxShowHidden.Visible = false;
+            if (options.ForbidSaveApikey)
+                checkBoxSaveApiKeyInRegistry.Visible = false;
 
             Assembly currentAssem = typeof(IntentoTranslationProviderOptionsForm).Assembly;
             version = String.Format("{0}-{1}",
@@ -559,6 +565,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         bool insideEnableDisable = false;
         bool IForm.InsideEnableDisable { get { return insideEnableDisable; } set { insideEnableDisable = value; } }
+
+        public static ResourceManager resourceManager = new ResourceManager(typeof(Resource));
+        ResourceManager IForm.ResourceManager { get { return resourceManager; } }
 
         #endregion
 
