@@ -97,6 +97,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // Glossary_TextBox (textBoxGlossary)
         string Glossary_TextBox_Text { get; set; }
         bool Glossary_TextBox_Visible { set; }
+        bool Glossary_TextBox_Enabled { set; }
 
         // Glossary_ComboBox (comboBoxGlossaries)
         void Glossary_ComboBox_Clear();
@@ -104,6 +105,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         void Glossary_ComboBox_Insert(int n, string text);
         int Glossary_ComboBox_SelectedIndex { set; }
         bool Glossary_ComboBox_Visible { set; }
+        bool Glossary_ComboBox_Enabled { set; }
         string Glossary_ComboBox_Text { get; }
 
         // ErrorMessage TextBox (toolStripStatusLabel1)
@@ -130,5 +132,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         void ResumeLayout();
         List<string> Errors { get; set; }
         LangPair[] LanguagePairs { get; }
+
+        bool InsideEnableDisable { get; set; }
     } 
 }

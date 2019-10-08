@@ -516,8 +516,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         bool IForm.Glossary_Group_Visible { get { return groupBoxGlossary.Visible; } set { groupBoxGlossary.Visible = value; } }
 
         // Glossary_TextBox (textBoxGlossary)
-        string IForm.Glossary_TextBox_Text { get { return textBoxGlossary.Text; } set { textBoxGlossary.Text = value; } }
         bool IForm.Glossary_TextBox_Visible { set { textBoxGlossary.Visible = value; } }
+        bool IForm.Glossary_TextBox_Enabled { set { textBoxGlossary.Enabled = value; } }
+        string IForm.Glossary_TextBox_Text { get { return textBoxGlossary.Text; } set { textBoxGlossary.Text = value; } }
 
         // Glossary_ComboBox (comboBoxGlossaries)
         void IForm.Glossary_ComboBox_Clear() { comboBoxGlossaries.Items.Clear(); }
@@ -525,6 +526,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         void IForm.Glossary_ComboBox_Insert(int n, string text) { comboBoxGlossaries.Items.Insert(n, text); }
         int IForm.Glossary_ComboBox_SelectedIndex { set { comboBoxGlossaries.SelectedIndex = value; } }
         bool IForm.Glossary_ComboBox_Visible { set { comboBoxGlossaries.Visible = value; } }
+        bool IForm.Glossary_ComboBox_Enabled { set { comboBoxGlossaries.Enabled = value; } }
         string IForm.Glossary_ComboBox_Text { get { return comboBoxGlossaries.Text; } }
 
         // Continue Button (buttonContinue)
@@ -544,8 +546,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         IEnumerable<dynamic> IForm.Providers(Dictionary<string, string> filter) { return _translate.Providers(filter: filter); }
         dynamic IForm.Provider(string provider, string additionalParams) { return _translate.Provider(provider: provider, additionalParams: additionalParams); }
         IList<dynamic> IForm.DelegatedCredentials() { return _translate.DelegatedCredentials(); }
-        IList<dynamic> IForm.Models(string provider, Dictionary<string, string> credential_id) { return _translate.Models(provider: provider, credential_id: credential_id); }
-        IList<dynamic> IForm.Glossaries(string provider, Dictionary<string, string> credential_id) { return _translate.Glossaries(provider: provider, credential_id: credential_id); }
+        IList<dynamic> IForm.Models(string provider, Dictionary<string, string> credential_id) { return _translate.Models(provider: provider, credentials: credential_id); }
+        IList<dynamic> IForm.Glossaries(string provider, Dictionary<string, string> credential_id) { return _translate.Glossaries(provider: provider, credentials: credential_id); }
 
         // Other
         int IForm.CursorCount { get { return cursorCount; } set { cursorCount = value; } }
@@ -554,6 +556,10 @@ namespace Intento.MT.Plugin.PropertiesForm
         void IForm.ResumeLayout() { ResumeLayout(); }
         List<string> IForm.Errors { get { return errors; } set { errors = value; } }
         LangPair[] IForm.LanguagePairs { get { return _languagePairs; } }
+
+        bool insideEnableDisable = false;
+        bool IForm.InsideEnableDisable { get { return insideEnableDisable; } set { insideEnableDisable = value; } }
+
         #endregion
 
     }

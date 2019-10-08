@@ -27,9 +27,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string currentProviderId;
         public string currentProviderName;
 
-        private Dictionary<string, dynamic> _providerModels;
-        private Dictionary<string, dynamic> _providerGlossaries;
-
         LangPair[] languagePairs;
 
         bool isInitialized = false;
@@ -158,6 +155,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (string.IsNullOrWhiteSpace(form.Providers_ComboBox_Text))
             {
                 // No provider choosed
+                ClearOptions(options);
                 providerData = null;
                 currentProviderId = null;
                 currentProviderName = null;
@@ -165,7 +163,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
             else if (providersNames != null && currentProviderId != providersNames[form.Providers_ComboBox_Text])
             {
-                if (!string.IsNullOrEmpty(currentProviderName))
+                ClearOptions(options);
+                if (!string.IsNullOrEmpty(currentProviderId))
                 {   // Prev provider was not empty - need to clear parameters
                     GetAuthState().ClearOptions(options);
                     authState = null;
@@ -269,53 +268,12 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string CurrentProviderName
         { get { return IsOK ? currentProviderName : null; } }
 
-        string authModelHash = null;
-        public Dictionary<string, dynamic> GetModels(Dictionary<string, string> providerDataAuthDict)
-        {
-            string z = providerDataAuthDict ==null ? "" : string.Join(",", providerDataAuthDict.Keys.Select(i => string.Format("{0}-{1}", i, providerDataAuthDict[i])));
-            if (_providerModels != null && z == authModelHash)
-                return _providerModels;
-
-            authModelHash = z;
-            _providerModels = new Dictionary<string, dynamic>();
-            try
-            {
-                IList<dynamic> providerModelsRec = form.Models(currentProviderId, providerDataAuthDict);
-                if (providerModelsRec != null)
-                    _providerModels = providerModelsRec.ToDictionary(s => (string)s.name, q => q);
-            }
-            catch { }
-                
-            return _providerModels;
-        }
-
-        string authGlossaryHash = null;
-        public Dictionary<string, dynamic> GetGlossaries(Dictionary<string, string> providerDataAuthDict)
-        {
-            string z = string.Join(",", providerDataAuthDict.Keys.Select(i => string.Format("{0}-{1}", i, providerDataAuthDict[i])));
-            if (_providerGlossaries != null && z == authGlossaryHash)
-                return _providerGlossaries;
-
-            authGlossaryHash = z;
-            _providerGlossaries = new Dictionary<string, dynamic>();
-            try
-            {
-                IList<dynamic> providerGlossariesRec = form.Glossaries(currentProviderId, providerDataAuthDict);
-                if (providerGlossariesRec != null && providerGlossariesRec.Any())
-                    _providerGlossaries = providerGlossariesRec.ToDictionary(s => (string)s.name, q => q);
-            }
-            catch { }
-
-            return _providerGlossaries;
-        }
-
         public static void FillOptions(ProviderState state, IntentoMTFormOptions options)
         {
             if (state == null)
             {
-                options.ProviderId = null;
-                options.ProviderName = null;
-                options.Format = null;
+                if (state != null)
+                    state.ClearOptions(options);
                 AuthState.FillOptions(null, options);
             }
             else
@@ -329,5 +287,15 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
+        public void ClearOptions(IntentoMTFormOptions options)
+        {
+            options.ProviderId = null;
+            options.ProviderName = null;
+            options.Format = null;
+
+            if (authState != null)
+                authState.ClearOptions(options);
+        }
+
     }
-    }
+}

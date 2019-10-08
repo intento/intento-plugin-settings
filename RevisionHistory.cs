@@ -49,5 +49,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Bug with single credential_id
         // 1.5.2: 2019-10-05
         // - Refactoring (using memoQ pull request) of AuthWizardForm to comply with different screen scale factors. 
+        // - Refacoring of MOdels and Glossaries processing
     }
 }

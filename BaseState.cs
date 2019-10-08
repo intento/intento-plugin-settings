@@ -52,16 +52,15 @@ namespace Intento.MT.Plugin.PropertiesForm
         }
 
         #region custom helper methods
-        bool insideEnableDisable = false;
         public void EnableDisable()
         {
-            if (insideEnableDisable)
+            if (form.InsideEnableDisable)
                 return;
 
             form.SuspendLayout();
             try
             {
-                insideEnableDisable = true;
+                form.InsideEnableDisable = true;
                 form.Errors = new List<string>();
 
                 form.Errors.Add(form.ApiKeyState.Draw());
@@ -69,7 +68,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
             finally
             {
-                insideEnableDisable = false;
+                form.InsideEnableDisable = false;
             }
             ShowErrorMessage();
             form.ResumeLayout();

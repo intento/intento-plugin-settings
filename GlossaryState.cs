@@ -14,10 +14,20 @@ namespace Intento.MT.Plugin.PropertiesForm
     {
         ProviderState providerState;
         AuthState authState;
-        bool firstTime = true;
+
+        public enum EnumGlossariesMode
+        {
+            // Starting mode, glossaries not checked yet
+            unknown = 0,
+            prohibited,
+            optional
+        }
+
+        EnumGlossariesMode mode = EnumGlossariesMode.unknown;
+        bool isList;
 
         // List of custom models obtained from provider
-        Dictionary<string, dynamic> providerGlossaries = new Dictionary<string, dynamic>();
+        Dictionary<string, dynamic> glossaries = null;
 
         /// <summary>
         /// 
@@ -29,50 +39,53 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             this.authState = authState;
             providerState = authState.providerState;
-            providerState = authState.providerState;
 
-            form.Glossary_TextBox_Text = string.Empty;
-            form.Glossary_ComboBox_Clear();
-
-            FillProviderGlossaries();
+            Clear();
         }
 
-        private void FillProviderGlossaries()
+        void Clear()
         {
             form.Glossary_ComboBox_Clear();
             form.Glossary_TextBox_Text = string.Empty;
-            try
-            {
-                providerGlossaries = providerState.GetGlossaries(authState.providerDataAuthDict);
-                if (providerGlossaries != null && providerGlossaries.Any())
-                {
-                    // Fill Glossary and choose SelectedIndex
-                    form.Glossary_ComboBox_Insert(0, "");
-                    foreach (string x in providerGlossaries.Select(x => (string)x.Key).OrderBy(x => x))
-                    {
-                        int n = form.Glossary_ComboBoxAdd(x);
-                        if ((string)providerGlossaries[x].id == options.Glossary)
-                            form.Glossary_ComboBox_SelectedIndex = n;
-                    }
-                    form.Glossary_TextBox_Text = null;
-                }
-                else
-                    providerGlossaries = null;
-            }
-            catch
-            {
-                providerGlossaries = null;
-            }
-
-            if (providerGlossaries == null)
-                form.Glossary_TextBox_Text = options.Glossary;
         }
 
-        /// <summary>
-        /// Do we need to use text box to enter/get gloosary name or from combo box
-        /// </summary>
-        public bool UseEspecialGlossary
-        { get { return providerGlossaries == null; } }
+        bool controls_ok = false;
+        private void FillGlossaryControls()
+        {
+            if (!authState.IsOK || controls_ok)
+                return;
+
+            controls_ok = true;
+            Clear();
+
+            if (!providerState.custom_glossary)
+            {   // glossaries are not supported by provider
+                mode = EnumGlossariesMode.prohibited;
+                form.Glossary_Group_Visible = false;
+                return;
+            }
+
+            mode = EnumGlossariesMode.optional;
+            form.Glossary_Group_Visible = true;
+
+            ReadGlossaries();
+
+            if (isList)
+            {
+                // Fill Glossary and choose SelectedIndex
+                form.Glossary_ComboBox_Insert(0, "");
+                foreach (string x in glossaries.Select(x => (string)x.Key).OrderBy(x => x))
+                {
+                    int n = form.Glossary_ComboBoxAdd(x);
+                    if ((string)glossaries[x].id == options.Glossary)
+                        form.Glossary_ComboBox_SelectedIndex = n;
+                }
+            }
+            else
+            {
+                form.Glossary_TextBox_Text = options.Glossary;
+            }
+        }
 
         public static string Draw(IForm form, GlossaryState state)
         {
@@ -88,40 +101,48 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public string Draw()
         {
+            FillGlossaryControls();
+
             string errorMessage = null;
 
-            if (firstTime)
+            switch(mode)
             {
-                if (providerGlossaries != null)
-                {
-                    // Fill Glossary and choose SelectedIndex
-                    form.Glossary_ComboBox_Insert(0, "");
-                    foreach (string x in providerGlossaries.Select(x => (string)x.Key).OrderBy(x => x))
-                    {
-                        int n = form.Glossary_ComboBoxAdd(x);
-                        if ((string)providerGlossaries[x].id == options.Glossary)
-                            form.Glossary_ComboBox_SelectedIndex = n;
-                    }
-                    form.Glossary_TextBox_Text = null;
-                }
-                firstTime = false;
-            }
-
-            // set state of glossary selection control
-            if (form.Glossary_Group_Visible = providerState.custom_glossary && authState.IsOK)
-            {
-                var glossaries = providerState.GetGlossaries(authState.providerDataAuthDict);
-                if (glossaries != null && glossaries.Count != 0)
-                {
+                case EnumGlossariesMode.prohibited:
                     form.Glossary_TextBox_Visible = false;
-                    form.Glossary_ComboBox_Visible = true;
-                }
-                else
-                {
-                    form.Glossary_TextBox_Visible = true;
                     form.Glossary_ComboBox_Visible = false;
-                }
+                    form.Glossary_Group_Visible = false;
+                    break;
 
+                case EnumGlossariesMode.optional:
+                    if (isList)
+                    {
+                        form.Glossary_Group_Visible = true;
+                        if (glossaries.Count == 0)
+                        {
+                            form.Glossary_TextBox_Visible = true;
+                            form.Glossary_ComboBox_Visible = false;
+                            form.Glossary_TextBox_Enabled = false;
+                            form.Glossary_TextBox_Text = "No glossaries available";
+                        }
+                        else
+                        {
+                            form.Glossary_TextBox_Visible = false;
+                            form.Glossary_ComboBox_Visible = true;
+                            form.Glossary_ComboBox_Enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        form.Glossary_Group_Visible = true;
+                        form.Glossary_TextBox_Visible = true;
+                        form.Glossary_ComboBox_Visible = false;
+                        form.Glossary_TextBox_Enabled = true;
+                    }
+
+                    break;
+
+                default:
+                    throw new Exception(string.Format("Invalid mode {0}", mode));
             }
             return errorMessage;
         }
@@ -130,20 +151,31 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             get
             {
-                if (!form.Glossary_Group_Visible)
-                    return null;
+                ReadGlossaries();
 
-                if (UseEspecialGlossary)
+                switch (mode)
                 {
-                    if (string.IsNullOrEmpty(form.Glossary_TextBox_Text))
+                    case EnumGlossariesMode.prohibited:
                         return null;
-                    return form.Glossary_TextBox_Text;
+
+                    case EnumGlossariesMode.optional:
+                        if (isList)
+                        {
+                            if (string.IsNullOrEmpty(form.Glossary_ComboBox_Text))
+                                return null;
+                            return (string)glossaries[form.Glossary_ComboBox_Text].id;
+                        }
+                        else
+                        {
+                            if (string.IsNullOrEmpty(form.Glossary_TextBox_Text))
+                                return null;
+                            return form.Glossary_TextBox_Text;
+                        }
+
+                    default:
+                        throw new Exception(string.Format("Invalid mode {0}", mode));
                 }
 
-                if (!string.IsNullOrEmpty(form.Glossary_ComboBox_Text) && providerGlossaries != null && providerGlossaries.Count != 0)
-                    return (string)providerGlossaries[form.Glossary_ComboBox_Text].id;
-
-                return null;
             }
         }
 
@@ -162,7 +194,34 @@ namespace Intento.MT.Plugin.PropertiesForm
         public void ClearOptions(IntentoMTFormOptions options)
         {
             options.Glossary = null;
-            form.Glossary_ComboBox_Clear();
+            Clear();
+        }
+
+        bool readDone = false;
+        private void ReadGlossaries()
+        {
+            if (readDone)
+                return;
+            readDone = true;
+
+            try
+            {
+                IList<dynamic> providerGlossariesRec = form.Glossaries(
+                    providerState.currentProviderId, 
+                    authState.UseCustomAuth ? authState.providerDataAuthDict : null);
+                glossaries = new Dictionary<string, dynamic>();
+                if (providerGlossariesRec != null && providerGlossariesRec.Any())
+                    glossaries = providerGlossariesRec.ToDictionary(s => (string)s.name, q => q);
+                isList = true;
+
+                // Temporary! Empty list means that manual entry is possbile
+                if (glossaries.Count == 0)
+                    isList = false;
+            }
+            catch
+            {
+                isList = false;
+            }
         }
 
     }

@@ -145,6 +145,77 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             public IntentoTranslationProviderOptionsForm.LangPair[] LanguagePairs => languagePairs;
 
+            ApiKeyState IForm.ApiKeyState => throw new NotImplementedException();
+
+            string IForm.ApiKey_TextBox_Text { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            bool IForm.ApiKey_TextBox_Enabled { set => throw new NotImplementedException(); }
+            Color IForm.ApiKey_TextBox_BackColor { set => throw new NotImplementedException(); }
+            bool IForm.ApiKeyCheck_Button_Enabled { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            bool IForm.Continue_Button_Enabled { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            bool IForm.SmartRouting_CheckBox_Checked { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            bool IForm.SmartRouting_CheckBox_Visible { set => throw new NotImplementedException(); }
+            bool IForm.SmartRouting_CheckBox_Enabled { set => throw new NotImplementedException(); }
+            string IForm.Providers_ComboBox_SelectedItem { set => throw new NotImplementedException(); }
+
+            string IForm.Providers_ComboBox_Text => throw new NotImplementedException();
+
+            Color IForm.Providers_ComboBox_BackColor { set => throw new NotImplementedException(); }
+            bool IForm.Providers_Group_Visible { set => throw new NotImplementedException(); }
+            bool IForm.Providers_Group_Enabled { set => throw new NotImplementedException(); }
+            bool IForm.Auth_CheckBox_Visible { set => throw new NotImplementedException(); }
+            bool IForm.Auth_CheckBox_Enabled { set => throw new NotImplementedException(); }
+            bool IForm.Auth_CheckBox_Checked { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            bool IForm.AuthText_Group_Visible { set => throw new NotImplementedException(); }
+            Color IForm.AuthText_TextBox_BackColor { set => throw new NotImplementedException(); }
+            string IForm.AuthText_TextBox_Text { set => throw new NotImplementedException(); }
+            bool IForm.AuthCombo_Group_Visible { set => throw new NotImplementedException(); }
+            object IForm.AuthCombo_ComboBox_SelectedItem { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            bool IForm.AuthCombo_ComboBox_Enabled { set => throw new NotImplementedException(); }
+
+            int IForm.AuthCombo_ComboBox_Count => throw new NotImplementedException();
+
+            int IForm.AuthCombo_ComboBox_SelectedIndex { set => throw new NotImplementedException(); }
+            Color IForm.AuthCombo_ComboBox_BackColor { set => throw new NotImplementedException(); }
+
+            string IForm.AuthCombo_ComboBox_Text => throw new NotImplementedException();
+
+            bool IForm.Model_CheckBox_Checked { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            bool IForm.Model_CheckBox_Visible { set => throw new NotImplementedException(); }
+            bool IForm.Model_CheckBox_Enabled { set => throw new NotImplementedException(); }
+            bool IForm.Model_Group_Visible { set => throw new NotImplementedException(); }
+            bool IForm.Model_Group_Enabled { set => throw new NotImplementedException(); }
+            int IForm.Model_ComboBox_SelectedIndex { set => throw new NotImplementedException(); }
+
+            int IForm.Model_ComboBox_Count => throw new NotImplementedException();
+
+            bool IForm.Model_ComboBox_Visible { set => throw new NotImplementedException(); }
+            Color IForm.Model_ComboBox_BackColor { set => throw new NotImplementedException(); }
+            string IForm.Model_ComboBox_Text { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            bool IForm.Model_TextBox_Visible { set => throw new NotImplementedException(); }
+            string IForm.Model_TextBox_Text { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            Color IForm.Model_TextBox_BackColor { set => throw new NotImplementedException(); }
+            bool IForm.Glossary_Group_Visible { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            string IForm.Glossary_TextBox_Text { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            bool IForm.Glossary_TextBox_Visible { set => throw new NotImplementedException(); }
+            bool IForm.Glossary_TextBox_Enabled { set => throw new NotImplementedException(); }
+            int IForm.Glossary_ComboBox_SelectedIndex { set => throw new NotImplementedException(); }
+            bool IForm.Glossary_ComboBox_Visible { set => throw new NotImplementedException(); }
+            bool IForm.Glossary_ComboBox_Enabled { set => throw new NotImplementedException(); }
+
+            string IForm.Glossary_ComboBox_Text => throw new NotImplementedException();
+
+            string IForm.ErrorMessage_TextBox_Text { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            Color IForm.ErrorMessage_TextBox_BackColor { set => throw new NotImplementedException(); }
+            bool IForm.SaveApiKeyInRegistry_CheckBox_Checked { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+            bool IForm.ShowHidden_CheckBox_Checked => throw new NotImplementedException();
+
+            int IForm.CursorCount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+            Cursor IForm.Cursor { set => throw new NotImplementedException(); }
+            List<string> IForm.Errors { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+            IntentoTranslationProviderOptionsForm.LangPair[] IForm.LanguagePairs => throw new NotImplementedException();
+
             public void AuthCombo_ComboBox_AddRange(object[] items)
             {
                 authCombo_ComboBox_List.AddRange(items.Select(i => (string)i));
@@ -248,6 +319,99 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 // throw new NotImplementedException();
             }
+
+            void IForm.Providers_ComboBox_Clear()
+            {
+                throw new NotImplementedException();
+            }
+
+            void IForm.Providers_ComboBox_AddRange(object[] items)
+            {
+                throw new NotImplementedException();
+            }
+
+            void IForm.AuthCombo_ComboBox_Clear()
+            {
+                throw new NotImplementedException();
+            }
+
+            void IForm.AuthCombo_ComboBox_AddRange(object[] items)
+            {
+                throw new NotImplementedException();
+            }
+
+            void IForm.AuthCombo_ComboBox_Insert(int n, string text)
+            {
+                throw new NotImplementedException();
+            }
+
+            bool IForm.AuthCombo_ComboBox_Contains(string text)
+            {
+                throw new NotImplementedException();
+            }
+
+            void IForm.Model_ComboBox_Clear()
+            {
+                throw new NotImplementedException();
+            }
+
+            int IForm.Model_ComboBox_Add(string text)
+            {
+                throw new NotImplementedException();
+            }
+
+            void IForm.Glossary_ComboBox_Clear()
+            {
+                throw new NotImplementedException();
+            }
+
+            int IForm.Glossary_ComboBoxAdd(string text)
+            {
+                throw new NotImplementedException();
+            }
+
+            void IForm.Glossary_ComboBox_Insert(int n, string text)
+            {
+                throw new NotImplementedException();
+            }
+
+            IEnumerable<dynamic> IForm.Providers(Dictionary<string, string> filter)
+            {
+                throw new NotImplementedException();
+            }
+
+            dynamic IForm.Provider(string provider, string additionaParams)
+            {
+                throw new NotImplementedException();
+            }
+
+            IList<dynamic> IForm.DelegatedCredentials()
+            {
+                throw new NotImplementedException();
+            }
+
+            IList<dynamic> IForm.Models(string provider, Dictionary<string, string> credential_id)
+            {
+                throw new NotImplementedException();
+            }
+
+            IList<dynamic> IForm.Glossaries(string provider, Dictionary<string, string> credential_id)
+            {
+                throw new NotImplementedException();
+            }
+
+            void IForm.SuspendLayout()
+            {
+                throw new NotImplementedException();
+            }
+
+            void IForm.ResumeLayout()
+            {
+                throw new NotImplementedException();
+            }
+
+            bool insideEnableDisable = false;
+            bool IForm.InsideEnableDisable { get { return insideEnableDisable; } set { insideEnableDisable = value; } }
         }
 
         [TestMethod]
