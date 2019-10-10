@@ -79,6 +79,24 @@ namespace Intento.MT.Plugin.PropertiesForm {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter credentials.
+        /// </summary>
+        internal static string AuthWizardFormCaption {
+            get {
+                return ResourceManager.GetString("AuthWizardFormCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom credentials (required).
+        /// </summary>
+        internal static string CustomCredentials {
+            get {
+                return ResourceManager.GetString("CustomCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid API key.
         /// </summary>
         internal static string InvalidApiKeyMessage {
@@ -88,11 +106,29 @@ namespace Intento.MT.Plugin.PropertiesForm {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string OKAuthWizardFormLabel {
+            get {
+                return ResourceManager.GetString("OKAuthWizardFormLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must provide your own credentials for this provider..
         /// </summary>
         internal static string OwnCredentialsNeededErrorMessage {
             get {
                 return ResourceManager.GetString("OwnCredentialsNeededErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show hidden text.
+        /// </summary>
+        internal static string ShowHiddenTextAuthWizardLabel {
+            get {
+                return ResourceManager.GetString("ShowHiddenTextAuthWizardLabel", resourceCulture);
             }
         }
     }

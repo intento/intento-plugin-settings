@@ -123,10 +123,22 @@
   <data name="ApiKeyVerificationInProgressMessage" xml:space="preserve">
     <value>API key verification in progress ....</value>
   </data>
+  <data name="AuthWizardFormCaption" xml:space="preserve">
+    <value>Enter credentials</value>
+  </data>
+  <data name="CustomCredentials" xml:space="preserve">
+    <value>Custom credentials (required)</value>
+  </data>
   <data name="InvalidApiKeyMessage" xml:space="preserve">
     <value>Invalid API key</value>
   </data>
+  <data name="OKAuthWizardFormLabel" xml:space="preserve">
+    <value>OK</value>
+  </data>
   <data name="OwnCredentialsNeededErrorMessage" xml:space="preserve">
     <value>You must provide your own credentials for this provider.</value>
+  </data>
+  <data name="ShowHiddenTextAuthWizardLabel" xml:space="preserve">
+    <value>Show hidden text</value>
   </data>
 </root>
