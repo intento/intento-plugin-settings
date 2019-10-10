@@ -252,7 +252,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (string.IsNullOrEmpty(form.Providers_ComboBox_Text))
             {
                 form.Providers_ComboBox_BackColor = Color.LightPink;
-                return "You need to choose a provider";
+                return Resource.YouNeedToChooseAProviderMessage;
             }
 
             form.Providers_ComboBox_BackColor = Color.White;

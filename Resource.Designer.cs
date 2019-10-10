@@ -97,6 +97,15 @@ namespace Intento.MT.Plugin.PropertiesForm {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must specify a custom model or uncheck \&quot;use your custom model\&quot;.
+        /// </summary>
+        internal static string CustomModelRequiredMessage {
+            get {
+                return ResourceManager.GetString("CustomModelRequiredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid API key.
         /// </summary>
         internal static string InvalidApiKeyMessage {
@@ -129,6 +138,15 @@ namespace Intento.MT.Plugin.PropertiesForm {
         internal static string ShowHiddenTextAuthWizardLabel {
             get {
                 return ResourceManager.GetString("ShowHiddenTextAuthWizardLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to choose a provider.
+        /// </summary>
+        internal static string YouNeedToChooseAProviderMessage {
+            get {
+                return ResourceManager.GetString("YouNeedToChooseAProviderMessage", resourceCulture);
             }
         }
     }
