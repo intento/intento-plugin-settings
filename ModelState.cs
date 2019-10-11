@@ -178,7 +178,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 form.Model_ComboBox_BackColor = Color.LightPink;
                 form.Model_TextBox_BackColor = Color.LightPink;
-                errorMessage = "You must specify a custom model or uncheck \"use your custom model\"";
+                errorMessage = Resource.CustomModelRequiredMessage;
             }
             else
             {

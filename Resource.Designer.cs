@@ -61,7 +61,16 @@ namespace Intento.MT.Plugin.PropertiesForm {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your API key and press \&quot;Check\&quot; button..
+        ///   Looks up a localized string similar to API Key.
+        /// </summary>
+        internal static string ApiKeyLabel {
+            get {
+                return ResourceManager.GetString("ApiKeyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter your API key and press &quot;Check&quot; button..
         /// </summary>
         internal static string ApiKeyNeededErrorMessage {
             get {
@@ -79,6 +88,33 @@ namespace Intento.MT.Plugin.PropertiesForm {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter credentials.
+        /// </summary>
+        internal static string AuthWizardFormCaption {
+            get {
+                return ResourceManager.GetString("AuthWizardFormCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom credentials (required).
+        /// </summary>
+        internal static string CustomCredentials {
+            get {
+                return ResourceManager.GetString("CustomCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must specify a custom model or uncheck &quot;Use your custom model&quot;.
+        /// </summary>
+        internal static string CustomModelRequiredMessage {
+            get {
+                return ResourceManager.GetString("CustomModelRequiredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid API key.
         /// </summary>
         internal static string InvalidApiKeyMessage {
@@ -88,11 +124,245 @@ namespace Intento.MT.Plugin.PropertiesForm {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check.
+        /// </summary>
+        internal static string MFButtonCheck {
+            get {
+                return ResourceManager.GetString("MFButtonCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill or edit.
+        /// </summary>
+        internal static string MFButtonWizard {
+            get {
+                return ResourceManager.GetString("MFButtonWizard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intento plugin settings.
+        /// </summary>
+        internal static string MFCaption {
+            get {
+                return ResourceManager.GetString("MFCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable proxy server (Attention! This setting applies to all Intento MT rules.).
+        /// </summary>
+        internal static string MFcheckBoxProxy {
+            get {
+                return ResourceManager.GetString("MFcheckBoxProxy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save API Key locally.
+        /// </summary>
+        internal static string MFCheckBoxSaveApiKeyInRegistry {
+            get {
+                return ResourceManager.GetString("MFCheckBoxSaveApiKeyInRegistry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Smart routing.
+        /// </summary>
+        internal static string MFCheckBoxSmartRouting {
+            get {
+                return ResourceManager.GetString("MFCheckBoxSmartRouting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log payloads for 30 minutes.
+        /// </summary>
+        internal static string MFCheckBoxTrace {
+            get {
+                return ResourceManager.GetString("MFCheckBoxTrace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use own custom model.
+        /// </summary>
+        internal static string MFCheckBoxUseCustomModel {
+            get {
+                return ResourceManager.GetString("MFCheckBoxUseCustomModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to checkBoxUseOwnCred.
+        /// </summary>
+        internal static string MFCheckBoxUseOwnCred {
+            get {
+                return ResourceManager.GetString("MFCheckBoxUseOwnCred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization parameters.
+        /// </summary>
+        internal static string MFGroupBoxAuth {
+            get {
+                return ResourceManager.GetString("MFGroupBoxAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stored Credentials.
+        /// </summary>
+        internal static string MFGroupBoxAuthCredentialId {
+            get {
+                return ResourceManager.GetString("MFGroupBoxAuthCredentialId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Glossary.
+        /// </summary>
+        internal static string MFGroupBoxGlossary {
+            get {
+                return ResourceManager.GetString("MFGroupBoxGlossary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Model.
+        /// </summary>
+        internal static string MFGroupBoxModel {
+            get {
+                return ResourceManager.GetString("MFGroupBoxModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MT Provider settings.
+        /// </summary>
+        internal static string MFGroupBoxProviderSettings {
+            get {
+                return ResourceManager.GetString("MFGroupBoxProviderSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you don&apos;t have an Intento API key, register here:.
+        /// </summary>
+        internal static string MFLabel2 {
+            get {
+                return ResourceManager.GetString("MFLabel2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More info:.
+        /// </summary>
+        internal static string MFLabel3 {
+            get {
+                return ResourceManager.GetString("MFLabel3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string OKLabel {
+            get {
+                return ResourceManager.GetString("OKLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must provide your own credentials for this provider..
         /// </summary>
         internal static string OwnCredentialsNeededErrorMessage {
             get {
                 return ResourceManager.GetString("OwnCredentialsNeededErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provider.
+        /// </summary>
+        internal static string ProviderLabel {
+            get {
+                return ResourceManager.GetString("ProviderLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proxy Settings.
+        /// </summary>
+        internal static string PSFCaption {
+            get {
+                return ResourceManager.GetString("PSFCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization required.
+        /// </summary>
+        internal static string PSFCheckBoxAuth {
+            get {
+                return ResourceManager.GetString("PSFCheckBoxAuth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP address or host name: http(s)://.
+        /// </summary>
+        internal static string PSFLabelAddress {
+            get {
+                return ResourceManager.GetString("PSFLabelAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password:.
+        /// </summary>
+        internal static string PSFLabelPassword {
+            get {
+                return ResourceManager.GetString("PSFLabelPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Port:.
+        /// </summary>
+        internal static string PSFLabelPort {
+            get {
+                return ResourceManager.GetString("PSFLabelPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User name:.
+        /// </summary>
+        internal static string PSFLabelUserName {
+            get {
+                return ResourceManager.GetString("PSFLabelUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show hidden text.
+        /// </summary>
+        internal static string ShowHiddenTextLabel {
+            get {
+                return ResourceManager.GetString("ShowHiddenTextLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to choose a provider.
+        /// </summary>
+        internal static string YouNeedToChooseAProviderMessage {
+            get {
+                return ResourceManager.GetString("YouNeedToChooseAProviderMessage", resourceCulture);
             }
         }
     }

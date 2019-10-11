@@ -50,5 +50,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // 1.5.2: 2019-10-05
         // - Refactoring (using memoQ pull request) of AuthWizardForm to comply with different screen scale factors. 
         // - Refacoring of MOdels and Glossaries processing
+        // 1.5.3: 2019-10-10
+        // - Pull request from memoQ. Processed manually
     }
 }

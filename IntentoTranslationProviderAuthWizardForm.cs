@@ -1,5 +1,4 @@
-﻿// using IntentoMTPlugin;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +22,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             Dictionary<string, string> authDict, bool showHidden, bool HideHiddenTextButton)
         {
             InitializeComponent();
-            // LocalizeContent();
+            LocalizeContent();
 
             authParam = authDict;
 
@@ -33,7 +32,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             byte i = 0;
             int paramsCount = authParam.Count;
             tlpCustomCredentials.RowCount = paramsCount;
-            for (int j = 0; j < paramsCount - 1; j++)
+            for (int j = 0; j < paramsCount-1; j++)
                 this.tlpCustomCredentials.RowStyles.Add(new System.Windows.Forms.RowStyle());
             lbs = new Label[paramsCount];
             tbs = new TextBox[paramsCount];
@@ -42,7 +41,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 string key = authField.Key;
                 lbs[i] = new System.Windows.Forms.Label();
                 lbs[i].Parent = this;
-                lbs[i].Location = new System.Drawing.Point(0, 0);
+                lbs[i].Location = new System.Drawing.Point(0,0);
                 lbs[i].Name = "lbl" + key;
                 lbs[i].Text = key;
                 lbs[i].Visible = true;
@@ -53,7 +52,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 tbs[i] = new System.Windows.Forms.TextBox();
                 tbs[i].Parent = this;
                 tbs[i].BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-                tbs[i].Location = new System.Drawing.Point(0, 0);
+                tbs[i].Location = new System.Drawing.Point(0,0);
 
                 tbs[i].Name = key;
                 tbs[i].Size = new System.Drawing.Size(240, 20);
@@ -101,13 +100,13 @@ namespace Intento.MT.Plugin.PropertiesForm
             foreach (TextBox tb in tbs)
                 tb.UseSystemPasswordChar = !checkBoxShowHidden.Checked;
         }
-        /*
+
         private void LocalizeContent()
         {
-            Text = LocalizationHelper.Instance.GetResourceString("AuthWizardFormCaption");
-            label1.Text = LocalizationHelper.Instance.GetResourceString("CustomCredentials");
-            buttonOK.Text = LocalizationHelper.Instance.GetResourceString("OKAuthWizardFormLabel");
-            checkBoxShowHidden.Text = LocalizationHelper.Instance.GetResourceString("ShowHiddenTextAuthWizardLabel");
-        }*/
+            Text = Resource.AuthWizardFormCaption;
+            label1.Text = Resource.CustomCredentials;
+            buttonOK.Text = Resource.OKLabel;
+            checkBoxShowHidden.Text = Resource.ShowHiddenTextLabel;
+        }
     }
 }

@@ -75,7 +75,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                         form.ApiKey_TextBox_Enabled = true;
                         form.ApiKey_TextBox_BackColor = Color.LightPink;
                         // "Enter your API key and press \"Check\" button."
-                        error_reason = form.ResourceManager.GetString("ApiKeyNeededErrorMessage");
+                        error_reason = Resource.ApiKeyNeededErrorMessage;
                     }
                     else
                     {

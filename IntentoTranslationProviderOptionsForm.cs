@@ -75,6 +75,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.fabric = fabric;
 
             InitializeComponent();
+            LocalizeContent();
 
             if (options.HideHiddenTextButton)
                 checkBoxShowHidden.Visible = false;
@@ -188,6 +189,31 @@ namespace Intento.MT.Plugin.PropertiesForm
             return result;
         }
 
+        private void LocalizeContent()
+        {
+            Text = Resource.MFCaption;
+            label2.Text = Resource.MFLabel2;
+            label3.Text = Resource.MFLabel3;
+            checkBoxProxy.Text = Resource.MFcheckBoxProxy;
+            label5.Text = Resource.ApiKeyLabel;
+            buttonCheck.Text = Resource.MFButtonCheck;
+            checkBoxSmartRouting.Text = Resource.MFCheckBoxSmartRouting;
+            groupBoxProviderSettings.Text = Resource.MFGroupBoxProviderSettings;
+            label1.Text = Resource.ProviderLabel;
+            groupBoxAuthCredentialId.Text = Resource.MFGroupBoxAuthCredentialId;
+            checkBoxUseOwnCred.Text = Resource.MFCheckBoxUseOwnCred;
+            groupBoxAuth.Text = Resource.MFGroupBoxAuth;
+            buttonWizard.Text = Resource.MFButtonWizard;
+            checkBoxUseCustomModel.Text = Resource.MFCheckBoxUseCustomModel;
+            groupBoxModel.Text = Resource.MFGroupBoxModel;
+            groupBoxGlossary.Text = Resource.MFGroupBoxGlossary;
+            buttonContinue.Text = Resource.OKLabel;
+            checkBoxSaveApiKeyInRegistry.Text = Resource.MFCheckBoxSaveApiKeyInRegistry;
+            checkBoxShowHidden.Text = Resource.ShowHiddenTextLabel;
+            checkBoxTrace.Text = Resource.MFCheckBoxTrace;
+
+            checkBoxShowHidden.Text = Resource.ShowHiddenTextLabel;
+        }
 
         #region paramount events 
 
