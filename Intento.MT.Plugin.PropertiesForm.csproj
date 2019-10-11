@@ -60,6 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WinForms\IntentoFormOptionsAPI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormOptionsAPI.Designer.cs">
+      <DependentUpon>IntentoFormOptionsAPI.cs</DependentUpon>
+    </Compile>
     <Compile Include="ApiKeyState.cs" />
     <Compile Include="AuthState.cs" />
     <Compile Include="BaseState.cs" />
@@ -85,6 +91,18 @@
     <Compile Include="IntentoTranslationProviderProxySettingsForm.Designer.cs">
       <DependentUpon>IntentoTranslationProviderProxySettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinForms\IntentoFormOptionsMT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormOptionsMT.Designer.cs">
+      <DependentUpon>IntentoFormOptionsMT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormOptonsMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormOptonsMain.Designer.cs">
+      <DependentUpon>IntentoFormOptonsMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="ModelState.cs" />
     <Compile Include="PluginHelper.cs" />
     <Compile Include="ProviderState.cs" />
@@ -99,6 +117,9 @@
     <Compile Include="Tests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="WinForms\IntentoFormOptionsAPI.resx">
+      <DependentUpon>IntentoFormOptionsAPI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IntentoTranslationProviderAuthWizardForm.resx">
       <DependentUpon>IntentoTranslationProviderAuthWizardForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -107,6 +128,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IntentoTranslationProviderProxySettingsForm.resx">
       <DependentUpon>IntentoTranslationProviderProxySettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\IntentoFormOptionsMT.resx">
+      <DependentUpon>IntentoFormOptionsMT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\IntentoFormOptonsMain.resx">
+      <DependentUpon>IntentoFormOptonsMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -99,7 +99,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 97);
+            this.label5.Location = new System.Drawing.Point(8, 97);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(45, 13);
             this.label5.TabIndex = 7;
@@ -348,7 +348,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 13);
+            this.label2.Location = new System.Drawing.Point(12, 13);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(247, 13);
             this.label2.TabIndex = 0;
@@ -454,7 +454,7 @@
             this.textBoxLabel1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textBoxLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxLabel1.ForeColor = System.Drawing.Color.Blue;
-            this.textBoxLabel1.Location = new System.Drawing.Point(261, 13);
+            this.textBoxLabel1.Location = new System.Drawing.Point(265, 13);
             this.textBoxLabel1.Name = "textBoxLabel1";
             this.textBoxLabel1.Size = new System.Drawing.Size(118, 13);
             this.textBoxLabel1.TabIndex = 18;
