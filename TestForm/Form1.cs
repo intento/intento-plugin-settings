@@ -153,6 +153,11 @@ namespace TestForm
                 ProxyPassword = textBoxPassword.Text,
                 ProxyEnabled = checkBoxProxy.Checked
             };
+            if (checkBoxForbidSaveApikey.Checked)
+                options.ForbidSaveApikey = true;
+            if (checkBoxHideHiddenTextButton.Checked)
+                options.HideHiddenTextButton = true;
+
 
 
             IntentoTranslationProviderOptionsForm.LangPair[] languagePair = new IntentoTranslationProviderOptionsForm.LangPair[1] 

@@ -105,8 +105,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             Text = Resource.AuthWizardFormCaption;
             label1.Text = Resource.CustomCredentials;
-            buttonOK.Text = Resource.OKAuthWizardFormLabel;
-            checkBoxShowHidden.Text = Resource.ShowHiddenTextAuthWizardLabel;
+            buttonOK.Text = Resource.OKLabel;
+            checkBoxShowHidden.Text = Resource.ShowHiddenTextLabel;
         }
     }
 }

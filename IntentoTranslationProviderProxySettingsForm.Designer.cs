@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelAddress = new System.Windows.Forms.Label();
             this.textBoxAddress = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelPort = new System.Windows.Forms.Label();
             this.textBoxPort = new System.Windows.Forms.TextBox();
             this.groupBoxAuth = new System.Windows.Forms.GroupBox();
-            this.checkBoxAuth = new System.Windows.Forms.CheckBox();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelPassword = new System.Windows.Forms.Label();
             this.textBoxUserName = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.labelUserName = new System.Windows.Forms.Label();
+            this.checkBoxAuth = new System.Windows.Forms.CheckBox();
             this.buttonDone = new System.Windows.Forms.Button();
             this.groupBoxAuth.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // labelAddress
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(169, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "IP address or host name: http(s)://";
+            this.labelAddress.AutoSize = true;
+            this.labelAddress.Location = new System.Drawing.Point(13, 32);
+            this.labelAddress.Name = "labelAddress";
+            this.labelAddress.Size = new System.Drawing.Size(169, 13);
+            this.labelAddress.TabIndex = 0;
+            this.labelAddress.Text = "IP address or host name: http(s)://";
             // 
             // textBoxAddress
             // 
@@ -59,14 +59,14 @@
             this.textBoxAddress.Size = new System.Drawing.Size(166, 20);
             this.textBoxAddress.TabIndex = 1;
             // 
-            // label2
+            // labelPort
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(352, 32);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Port:";
+            this.labelPort.AutoSize = true;
+            this.labelPort.Location = new System.Drawing.Point(352, 32);
+            this.labelPort.Name = "labelPort";
+            this.labelPort.Size = new System.Drawing.Size(29, 13);
+            this.labelPort.TabIndex = 2;
+            this.labelPort.Text = "Port:";
             // 
             // textBoxPort
             // 
@@ -82,9 +82,9 @@
             this.groupBoxAuth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxAuth.Controls.Add(this.textBoxPassword);
-            this.groupBoxAuth.Controls.Add(this.label3);
+            this.groupBoxAuth.Controls.Add(this.labelPassword);
             this.groupBoxAuth.Controls.Add(this.textBoxUserName);
-            this.groupBoxAuth.Controls.Add(this.label4);
+            this.groupBoxAuth.Controls.Add(this.labelUserName);
             this.groupBoxAuth.Enabled = false;
             this.groupBoxAuth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBoxAuth.Location = new System.Drawing.Point(16, 71);
@@ -92,18 +92,6 @@
             this.groupBoxAuth.Size = new System.Drawing.Size(416, 100);
             this.groupBoxAuth.TabIndex = 4;
             this.groupBoxAuth.TabStop = false;
-            // 
-            // checkBoxAuth
-            // 
-            this.checkBoxAuth.AutoSize = true;
-            this.checkBoxAuth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxAuth.Location = new System.Drawing.Point(16, 56);
-            this.checkBoxAuth.Name = "checkBoxAuth";
-            this.checkBoxAuth.Size = new System.Drawing.Size(125, 17);
-            this.checkBoxAuth.TabIndex = 5;
-            this.checkBoxAuth.Text = "Authorization required";
-            this.checkBoxAuth.UseVisualStyleBackColor = true;
-            this.checkBoxAuth.CheckedChanged += new System.EventHandler(this.checkBoxAuth_CheckedChanged);
             // 
             // textBoxPassword
             // 
@@ -116,14 +104,14 @@
             this.textBoxPassword.TabIndex = 7;
             this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxAuth_TextChanged);
             // 
-            // label3
+            // labelPassword
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 65);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Password:";
+            this.labelPassword.AutoSize = true;
+            this.labelPassword.Location = new System.Drawing.Point(11, 65);
+            this.labelPassword.Name = "labelPassword";
+            this.labelPassword.Size = new System.Drawing.Size(56, 13);
+            this.labelPassword.TabIndex = 6;
+            this.labelPassword.Text = "Password:";
             // 
             // textBoxUserName
             // 
@@ -136,14 +124,26 @@
             this.textBoxUserName.TabIndex = 5;
             this.textBoxUserName.TextChanged += new System.EventHandler(this.textBoxAuth_TextChanged);
             // 
-            // label4
+            // labelUserName
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(11, 26);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "User name:";
+            this.labelUserName.AutoSize = true;
+            this.labelUserName.Location = new System.Drawing.Point(11, 26);
+            this.labelUserName.Name = "labelUserName";
+            this.labelUserName.Size = new System.Drawing.Size(61, 13);
+            this.labelUserName.TabIndex = 4;
+            this.labelUserName.Text = "User name:";
+            // 
+            // checkBoxAuth
+            // 
+            this.checkBoxAuth.AutoSize = true;
+            this.checkBoxAuth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxAuth.Location = new System.Drawing.Point(16, 56);
+            this.checkBoxAuth.Name = "checkBoxAuth";
+            this.checkBoxAuth.Size = new System.Drawing.Size(125, 17);
+            this.checkBoxAuth.TabIndex = 5;
+            this.checkBoxAuth.Text = "Authorization required";
+            this.checkBoxAuth.UseVisualStyleBackColor = true;
+            this.checkBoxAuth.CheckedChanged += new System.EventHandler(this.checkBoxAuth_CheckedChanged);
             // 
             // buttonDone
             // 
@@ -166,9 +166,9 @@
             this.Controls.Add(this.buttonDone);
             this.Controls.Add(this.groupBoxAuth);
             this.Controls.Add(this.textBoxPort);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.labelPort);
             this.Controls.Add(this.textBoxAddress);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelAddress);
             this.Name = "IntentoTranslationProviderProxySettingsForm";
             this.Text = "Proxy Settings";
             this.groupBoxAuth.ResumeLayout(false);
@@ -180,16 +180,16 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelAddress;
         private System.Windows.Forms.TextBox textBoxAddress;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelPort;
         private System.Windows.Forms.TextBox textBoxPort;
         private System.Windows.Forms.GroupBox groupBoxAuth;
         private System.Windows.Forms.CheckBox checkBoxAuth;
         private System.Windows.Forms.TextBox textBoxPassword;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelPassword;
         private System.Windows.Forms.TextBox textBoxUserName;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelUserName;
         private System.Windows.Forms.Button buttonDone;
     }
 }

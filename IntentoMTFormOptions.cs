@@ -48,9 +48,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         public ProxySettings proxySettings { get; set; }
 
         // Forbit to save ApiKey in registry 
-        public bool ForbidSaveApikey { get; }
+        public bool ForbidSaveApikey { get; set; }
         // Hide "Show hidden text" button
-        public bool HideHiddenTextButton { get; }
+        public bool HideHiddenTextButton { get; set; }
 
         public IntentoAiTextTranslate Translate { get; set; }
 

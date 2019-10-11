@@ -20,6 +20,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         public IntentoTranslationProviderProxySettingsForm(IntentoTranslationProviderOptionsForm parent)
         {
             InitializeComponent();
+            LocalizeContent();
             DialogResult = DialogResult.None;
             _parent = parent;
             currentProxy = _parent.currentOptions.proxySettings;
@@ -112,6 +113,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 e.Handled = true;
             }
         }
+
         private void textBoxAuth_TextChanged(object sender, EventArgs e)
         {
             var tb = (TextBox)sender;
@@ -124,5 +126,17 @@ namespace Intento.MT.Plugin.PropertiesForm
                 tb.BackColor = SystemColors.Window;
             }
         }
+
+        private void LocalizeContent()
+        {
+            Text = Resource.PSFCaption;
+            labelAddress.Text = Resource.PSFLabelAddress;
+            labelPort.Text = Resource.PSFLabelPort;
+            checkBoxAuth.Text = Resource.PSFCheckBoxAuth;
+            labelUserName.Text = Resource.PSFLabelUserName;
+            labelPassword.Text = Resource.PSFLabelPassword;
+            buttonDone.Text = Resource.OKLabel;
+        }
+
     }
 }

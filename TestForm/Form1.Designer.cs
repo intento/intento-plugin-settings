@@ -55,7 +55,7 @@
             this.textBoxResult = new System.Windows.Forms.TextBox();
             this.textBoxExpected = new System.Windows.Forms.TextBox();
             this.buttonTestReadData = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxForbidSaveApikey = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBoxProxy = new System.Windows.Forms.CheckBox();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
@@ -66,6 +66,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxAddress = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.checkBoxHideHiddenTextButton = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -302,15 +303,15 @@
             this.buttonTestReadData.Visible = false;
             this.buttonTestReadData.Click += new System.EventHandler(this.buttonTestReadData_Click);
             // 
-            // checkBox1
+            // checkBoxForbidSaveApikey
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(103, 245);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 29;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxForbidSaveApikey.AutoSize = true;
+            this.checkBoxForbidSaveApikey.Location = new System.Drawing.Point(103, 245);
+            this.checkBoxForbidSaveApikey.Name = "checkBoxForbidSaveApikey";
+            this.checkBoxForbidSaveApikey.Size = new System.Drawing.Size(112, 17);
+            this.checkBoxForbidSaveApikey.TabIndex = 29;
+            this.checkBoxForbidSaveApikey.Text = "ForbidSaveApikey";
+            this.checkBoxForbidSaveApikey.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -411,13 +412,24 @@
             this.label10.TabIndex = 6;
             this.label10.Text = "IP address or host name:";
             // 
+            // checkBoxHideHiddenTextButton
+            // 
+            this.checkBoxHideHiddenTextButton.AutoSize = true;
+            this.checkBoxHideHiddenTextButton.Location = new System.Drawing.Point(222, 245);
+            this.checkBoxHideHiddenTextButton.Name = "checkBoxHideHiddenTextButton";
+            this.checkBoxHideHiddenTextButton.Size = new System.Drawing.Size(134, 17);
+            this.checkBoxHideHiddenTextButton.TabIndex = 31;
+            this.checkBoxHideHiddenTextButton.Text = "HideHiddenTextButton";
+            this.checkBoxHideHiddenTextButton.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(435, 596);
+            this.Controls.Add(this.checkBoxHideHiddenTextButton);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.checkBoxForbidSaveApikey);
             this.Controls.Add(this.buttonSaveData);
             this.Controls.Add(this.textBoxExpected);
             this.Controls.Add(this.textBoxResult);
@@ -484,7 +496,7 @@
         private System.Windows.Forms.TextBox textBoxResult;
         private System.Windows.Forms.TextBox textBoxExpected;
         private System.Windows.Forms.Button buttonTestReadData;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxForbidSaveApikey;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBoxPort;
         private System.Windows.Forms.Label label9;
@@ -495,6 +507,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxUserName;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox checkBoxHideHiddenTextButton;
     }
 }
 
