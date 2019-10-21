@@ -1,4 +1,5 @@
 ﻿using Intento.MT.Plugin.PropertiesForm;
+using Intento.MT.Plugin.PropertiesForm.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public static void FillOptions(SmartRoutingState state, IntentoMTFormOptions options)
         {
+
             if (state == null)
             {
                 options.SmartRouting = true;
@@ -79,6 +81,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 options.SmartRouting = state.SmartRouting;
                 ProviderState.FillOptions(state.providerState, options);
             }
+            if (options.SmartRouting)
+                options.Format = "[\"text\",\"html\",\"xml\"]";
         }
 
         private void CreateChildStates()

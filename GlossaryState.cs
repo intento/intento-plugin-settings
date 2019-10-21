@@ -23,7 +23,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             optional
         }
 
-        EnumGlossariesMode mode = EnumGlossariesMode.unknown;
+        public EnumGlossariesMode mode = EnumGlossariesMode.unknown;
         bool isList;
 
         // List of custom models obtained from provider

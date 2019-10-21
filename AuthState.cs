@@ -1,4 +1,5 @@
 ﻿using Intento.MT.Plugin.PropertiesForm;
+using Intento.MT.Plugin.PropertiesForm.WinForms;
 using IntentoSDK;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             optional, required, prohibited
         }
-        EnumMode mode;
+        public EnumMode mode;
 
         // current credentials 
         public Dictionary<string, string> providerDataAuthDict;
@@ -199,21 +200,15 @@ namespace Intento.MT.Plugin.PropertiesForm
                 form.AuthCombo_Group_Visible = false;
                 form.AuthText_Group_Visible = false;
             }
-
-            // comboBoxCredentialId.Enabled = checkBoxUseOwnCred.Checked;
-            // textBoxCredentials.Enabled = checkBoxUseOwnCred.Checked;
-
             // checkBoxUseOwnCred
             if (form.Auth_CheckBox_Checked && (providerDataAuthDict == null || providerDataAuthDict.Count == 0 || providerDataAuthDict.Any(i => string.IsNullOrEmpty(i.Value))))
             {   // Credentials required but not filled in full
-                form.AuthText_TextBox_BackColor = Color.LightPink;
-                form.AuthCombo_ComboBox_BackColor = Color.LightPink;
+                form.Auth_Control_BackColor_State(true);
                 error_message = Resource.OwnCredentialsNeededErrorMessage;
             }
             else
             {   // All fields in credentals are filled
-                form.AuthText_TextBox_BackColor = SystemColors.Window;
-                form.AuthCombo_ComboBox_BackColor = SystemColors.Window;
+                form.Auth_Control_BackColor_State(false);
                 form.AuthText_TextBox_Text = string.Join(", ", providerDataAuthDict.Select(i => string.Format("{0}:{1}", i.Key, i.Value)));
             }
             if (!string.IsNullOrEmpty(error_message))
@@ -245,7 +240,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public void buttonWizard_Click()
         {
-            var dialog = new IntentoTranslationProviderAuthWizardForm(providerDataAuthDict, form.ShowHidden_CheckBox_Checked, options.HideHiddenTextButton);
+            var dialog = new IntentoFormProviderAuthWizard(providerDataAuthDict, form.ShowHidden_CheckBox_Checked, options.HideHiddenTextButton);
             dialog.ShowDialog();
             if (dialog.DialogResult == DialogResult.OK)
             {

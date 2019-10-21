@@ -1,6 +1,6 @@
 ﻿namespace Intento.MT.Plugin.PropertiesForm
 {
-    partial class IntentoFormOptonsMain
+    partial class IntentoTranslationProviderOptionsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,35 +29,39 @@
         private void InitializeComponent()
         {
             this.groupBoxMTConnect = new System.Windows.Forms.GroupBox();
-            this.labelRegister2 = new System.Windows.Forms.Label();
             this.textBoxLabel1 = new System.Windows.Forms.TextBox();
             this.labelRegister1 = new System.Windows.Forms.Label();
             this.buttonSetApi = new System.Windows.Forms.Button();
+            this.labelRegister2 = new System.Windows.Forms.Label();
             this.groupBoxMTSettings = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.groupBoxGlossary = new System.Windows.Forms.GroupBox();
+            this.textBoxGlossary = new System.Windows.Forms.TextBox();
+            this.groupBoxModel = new System.Windows.Forms.GroupBox();
+            this.textBoxModel = new System.Windows.Forms.TextBox();
+            this.groupBoxBillingAccount = new System.Windows.Forms.GroupBox();
+            this.textBoxAccount = new System.Windows.Forms.TextBox();
+            this.buttonMTSetting = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.checkBoxTrace = new System.Windows.Forms.CheckBox();
-            this.buttonClose = new System.Windows.Forms.Button();
+            this.textBoxProviderName = new System.Windows.Forms.TextBox();
+            this.buttonContinue = new System.Windows.Forms.Button();
+            this.groupBoxMTConnect2 = new System.Windows.Forms.GroupBox();
+            this.labelIAK = new System.Windows.Forms.Label();
+            this.apiKey_tb = new System.Windows.Forms.TextBox();
+            this.buttonCheck = new System.Windows.Forms.Button();
+            this.buttonAdvanced = new System.Windows.Forms.Button();
             this.groupBoxMTConnect.SuspendLayout();
             this.groupBoxMTSettings.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.groupBoxGlossary.SuspendLayout();
+            this.groupBoxModel.SuspendLayout();
+            this.groupBoxBillingAccount.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBoxMTConnect2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMTConnect
             // 
             this.groupBoxMTConnect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxMTConnect.Controls.Add(this.labelRegister2);
             this.groupBoxMTConnect.Controls.Add(this.textBoxLabel1);
             this.groupBoxMTConnect.Controls.Add(this.labelRegister1);
             this.groupBoxMTConnect.Controls.Add(this.buttonSetApi);
@@ -68,15 +72,6 @@
             this.groupBoxMTConnect.TabIndex = 0;
             this.groupBoxMTConnect.TabStop = false;
             this.groupBoxMTConnect.Text = "Connect to Intento MT HUB";
-            // 
-            // labelRegister2
-            // 
-            this.labelRegister2.AutoSize = true;
-            this.labelRegister2.Location = new System.Drawing.Point(364, 40);
-            this.labelRegister2.Name = "labelRegister2";
-            this.labelRegister2.Size = new System.Drawing.Size(58, 13);
-            this.labelRegister2.TabIndex = 21;
-            this.labelRegister2.Text = "to get one.";
             // 
             // textBoxLabel1
             // 
@@ -106,17 +101,27 @@
             this.buttonSetApi.Name = "buttonSetApi";
             this.buttonSetApi.Size = new System.Drawing.Size(150, 30);
             this.buttonSetApi.TabIndex = 0;
-            this.buttonSetApi.Text = "Enter your IntentoAPI key";
+            this.buttonSetApi.Text = "Enter your Intento API key";
             this.buttonSetApi.UseVisualStyleBackColor = true;
+            this.buttonSetApi.Click += new System.EventHandler(this.buttonSetApi_Click);
+            // 
+            // labelRegister2
+            // 
+            this.labelRegister2.AutoSize = true;
+            this.labelRegister2.Location = new System.Drawing.Point(364, 40);
+            this.labelRegister2.Name = "labelRegister2";
+            this.labelRegister2.Size = new System.Drawing.Size(58, 13);
+            this.labelRegister2.TabIndex = 21;
+            this.labelRegister2.Text = "to get one.";
             // 
             // groupBoxMTSettings
             // 
             this.groupBoxMTSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxMTSettings.Controls.Add(this.groupBox4);
-            this.groupBoxMTSettings.Controls.Add(this.groupBox3);
-            this.groupBoxMTSettings.Controls.Add(this.groupBox2);
-            this.groupBoxMTSettings.Controls.Add(this.button1);
+            this.groupBoxMTSettings.Controls.Add(this.groupBoxGlossary);
+            this.groupBoxMTSettings.Controls.Add(this.groupBoxModel);
+            this.groupBoxMTSettings.Controls.Add(this.groupBoxBillingAccount);
+            this.groupBoxMTSettings.Controls.Add(this.buttonMTSetting);
             this.groupBoxMTSettings.Controls.Add(this.groupBox1);
             this.groupBoxMTSettings.Location = new System.Drawing.Point(12, 112);
             this.groupBoxMTSettings.Name = "groupBoxMTSettings";
@@ -125,75 +130,85 @@
             this.groupBoxMTSettings.TabStop = false;
             this.groupBoxMTSettings.Text = "Machine Translation Settings";
             // 
-            // groupBox4
+            // groupBoxGlossary
             // 
-            this.groupBox4.Controls.Add(this.textBox4);
-            this.groupBox4.Location = new System.Drawing.Point(18, 211);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(589, 46);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Glossary";
+            this.groupBoxGlossary.Controls.Add(this.textBoxGlossary);
+            this.groupBoxGlossary.Location = new System.Drawing.Point(18, 211);
+            this.groupBoxGlossary.Name = "groupBoxGlossary";
+            this.groupBoxGlossary.Size = new System.Drawing.Size(589, 46);
+            this.groupBoxGlossary.TabIndex = 4;
+            this.groupBoxGlossary.TabStop = false;
+            this.groupBoxGlossary.Text = "Glossary";
             // 
-            // textBox4
+            // textBoxGlossary
             // 
-            this.textBox4.BackColor = System.Drawing.SystemColors.Info;
-            this.textBox4.Location = new System.Drawing.Point(13, 19);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(564, 20);
-            this.textBox4.TabIndex = 0;
+            this.textBoxGlossary.BackColor = System.Drawing.SystemColors.Info;
+            this.textBoxGlossary.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxGlossary.Enabled = false;
+            this.textBoxGlossary.Location = new System.Drawing.Point(13, 19);
+            this.textBoxGlossary.Name = "textBoxGlossary";
+            this.textBoxGlossary.ReadOnly = true;
+            this.textBoxGlossary.Size = new System.Drawing.Size(564, 20);
+            this.textBoxGlossary.TabIndex = 0;
+            this.textBoxGlossary.Text = "N/A";
             // 
-            // groupBox3
+            // groupBoxModel
             // 
-            this.groupBox3.Controls.Add(this.textBox3);
-            this.groupBox3.Location = new System.Drawing.Point(18, 148);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(589, 46);
-            this.groupBox3.TabIndex = 3;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Model";
+            this.groupBoxModel.Controls.Add(this.textBoxModel);
+            this.groupBoxModel.Location = new System.Drawing.Point(18, 148);
+            this.groupBoxModel.Name = "groupBoxModel";
+            this.groupBoxModel.Size = new System.Drawing.Size(589, 46);
+            this.groupBoxModel.TabIndex = 3;
+            this.groupBoxModel.TabStop = false;
+            this.groupBoxModel.Text = "Model";
             // 
-            // textBox3
+            // textBoxModel
             // 
-            this.textBox3.BackColor = System.Drawing.SystemColors.Info;
-            this.textBox3.Location = new System.Drawing.Point(13, 19);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(564, 20);
-            this.textBox3.TabIndex = 0;
+            this.textBoxModel.BackColor = System.Drawing.SystemColors.Info;
+            this.textBoxModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxModel.Enabled = false;
+            this.textBoxModel.Location = new System.Drawing.Point(13, 19);
+            this.textBoxModel.Name = "textBoxModel";
+            this.textBoxModel.ReadOnly = true;
+            this.textBoxModel.Size = new System.Drawing.Size(564, 20);
+            this.textBoxModel.TabIndex = 0;
+            this.textBoxModel.Text = "N/A";
             // 
-            // groupBox2
+            // groupBoxBillingAccount
             // 
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Location = new System.Drawing.Point(18, 87);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(589, 46);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Provider";
+            this.groupBoxBillingAccount.Controls.Add(this.textBoxAccount);
+            this.groupBoxBillingAccount.Location = new System.Drawing.Point(18, 87);
+            this.groupBoxBillingAccount.Name = "groupBoxBillingAccount";
+            this.groupBoxBillingAccount.Size = new System.Drawing.Size(589, 46);
+            this.groupBoxBillingAccount.TabIndex = 2;
+            this.groupBoxBillingAccount.TabStop = false;
+            this.groupBoxBillingAccount.Text = "Billing Account";
             // 
-            // textBox2
+            // textBoxAccount
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.Info;
-            this.textBox2.Location = new System.Drawing.Point(13, 19);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(564, 20);
-            this.textBox2.TabIndex = 0;
+            this.textBoxAccount.BackColor = System.Drawing.SystemColors.Info;
+            this.textBoxAccount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxAccount.Enabled = false;
+            this.textBoxAccount.Location = new System.Drawing.Point(13, 19);
+            this.textBoxAccount.Name = "textBoxAccount";
+            this.textBoxAccount.ReadOnly = true;
+            this.textBoxAccount.Size = new System.Drawing.Size(564, 20);
+            this.textBoxAccount.TabIndex = 0;
+            this.textBoxAccount.Text = "N/A";
             // 
-            // button1
+            // buttonMTSetting
             // 
-            this.button1.Location = new System.Drawing.Point(440, 33);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 40);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Enter your IntentoAPI key";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonMTSetting.Location = new System.Drawing.Point(440, 33);
+            this.buttonMTSetting.Name = "buttonMTSetting";
+            this.buttonMTSetting.Size = new System.Drawing.Size(150, 40);
+            this.buttonMTSetting.TabIndex = 1;
+            this.buttonMTSetting.Text = "Change MT Settings";
+            this.buttonMTSetting.UseVisualStyleBackColor = true;
+            this.buttonMTSetting.Click += new System.EventHandler(this.buttonMTSetting_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.textBoxProviderName);
             this.groupBox1.Location = new System.Drawing.Point(18, 27);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(404, 46);
@@ -201,59 +216,112 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Provider";
             // 
-            // textBox1
+            // textBoxProviderName
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Info;
-            this.textBox1.Location = new System.Drawing.Point(13, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(379, 20);
-            this.textBox1.TabIndex = 0;
+            this.textBoxProviderName.BackColor = System.Drawing.SystemColors.Info;
+            this.textBoxProviderName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxProviderName.Enabled = false;
+            this.textBoxProviderName.Location = new System.Drawing.Point(13, 19);
+            this.textBoxProviderName.Name = "textBoxProviderName";
+            this.textBoxProviderName.ReadOnly = true;
+            this.textBoxProviderName.Size = new System.Drawing.Size(379, 20);
+            this.textBoxProviderName.TabIndex = 0;
+            this.textBoxProviderName.Text = "N/A";
             // 
-            // checkBoxTrace
+            // buttonContinue
             // 
-            this.checkBoxTrace.AutoSize = true;
-            this.checkBoxTrace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxTrace.Location = new System.Drawing.Point(30, 413);
-            this.checkBoxTrace.Name = "checkBoxTrace";
-            this.checkBoxTrace.Size = new System.Drawing.Size(181, 17);
-            this.checkBoxTrace.TabIndex = 18;
-            this.checkBoxTrace.Text = "Log translation text for 30 minutes";
-            this.checkBoxTrace.UseVisualStyleBackColor = true;
+            this.buttonContinue.Location = new System.Drawing.Point(485, 413);
+            this.buttonContinue.Name = "buttonContinue";
+            this.buttonContinue.Size = new System.Drawing.Size(150, 30);
+            this.buttonContinue.TabIndex = 19;
+            this.buttonContinue.Text = "Close";
+            this.buttonContinue.UseVisualStyleBackColor = true;
+            this.buttonContinue.Click += new System.EventHandler(this.buttonContinue_Click);
             // 
-            // buttonClose
+            // groupBoxMTConnect2
             // 
-            this.buttonClose.Location = new System.Drawing.Point(485, 413);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(150, 30);
-            this.buttonClose.TabIndex = 19;
-            this.buttonClose.Text = "Close";
-            this.buttonClose.UseVisualStyleBackColor = true;
+            this.groupBoxMTConnect2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxMTConnect2.Controls.Add(this.labelIAK);
+            this.groupBoxMTConnect2.Controls.Add(this.apiKey_tb);
+            this.groupBoxMTConnect2.Controls.Add(this.buttonCheck);
+            this.groupBoxMTConnect2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.groupBoxMTConnect2.Location = new System.Drawing.Point(105, 9);
+            this.groupBoxMTConnect2.Name = "groupBoxMTConnect2";
+            this.groupBoxMTConnect2.Size = new System.Drawing.Size(623, 85);
+            this.groupBoxMTConnect2.TabIndex = 21;
+            this.groupBoxMTConnect2.TabStop = false;
+            this.groupBoxMTConnect2.Text = "Connect to Intento MT HUB";
+            // 
+            // labelIAK
+            // 
+            this.labelIAK.AutoSize = true;
+            this.labelIAK.Location = new System.Drawing.Point(18, 40);
+            this.labelIAK.Name = "labelIAK";
+            this.labelIAK.Size = new System.Drawing.Size(45, 13);
+            this.labelIAK.TabIndex = 28;
+            this.labelIAK.Text = "API Key";
+            // 
+            // apiKey_tb
+            // 
+            this.apiKey_tb.BackColor = System.Drawing.SystemColors.Info;
+            this.apiKey_tb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.apiKey_tb.Location = new System.Drawing.Point(118, 37);
+            this.apiKey_tb.Name = "apiKey_tb";
+            this.apiKey_tb.PasswordChar = '*';
+            this.apiKey_tb.ReadOnly = true;
+            this.apiKey_tb.Size = new System.Drawing.Size(369, 20);
+            this.apiKey_tb.TabIndex = 26;
+            this.apiKey_tb.UseSystemPasswordChar = true;
+            this.apiKey_tb.WordWrap = false;
+            // 
+            // buttonCheck
+            // 
+            this.buttonCheck.Location = new System.Drawing.Point(510, 35);
+            this.buttonCheck.Name = "buttonCheck";
+            this.buttonCheck.Size = new System.Drawing.Size(81, 23);
+            this.buttonCheck.TabIndex = 27;
+            this.buttonCheck.Text = "Check";
+            this.buttonCheck.UseVisualStyleBackColor = true;
+            this.buttonCheck.Click += new System.EventHandler(this.buttonSetApi_Click);
+            // 
+            // buttonAdvanced
+            // 
+            this.buttonAdvanced.Location = new System.Drawing.Point(29, 413);
+            this.buttonAdvanced.Name = "buttonAdvanced";
+            this.buttonAdvanced.Size = new System.Drawing.Size(150, 30);
+            this.buttonAdvanced.TabIndex = 22;
+            this.buttonAdvanced.Text = "1Adnanced";
+            this.buttonAdvanced.UseVisualStyleBackColor = true;
+            this.buttonAdvanced.Click += new System.EventHandler(this.buttonAdvanced_Click);
             // 
             // IntentoFormOptonsMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(647, 456);
-            this.Controls.Add(this.buttonClose);
-            this.Controls.Add(this.checkBoxTrace);
+            this.Controls.Add(this.buttonAdvanced);
+            this.Controls.Add(this.groupBoxMTConnect2);
+            this.Controls.Add(this.buttonContinue);
             this.Controls.Add(this.groupBoxMTSettings);
             this.Controls.Add(this.groupBoxMTConnect);
             this.Name = "IntentoFormOptonsMain";
             this.Text = "MainForm";
+            this.Shown += new System.EventHandler(this.IntentoFormOptonsMain_Shown);
             this.groupBoxMTConnect.ResumeLayout(false);
             this.groupBoxMTConnect.PerformLayout();
             this.groupBoxMTSettings.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBoxGlossary.ResumeLayout(false);
+            this.groupBoxGlossary.PerformLayout();
+            this.groupBoxModel.ResumeLayout(false);
+            this.groupBoxModel.PerformLayout();
+            this.groupBoxBillingAccount.ResumeLayout(false);
+            this.groupBoxBillingAccount.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBoxMTConnect2.ResumeLayout(false);
+            this.groupBoxMTConnect2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -261,20 +329,24 @@
 
         private System.Windows.Forms.GroupBox groupBoxMTConnect;
         private System.Windows.Forms.GroupBox groupBoxMTSettings;
-        private System.Windows.Forms.CheckBox checkBoxTrace;
         private System.Windows.Forms.Button buttonSetApi;
         private System.Windows.Forms.Label labelRegister2;
         private System.Windows.Forms.TextBox textBoxLabel1;
         private System.Windows.Forms.Label labelRegister1;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBoxGlossary;
+        private System.Windows.Forms.TextBox textBoxGlossary;
+        private System.Windows.Forms.GroupBox groupBoxModel;
+        private System.Windows.Forms.TextBox textBoxModel;
+        private System.Windows.Forms.GroupBox groupBoxBillingAccount;
+        private System.Windows.Forms.TextBox textBoxAccount;
+        private System.Windows.Forms.Button buttonMTSetting;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.TextBox textBoxProviderName;
+        private System.Windows.Forms.Button buttonContinue;
+        private System.Windows.Forms.GroupBox groupBoxMTConnect2;
+        private System.Windows.Forms.Label labelIAK;
+        public System.Windows.Forms.TextBox apiKey_tb;
+        public System.Windows.Forms.Button buttonCheck;
+        private System.Windows.Forms.Button buttonAdvanced;
     }
 }

@@ -306,6 +306,8 @@
             // checkBoxForbidSaveApikey
             // 
             this.checkBoxForbidSaveApikey.AutoSize = true;
+            this.checkBoxForbidSaveApikey.Checked = true;
+            this.checkBoxForbidSaveApikey.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxForbidSaveApikey.Location = new System.Drawing.Point(103, 245);
             this.checkBoxForbidSaveApikey.Name = "checkBoxForbidSaveApikey";
             this.checkBoxForbidSaveApikey.Size = new System.Drawing.Size(112, 17);

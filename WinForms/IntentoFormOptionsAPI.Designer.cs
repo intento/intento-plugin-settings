@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelAPI = new System.Windows.Forms.Label();
             this.apiKey_tb = new System.Windows.Forms.TextBox();
             this.checkBoxShowHidden = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelError = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label5
+            // labelAPI
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 30);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 13);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "Intento API Key:";
+            this.labelAPI.AutoSize = true;
+            this.labelAPI.Location = new System.Drawing.Point(12, 30);
+            this.labelAPI.Name = "labelAPI";
+            this.labelAPI.Size = new System.Drawing.Size(84, 13);
+            this.labelAPI.TabIndex = 21;
+            this.labelAPI.Text = "Intento API Key:";
             // 
             // apiKey_tb
             // 
@@ -65,16 +65,18 @@
             this.checkBoxShowHidden.TabIndex = 22;
             this.checkBoxShowHidden.Text = "Unmask";
             this.checkBoxShowHidden.UseVisualStyleBackColor = true;
+            this.checkBoxShowHidden.CheckedChanged += new System.EventHandler(this.checkBoxShowHidden_CheckedChanged);
             // 
-            // label1
+            // labelError
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(12, 78);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 23;
-            this.label1.Text = "EMPTY";
+            this.labelError.AutoSize = true;
+            this.labelError.ForeColor = System.Drawing.Color.Red;
+            this.labelError.Location = new System.Drawing.Point(12, 78);
+            this.labelError.Name = "labelError";
+            this.labelError.Size = new System.Drawing.Size(44, 13);
+            this.labelError.TabIndex = 23;
+            this.labelError.Text = "EMPTY";
+            this.labelError.Visible = false;
             // 
             // buttonSave
             // 
@@ -84,6 +86,7 @@
             this.buttonSave.TabIndex = 24;
             this.buttonSave.Text = "Test and save";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonCancel
             // 
@@ -94,18 +97,18 @@
             this.buttonCancel.TabIndex = 25;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // IntentoFormOptionsAPI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(531, 111);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelError);
             this.Controls.Add(this.checkBoxShowHidden);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelAPI);
             this.Controls.Add(this.apiKey_tb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -113,6 +116,7 @@
             this.Name = "IntentoFormOptionsAPI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ApiForm";
+            this.Shown += new System.EventHandler(this.IntentoFormOptionsAPI_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,11 +124,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelAPI;
         public System.Windows.Forms.TextBox apiKey_tb;
         public System.Windows.Forms.CheckBox checkBoxShowHidden;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Label labelError;
         private System.Windows.Forms.Button buttonCancel;
+        public System.Windows.Forms.Button buttonSave;
     }
 }

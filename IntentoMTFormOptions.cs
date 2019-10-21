@@ -105,9 +105,26 @@ namespace Intento.MT.Plugin.PropertiesForm
                 Signature = this.Signature,
                 AppName = this.AppName,
                 Translate = this.Translate,
+                ForbidSaveApikey = this.ForbidSaveApikey,
                 _authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),
             };
             return res;
+        }
+
+        public bool IsEqualsOptions (IntentoMTFormOptions value)
+        {
+            return value.ApiKey == this.ApiKey &&
+                value.SmartRouting == this.SmartRouting &&
+                value.ProviderId == this.ProviderId &&
+                value.ProviderName == this.ProviderName &&
+                value.UseCustomAuth == this.UseCustomAuth &&
+                value.CustomAuth == this.CustomAuth &&
+                value.UseCustomModel == this.UseCustomModel &&
+                value.Glossary == this.Glossary &&
+                value.CustomModel == this.CustomModel &&
+                value.Format == this.Format &&
+                value.ForbidSaveApikey == this.ForbidSaveApikey &&
+                value._authDict == this._authDict;
         }
 
     }

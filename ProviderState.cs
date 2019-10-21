@@ -1,17 +1,11 @@
-﻿using Intento.MT.Plugin.PropertiesForm;
-using IntentoSDK;
+﻿using Intento.MT.Plugin.PropertiesForm.WinForms;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
 namespace Intento.MT.Plugin.PropertiesForm
-{ 
+{
     public class ProviderState : BaseState
     {
         public SmartRoutingState smartRoutingState;
@@ -63,6 +57,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (!string.IsNullOrEmpty(currentProviderId) && providersData.TryGetValue(currentProviderId, out providerDataFromList))
             {   // Set current provider in combo box 
                 form.Providers_ComboBox_SelectedItem = (string)providerDataFromList.name;
+                currentProviderName = (string)providerDataFromList.name;
             }
             else
             {
@@ -229,8 +224,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             if (state == null)
             {
-                form.Providers_Group_Visible = false;
+                //form.Providers_Group_Visible = false;
                 form.Providers_Group_Enabled = false;
+                form.Providers_ComboBox_BackColor_State(false);
 
                 AuthState.Draw(form, null);
                 return null;
@@ -244,18 +240,15 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             string errors;
 
-            form.Providers_Group_Visible = true;
             form.Providers_Group_Enabled = true;
-            // comboBoxProviders.Visible = true;
-            // comboBoxProviders.Enabled = true;
 
             if (string.IsNullOrEmpty(form.Providers_ComboBox_Text))
             {
-                form.Providers_ComboBox_BackColor = Color.LightPink;
+                form.Providers_ComboBox_BackColor_State(true);
                 return Resource.YouNeedToChooseAProviderMessage;
             }
 
-            form.Providers_ComboBox_BackColor = Color.White;
+            form.Providers_ComboBox_BackColor_State(false);
 
             errors = AuthState.Draw(form, GetAuthState());
 
@@ -282,7 +275,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                 options.ProviderId = state.currentProviderId;
                 options.ProviderName = state.CurrentProviderName;
                 options.Format = state.format;
-
                 AuthState.FillOptions(state.GetAuthState(), options);
             }
         }

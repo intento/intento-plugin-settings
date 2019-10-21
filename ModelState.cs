@@ -1,4 +1,5 @@
 ﻿using Intento.MT.Plugin.PropertiesForm;
+using Intento.MT.Plugin.PropertiesForm.WinForms;
 using IntentoSDK;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             optional
         }
 
-        EnumModelMode modelMode = EnumModelMode.unknown;
+        public EnumModelMode modelMode = EnumModelMode.unknown;
         bool isList;
 
         // List of custom models obtained from provider
@@ -69,15 +70,15 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             if (modelMode == EnumModelMode.prohibited)
             {
-                form.Model_Group_Visible = false;
-                form.Model_CheckBox_Visible = false;
+                form.Model_Group_Enabled = false;
+                //form.Model_CheckBox_Visible = false;
                 return;
             }
 
             ReadModels();
 
-            form.Model_Group_Visible = true;
-            form.Model_CheckBox_Visible = true;
+            form.Model_Group_Enabled = true;
+            //form.Model_CheckBox_Visible = true;
 
             if (isList)
             {
@@ -132,8 +133,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 // form.Model_TextBox_Visible = false;
                 // form.Model_ComboBox_Visible = false;
-                form.Model_CheckBox_Visible = false;
-                form.Model_Group_Visible = false;
+                //form.Model_CheckBox_Visible = false;
+                form.Model_Group_Enabled = false;
                 return null;
             }
             return state.Draw();
@@ -148,43 +149,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             string errorMessage = null;
 
-            if (!form.Model_CheckBox_Checked)
-            {
-                form.Model_Group_Visible = false;
-                return null;
-            }
-
-            form.Model_Group_Visible = true;
+            form.Model_Group_Enabled = true;
 
             // set state of checkBoxUseCustomModel
-            if (string.IsNullOrEmpty(ModelName))
-                errorMessage = "You must specify a model for this provider";
-
-            /*
-            if (!UseModel)
-            {
-                form.Model_Group_Visible = false;
-                return errorMessage;
-            }
-
-            form.Model_Group_Visible = true;
-
-            // choose between combo box and text exit controls to show a model
-            form.Model_ComboBox_Visible = !(form.Model_TextBox_Visible = models == null || models.Count == 0);
-            */
+            if (modelMode == EnumModelMode.required && string.IsNullOrEmpty(ModelName))
+                errorMessage = Resource.ModelRequiredMessage;
+            else if (form.Model_CheckBox_Checked && string.IsNullOrEmpty(ModelName))
+                errorMessage = Resource.CustomModelRequiredMessage;
 
             // set back color 
-            if (form.Model_CheckBox_Checked && string.IsNullOrEmpty(ModelName))
-            {
-                form.Model_ComboBox_BackColor = Color.LightPink;
-                form.Model_TextBox_BackColor = Color.LightPink;
-                errorMessage = Resource.CustomModelRequiredMessage;
-            }
-            else
-            {
-                form.Model_ComboBox_BackColor = SystemColors.Window;
-                form.Model_TextBox_BackColor = SystemColors.Window;
-            }
+            form.Model_Control_BackColor_State(!string.IsNullOrEmpty(errorMessage));
 
             return errorMessage;
         }
@@ -192,6 +166,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         public void checkBoxUseCustomModel_CheckedChanged()
         {
             options.UseCustomModel = form.Model_CheckBox_Checked;
+            form.Model_CheckBox_Checked = form.Model_CheckBox_Checked;
+
             EnableDisable();
         }
 

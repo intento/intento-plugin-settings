@@ -20,6 +20,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         bool ApiKey_TextBox_Enabled { set; }
         Color ApiKey_TextBox_BackColor { set; }
 
+        // Select panel "Connect to Intento MT HUB" on main form
+        void ApiKey_Set_Panel();
+
         // ApiKey Check Button ()
         bool ApiKeyCheck_Button_Enabled { get; set; }
 
@@ -36,10 +39,13 @@ namespace Intento.MT.Plugin.PropertiesForm
         void Providers_ComboBox_AddRange(object[] items);
         string Providers_ComboBox_SelectedItem { set; }
         string Providers_ComboBox_Text { get; }
-        Color Providers_ComboBox_BackColor { set; }
+        //Color Providers_ComboBox_BackColor { set; }
+        void Providers_ComboBox_BackColor_State(bool hasErrors);
+        void Providers_ComboBox_ClearSelection();
+
 
         // Providers_GroupBox (groupBoxProviderSettings)
-        bool Providers_Group_Visible { set; }
+        //bool Providers_Group_Visible { set; }
         bool Providers_Group_Enabled { set; }
 
         // Auth_CheckBox (checkBoxUseOwnCred)
@@ -51,11 +57,14 @@ namespace Intento.MT.Plugin.PropertiesForm
         bool AuthText_Group_Visible { set; }
 
         // AuthText_TextBox (textBoxCredentials)
-        Color AuthText_TextBox_BackColor { set; }
+        //Color AuthText_TextBox_BackColor { set; }
         string AuthText_TextBox_Text { set; }
 
         // AuthCombo_Group (groupBoxAuthCredentialId)
         bool AuthCombo_Group_Visible { set; }
+
+        void Auth_Control_BackColor_State(bool hasErrors);
+
 
         // AuthCombo_ComboBox (comboBoxCredentialId)
         void AuthCombo_ComboBox_Clear();
@@ -66,16 +75,16 @@ namespace Intento.MT.Plugin.PropertiesForm
         bool AuthCombo_ComboBox_Enabled { set; }
         int AuthCombo_ComboBox_Count { get; }
         int AuthCombo_ComboBox_SelectedIndex { set; }
-        Color AuthCombo_ComboBox_BackColor { set; }
+        //Color AuthCombo_ComboBox_BackColor { set; }
         string AuthCombo_ComboBox_Text { get; }
 
         // Model_CheckBox (checkBoxUseCustomModel)
         bool Model_CheckBox_Checked { get; set; }
-        bool Model_CheckBox_Visible { set; }
+        //bool Model_CheckBox_Visible { set; }
         bool Model_CheckBox_Enabled { set; }
 
         // Model_Group (groupBoxModel)
-        bool Model_Group_Visible { set; }
+        //bool Model_Group_Visible { set; }
         bool Model_Group_Enabled { set; }
 
         // Model_ComboBox (comboBoxModels)
@@ -84,13 +93,14 @@ namespace Intento.MT.Plugin.PropertiesForm
         int Model_ComboBox_SelectedIndex { set; }
         int Model_ComboBox_Count { get; }
         bool Model_ComboBox_Visible { set; }
-        Color Model_ComboBox_BackColor { set; }
+        //Color Model_ComboBox_BackColor { set; }
+        void Model_Control_BackColor_State(bool hasErrors);
         string Model_ComboBox_Text { get; set; }
 
         // Model_TextBox (textBoxModel)
         bool Model_TextBox_Visible { set; }
         string Model_TextBox_Text { get; set; }
-        Color Model_TextBox_BackColor { set; }
+        //Color Model_TextBox_BackColor { set; }
 
         // Glossary_Group (groupBoxGlossary)
         bool Glossary_Group_Visible { get; set; }
