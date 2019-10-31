@@ -366,6 +366,7 @@
             this.groupBoxOptional.Controls.Add(this.labelDirectionChar);
             this.groupBoxOptional.Controls.Add(this.comboBoxTo);
             this.groupBoxOptional.Controls.Add(this.comboBoxFrom);
+            this.groupBoxOptional.Enabled = false;
             this.groupBoxOptional.Location = new System.Drawing.Point(12, 461);
             this.groupBoxOptional.Name = "groupBoxOptional";
             this.groupBoxOptional.Size = new System.Drawing.Size(466, 103);
@@ -399,7 +400,6 @@
             this.comboBoxTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTo.Enabled = false;
             this.comboBoxTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxTo.FormattingEnabled = true;
             this.comboBoxTo.Location = new System.Drawing.Point(180, 68);
@@ -412,7 +412,6 @@
             this.comboBoxFrom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFrom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFrom.Enabled = false;
             this.comboBoxFrom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxFrom.FormattingEnabled = true;
             this.comboBoxFrom.Location = new System.Drawing.Point(11, 68);
@@ -429,7 +428,6 @@
             this.buttonCancel.TabIndex = 31;
             this.buttonCancel.Text = "1Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonSave
             // 
@@ -453,11 +451,13 @@
             this.labelTMP.Size = new System.Drawing.Size(52, 13);
             this.labelTMP.TabIndex = 32;
             this.labelTMP.Text = "labelTMP";
+            this.labelTMP.Visible = false;
             // 
             // IntentoFormOptionsMT
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(491, 635);
             this.Controls.Add(this.labelTMP);
             this.Controls.Add(this.buttonCancel);
@@ -496,7 +496,6 @@
         public System.Windows.Forms.ComboBox comboBoxModels;
         public System.Windows.Forms.CheckBox checkBoxUseGlossary;
         public System.Windows.Forms.ComboBox comboBoxGlossaries;
-        private System.Windows.Forms.GroupBox groupBoxOptional;
         public System.Windows.Forms.ComboBox comboBoxFrom;
         private System.Windows.Forms.Label labelDirectionChar;
         public System.Windows.Forms.ComboBox comboBoxTo;
@@ -519,5 +518,6 @@
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel2;
         public System.Windows.Forms.GroupBox groupBoxProvider;
+        public System.Windows.Forms.GroupBox groupBoxOptional;
     }
 }

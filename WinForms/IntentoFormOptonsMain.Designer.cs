@@ -230,6 +230,7 @@
             // 
             // buttonContinue
             // 
+            this.buttonContinue.Enabled = false;
             this.buttonContinue.Location = new System.Drawing.Point(485, 413);
             this.buttonContinue.Name = "buttonContinue";
             this.buttonContinue.Size = new System.Drawing.Size(150, 30);
@@ -295,7 +296,7 @@
             this.buttonAdvanced.UseVisualStyleBackColor = true;
             this.buttonAdvanced.Click += new System.EventHandler(this.buttonAdvanced_Click);
             // 
-            // IntentoFormOptonsMain
+            // IntentoTranslationProviderOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -305,7 +306,7 @@
             this.Controls.Add(this.buttonContinue);
             this.Controls.Add(this.groupBoxMTSettings);
             this.Controls.Add(this.groupBoxMTConnect);
-            this.Name = "IntentoFormOptonsMain";
+            this.Name = "IntentoTranslationProviderOptionsForm";
             this.Text = "MainForm";
             this.Shown += new System.EventHandler(this.IntentoFormOptonsMain_Shown);
             this.groupBoxMTConnect.ResumeLayout(false);

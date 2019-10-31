@@ -115,6 +115,24 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continue edit.
+        /// </summary>
+        internal static string ButtonContinueEdit {
+            get {
+                return ResourceManager.GetString("ButtonContinueEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore error and save.
+        /// </summary>
+        internal static string ButtonIgnoreAndSave {
+            get {
+                return ResourceManager.GetString("ButtonIgnoreAndSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -165,6 +183,24 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         internal static string EnterIntentoAPIKey {
             get {
                 return ResourceManager.GetString("EnterIntentoAPIKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error:.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect translation.
+        /// </summary>
+        internal static string ErrorTestTranslation {
+            get {
+                return ResourceManager.GetString("ErrorTestTranslation", resourceCulture);
             }
         }
         
@@ -255,6 +291,16 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         internal static string Glossary {
             get {
                 return ResourceManager.GetString("Glossary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon intento {
+            get {
+                object obj = ResourceManager.GetObject("intento", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

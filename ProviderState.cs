@@ -125,6 +125,31 @@ namespace Intento.MT.Plugin.PropertiesForm
                     }
 
                     format = providerData.format != null ? providerData.format.ToString() : "";
+                    var languages = providerData.languages;
+                    if (languages != null)
+                    {
+                        List<string> from = new List<string>();
+                        List<string> to = new List<string>();
+                        if (languages.symmetric != null)
+                        {
+                            foreach (dynamic p in languages.symmetric)
+                            {
+                                from.Add((string)p.Value);
+                                to.Add((string)p.Value);
+                            }
+                        }
+                        if (languages.pairs != null)
+                        {
+                            foreach (dynamic p in languages.pairs)
+                            {
+                                from.Add((string)p.from);
+                                to.Add((string)p.to);
+                            }
+                        }
+                        from = from.Distinct().ToList();
+                        to = to.Distinct().ToList();
+                        form.Language_Comboboxes_Fill(from, to);
+                    }
                 }
             }
             catch
@@ -161,7 +186,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 ClearOptions(options);
                 if (!string.IsNullOrEmpty(currentProviderId))
                 {   // Prev provider was not empty - need to clear parameters
-                    GetAuthState().ClearOptions(options);
+                    GetAuthState()?.ClearOptions(options);
                     authState = null;
                 }
 

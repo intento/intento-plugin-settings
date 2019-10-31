@@ -60,6 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WinForms\IntentoFormIgnoreError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormIgnoreError.Designer.cs">
+      <DependentUpon>IntentoFormIgnoreError.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\IntentoFormProviderAuthWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="WinForms\IntentoFormIgnoreError.resx">
+      <DependentUpon>IntentoFormIgnoreError.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinForms\IntentoFormProviderAuthWizard.resx">
       <DependentUpon>IntentoFormProviderAuthWizard.cs</DependentUpon>
     </EmbeddedResource>
@@ -136,6 +145,9 @@
     <None Include="githashForm.bat" />
     <None Include="intento.pfx" />
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\intento.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

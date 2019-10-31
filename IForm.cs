@@ -50,6 +50,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         // Auth_CheckBox (checkBoxUseOwnCred)
         bool Auth_CheckBox_Visible { set; }
+        bool Auth_GroupBox_Enabled { set; }
         bool Auth_CheckBox_Enabled { set; }
         bool Auth_CheckBox_Checked { get; set; }
 
@@ -119,6 +120,10 @@ namespace Intento.MT.Plugin.PropertiesForm
         bool Glossary_ComboBox_Enabled { set; }
         string Glossary_ComboBox_Text { get; }
 
+        // 
+        void Language_Comboboxes_Fill(List<string> from, List<string> to);
+        bool Optional_Group_Enabled { get; set; }
+
         // ErrorMessage TextBox (toolStripStatusLabel1)
         string ErrorMessage_TextBox_Text { get; set; }
         Color ErrorMessage_TextBox_BackColor { set; }
@@ -144,6 +149,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         List<string> Errors { get; set; }
         LangPair[] LanguagePairs { get; }
         ResourceManager ResourceManager { get; }
+        IntentoFormOptionsMT FormMT { get; }
+        bool ButtonContinue_Button_Enabled { get; set; }
+
 
         bool InsideEnableDisable { get; set; }
     } 

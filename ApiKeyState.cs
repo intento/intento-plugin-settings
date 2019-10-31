@@ -133,7 +133,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public void ReadProviders()
         {
-            using (new IntentoTranslationProviderOptionsForm.CursorForm(form))
+            using (new IntentoTranslationProviderOptionsForm.CursorFormMT(form.FormMT))
             {
                 if (string.IsNullOrEmpty(apiKey))
                 {
@@ -191,7 +191,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-        public void CreateChildStates()
+        private void CreateChildStates()
         {
             if (IsOK)
                 smartRoutingState = new SmartRoutingState(this, options);

@@ -8,12 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Intento.MT.Plugin.PropertiesForm.WinForms;
+using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
     public partial class IntentoFormOptionsMT : Form
     {
         IntentoTranslationProviderOptionsForm parent;
+        const string testString = "1";
+        public int cursorCountMT = 0;
 
         public IntentoFormOptionsMT(IntentoTranslationProviderOptionsForm form)
         {
@@ -30,6 +33,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             textBoxModel.TextChanged += parent.textBoxModel_TextChanged;
             checkBoxSmartRouting.CheckedChanged += parent.checkBoxSmartRouting_CheckedChanged;
             textBoxCredentials.Enter += parent.textBoxCredentials_Enter;
+            textBoxGlossary.TextChanged += parent.glossaryControls_ValueChanged;
+            comboBoxGlossaries.TextChanged += parent.glossaryControls_ValueChanged;
             checkBoxSmartRouting.Select();
 
             textBoxModel.Location = comboBoxModels.Location;
@@ -68,8 +73,69 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
+            string msg = TestTranslationIsSuccessful();
+            if (msg != null)
+            {
+                var errorForm = new IntentoFormIgnoreError();
+                errorForm.labelError.Text = string.Format("{0} {1}", Resource.Error, msg);
+                errorForm.ShowDialog();
+                if (errorForm.DialogResult == DialogResult.OK)
+                    msg = null;
+            }
+            if (msg == null)
+                this.DialogResult = DialogResult.OK;
         }
+        private string TestTranslationIsSuccessful()
+        {
+            IntentoTranslationProviderOptionsForm.Logging("Trados Translate: start");
+            try
+            {
+                using (new CursorFormMT(this))
+                {
+                    IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
+                    parent.apiKeyState.FillOptions(testOptions);
+
+                    // Call test translate intent 
+                    dynamic result = parent._translate.Fulfill(
+                        testString,
+                        to: comboBoxTo.Text,
+                        from: comboBoxFrom.Text,
+                        provider: testOptions.ProviderId,
+                        format: null,
+                        async: true,
+                        auth: testOptions.UseCustomAuth ? string.Format("{{'{0}':[{1}]}}", testOptions.ProviderId, testOptions.CustomAuth).Replace('\'', '"') : null,
+                        routing: null,
+                        pre_processing: null,
+                        post_processing: null,
+                        custom_model: testOptions.UseCustomModel ? testOptions.CustomModel : null,
+                        glossary: testOptions.Glossary,
+                        wait_async: true,
+                        trace: IntentoTranslationProviderOptionsForm.IsTrace()
+                        );
+                    dynamic response = result.response;
+                    if (response != null && response.First != null)
+                    {   // Ordinary response of operations call (result of async request)
+                        foreach (dynamic str in response.First.results)
+                        {
+                            if (str == null || str != testString)
+                                return Resource.ErrorTestTranslation;
+                        }
+                    }
+                    else
+                        return Resource.ErrorTestTranslation;
+
+                    IntentoTranslationProviderOptionsForm.Logging("Trados Translate: finish");
+                }
+                return null;
+            }
+            catch (AggregateException ex2)
+            {
+                IntentoTranslationProviderOptionsForm.Logging("Trados Translate: error", ex: ex2);
+                return ex2.Message;
+            }
+        }
+
+
 
         private void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
         {
@@ -77,11 +143,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             comboBoxCredentialId.Enabled = value;
             textBoxCredentials.Enabled = value;
             buttonWizard.Enabled = value;
-        }
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
         }
 
         private void helpLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)

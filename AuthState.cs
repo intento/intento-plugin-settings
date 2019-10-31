@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Intento.MT.Plugin.PropertiesForm.IntentoMTFormOptions;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
@@ -28,13 +29,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         bool firstTimeDraw = true;
 
-        public enum EnumMode
-        {
-            optional, required, prohibited
-        }
-        public EnumMode mode;
+        public StateModeEnum mode;
 
-        // current credentials 
+        // current credentials StateModeEnum
         public Dictionary<string, string> providerDataAuthDict;
 
         /// <summary>
@@ -50,26 +47,30 @@ namespace Intento.MT.Plugin.PropertiesForm
             options = _options;
 
             // set mode of checkBoxUseOwnCred
+            form.Auth_CheckBox_Enabled = true;
             if (!providerState.billable || !providerState.stock_model)  // Auth Required
             {
-                form.Auth_CheckBox_Enabled = false;
+                form.Auth_GroupBox_Enabled = false;
                 if (!fromForm)
+                {
                     form.Auth_CheckBox_Checked = true;
-                mode = EnumMode.required;
+                    form.Auth_CheckBox_Enabled = false;
+                }
+                mode = StateModeEnum.required;
             }
             else if (!providerState.own_auth) // Auth Prohibited 
             {
-                form.Auth_CheckBox_Enabled = false;
+                form.Auth_GroupBox_Enabled = false;
                 if (!fromForm)
                     form.Auth_CheckBox_Checked = false;
-                mode = EnumMode.prohibited;
+                mode = StateModeEnum.prohibited;
             }
             else
             {   // Auth optional
-                form.Auth_CheckBox_Enabled = true;
+                form.Auth_GroupBox_Enabled = true;
                 if (!fromForm)
                     form.Auth_CheckBox_Checked = options.UseCustomAuth;
-                mode = EnumMode.optional;
+                mode = StateModeEnum.optional;
             }
 
             if (!providerState.IsOK)
@@ -300,13 +301,13 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 switch(mode)
                 {
-                    case EnumMode.required:
+                    case StateModeEnum.required:
                         return IsSelected;
-                    case EnumMode.optional:
+                    case StateModeEnum.optional:
                         if (UseCustomAuth)
                             return IsSelected;
                         return true;
-                    case EnumMode.prohibited:
+                    case StateModeEnum.prohibited:
                         return true;
                     default:
                         throw new Exception(string.Format("Invalid mode {0}", mode));
@@ -320,10 +321,10 @@ namespace Intento.MT.Plugin.PropertiesForm
                         return false;
                 }
 
-                if (mode == EnumMode.required)
+                if (mode == StateModeEnum.required)
                     return IsSelected;
 
-                if (mode == EnumMode.optional)
+                if (mode == StateModeEnum.optional)
                 {
                     if (UseCustomAuth && !IsSelected)
                         return false;
@@ -346,6 +347,15 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
             else
             {
+                options.IsAuthDelegated = state.IsDelegatedCredentials;
+                options.AuthMode = state.mode;
+                
+                string id;
+                if (state.IsDelegatedCredentials && state.providerDataAuthDict.TryGetValue("credential_id", out id))
+                    options.AuthDelegatedCredentialId = id;
+                else
+                    options.AuthDelegatedCredentialId = null;
+
                 options.UseCustomAuth = state.UseCustomAuth;
                 if (options.UseCustomAuth)
                     options.SetAuthDict(state.providerDataAuthDict);

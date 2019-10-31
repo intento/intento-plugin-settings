@@ -283,4 +283,20 @@ If you have selected custom model or glossary, please adjust the language pair:<
   <data name="YouNeedToChooseAProviderMessage" xml:space="preserve">
     <value>You need to choose a provider</value>
   </data>
+  <data name="ButtonContinueEdit" xml:space="preserve">
+    <value>Continue edit</value>
+  </data>
+  <data name="ButtonIgnoreAndSave" xml:space="preserve">
+    <value>Ignore error and save</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error:</value>
+  </data>
+  <data name="ErrorTestTranslation" xml:space="preserve">
+    <value>Incorrect translation</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="intento" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\intento.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
