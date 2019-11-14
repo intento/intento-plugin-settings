@@ -52,5 +52,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Refacoring of MOdels and Glossaries processing
         // 1.5.3: 2019-10-10
         // - Pull request from memoQ. Processed manually
+        // 2.0.0: 2019-11-14
+        // - New UI
     }
 }
