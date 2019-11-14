@@ -15,26 +15,13 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
 
-    public partial class IntentoTranslationProviderOptionsForm : Form, IForm
+    public partial class IntentoTranslationProviderOptionsForm1 : Form, IForm
     {
-        public class LangPair
-        {
-            public string _from;
-            string _to;
-
-            public LangPair(string from, string to)
-            {
-                this.from = from;
-                this.to = to;
-            }
-
-            public string from { get => _from; set => _from = value; }
-            public string to { get => _to; set => _to = value; }
-        }
 
         #region vars
         public IntentoMTFormOptions originalOptions;
@@ -66,7 +53,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         /// <param name="options"></param>
         /// <param name="languagePairs"></param>
         /// <param name="fabric"></param>
-        public IntentoTranslationProviderOptionsForm(
+        public IntentoTranslationProviderOptionsForm1(
             IntentoMTFormOptions options, 
             LangPair[] languagePairs, 
             Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric
@@ -82,7 +69,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (options.ForbidSaveApikey)
                 checkBoxSaveApiKeyInRegistry.Visible = false;
 
-            Assembly currentAssem = typeof(IntentoTranslationProviderOptionsForm).Assembly;
+            Assembly currentAssem = typeof(IntentoTranslationProviderOptionsForm1).Assembly;
             version = String.Format("{0}-{1}",
                 IntentoHelpers.GetVersion(currentAssem),
                 IntentoHelpers.GetGitCommitHash(currentAssem));
@@ -206,7 +193,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             buttonWizard.Text = Resource.MFButtonWizard;
             checkBoxUseCustomModel.Text = Resource.MFCheckBoxUseCustomModel;
             groupBoxModel.Text = Resource.MFGroupBoxModel;
-            groupBoxGlossary.Text = Resource.MFGroupBoxGlossary;
+            groupBoxGlossaries.Text = Resource.MFGroupBoxGlossary;
             buttonContinue.Text = Resource.OKLabel;
             checkBoxSaveApiKeyInRegistry.Text = Resource.MFCheckBoxSaveApiKeyInRegistry;
             checkBoxShowHidden.Text = Resource.ShowHiddenTextLabel;
@@ -401,7 +388,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public static void Logging(string subject, string comment = null, Exception ex = null)
         {
-            if (!IntentoTranslationProviderOptionsForm.IsTrace())
+            if (!IntentoTranslationProviderOptionsForm1.IsTrace())
                 return;
 
             try
@@ -475,6 +462,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         bool IForm.ApiKey_TextBox_Enabled { set { apiKey_tb.Enabled = value; } }
         Color IForm.ApiKey_TextBox_BackColor { set { apiKey_tb.BackColor = value; } }
 
+
         // ApiKey Check Button (buttonCheck)
         bool IForm.ApiKeyCheck_Button_Enabled { set { buttonCheck.Enabled = value; } get { return buttonCheck.Enabled; } }
 
@@ -488,10 +476,17 @@ namespace Intento.MT.Plugin.PropertiesForm
         void IForm.Providers_ComboBox_AddRange(object[] items) { comboBoxProviders.Items.AddRange(items); }
         string IForm.Providers_ComboBox_SelectedItem { set { comboBoxProviders.SelectedItem = value; } }
         string IForm.Providers_ComboBox_Text { get { return comboBoxProviders.Text; } }
-        Color IForm.Providers_ComboBox_BackColor { set { comboBoxProviders.BackColor = value; } }
+        //Color IForm.Providers_ComboBox_BackColor { set { comboBoxProviders.BackColor = value; } }
+
+        void IForm.Providers_ComboBox_BackColor_State(bool hasErrors)
+        {
+            if (hasErrors)
+                comboBoxProviders.BackColor = Color.LightPink;
+            else
+                comboBoxProviders.BackColor = Color.White;
+        }
 
         // Providers_GroupBox (groupBoxProviderSettings)
-        bool IForm.Providers_Group_Visible { set { groupBoxProviderSettings.Visible = value; } }
         bool IForm.Providers_Group_Enabled { set { groupBoxProviderSettings.Enabled = value; } }
 
         // Auth_CheckBox (checkBoxUseOwnCred)
@@ -523,11 +518,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         // Model_CheckBox (checkBoxUseCustomModel)
         bool IForm.Model_CheckBox_Checked { get { return checkBoxUseCustomModel.Checked; } set { checkBoxUseCustomModel.Checked = value; } }
-        bool IForm.Model_CheckBox_Visible { set { checkBoxUseCustomModel.Visible = value; } }
+        //bool IForm.Model_CheckBox_Visible { set { checkBoxUseCustomModel.Visible = value; } }
         bool IForm.Model_CheckBox_Enabled { set { checkBoxUseCustomModel.Enabled = value; } }
 
         // Model_Group (groupBoxModel)
-        bool IForm.Model_Group_Visible { set { groupBoxModel.Visible = value; } }
+        //bool IForm.Model_Group_Visible { set { groupBoxModel.Visible = value; } }
         bool IForm.Model_Group_Enabled { set { groupBoxModel.Enabled = value; } }
 
         // Model_ComboBox (comboBoxModels)
@@ -536,16 +531,29 @@ namespace Intento.MT.Plugin.PropertiesForm
         int IForm.Model_ComboBox_SelectedIndex { set { comboBoxModels.SelectedIndex = value; } }
         int IForm.Model_ComboBox_Count { get { return comboBoxModels.Items.Count; } }
         bool IForm.Model_ComboBox_Visible { set { comboBoxModels.Visible = value; } }
-        Color IForm.Model_ComboBox_BackColor { set { comboBoxModels.BackColor = value; } }
+        //Color IForm.Model_ComboBox_BackColor { set { comboBoxModels.BackColor = value; } }
         string IForm.Model_ComboBox_Text { get { return comboBoxModels.Text; } set { comboBoxModels.Text = value; } }
+        void IForm.Model_Control_BackColor_State(bool hasErrors)
+        {
+            if (hasErrors)
+            {
+                comboBoxModels.BackColor = Color.LightPink;
+                textBoxModel.BackColor = Color.LightPink;
+            }
+            else
+            {
+                comboBoxModels.BackColor = Color.White;
+                textBoxModel.BackColor = Color.White;
+            }
+        }
 
         // Model_TextBox (textBoxModel)
         bool IForm.Model_TextBox_Visible { set { textBoxModel.Visible = value; } }
         string IForm.Model_TextBox_Text { get { return textBoxModel.Text; } set { textBoxModel.Text = value; } }
-        Color IForm.Model_TextBox_BackColor { set { textBoxModel.BackColor = value; } }
+        //Color IForm.Model_TextBox_BackColor { set { textBoxModel.BackColor = value; } }
 
         // Glossary_Group (groupBoxGlossary)
-        bool IForm.Glossary_Group_Visible { get { return groupBoxGlossary.Visible; } set { groupBoxGlossary.Visible = value; } }
+        bool IForm.Glossary_Group_Visible { get { return groupBoxGlossaries.Visible; } set { groupBoxGlossaries.Visible = value; } }
 
         // Glossary_TextBox (textBoxGlossary)
         bool IForm.Glossary_TextBox_Visible { set { textBoxGlossary.Visible = value; } }
@@ -595,7 +603,17 @@ namespace Intento.MT.Plugin.PropertiesForm
         public static ResourceManager resourceManager = new ResourceManager(typeof(Resource));
         ResourceManager IForm.ResourceManager { get { return resourceManager; } }
 
-        #endregion
 
+
+        // Added for NewUI
+        void IForm.ApiKey_Set_Panel() { }
+
+
+            #endregion
+
+            private void buttonWizard_EnabledChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

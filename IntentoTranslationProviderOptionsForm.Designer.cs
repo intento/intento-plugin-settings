@@ -1,6 +1,6 @@
 ﻿namespace Intento.MT.Plugin.PropertiesForm
 {
-    partial class IntentoTranslationProviderOptionsForm
+    partial class IntentoTranslationProviderOptionsForm1
     {
         /// <summary>
         /// Required designer variable.
@@ -43,7 +43,7 @@
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.label8 = new System.Windows.Forms.Label();
             this.checkBoxUseCustomModel = new System.Windows.Forms.CheckBox();
-            this.groupBoxGlossary = new System.Windows.Forms.GroupBox();
+            this.groupBoxGlossaries = new System.Windows.Forms.GroupBox();
             this.textBoxGlossary = new System.Windows.Forms.TextBox();
             this.comboBoxGlossaries = new System.Windows.Forms.ComboBox();
             this.groupBoxModel = new System.Windows.Forms.GroupBox();
@@ -69,7 +69,7 @@
             this.groupBoxProviderSettings.SuspendLayout();
             this.groupBoxAuth.SuspendLayout();
             this.groupBoxAuthCredentialId.SuspendLayout();
-            this.groupBoxGlossary.SuspendLayout();
+            this.groupBoxGlossaries.SuspendLayout();
             this.groupBoxModel.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -127,7 +127,7 @@
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxAuth);
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxAuthCredentialId);
             this.groupBoxProviderSettings.Controls.Add(this.checkBoxUseCustomModel);
-            this.groupBoxProviderSettings.Controls.Add(this.groupBoxGlossary);
+            this.groupBoxProviderSettings.Controls.Add(this.groupBoxGlossaries);
             this.groupBoxProviderSettings.Controls.Add(this.groupBoxModel);
             this.groupBoxProviderSettings.Controls.Add(this.label1);
             this.groupBoxProviderSettings.Controls.Add(this.comboBoxProviders);
@@ -150,7 +150,7 @@
             this.groupBoxAuth.Size = new System.Drawing.Size(511, 89);
             this.groupBoxAuth.TabIndex = 7;
             this.groupBoxAuth.TabStop = false;
-            this.groupBoxAuth.Text = "Authorization parameters";
+            this.groupBoxAuth.Text = "Authorization parameters groupBoxAuth";
             // 
             // buttonWizard
             // 
@@ -161,6 +161,7 @@
             this.buttonWizard.TabIndex = 8;
             this.buttonWizard.Text = "Fill or edit";
             this.buttonWizard.UseVisualStyleBackColor = true;
+            this.buttonWizard.EnabledChanged += new System.EventHandler(this.buttonWizard_EnabledChanged);
             this.buttonWizard.Click += new System.EventHandler(this.buttonWizard_Click);
             // 
             // textBoxCredentials
@@ -189,7 +190,7 @@
             this.groupBoxAuthCredentialId.Size = new System.Drawing.Size(512, 86);
             this.groupBoxAuthCredentialId.TabIndex = 9;
             this.groupBoxAuthCredentialId.TabStop = false;
-            this.groupBoxAuthCredentialId.Text = "Stored Credentials";
+            this.groupBoxAuthCredentialId.Text = "Stored Credentials groupBoxAuthCredentialId";
             // 
             // comboBoxCredentialId
             // 
@@ -244,17 +245,17 @@
             this.checkBoxUseCustomModel.Visible = false;
             this.checkBoxUseCustomModel.CheckedChanged += new System.EventHandler(this.checkBoxUseCustomModel_CheckedChanged);
             // 
-            // groupBoxGlossary
+            // groupBoxGlossaries
             // 
-            this.groupBoxGlossary.Controls.Add(this.textBoxGlossary);
-            this.groupBoxGlossary.Controls.Add(this.comboBoxGlossaries);
-            this.groupBoxGlossary.Location = new System.Drawing.Point(9, 280);
-            this.groupBoxGlossary.Name = "groupBoxGlossary";
-            this.groupBoxGlossary.Size = new System.Drawing.Size(511, 59);
-            this.groupBoxGlossary.TabIndex = 13;
-            this.groupBoxGlossary.TabStop = false;
-            this.groupBoxGlossary.Text = "Glossary";
-            this.groupBoxGlossary.Visible = false;
+            this.groupBoxGlossaries.Controls.Add(this.textBoxGlossary);
+            this.groupBoxGlossaries.Controls.Add(this.comboBoxGlossaries);
+            this.groupBoxGlossaries.Location = new System.Drawing.Point(9, 280);
+            this.groupBoxGlossaries.Name = "groupBoxGlossaries";
+            this.groupBoxGlossaries.Size = new System.Drawing.Size(511, 59);
+            this.groupBoxGlossaries.TabIndex = 13;
+            this.groupBoxGlossaries.TabStop = false;
+            this.groupBoxGlossaries.Text = "Glossary";
+            this.groupBoxGlossaries.Visible = false;
             // 
             // textBoxGlossary
             // 
@@ -522,8 +523,8 @@
             this.groupBoxAuth.PerformLayout();
             this.groupBoxAuthCredentialId.ResumeLayout(false);
             this.groupBoxAuthCredentialId.PerformLayout();
-            this.groupBoxGlossary.ResumeLayout(false);
-            this.groupBoxGlossary.PerformLayout();
+            this.groupBoxGlossaries.ResumeLayout(false);
+            this.groupBoxGlossaries.PerformLayout();
             this.groupBoxModel.ResumeLayout(false);
             this.groupBoxModel.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -565,7 +566,7 @@
         private System.Windows.Forms.Label labelStoredCredential1;
         private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.Label label8;
-        public System.Windows.Forms.GroupBox groupBoxGlossary;
+        public System.Windows.Forms.GroupBox groupBoxGlossaries;
         public System.Windows.Forms.TextBox textBoxGlossary;
         public System.Windows.Forms.ComboBox comboBoxGlossaries;
         public System.Windows.Forms.CheckBox checkBoxSaveApiKeyInRegistry;

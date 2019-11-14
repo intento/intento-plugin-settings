@@ -11,6 +11,15 @@ namespace Intento.MT.Plugin.PropertiesForm
 {
     public class IntentoMTFormOptions
     {
+
+        public enum StateModeEnum
+        {
+            unknown = 0,
+            prohibited,
+            required,
+            optional
+        }
+
         // Api Key for Intento
         public string ApiKey { get; set; }
         // sign of automatic provider selection
@@ -23,12 +32,26 @@ namespace Intento.MT.Plugin.PropertiesForm
         public bool UseCustomAuth { get; set; }
         // string of external authentication 
         public string CustomAuth { get; set; }
+        // sign of stored credentials
+        public bool IsAuthDelegated { get; set; }
+        // stored credential Id
+        public string AuthDelegatedCredentialId { get; set; }
+        // 
+        public StateModeEnum AuthMode { get; set; }
         // sign of using user custom model
         public bool UseCustomModel { get; set; }
         // string of custom model
         public string CustomModel { get; set; }
+        // string of custom model name
+        public string CustomModelName { get; set; }
+        //
+        public StateModeEnum CustomModelMode { get; set; }
         // string of custom glossary
         public string Glossary { get; set; }
+        // string of custom glossary name
+        public string GlossaryName { get; set; }
+        //
+        public StateModeEnum GlossaryMode { get; set; }
         // formats supported by provider (text, html, xml.. - to check by contains), for smart routing not used
         public string Format { get; set; }
         // information about the assembly version of the plugin that uses this form
@@ -105,10 +128,27 @@ namespace Intento.MT.Plugin.PropertiesForm
                 Signature = this.Signature,
                 AppName = this.AppName,
                 Translate = this.Translate,
+                ForbidSaveApikey = this.ForbidSaveApikey,
                 _authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),
             };
             return res;
         }
+
+        //public bool IsEqualsOptions (IntentoMTFormOptions value)
+        //{
+        //    return value.ApiKey == this.ApiKey &&
+        //        value.SmartRouting == this.SmartRouting &&
+        //        value.ProviderId == this.ProviderId &&
+        //        value.ProviderName == this.ProviderName &&
+        //        value.UseCustomAuth == this.UseCustomAuth &&
+        //        value.CustomAuth == this.CustomAuth &&
+        //        value.UseCustomModel == this.UseCustomModel &&
+        //        value.Glossary == this.Glossary &&
+        //        value.CustomModel == this.CustomModel &&
+        //        value.Format == this.Format &&
+        //        value.ForbidSaveApikey == this.ForbidSaveApikey;
+        //        //value._authDict == this._authDict;
+        //}
 
     }
 

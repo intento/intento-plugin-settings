@@ -5,10 +5,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 using System.Windows.Forms;
 using System.Net.Http;
 using System.Resources;
+using Intento.MT.Plugin.PropertiesForm.WinForms;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
@@ -96,6 +96,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 case EApiKeyStatus.ok:
                     form.ApiKey_TextBox_Enabled = true;
                     form.ApiKey_TextBox_BackColor = Color.White;
+                    //form.MainForm_ApiKey_TextBox_Visible = true;
                     error_reason = null;
                     break;
 
@@ -115,6 +116,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                         error_reason = Resource.ApiKeyVerificationInProgressMessage;
                     break;
             }
+            form.ApiKey_Set_Panel();
             if (!IsOK)
             {
                 SmartRoutingState.Draw(form, null);
@@ -131,7 +133,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public void ReadProviders()
         {
-            using (new IntentoTranslationProviderOptionsForm.CursorForm(form))
+            using (new IntentoTranslationProviderOptionsForm.CursorFormMT(form.FormMT))
             {
                 if (string.IsNullOrEmpty(apiKey))
                 {

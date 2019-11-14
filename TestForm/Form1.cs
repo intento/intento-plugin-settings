@@ -145,6 +145,7 @@ namespace TestForm
             options.Signature = "TestForm";
             options.Glossary = checkBoxSmartRouting.Checked ? string.Empty : textBoxGlossary.Text;
             options.AppName = "PluginForm\\TestForm";
+            options.ForbidSaveApikey = checkBoxForbidSaveApikey.Checked;
             options.proxySettings = new IntentoSDK.ProxySettings()
             {
                 ProxyAddress = textBoxAddress.Text,

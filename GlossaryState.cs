@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Intento.MT.Plugin.PropertiesForm.IntentoMTFormOptions;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
@@ -15,15 +16,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         ProviderState providerState;
         AuthState authState;
 
-        public enum EnumGlossariesMode
-        {
-            // Starting mode, glossaries not checked yet
-            unknown = 0,
-            prohibited,
-            optional
-        }
-
-        EnumGlossariesMode mode = EnumGlossariesMode.unknown;
+        public StateModeEnum mode = StateModeEnum.unknown;
         bool isList;
 
         // List of custom models obtained from provider
@@ -60,12 +53,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             if (!providerState.custom_glossary)
             {   // glossaries are not supported by provider
-                mode = EnumGlossariesMode.prohibited;
+                mode = StateModeEnum.prohibited;
                 form.Glossary_Group_Visible = false;
                 return;
             }
 
-            mode = EnumGlossariesMode.optional;
+            mode = StateModeEnum.optional;
             form.Glossary_Group_Visible = true;
 
             ReadGlossaries();
@@ -107,13 +100,13 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             switch(mode)
             {
-                case EnumGlossariesMode.prohibited:
+                case StateModeEnum.prohibited:
                     form.Glossary_TextBox_Visible = false;
                     form.Glossary_ComboBox_Visible = false;
                     form.Glossary_Group_Visible = false;
                     break;
 
-                case EnumGlossariesMode.optional:
+                case StateModeEnum.optional:
                     if (isList)
                     {
                         form.Glossary_Group_Visible = true;
@@ -155,10 +148,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 
                 switch (mode)
                 {
-                    case EnumGlossariesMode.prohibited:
+                    case StateModeEnum.prohibited:
                         return null;
 
-                    case EnumGlossariesMode.optional:
+                    case StateModeEnum.optional:
                         if (isList)
                         {
                             if (string.IsNullOrEmpty(form.Glossary_ComboBox_Text))
@@ -179,6 +172,28 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
+        public string currentGlossary
+        {
+            get
+            {
+                string ret = null;
+                if (mode == StateModeEnum.optional)
+                {
+                    if (isList)
+                    {
+                        if (!string.IsNullOrEmpty(form.Glossary_ComboBox_Text))
+                            ret =  (string)glossaries[form.Glossary_ComboBox_Text].id;
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(form.Glossary_TextBox_Text))
+                            ret = form.Glossary_TextBox_Text;
+                    }
+                }
+                return ret;
+            }
+        }
+
         public static void FillOptions(GlossaryState state, IntentoMTFormOptions options)
         {
             if (state == null)
@@ -188,6 +203,12 @@ namespace Intento.MT.Plugin.PropertiesForm
             else
             {
                 options.Glossary = state.Glossary;
+                options.GlossaryMode = state.mode;
+                dynamic mData = null;
+                if (state.glossaries != null)
+                    mData = state.glossaries.Select(x => (dynamic)x.Value).Where(y => (string)y.id == state.Glossary).FirstOrDefault();
+                options.GlossaryName = mData != null ? mData.name : state.Glossary;
+
             }
         }
 
@@ -196,6 +217,13 @@ namespace Intento.MT.Plugin.PropertiesForm
             options.Glossary = null;
             Clear();
         }
+
+        public void glossaryControls_ValueChanged()
+        {
+            form.Optional_Group_Enabled = form.Glossary_Group_Visible 
+                && !string.IsNullOrWhiteSpace(isList ? form.Glossary_ComboBox_Text : form.Glossary_TextBox_Text);
+        }
+
 
         bool readDone = false;
         private void ReadGlossaries()

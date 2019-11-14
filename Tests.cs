@@ -24,6 +24,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             bool apiKey_TextBox_Enabled;
             bool apiKeyCheck_Button_Enabled;
             Color apiKey_TextBox_BackColor;
+            bool apiKey_TextBox_Visible;
+            bool groupBoxMTConnect2Visible;
+            bool groupBoxMTConnectVisible;
 
             bool smartRouting_CheckBox_Visible;
             bool smartRouting_CheckBox_Enabled;
@@ -82,6 +85,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             public string ApiKey_TextBox_Text { get => apiKeyText; set => apiKeyText = value; }
             public bool ApiKey_TextBox_Enabled { set => apiKey_TextBox_Enabled = value; }
             public Color ApiKey_TextBox_BackColor { set => apiKey_TextBox_BackColor = value; }
+
+            public bool groupBoxMTConnect_Visible { get => groupBoxMTConnectVisible; set => groupBoxMTConnectVisible = value; }
+            public bool groupBoxMTConnect2_Visible { get => groupBoxMTConnect2Visible; set => groupBoxMTConnect2Visible = value; }
+
+
             public bool ApiKeyCheck_Button_Enabled { get => apiKeyCheck_Button_Enabled; set => apiKeyCheck_Button_Enabled = value; }
             public bool Continue_Button_Enabled { get => continue_Button_Enabled; set => continue_Button_Enabled = value; }
             public bool SmartRouting_CheckBox_Checked { get => smartRouting_CheckBox_Checked; set => smartRouting_CheckBox_Checked = value; }
@@ -152,6 +160,15 @@ namespace Intento.MT.Plugin.PropertiesForm
             bool IForm.ApiKey_TextBox_Enabled { set => throw new NotImplementedException(); }
             Color IForm.ApiKey_TextBox_BackColor { set => throw new NotImplementedException(); }
             bool IForm.ApiKeyCheck_Button_Enabled { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+            void IForm.ApiKey_Set_Panel()
+            {
+                groupBoxMTConnect2Visible = !apiKeyState.IsOK;
+                groupBoxMTConnectVisible = apiKeyState.IsOK;
+                ApiKey_TextBox_Text = apiKeyState.apiKey;
+
+            }
+
             bool IForm.Continue_Button_Enabled { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
             bool IForm.SmartRouting_CheckBox_Checked { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
             bool IForm.SmartRouting_CheckBox_Visible { set => throw new NotImplementedException(); }
