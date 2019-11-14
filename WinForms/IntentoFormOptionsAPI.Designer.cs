@@ -110,10 +110,11 @@
             this.Controls.Add(this.checkBoxShowHidden);
             this.Controls.Add(this.labelAPI);
             this.Controls.Add(this.apiKey_tb);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "IntentoFormOptionsAPI";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ApiForm";
             this.Shown += new System.EventHandler(this.IntentoFormOptionsAPI_Shown);

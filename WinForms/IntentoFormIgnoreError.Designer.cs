@@ -65,8 +65,8 @@
             // IntentoFormIgnoreError
             // 
             this.AcceptButton = this.buttonIgnoreAndSave;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.buttonContinueEdit;
             this.ClientSize = new System.Drawing.Size(422, 107);
             this.Controls.Add(this.labelError);
@@ -78,6 +78,7 @@
             this.Name = "IntentoFormIgnoreError";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Test translation error";
             this.TopMost = true;
             this.ResumeLayout(false);

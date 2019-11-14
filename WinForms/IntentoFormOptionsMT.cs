@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -16,6 +17,8 @@ namespace Intento.MT.Plugin.PropertiesForm
     {
         IntentoTranslationProviderOptionsForm parent;
         const string testString = "1";
+        readonly IList<string> testResultString = new ReadOnlyCollection<string> 
+            (new List<string> {"1", "1.", "Uno", "Uno." });
         public int cursorCountMT = 0;
 
         public IntentoFormOptionsMT(IntentoTranslationProviderOptionsForm form)
@@ -73,14 +76,19 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            string msg = TestTranslationIsSuccessful();
-            if (msg != null)
+            string msg = null;
+            SmartRoutingState smartRoutingState = parent.apiKeyState?.smartRoutingState;
+            if (smartRoutingState == null || !smartRoutingState.SmartRouting)
             {
-                var errorForm = new IntentoFormIgnoreError();
-                errorForm.labelError.Text = string.Format("{0} {1}", Resource.Error, msg);
-                errorForm.ShowDialog();
-                if (errorForm.DialogResult == DialogResult.OK)
-                    msg = null;
+                msg = TestTranslationIsSuccessful();
+                if (msg != null)
+                {
+                    var errorForm = new IntentoFormIgnoreError();
+                    errorForm.labelError.Text = string.Format("{0} {1}", Resource.Error, msg);
+                    errorForm.ShowDialog();
+                    if (errorForm.DialogResult == DialogResult.OK)
+                        msg = null;
+                }
             }
             if (msg == null)
                 this.DialogResult = DialogResult.OK;
@@ -98,8 +106,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                     // Call test translate intent 
                     dynamic result = parent._translate.Fulfill(
                         testString,
-                        to: comboBoxTo.Text,
-                        from: comboBoxFrom.Text,
+                        to: string.IsNullOrWhiteSpace(comboBoxTo.Text) ? "es" : comboBoxTo.Text,
+                        from: string.IsNullOrWhiteSpace(comboBoxFrom.Text) ? "en" : comboBoxFrom.Text,
                         provider: testOptions.ProviderId,
                         format: null,
                         async: true,
@@ -117,7 +125,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                     {   // Ordinary response of operations call (result of async request)
                         foreach (dynamic str in response.First.results)
                         {
-                            if (str == null || str != testString)
+                            string res = (string)str;
+                            if (str == null || !testResultString.Any(x => x==res))
                                 return Resource.ErrorTestTranslation;
                         }
                     }

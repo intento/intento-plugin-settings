@@ -104,10 +104,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             _languagePairs = languagePairs;
             DialogResult = DialogResult.None;
-
-            // string pluginFor = string.IsNullOrEmpty(Options.PluginFor) ? "" : Options.PluginFor + '/';
-            // toolStripStatusLabel2.Text = String.Format("{0} {1}{2}", Options.PluginName, pluginFor, Options.AssemblyVersion);
             var arr = originalOptions.Signature.Split('/');
+            formAdvanced.toolStripStatusLabel1.Text = arr.Count() == 3 ? String.Format("{0}/{1}", arr[0], arr[2]) : originalOptions.Signature;
             groupBoxMTConnect2.Location = groupBoxMTConnect.Location;
 
             apiKeyState.apiKeyChangedEvent += ChangeApiKeyStatusDelegate;
@@ -255,6 +253,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     else
                         apiKeyState.SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
                 }
+                this.DialogResult = DialogResult.OK;
                 Close();
                 //}
             }
@@ -448,7 +447,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-
         #region IForm
 
         ApiKeyState IForm.ApiKeyState { get { return apiKeyState; } }
@@ -478,7 +476,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             apiKey_tb.Text = apiKeyState.apiKey;
             buttonMTSetting.Enabled = apiKeyState.IsOK;
         }
-
 
         // SmartRouting_CheckBox (checkBoxSmartRouting)
         bool IForm.SmartRouting_CheckBox_Checked { get { return formMT.checkBoxSmartRouting.Checked; } set { formMT.checkBoxSmartRouting.Checked = value; } }
@@ -532,13 +529,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         string IForm.AuthText_TextBox_Text { set { formMT.textBoxCredentials.Text = value; } }
 
         // AuthCombo_Group (groupBoxAuthCredentialId)
-        bool IForm.AuthCombo_Group_Visible
-        {
-            set
-            {
-                formMT.comboBoxCredentialId.Enabled = value;
-            }
-        }
+        bool IForm.AuthCombo_Group_Visible { set { formMT.comboBoxCredentialId.Enabled = value; } }
 
         void IForm.Auth_Control_BackColor_State(bool hasErrors)
         {
@@ -553,7 +544,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                 formMT.textBoxCredentials.BackColor = formMT.checkBoxUseOwnCred.Checked ? Color.White : SystemColors.Control;
             }
         }
-
 
         // AuthCombo_ComboBox (comboBoxCredentialId)
         void IForm.AuthCombo_ComboBox_Clear() { formMT.comboBoxCredentialId.Items.Clear(); }
@@ -574,11 +564,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             set
             {
                 formMT.checkBoxUseCustomModel.Checked = value;
-                //if (value)
-                //{
                 formMT.comboBoxModels.Enabled = value;
                 formMT.textBoxModel.Enabled = value;
-                //}
             }
         }
 
@@ -588,22 +575,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             set
             {
                 formMT.checkBoxUseCustomModel.Enabled = value;
-                //if (formMT.checkBoxUseCustomModel.Checked)
-                //{
-                formMT.comboBoxModels.Enabled = value && formMT.checkBoxUseCustomModel.Checked;
-                formMT.textBoxModel.Enabled = value && formMT.checkBoxUseCustomModel.Checked;
-                //}
+                formMT.comboBoxModels.Enabled = value || formMT.checkBoxUseCustomModel.Checked;
+                formMT.textBoxModel.Enabled = value || formMT.checkBoxUseCustomModel.Checked;
             }
         }
 
-        // Model_Group (groupBoxModel)
-        // bool IForm.Model_Group_Visible { set { formMT.groupBoxModel.Enabled = value; } }
-        //bool IForm.Model_Group_Visible { set {
-        //        formMT.comboBoxModels.Enabled = value;
-        //        formMT.textBoxModel.Enabled = value;
-        //    }
-        //}
-        // bool IForm.Model_Group_Enabled { set { formMT.groupBoxModel.Enabled = value; } }
         bool IForm.Model_Group_Enabled
         {
             set
@@ -745,6 +721,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 textBoxAccount.Text = Resource.MFNa;
                 textBoxModel.Text = Resource.MFNa;
                 textBoxGlossary.Text = Resource.MFNa;
+                buttonContinue.Enabled = true;
             }
             else
             {
@@ -789,7 +766,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                 else
                     textBoxGlossary.Text = String.IsNullOrEmpty(currentOptions.GlossaryName) ? Resource.Empty : currentOptions.GlossaryName;
             }
-
 
         }
 

@@ -45,8 +45,11 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.labelError = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBoxProxy.SuspendLayout();
             this.groupBoxAuth.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxProxy
@@ -228,12 +231,33 @@
             this.labelError.Text = "Proxy connection error";
             this.labelError.Visible = false;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 318);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.statusStrip1.Size = new System.Drawing.Size(481, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 35;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(40, 17);
+            this.toolStripStatusLabel1.Text = "0.0.0.0";
+            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // IntentoFormAdvanced
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoSize = true;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(481, 322);
+            this.ClientSize = new System.Drawing.Size(481, 340);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
@@ -241,13 +265,21 @@
             this.Controls.Add(this.checkBoxTrace);
             this.Controls.Add(this.checkBoxProxy);
             this.Controls.Add(this.groupBoxProxy);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "IntentoFormAdvanced";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "IntentoFormAdvanced";
             this.Shown += new System.EventHandler(this.IntentoFormAdvanced_Shown);
             this.groupBoxProxy.ResumeLayout(false);
             this.groupBoxProxy.PerformLayout();
             this.groupBoxAuth.ResumeLayout(false);
             this.groupBoxAuth.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,5 +304,7 @@
         private System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Label labelError;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }

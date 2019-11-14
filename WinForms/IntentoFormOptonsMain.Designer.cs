@@ -306,6 +306,8 @@
             this.Controls.Add(this.buttonContinue);
             this.Controls.Add(this.groupBoxMTSettings);
             this.Controls.Add(this.groupBoxMTConnect);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.Name = "IntentoTranslationProviderOptionsForm";
             this.Text = "MainForm";
             this.Shown += new System.EventHandler(this.IntentoFormOptonsMain_Shown);

@@ -136,7 +136,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string Draw()
         {
             FillModelControls();
-
+            form.Model_Control_BackColor_State(false);
             if (modelMode == StateModeEnum.prohibited)
                 return null;
 

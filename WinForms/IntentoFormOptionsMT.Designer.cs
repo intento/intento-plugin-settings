@@ -124,6 +124,7 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Tag = "model";
             this.linkLabel1.Text = "?";
+            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.helpLink_Clicked);
             // 
             // groupBoxBillingAccount
@@ -151,6 +152,7 @@
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Tag = "account";
             this.linkLabel3.Text = "?";
+            this.linkLabel3.VisitedLinkColor = System.Drawing.Color.Blue;
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.helpLink_Clicked);
             // 
             // buttonWizard
@@ -308,6 +310,7 @@
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Tag = "glossary";
             this.linkLabel2.Text = "?";
+            this.linkLabel2.VisitedLinkColor = System.Drawing.Color.Blue;
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.helpLink_Clicked);
             // 
             // textBoxGlossary
@@ -469,7 +472,12 @@
             this.Controls.Add(this.groupBoxProvider);
             this.Controls.Add(this.textBoxLabelURL);
             this.Controls.Add(this.checkBoxSmartRouting);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "IntentoFormOptionsMT";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "IntentoFormOptionsMT";
             this.groupBoxProvider.ResumeLayout(false);
             this.groupBoxBillingAccount.ResumeLayout(false);

@@ -109,10 +109,10 @@
             this.tlpCustomCredentials.Size = new System.Drawing.Size(394, 0);
             this.tlpCustomCredentials.TabIndex = 18;
             // 
-            // IntentoTranslationProviderAuthWizardForm
+            // IntentoFormProviderAuthWizard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(400, 86);
@@ -120,7 +120,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "IntentoTranslationProviderAuthWizardForm";
+            this.Name = "IntentoFormProviderAuthWizard";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Enter credentials";
             this.TopMost = true;
