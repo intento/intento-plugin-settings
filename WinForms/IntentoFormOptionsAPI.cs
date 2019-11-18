@@ -23,7 +23,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             InitializeComponent();
             LocalizeContent();
             parent = form;
-            //buttonSave.Click += mainForm.buttonCheck_Click;
             apiKey_tb.TextChanged += parent.apiKey_tb_TextChanged;
         }
 
@@ -46,7 +45,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 labelError.Visible = true;
             }
             else
-                Close();
+                this.DialogResult = DialogResult.OK;
+                //Close();
         }
 
         private void checkBoxShowHidden_CheckedChanged(object sender, EventArgs e)

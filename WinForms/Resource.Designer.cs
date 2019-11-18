@@ -126,9 +126,18 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         /// <summary>
         ///   Looks up a localized string similar to Ignore error and save.
         /// </summary>
-        internal static string ButtonIgnoreAndSave {
+        internal static string ButtonIgnoreAndSave_Ignore {
             get {
-                return ResourceManager.GetString("ButtonIgnoreAndSave", resourceCulture);
+                return ResourceManager.GetString("ButtonIgnoreAndSave_Ignore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It’s OK, save settings.
+        /// </summary>
+        internal static string ButtonIgnoreAndSave_Ok {
+            get {
+                return ResourceManager.GetString("ButtonIgnoreAndSave_Ok", resourceCulture);
             }
         }
         
@@ -196,7 +205,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Incorrect translation.
+        ///   Looks up a localized string similar to The answer returned an error.
         /// </summary>
         internal static string ErrorTestTranslation {
             get {
@@ -364,6 +373,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         internal static string MFgroupBoxMTSettings {
             get {
                 return ResourceManager.GetString("MFgroupBoxMTSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You changed ApiKey. We recommend to test MT Settings..
+        /// </summary>
+        internal static string MFlabelApiKeyIsChanged {
+            get {
+                return ResourceManager.GetString("MFlabelApiKeyIsChanged", resourceCulture);
             }
         }
         
@@ -590,6 +608,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         internal static string TestAndSave {
             get {
                 return ResourceManager.GetString("TestAndSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We tried to translate &quot;{0}&quot;, but received an unexpected answer &quot;{1}&quot;.
+        /// </summary>
+        internal static string TestTranslationWarning {
+            get {
+                return ResourceManager.GetString("TestTranslationWarning", resourceCulture);
             }
         }
         

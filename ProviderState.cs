@@ -1,6 +1,7 @@
 ﻿using Intento.MT.Plugin.PropertiesForm.WinForms;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
@@ -20,6 +21,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         dynamic providerData;
         public string currentProviderId;
         public string currentProviderName;
+        public Dictionary<string, string> fromLanguages;
+        public Dictionary<string, string> toLanguages;
 
         LangPair[] languagePairs;
 
@@ -148,7 +151,10 @@ namespace Intento.MT.Plugin.PropertiesForm
                         }
                         from = from.Distinct().ToList();
                         to = to.Distinct().ToList();
-                        form.Language_Comboboxes_Fill(from, to);
+                        FillLanguageDictionary(ref fromLanguages, from);
+                        FillLanguageDictionary(ref toLanguages, to);
+
+                        form.Language_Comboboxes_Fill(fromLanguages, toLanguages);
                     }
                 }
             }
@@ -260,7 +266,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             return state.Draw();
         }
 
-
         public string Draw()
         {
             string errors;
@@ -311,7 +316,28 @@ namespace Intento.MT.Plugin.PropertiesForm
             options.Format = null;
 
             if (authState != null)
+            {
                 authState.ClearOptions(options);
+                authState.Clear();
+            }
+        }
+
+        private void FillLanguageDictionary(ref Dictionary<string, string> dct, List<string> source)
+        {
+            List<string> unknownCodes = new List<string>();
+            dct = new Dictionary<string, string>();
+            foreach (string code in source)
+            {
+                try
+                {
+                    dct.Add(code, string.Format("{0} ({1})", new CultureInfo(code).DisplayName, code));
+                }
+                catch { unknownCodes.Add(code); }
+            }
+            dct = dct.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            unknownCodes.Sort();
+            foreach (string code in unknownCodes)
+                dct.Add(code, string.Format("({0})", code));
         }
 
     }

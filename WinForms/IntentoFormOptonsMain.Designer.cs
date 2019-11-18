@@ -49,6 +49,7 @@
             this.apiKey_tb = new System.Windows.Forms.TextBox();
             this.buttonCheck = new System.Windows.Forms.Button();
             this.buttonAdvanced = new System.Windows.Forms.Button();
+            this.labelApiKeyIsChanged = new System.Windows.Forms.Label();
             this.groupBoxMTConnect.SuspendLayout();
             this.groupBoxMTSettings.SuspendLayout();
             this.groupBoxGlossary.SuspendLayout();
@@ -118,6 +119,7 @@
             // 
             this.groupBoxMTSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxMTSettings.Controls.Add(this.labelApiKeyIsChanged);
             this.groupBoxMTSettings.Controls.Add(this.groupBoxGlossary);
             this.groupBoxMTSettings.Controls.Add(this.groupBoxModel);
             this.groupBoxMTSettings.Controls.Add(this.groupBoxBillingAccount);
@@ -296,6 +298,17 @@
             this.buttonAdvanced.UseVisualStyleBackColor = true;
             this.buttonAdvanced.Click += new System.EventHandler(this.buttonAdvanced_Click);
             // 
+            // labelApiKeyIsChanged
+            // 
+            this.labelApiKeyIsChanged.AutoSize = true;
+            this.labelApiKeyIsChanged.ForeColor = System.Drawing.Color.Red;
+            this.labelApiKeyIsChanged.Location = new System.Drawing.Point(334, 11);
+            this.labelApiKeyIsChanged.Name = "labelApiKeyIsChanged";
+            this.labelApiKeyIsChanged.Size = new System.Drawing.Size(283, 13);
+            this.labelApiKeyIsChanged.TabIndex = 29;
+            this.labelApiKeyIsChanged.Text = "You changed ApiKey. We recommend to test MT Settings.";
+            this.labelApiKeyIsChanged.Visible = false;
+            // 
             // IntentoTranslationProviderOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -314,6 +327,7 @@
             this.groupBoxMTConnect.ResumeLayout(false);
             this.groupBoxMTConnect.PerformLayout();
             this.groupBoxMTSettings.ResumeLayout(false);
+            this.groupBoxMTSettings.PerformLayout();
             this.groupBoxGlossary.ResumeLayout(false);
             this.groupBoxGlossary.PerformLayout();
             this.groupBoxModel.ResumeLayout(false);
@@ -351,5 +365,6 @@
         public System.Windows.Forms.TextBox apiKey_tb;
         public System.Windows.Forms.Button buttonCheck;
         private System.Windows.Forms.Button buttonAdvanced;
+        private System.Windows.Forms.Label labelApiKeyIsChanged;
     }
 }

@@ -16,9 +16,12 @@ namespace Intento.MT.Plugin.PropertiesForm
     public partial class IntentoFormOptionsMT : Form
     {
         IntentoTranslationProviderOptionsForm parent;
-        const string testString = "1";
-        readonly IList<string> testResultString = new ReadOnlyCollection<string> 
-            (new List<string> {"1", "1.", "Uno", "Uno." });
+        //const string testString = "1";
+        //readonly IList<string> testResultString = new ReadOnlyCollection<string> 
+        //    (new List<string> {"1", "1.", "Uno", "Uno." });
+        const string testString = "14";
+        readonly IList<string> testResultString = new ReadOnlyCollection<string>
+            (new List<string> { "14", "14.", "Catorce" });
         public int cursorCountMT = 0;
 
         public IntentoFormOptionsMT(IntentoTranslationProviderOptionsForm form)
@@ -80,11 +83,21 @@ namespace Intento.MT.Plugin.PropertiesForm
             SmartRoutingState smartRoutingState = parent.apiKeyState?.smartRoutingState;
             if (smartRoutingState == null || !smartRoutingState.SmartRouting)
             {
-                msg = TestTranslationIsSuccessful();
+                var res = TestTranslationIsSuccessful(ref msg);
                 if (msg != null)
                 {
                     var errorForm = new IntentoFormIgnoreError();
-                    errorForm.labelError.Text = string.Format("{0} {1}", Resource.Error, msg);
+                    errorForm.labelError.Text = msg;
+                    if (res)
+                    {
+                        errorForm.labelError.ForeColor = Color.Blue;
+                        errorForm.buttonIgnoreAndSave.Text = Resource.ButtonIgnoreAndSave_Ok;
+                    }
+                    else
+                    {
+                        errorForm.labelError.ForeColor = Color.Red;
+                        errorForm.buttonIgnoreAndSave.Text = Resource.ButtonIgnoreAndSave_Ignore;
+                    }
                     errorForm.ShowDialog();
                     if (errorForm.DialogResult == DialogResult.OK)
                         msg = null;
@@ -93,7 +106,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (msg == null)
                 this.DialogResult = DialogResult.OK;
         }
-        private string TestTranslationIsSuccessful()
+        /// <summary>
+        /// ref msg  - error message
+        /// </summary>
+        /// <returns>true if there were no errors in the answer, else false </returns>
+        private bool TestTranslationIsSuccessful(ref string msg)
         {
             IntentoTranslationProviderOptionsForm.Logging("Trados Translate: start");
             try
@@ -102,12 +119,16 @@ namespace Intento.MT.Plugin.PropertiesForm
                 {
                     IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
                     parent.apiKeyState.FillOptions(testOptions);
-
+                    var providerState = parent.apiKeyState.smartRoutingState.providerState;
+                    string to = comboBoxTo.SelectedIndex != -1 ? 
+                        providerState.toLanguages.Where(x => x.Value == comboBoxTo.Text).First().Key : "es";
+                    string from = comboBoxFrom.SelectedIndex != -1 ?
+                        providerState.fromLanguages.Where(x => x.Value == comboBoxFrom.Text).First().Key : "en";
                     // Call test translate intent 
                     dynamic result = parent._translate.Fulfill(
                         testString,
-                        to: string.IsNullOrWhiteSpace(comboBoxTo.Text) ? "es" : comboBoxTo.Text,
-                        from: string.IsNullOrWhiteSpace(comboBoxFrom.Text) ? "en" : comboBoxFrom.Text,
+                        to: to,
+                        from: from,
                         provider: testOptions.ProviderId,
                         format: null,
                         async: true,
@@ -120,27 +141,42 @@ namespace Intento.MT.Plugin.PropertiesForm
                         wait_async: true,
                         trace: IntentoTranslationProviderOptionsForm.IsTrace()
                         );
-                    dynamic response = result.response;
-                    if (response != null && response.First != null)
-                    {   // Ordinary response of operations call (result of async request)
-                        foreach (dynamic str in response.First.results)
-                        {
-                            string res = (string)str;
-                            if (str == null || !testResultString.Any(x => x==res))
-                                return Resource.ErrorTestTranslation;
-                        }
+                    if (result.error != null)
+                    {
+                        msg = Resource.ErrorTestTranslation;
+                        return false;
                     }
                     else
-                        return Resource.ErrorTestTranslation;
+                    {
+                        dynamic response = result.response;
+                        if (response != null && response.First != null)
+                        {   // Ordinary response of operations call (result of async request)
+                            foreach (dynamic str in response.First.results)
+                            {
+                                string res = (string)str;
+                                if (str == null || !testResultString.Any(x => x == res))
+                                {
+                                    msg = string.Format(Resource.TestTranslationWarning, testString, res);
+                                    return true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            msg = Resource.ErrorTestTranslation;
+                            return true;
+                        }
 
-                    IntentoTranslationProviderOptionsForm.Logging("Trados Translate: finish");
+                        IntentoTranslationProviderOptionsForm.Logging("Trados Translate: finish");
+                    }
                 }
-                return null;
+                return true;
             }
             catch (AggregateException ex2)
             {
                 IntentoTranslationProviderOptionsForm.Logging("Trados Translate: error", ex: ex2);
-                return ex2.Message;
+                msg = ex2.Message;
+                return false;
             }
         }
 

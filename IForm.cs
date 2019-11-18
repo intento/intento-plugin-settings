@@ -68,7 +68,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 
         // AuthCombo_ComboBox (comboBoxCredentialId)
-        void AuthCombo_ComboBox_Clear();
+        void Auth_Control_Clear();
         void AuthCombo_ComboBox_AddRange(object[] items);
         void AuthCombo_ComboBox_Insert(int n, string text);
         bool AuthCombo_ComboBox_Contains(string text);
@@ -121,7 +121,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         string Glossary_ComboBox_Text { get; }
 
         // 
-        void Language_Comboboxes_Fill(List<string> from, List<string> to);
+        void Language_Comboboxes_Fill(Dictionary<string, string> from, Dictionary<string, string> to);
         bool Optional_Group_Enabled { get; set; }
 
         // ErrorMessage TextBox (toolStripStatusLabel1)

@@ -54,5 +54,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Pull request from memoQ. Processed manually
         // 2.0.0: 2019-11-14
         // - New UI
+        // 2.0.1: 2019-11-18
+        // - Warning about the desirability of a new test settings when changing the ApiKey
+        // - Improved combobox of language selection for test settings
+        // - Changes in form of ignore test request errors 
     }
 }

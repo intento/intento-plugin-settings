@@ -120,9 +120,9 @@ namespace Intento.MT.Plugin.PropertiesForm
                 FillTextBoxCredentials();
         }
 
-        private void Clear()
+        public void Clear()
         {
-            form.AuthCombo_ComboBox_Clear();
+            form.Auth_Control_Clear();
         }
 
         private void FillDelegatedCredentials()

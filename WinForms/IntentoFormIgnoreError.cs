@@ -16,7 +16,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         {
             InitializeComponent();
             buttonContinueEdit.Text = Resource.ButtonContinueEdit;
-            buttonIgnoreAndSave.Text = Resource.ButtonIgnoreAndSave;
             buttonIgnoreAndSave.DialogResult = DialogResult.OK;
         }
     }

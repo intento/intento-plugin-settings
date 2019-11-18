@@ -59,6 +59,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         private IntentoFormOptionsMT formMT;
         private IntentoFormAdvanced formAdvanced;
         private int cursorCount = 0;
+        private bool settingsIsSet;
 
         #endregion vars
 
@@ -122,6 +123,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 buttonSetApi.Select();
 
             apiKeyState.EnableDisable();
+            //RefreshFormInfo();
         }
 
         public IntentoMTFormOptions GetOptions()
@@ -316,9 +318,15 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private void buttonSetApi_Click(object sender, EventArgs e)
         {
+            settingsIsSet = false;
+            string apiKey = apiKeyState?.apiKey;
             formApi.currentOptions = currentOptions;
             formApi.ShowDialog();
-            RefreshFormInfo();
+            if (formApi.DialogResult == DialogResult.OK && apiKeyState.IsOK && apiKeyState.apiKey != apiKey)
+            {
+                settingsIsSet = true;
+                RefreshFormInfo();
+            }
         }
 
         private void IntentoFormOptonsMain_Shown(object sender, EventArgs e)
@@ -340,6 +348,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 if (formMT.DialogResult == DialogResult.OK)
                 {
                     FillOptions(currentOptions);
+                    settingsIsSet = false;
                     RefreshFormInfo();
                 }
                 else
@@ -408,6 +417,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             labelIAK.Text = Resource.APIFlabelAPI;
             buttonAdvanced.Text = Resource.MFbuttonAdvanced;
             Icon = Resource.intento;
+            labelApiKeyIsChanged.Text = Resource.MFlabelApiKeyIsChanged;
         }
 
         public class CursorForm : IDisposable
@@ -546,7 +556,11 @@ namespace Intento.MT.Plugin.PropertiesForm
         }
 
         // AuthCombo_ComboBox (comboBoxCredentialId)
-        void IForm.AuthCombo_ComboBox_Clear() { formMT.comboBoxCredentialId.Items.Clear(); }
+        void IForm.Auth_Control_Clear()
+        {
+            formMT.comboBoxCredentialId.Items.Clear();
+            formMT.textBoxCredentials.Text = "";
+        }
         void IForm.AuthCombo_ComboBox_AddRange(object[] items) { formMT.comboBoxCredentialId.Items.AddRange(items); }
         void IForm.AuthCombo_ComboBox_Insert(int n, string text) { formMT.comboBoxCredentialId.Items.Insert(n, text); }
         bool IForm.AuthCombo_ComboBox_Contains(string text) { return formMT.comboBoxCredentialId.Items.Contains(text); }
@@ -587,7 +601,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 //if (!value)
                 //    ((IForm)this).Model_Control_BackColor_State(false);
                 formMT.groupBoxModel.Enabled = value;
-
+                formMT.comboBoxModels.Enabled = formMT.checkBoxUseCustomModel.Checked;
+                formMT.textBoxModel.Enabled = formMT.checkBoxUseCustomModel.Checked;
             }
         }
 
@@ -646,17 +661,22 @@ namespace Intento.MT.Plugin.PropertiesForm
         string IForm.ErrorMessage_TextBox_Text { get { return formMT.labelTMP.Text; } set { formMT.labelTMP.Text = value; } }
         Color IForm.ErrorMessage_TextBox_BackColor { set { formMT.labelTMP.BackColor = value; } }
 
-        void IForm.Language_Comboboxes_Fill(List<string> from, List<string> to)
+        void IForm.Language_Comboboxes_Fill(Dictionary<string, string> from, Dictionary<string, string> to)
         {
             formMT.comboBoxFrom.Items.Clear();
             formMT.comboBoxTo.Items.Clear();
-            formMT.comboBoxFrom.Items.AddRange(from.ToArray());
-            formMT.comboBoxTo.Items.AddRange(to.ToArray());
-            if (from.Any(x => x == "en"))
-                formMT.comboBoxFrom.SelectedItem = "en";
-            if (from.Any(x => x == "es"))
-                formMT.comboBoxTo.SelectedItem = "es";
+            formMT.comboBoxFrom.Items.AddRange(from.Select(x => x.Value).ToArray());
+            formMT.comboBoxTo.Items.AddRange(to.Select(x => x.Value).ToArray());
+            if (from.ContainsKey("en"))
+                formMT.comboBoxFrom.SelectedItem = from["en"];
+            else
+                formMT.comboBoxFrom.SelectedIndex = 1;
+            if (to.ContainsKey("es"))
+                formMT.comboBoxTo.SelectedItem = to["es"];
+            else
+                formMT.comboBoxTo.SelectedIndex = 1;
         }
+
         bool IForm.Optional_Group_Enabled
         {
             get { return formMT.groupBoxOptional.Enabled; }
@@ -715,6 +735,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             SmartRoutingState smartRoutingState = apiKeyState?.smartRoutingState;
             buttonContinue.Enabled = false;
+            labelApiKeyIsChanged.Visible = false;
+            IntentoMTFormOptions tmpOptions = new IntentoMTFormOptions();
+            apiKeyState.FillOptions(tmpOptions);
             if (smartRoutingState != null && smartRoutingState.SmartRouting)
             {
                 textBoxProviderName.Text = Resource.MFSmartRoutingText;
@@ -727,11 +750,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 if (apiKeyState.IsOK)
                 {
-                    if (String.IsNullOrEmpty(currentOptions.ProviderId))
+                    if (String.IsNullOrEmpty(tmpOptions.ProviderId))
                         textBoxProviderName.Text = Resource.NeedAChoise;
                     else
                     {
-                        textBoxProviderName.Text = currentOptions.ProviderName;
+                        textBoxProviderName.Text = tmpOptions.ProviderName;
                         buttonContinue.Enabled = true;
                     }
                 }
@@ -743,28 +766,34 @@ namespace Intento.MT.Plugin.PropertiesForm
                     textBoxAccount.UseSystemPasswordChar = false;
                     textBoxAccount.Text = Resource.MFNa;
                 }
-                else if (String.IsNullOrEmpty(currentOptions.CustomAuth))
+                else if (String.IsNullOrEmpty(tmpOptions.CustomAuth))
                 {
                     textBoxAccount.UseSystemPasswordChar = false;
                     textBoxAccount.Text = Resource.Empty;
                 }
                 else
                 {
-                    textBoxAccount.UseSystemPasswordChar = !currentOptions.IsAuthDelegated;
-                    textBoxAccount.Text = currentOptions.IsAuthDelegated ? currentOptions.AuthDelegatedCredentialId : currentOptions.CustomAuth;
+                    textBoxAccount.UseSystemPasswordChar = !tmpOptions.IsAuthDelegated;
+                    textBoxAccount.Text = tmpOptions.IsAuthDelegated ? tmpOptions.AuthDelegatedCredentialId : tmpOptions.CustomAuth;
+                    labelApiKeyIsChanged.Visible = settingsIsSet;
                 }
 
-                if (currentOptions.CustomModelMode == StateModeEnum.prohibited || currentOptions.CustomModelMode == StateModeEnum.unknown)
+                if (tmpOptions.CustomModelMode == StateModeEnum.prohibited || tmpOptions.CustomModelMode == StateModeEnum.unknown)
                     textBoxModel.Text = Resource.MFNa;
-                else if (currentOptions.CustomModelMode == StateModeEnum.optional && !currentOptions.UseCustomModel)
+                else if (tmpOptions.CustomModelMode == StateModeEnum.optional && !tmpOptions.UseCustomModel)
                     textBoxModel.Text = Resource.Empty;
                 else
-                    textBoxModel.Text = currentOptions.CustomModelName;
-
-                if (currentOptions.GlossaryMode == StateModeEnum.prohibited || currentOptions.GlossaryMode == StateModeEnum.unknown)
+                {
+                    textBoxModel.Text = tmpOptions.CustomModelName;
+                    labelApiKeyIsChanged.Visible = settingsIsSet;
+                }
+                if (tmpOptions.GlossaryMode == StateModeEnum.prohibited || tmpOptions.GlossaryMode == StateModeEnum.unknown)
                     textBoxGlossary.Text = Resource.MFNa;
                 else
-                    textBoxGlossary.Text = String.IsNullOrEmpty(currentOptions.GlossaryName) ? Resource.Empty : currentOptions.GlossaryName;
+                {
+                    textBoxGlossary.Text = String.IsNullOrEmpty(tmpOptions.GlossaryName) ? Resource.Empty : tmpOptions.GlossaryName;
+                    labelApiKeyIsChanged.Visible = settingsIsSet;
+                }
             }
 
         }
