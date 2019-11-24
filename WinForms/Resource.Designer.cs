@@ -232,7 +232,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable proxy server (Attention! This setting applies to all Intento MT rules.).
+        ///   Looks up a localized string similar to Enable proxy server (Attention! Proxy settings apply to all sets of settings).
         /// </summary>
         internal static string FAcheckBoxProxy {
             get {

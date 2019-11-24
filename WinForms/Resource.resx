@@ -200,7 +200,7 @@ If you have selected custom model or glossary, please adjust the language pair:<
     <value>Authorization required</value>
   </data>
   <data name="FAcheckBoxProxy" xml:space="preserve">
-    <value>Enable proxy server (Attention! This setting applies to all Intento MT rules.)</value>
+    <value>Enable proxy server (Attention! Proxy settings apply to all sets of settings)</value>
   </data>
   <data name="FAcheckBoxTrace" xml:space="preserve">
     <value>Log translation text for 30 minutes</value>

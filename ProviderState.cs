@@ -327,17 +327,21 @@ namespace Intento.MT.Plugin.PropertiesForm
             List<string> unknownCodes = new List<string>();
             dct = new Dictionary<string, string>();
             foreach (string code in source)
+                dct.Add(code, GetCultureDisplayName(code));
+            dct = dct.OrderBy(x => x.Value, System.StringComparer.OrdinalIgnoreCase).ToDictionary(x => x.Key, x => x.Value);
+        }
+
+        private string GetCultureDisplayName (string code)
+        {
+            try
             {
-                try
-                {
-                    dct.Add(code, string.Format("{0} ({1})", new CultureInfo(code).DisplayName, code));
-                }
-                catch { unknownCodes.Add(code); }
+                CultureInfo ci = new CultureInfo(code);
+                if (!ci.DisplayName.StartsWith("Unknown Language"))
+                    return string.Format("{0} [{1}]", ci.DisplayName, code);
             }
-            dct = dct.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-            unknownCodes.Sort();
-            foreach (string code in unknownCodes)
-                dct.Add(code, string.Format("({0})", code));
+            catch { }
+
+            return string.Format("[{0}]", code);
         }
 
     }
