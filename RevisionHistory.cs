@@ -58,5 +58,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Warning about the desirability of a new test settings when changing the ApiKey
         // - Improved combobox of language selection for test settings
         // - Changes in form of ignore test request errors 
+        // 2.0.2: 2019-11-28
+        // - Improved PluginHelper: handling some HTML character codes
     }
 }
