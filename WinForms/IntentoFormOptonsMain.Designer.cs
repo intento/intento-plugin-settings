@@ -34,6 +34,7 @@
             this.buttonSetApi = new System.Windows.Forms.Button();
             this.labelRegister2 = new System.Windows.Forms.Label();
             this.groupBoxMTSettings = new System.Windows.Forms.GroupBox();
+            this.labelApiKeyIsChanged = new System.Windows.Forms.Label();
             this.groupBoxGlossary = new System.Windows.Forms.GroupBox();
             this.textBoxGlossary = new System.Windows.Forms.TextBox();
             this.groupBoxModel = new System.Windows.Forms.GroupBox();
@@ -49,7 +50,6 @@
             this.apiKey_tb = new System.Windows.Forms.TextBox();
             this.buttonCheck = new System.Windows.Forms.Button();
             this.buttonAdvanced = new System.Windows.Forms.Button();
-            this.labelApiKeyIsChanged = new System.Windows.Forms.Label();
             this.groupBoxMTConnect.SuspendLayout();
             this.groupBoxMTSettings.SuspendLayout();
             this.groupBoxGlossary.SuspendLayout();
@@ -85,7 +85,9 @@
             this.textBoxLabel1.Name = "textBoxLabel1";
             this.textBoxLabel1.Size = new System.Drawing.Size(118, 13);
             this.textBoxLabel1.TabIndex = 20;
+            this.textBoxLabel1.Tag = "https://console.inten.to";
             this.textBoxLabel1.Text = "https://console.inten.to";
+            this.textBoxLabel1.Click += new System.EventHandler(this.linkLabel_LinkClicked);
             // 
             // labelRegister1
             // 
@@ -131,6 +133,17 @@
             this.groupBoxMTSettings.TabIndex = 1;
             this.groupBoxMTSettings.TabStop = false;
             this.groupBoxMTSettings.Text = "Machine Translation Settings";
+            // 
+            // labelApiKeyIsChanged
+            // 
+            this.labelApiKeyIsChanged.AutoSize = true;
+            this.labelApiKeyIsChanged.ForeColor = System.Drawing.Color.Red;
+            this.labelApiKeyIsChanged.Location = new System.Drawing.Point(334, 11);
+            this.labelApiKeyIsChanged.Name = "labelApiKeyIsChanged";
+            this.labelApiKeyIsChanged.Size = new System.Drawing.Size(283, 13);
+            this.labelApiKeyIsChanged.TabIndex = 29;
+            this.labelApiKeyIsChanged.Text = "You changed ApiKey. We recommend to test MT Settings.";
+            this.labelApiKeyIsChanged.Visible = false;
             // 
             // groupBoxGlossary
             // 
@@ -249,7 +262,7 @@
             this.groupBoxMTConnect2.Controls.Add(this.apiKey_tb);
             this.groupBoxMTConnect2.Controls.Add(this.buttonCheck);
             this.groupBoxMTConnect2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBoxMTConnect2.Location = new System.Drawing.Point(105, 9);
+            this.groupBoxMTConnect2.Location = new System.Drawing.Point(264, 0);
             this.groupBoxMTConnect2.Name = "groupBoxMTConnect2";
             this.groupBoxMTConnect2.Size = new System.Drawing.Size(623, 85);
             this.groupBoxMTConnect2.TabIndex = 21;
@@ -297,17 +310,6 @@
             this.buttonAdvanced.Text = "1Adnanced";
             this.buttonAdvanced.UseVisualStyleBackColor = true;
             this.buttonAdvanced.Click += new System.EventHandler(this.buttonAdvanced_Click);
-            // 
-            // labelApiKeyIsChanged
-            // 
-            this.labelApiKeyIsChanged.AutoSize = true;
-            this.labelApiKeyIsChanged.ForeColor = System.Drawing.Color.Red;
-            this.labelApiKeyIsChanged.Location = new System.Drawing.Point(334, 11);
-            this.labelApiKeyIsChanged.Name = "labelApiKeyIsChanged";
-            this.labelApiKeyIsChanged.Size = new System.Drawing.Size(283, 13);
-            this.labelApiKeyIsChanged.TabIndex = 29;
-            this.labelApiKeyIsChanged.Text = "You changed ApiKey. We recommend to test MT Settings.";
-            this.labelApiKeyIsChanged.Visible = false;
             // 
             // IntentoTranslationProviderOptionsForm
             // 

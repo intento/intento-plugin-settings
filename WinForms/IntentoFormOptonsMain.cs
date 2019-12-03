@@ -261,10 +261,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-        //private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        //{
-        //    System.Diagnostics.Process.Start(((LinkLabel)sender).Text);
-        //}
+        public void linkLabel_LinkClicked(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(((Control)sender).Tag.ToString());
+        }
 
         //private void linkLabel_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         //{

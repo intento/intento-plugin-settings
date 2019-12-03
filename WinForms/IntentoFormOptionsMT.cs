@@ -41,6 +41,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             textBoxCredentials.Enter += parent.textBoxCredentials_Enter;
             textBoxGlossary.TextChanged += parent.glossaryControls_ValueChanged;
             comboBoxGlossaries.TextChanged += parent.glossaryControls_ValueChanged;
+            textBoxLabelURL.Click += parent.linkLabel_LinkClicked;
             checkBoxSmartRouting.Select();
 
             textBoxModel.Location = comboBoxModels.Location;
