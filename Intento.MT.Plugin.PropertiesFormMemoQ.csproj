@@ -40,6 +40,10 @@
     <Reference Include="IntentoSDK">
       <HintPath>..\intento-csharp\bin\IntentoSDK.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\intento-csharp\bin\Newtonsoft.Json.dll</HintPath>
@@ -56,30 +60,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WinForms\IntentoFormIgnoreError.cs" />
+    <Compile Include="WinForms\IntentoFormIgnoreError.Designer.cs">
+      <DependentUpon>IntentoFormIgnoreError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormProviderAuthWizard.cs" />
+    <Compile Include="WinForms\IntentoFormProviderAuthWizard.Designer.cs">
+      <DependentUpon>IntentoFormProviderAuthWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormAdvanced.cs" />
+    <Compile Include="WinForms\IntentoFormAdvanced.Designer.cs">
+      <DependentUpon>IntentoFormAdvanced.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormOptionsAPI.cs" />
+    <Compile Include="WinForms\IntentoFormOptionsAPI.Designer.cs">
+      <DependentUpon>IntentoFormOptionsAPI.cs</DependentUpon>
+    </Compile>
     <Compile Include="ApiKeyState.cs" />
     <Compile Include="AuthState.cs" />
     <Compile Include="BaseState.cs" />
     <Compile Include="GitHash.cs" />
+    <Compile Include="GlossaryState.cs" />
     <Compile Include="IForm.cs" />
     <Compile Include="IntentoMTFormOptions.cs" />
-    <Compile Include="IntentoTranslationProviderAuthWizardForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="WinForms\IntentoFormOptionsMT.cs" />
+    <Compile Include="WinForms\IntentoFormOptionsMT.Designer.cs">
+      <DependentUpon>IntentoFormOptionsMT.cs</DependentUpon>
     </Compile>
-    <Compile Include="IntentoTranslationProviderAuthWizardForm.Designer.cs">
-      <DependentUpon>IntentoTranslationProviderAuthWizardForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="IntentoTranslationProviderOptionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IntentoTranslationProviderOptionsForm.Designer.cs">
-      <DependentUpon>IntentoTranslationProviderOptionsForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GlossaryState.cs" />
-    <Compile Include="IntentoTranslationProviderProxySettingsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IntentoTranslationProviderProxySettingsForm.Designer.cs">
-      <DependentUpon>IntentoTranslationProviderProxySettingsForm.cs</DependentUpon>
+    <Compile Include="WinForms\IntentoFormOptonsMain.cs" />
+    <Compile Include="WinForms\IntentoFormOptonsMain.Designer.cs">
+      <DependentUpon>IntentoFormOptonsMain.cs</DependentUpon>
     </Compile>
     <Compile Include="ModelState.cs" />
     <Compile Include="PluginHelper.cs" />
@@ -87,16 +97,34 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RevisionHistory.cs" />
     <Compile Include="SmartRoutingState.cs" />
+    <Compile Include="WinForms\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="IntentoTranslationProviderAuthWizardForm.resx">
-      <DependentUpon>IntentoTranslationProviderAuthWizardForm.cs</DependentUpon>
+    <EmbeddedResource Include="WinForms\IntentoFormIgnoreError.resx">
+      <DependentUpon>IntentoFormIgnoreError.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IntentoTranslationProviderOptionsForm.resx">
-      <DependentUpon>IntentoTranslationProviderOptionsForm.cs</DependentUpon>
+    <EmbeddedResource Include="WinForms\IntentoFormProviderAuthWizard.resx">
+      <DependentUpon>IntentoFormProviderAuthWizard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IntentoTranslationProviderProxySettingsForm.resx">
-      <DependentUpon>IntentoTranslationProviderProxySettingsForm.cs</DependentUpon>
+    <EmbeddedResource Include="WinForms\IntentoFormAdvanced.resx">
+      <DependentUpon>IntentoFormAdvanced.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\IntentoFormOptionsAPI.resx">
+      <DependentUpon>IntentoFormOptionsAPI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\IntentoFormOptionsMT.resx">
+      <DependentUpon>IntentoFormOptionsMT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\IntentoFormOptonsMain.resx">
+      <DependentUpon>IntentoFormOptonsMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +133,9 @@
     <None Include="githashForm.bat" />
     <None Include="intento.pfx" />
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\intento.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
