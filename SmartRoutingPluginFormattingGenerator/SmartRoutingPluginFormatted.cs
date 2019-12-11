@@ -75,16 +75,26 @@ namespace Intento.MT.Plugin.PropertiesForm
             JArray resJson = new JArray();
             foreach (string name in names)
             {
-                List<string> ranks = dict[name].Keys.ToList();
+                List<float> ranks = dict[name].Keys.Select(i => float.Parse(i)).ToList();
                 ranks.Sort();
-                foreach (string rank in ranks.ToList())
+                foreach (float rank in ranks.ToList())
                 {
-                    Data item = dict[name][rank];
+                    Data item = dict[name][rank.ToString()];
                     if (prohibited.Contains(item.provider))
                         continue;
                     if (item.format == null)
                         continue;
-
+                    switch (comboBox_formats.SelectedItem)
+                    {
+                        case "html":
+                            if (item.format != "html")
+                                continue;
+                            break;
+                        case "xml":
+                            if (item.format != "xml")
+                                continue;
+                            break;
+                    }
 
                     if (item.data.action.context == null)
                         item.data.action.context = new JObject();

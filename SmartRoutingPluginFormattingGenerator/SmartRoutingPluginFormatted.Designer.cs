@@ -35,6 +35,7 @@
             this.textBoxApiKey = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxProviders = new System.Windows.Forms.TextBox();
+            this.comboBox_formats = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // textBoxSrc
@@ -68,7 +69,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(361, 123);
+            this.buttonSave.Location = new System.Drawing.Point(361, 93);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(78, 41);
             this.buttonSave.TabIndex = 3;
@@ -100,11 +101,24 @@
             this.textBoxProviders.Size = new System.Drawing.Size(343, 157);
             this.textBoxProviders.TabIndex = 6;
             // 
+            // comboBox_formats
+            // 
+            this.comboBox_formats.FormattingEnabled = true;
+            this.comboBox_formats.Items.AddRange(new object[] {
+            "tagged",
+            "html",
+            "xml"});
+            this.comboBox_formats.Location = new System.Drawing.Point(12, 350);
+            this.comboBox_formats.Name = "comboBox_formats";
+            this.comboBox_formats.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_formats.TabIndex = 7;
+            // 
             // SmartRoutingPluginFormatted
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 506);
+            this.Controls.Add(this.comboBox_formats);
             this.Controls.Add(this.textBoxProviders);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxApiKey);
@@ -128,5 +142,6 @@
         private System.Windows.Forms.TextBox textBoxApiKey;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxProviders;
+        private System.Windows.Forms.ComboBox comboBox_formats;
     }
 }
