@@ -295,8 +295,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             if (state == null)
             {
-                if (state != null)
-                    state.ClearOptions(options);
+                options.ProviderId = null;
+                options.ProviderName = null;
+                options.Format = null;
                 AuthState.FillOptions(null, options);
             }
             else
@@ -320,6 +321,9 @@ namespace Intento.MT.Plugin.PropertiesForm
                 authState.ClearOptions(options);
                 authState.Clear();
             }
+            form.Auth_GroupBox_Disable();
+            form.Model_GroupBox_Disable();
+            form.Glossary_GroupBox_Disable();
         }
 
         private void FillLanguageDictionary(ref Dictionary<string, string> dct, List<string> source)

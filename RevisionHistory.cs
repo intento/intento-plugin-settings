@@ -60,5 +60,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Changes in form of ignore test request errors 
         // 2.0.2: 2019-11-29
         // - Improved PluginHelper: handling some HTML character codes
+        // 2.0.3: 2019-12-11
+        // - bug with saving setting SmartRouting in memoQ
     }
 }

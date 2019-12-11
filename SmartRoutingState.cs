@@ -89,10 +89,12 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             if (IsOK)
             {
-                if (!SmartRouting)
-                    providerState = new ProviderState(this, options);
-                else
+                providerState = new ProviderState(this, options);
+                if (SmartRouting)
+                {
+                    providerState.ClearOptions(options);
                     providerState = null;
+                }
             }
             else
                 providerState = null;
