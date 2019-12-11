@@ -90,6 +90,8 @@
             this.textBoxLabelURL.Name = "textBoxLabelURL";
             this.textBoxLabelURL.Size = new System.Drawing.Size(118, 13);
             this.textBoxLabelURL.TabIndex = 24;
+            this.textBoxLabelURL.Tag = "https://www.slideshare.net/KonstantinSavenkov/state-of-the-machine-translation-by" +
+    "-intento-stock-engines-jun-2019";
             this.textBoxLabelURL.Text = "1the Intento Benchmarks.";
             // 
             // groupBoxProvider
