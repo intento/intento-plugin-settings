@@ -40,6 +40,8 @@
             this.textBoxAddress = new System.Windows.Forms.TextBox();
             this.labelAddress = new System.Windows.Forms.Label();
             this.checkBoxProxy = new System.Windows.Forms.CheckBox();
+            this.checkBoxSaveApiKeyInRegistry = new System.Windows.Forms.CheckBox();
+            this.checkBoxTrace = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.labelError = new System.Windows.Forms.Label();
@@ -177,6 +179,27 @@
             this.checkBoxProxy.UseVisualStyleBackColor = true;
             this.checkBoxProxy.CheckedChanged += new System.EventHandler(this.checkBoxProxy_CheckedChanged);
             // 
+            // checkBoxSaveApiKeyInRegistry
+            // 
+            this.checkBoxSaveApiKeyInRegistry.AutoSize = true;
+            this.checkBoxSaveApiKeyInRegistry.Location = new System.Drawing.Point(240, 303);
+            this.checkBoxSaveApiKeyInRegistry.Name = "checkBoxSaveApiKeyInRegistry";
+            this.checkBoxSaveApiKeyInRegistry.Size = new System.Drawing.Size(179, 17);
+            this.checkBoxSaveApiKeyInRegistry.TabIndex = 15;
+            this.checkBoxSaveApiKeyInRegistry.Text = "checkBoxSaveApiKeyInRegistry";
+            this.checkBoxSaveApiKeyInRegistry.UseVisualStyleBackColor = true;
+            this.checkBoxSaveApiKeyInRegistry.Visible = false;
+            // 
+            // checkBoxTrace
+            // 
+            this.checkBoxTrace.AutoSize = true;
+            this.checkBoxTrace.Location = new System.Drawing.Point(16, 15);
+            this.checkBoxTrace.Name = "checkBoxTrace";
+            this.checkBoxTrace.Size = new System.Drawing.Size(102, 17);
+            this.checkBoxTrace.TabIndex = 14;
+            this.checkBoxTrace.Text = "checkBoxTrace";
+            this.checkBoxTrace.UseVisualStyleBackColor = true;
+            // 
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -238,6 +261,8 @@
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.checkBoxSaveApiKeyInRegistry);
+            this.Controls.Add(this.checkBoxTrace);
             this.Controls.Add(this.checkBoxProxy);
             this.Controls.Add(this.groupBoxProxy);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -274,6 +299,8 @@
         private System.Windows.Forms.TextBox textBoxAddress;
         private System.Windows.Forms.Label labelAddress;
         public System.Windows.Forms.CheckBox checkBoxProxy;
+        public System.Windows.Forms.CheckBox checkBoxSaveApiKeyInRegistry;
+        public System.Windows.Forms.CheckBox checkBoxTrace;
         private System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Label labelError;

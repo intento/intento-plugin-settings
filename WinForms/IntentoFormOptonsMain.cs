@@ -75,6 +75,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             LocalizeContent();
 
 
+            //if (options.HideHiddenTextButton)
+            //    checkBoxShowHidden.Visible = false;
+            //if (options.ForbidSaveApikey)
+            //    checkBoxSaveApiKeyInRegistry.Visible = false;
+            
             Assembly currentAssem = typeof(IntentoTranslationProviderOptionsForm).Assembly;
             version = String.Format("{0}-{1}",
                 IntentoHelpers.GetVersion(currentAssem),
@@ -720,7 +725,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 
         // SaveApiKeyInRegistry checkBox ()
-        bool IForm.SaveApiKeyInRegistry_CheckBox_Checked { get { return false; } set {  } }
+        bool IForm.SaveApiKeyInRegistry_CheckBox_Checked { get { return formAdvanced.checkBoxSaveApiKeyInRegistry.Checked; } set { formAdvanced.checkBoxSaveApiKeyInRegistry.Checked = value; } }
 
         // ShowHidden_CheckBox (checkBoxShowHidden)
         bool IForm.ShowHidden_CheckBox_Checked { get { return formApi.checkBoxShowHidden.Checked; } }
