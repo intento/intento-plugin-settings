@@ -63,6 +63,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         // AuthCombo_Group (groupBoxAuthCredentialId)
         bool AuthCombo_Group_Visible { set; }
+        void Auth_GroupBox_Disable();
 
         void Auth_Control_BackColor_State(bool hasErrors);
 
@@ -87,7 +88,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // Model_Group (groupBoxModel)
         //bool Model_Group_Visible { set; }
         bool Model_Group_Enabled { set; }
-
+        void Model_GroupBox_Disable();
         // Model_ComboBox (comboBoxModels)
         void Model_ComboBox_Clear();
         int Model_ComboBox_Add(string text);
@@ -105,6 +106,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         // Glossary_Group (groupBoxGlossary)
         bool Glossary_Group_Visible { get; set; }
+        void Glossary_GroupBox_Disable();
 
         // Glossary_TextBox (textBoxGlossary)
         string Glossary_TextBox_Text { get; set; }

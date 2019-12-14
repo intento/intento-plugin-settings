@@ -533,6 +533,16 @@ namespace Intento.MT.Plugin.PropertiesForm
                 formMT.comboBoxCredentialId.Visible = !value;
             }
         }
+        void IForm.Auth_GroupBox_Disable()
+        {
+            formMT.groupBoxBillingAccount.Enabled = false;
+            formMT.textBoxCredentials.Visible = false;
+            formMT.buttonWizard.Visible = false;
+            formMT.comboBoxCredentialId.Visible = true;
+            formMT.checkBoxUseOwnCred.Checked = false;
+            formMT.textBoxCredentials.Text = "";
+            formMT.comboBoxCredentialId.Items.Clear();
+        }
 
         // AuthText_TextBox (textBoxCredentials)
         //Color IForm.AuthText_TextBox_BackColor { set { formMT.textBoxCredentials.BackColor = value; } }
@@ -606,6 +616,17 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
+        void IForm.Model_GroupBox_Disable()
+        {
+            formMT.groupBoxModel.Enabled = false;
+            formMT.comboBoxModels.Visible = false;
+            formMT.textBoxModel.Visible = true;
+            formMT.checkBoxUseCustomModel.Checked = false;
+            formMT.textBoxModel.Text = "";
+            formMT.comboBoxModels.Items.Clear();
+        }
+
+
         // Model_ComboBox (comboBoxModels)
         void IForm.Model_ComboBox_Clear() { formMT.comboBoxModels.Items.Clear(); }
         int IForm.Model_ComboBox_Add(string text) { return formMT.comboBoxModels.Items.Add(text); }
@@ -637,6 +658,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         // Glossary_Group (groupBoxGlossary)
         bool IForm.Glossary_Group_Visible { get { return formMT.groupBoxGlossary.Enabled; } set { formMT.groupBoxGlossary.Enabled = value; } }
+        void IForm.Glossary_GroupBox_Disable()
+        {
+            formMT.groupBoxGlossary.Enabled = false;
+            formMT.comboBoxGlossaries.Visible = false;
+            formMT.textBoxGlossary.Visible = true;
+            formMT.checkBoxUseCustomModel.Checked = false;
+            formMT.textBoxGlossary.Text = "";
+            formMT.comboBoxGlossaries.Items.Clear();
+        }
+
 
         // Glossary_TextBox (textBoxGlossary)
         bool IForm.Glossary_TextBox_Visible { set { formMT.textBoxGlossary.Visible = value; } }
