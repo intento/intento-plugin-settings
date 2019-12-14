@@ -64,5 +64,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - bug with saving setting SmartRouting in memoQ
         // 2.0.4: 2019-12-14
         // - Version for memoQ 9.3
+        // 2.0.5: 2019-12-14
+        // - Back to Intento version
     }
 }
