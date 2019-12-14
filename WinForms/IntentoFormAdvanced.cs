@@ -28,14 +28,12 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         {
             checkBoxAuth.Text = Resource.FAcheckBoxAuth;
             checkBoxProxy.Text = Resource.FAcheckBoxProxy;
-            checkBoxTrace.Text = Resource.FAcheckBoxTrace;
             labelAddress.Text = Resource.FAlabelAddress;
             labelPassword.Text = Resource.FAlabelPassword;
             labelPort.Text = Resource.FAlabelPort;
             labelUserName.Text = Resource.FAlabelUserName;
             buttonCancel.Text = Resource.Cancel;
             buttonSave.Text = Resource.Save;
-            checkBoxTrace.Text = Resource.FAcheckBoxTrace;
             Text = Resource.FAcaption;
         }
 
@@ -46,7 +44,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            IntentoTranslationProviderOptionsForm.TraceEndTime = DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40);
+            // IntentoTranslationProviderOptionsForm.TraceEndTime = DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40);
             if (!checkBoxProxy.Checked)
             {
                 parent.currentOptions.proxySettings = null;
@@ -175,7 +173,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                 checkBoxProxy.Checked = proxySettings.ProxyEnabled;
             }
             labelError.Visible = false;
-            checkBoxTrace.Checked = IntentoTranslationProviderOptionsForm.TraceEndTime > DateTime.Now;
+            // checkBoxTrace.Checked = IntentoTranslationProviderOptionsForm.TraceEndTime > DateTime.Now;
         }
 
     }
