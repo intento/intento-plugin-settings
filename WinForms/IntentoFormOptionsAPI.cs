@@ -24,6 +24,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             LocalizeContent();
             parent = form;
             apiKey_tb.TextChanged += parent.apiKey_tb_TextChanged;
+            if (form.GetOptions().HideHiddenTextButton)
+                checkBoxShowHidden.Visible = false;
         }
 
         private void LocalizeContent()

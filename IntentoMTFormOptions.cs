@@ -70,19 +70,17 @@ namespace Intento.MT.Plugin.PropertiesForm
         // Proxy server configuration class for service requests
         public ProxySettings proxySettings { get; set; }
 
+        // Special options for public memoQ plugin special requirements
         // Forbit to save ApiKey in registry 
         public bool ForbidSaveApikey { get; set; }
         // Hide "Show hidden text" button
         public bool HideHiddenTextButton { get; set; }
+        // Action on pressing Help button. In case it is not empty Help button is shown
+        public Action сallHelpAction;
 
         public IntentoAiTextTranslate Translate { get; set; }
 
         private Dictionary<string, string> _authDict = null;
-
-        // Special value "memoQ" for public (distributed with memoQ) version of plugin
-        public string variant = null;
-
-        public Action сallHelpAction;
 
         public void SetAuthDict(Dictionary<string, string> _authDict)
         {
