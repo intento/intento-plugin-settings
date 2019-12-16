@@ -75,10 +75,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             LocalizeContent();
 
 
-            if (options.variant != "memoQ")
-            {
-                buttonHelp.Visible = false;
-            }
+            buttonHelp.Visible = options.сallHelpAction != null;
             
             Assembly currentAssem = typeof(IntentoTranslationProviderOptionsForm).Assembly;
             version = String.Format("{0}-{1}",
