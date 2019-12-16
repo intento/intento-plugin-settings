@@ -79,6 +79,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private Dictionary<string, string> _authDict = null;
 
+        // Special value "memoQ" for public (distributed with memoQ) version of plugin
+        public string variant = null;
+
+        public Action сallHelpAction;
+
         public void SetAuthDict(Dictionary<string, string> _authDict)
         {
             if (_authDict == null)
