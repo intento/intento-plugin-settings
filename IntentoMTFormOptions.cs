@@ -81,7 +81,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         // Special value "memoQ" for public (distributed with memoQ) version of plugin
         public string variant = null;
-
+        // What to do in case Help button is pressed
         public Action сallHelpAction;
 
         public void SetAuthDict(Dictionary<string, string> _authDict)
@@ -134,6 +134,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 AppName = this.AppName,
                 Translate = this.Translate,
                 ForbidSaveApikey = this.ForbidSaveApikey,
+                HideHiddenTextButton = this.HideHiddenTextButton,
+                сallHelpAction = this.сallHelpAction,
                 _authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),
             };
             return res;
