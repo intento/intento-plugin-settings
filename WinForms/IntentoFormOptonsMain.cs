@@ -75,10 +75,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             LocalizeContent();
 
 
-            //if (options.HideHiddenTextButton)
-            //    checkBoxShowHidden.Visible = false;
-            //if (options.ForbidSaveApikey)
-            //    checkBoxSaveApiKeyInRegistry.Visible = false;
+            if (options.variant != "memoQ")
+            {
+                buttonHelp.Visible = false;
+            }
             
             Assembly currentAssem = typeof(IntentoTranslationProviderOptionsForm).Assembly;
             version = String.Format("{0}-{1}",
@@ -829,6 +829,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         }
 
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            GetOptions().сallHelpAction?.Invoke();
+        }
     }
 
 }

@@ -50,6 +50,7 @@
             this.apiKey_tb = new System.Windows.Forms.TextBox();
             this.buttonCheck = new System.Windows.Forms.Button();
             this.buttonAdvanced = new System.Windows.Forms.Button();
+            this.buttonHelp = new System.Windows.Forms.Button();
             this.groupBoxMTConnect.SuspendLayout();
             this.groupBoxMTSettings.SuspendLayout();
             this.groupBoxGlossary.SuspendLayout();
@@ -311,11 +312,22 @@
             this.buttonAdvanced.UseVisualStyleBackColor = true;
             this.buttonAdvanced.Click += new System.EventHandler(this.buttonAdvanced_Click);
             // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Location = new System.Drawing.Point(198, 413);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(101, 30);
+            this.buttonHelp.TabIndex = 23;
+            this.buttonHelp.Text = "Help";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
             // IntentoTranslationProviderOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(647, 456);
+            this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonAdvanced);
             this.Controls.Add(this.groupBoxMTConnect2);
             this.Controls.Add(this.buttonContinue);
@@ -368,5 +380,6 @@
         public System.Windows.Forms.Button buttonCheck;
         private System.Windows.Forms.Button buttonAdvanced;
         private System.Windows.Forms.Label labelApiKeyIsChanged;
+        private System.Windows.Forms.Button buttonHelp;
     }
 }

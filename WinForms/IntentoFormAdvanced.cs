@@ -37,6 +37,11 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             buttonSave.Text = Resource.Save;
             checkBoxTrace.Text = Resource.FAcheckBoxTrace;
             Text = Resource.FAcaption;
+            if (parent.GetOptions().variant == "memoQ")
+            {
+                checkBoxSaveApiKeyInRegistry.Visible = false;
+            }
+
         }
 
         private void checkBoxProxy_CheckedChanged(object sender, EventArgs e)
