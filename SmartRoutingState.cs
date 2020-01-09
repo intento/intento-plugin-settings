@@ -22,16 +22,19 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             this.apiKeyState = apiKeyState;
             smartRouting = _options.SmartRouting;
-            form.SmartRouting_CheckBox_Checked = smartRouting;
+            //form.SmartRouting_CheckBox_Checked = smartRouting;
+            formMT.checkBoxSmartRouting.Checked = smartRouting;
 
             CreateChildStates();
         }
 
-        public static string Draw(IForm form, SmartRoutingState state)
+        public static string Draw(IntentoTranslationProviderOptionsForm form, SmartRoutingState state)
         {
             if (state == null)
             {
-                form.SmartRouting_CheckBox_Enabled = false;
+                //form.SmartRouting_CheckBox_Enabled = false;
+                form.formMT.checkBoxSmartRouting.Enabled = false;
+
                 ProviderState.Draw(form, null);
                 return null;
             }
@@ -41,13 +44,15 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public string Draw()
         {
-            form.SmartRouting_CheckBox_Enabled = true;
+            //form.SmartRouting_CheckBox_Enabled = true;
+            formMT.checkBoxSmartRouting.Enabled = true;
             return ProviderState.Draw(form, providerState);
         }
 
         public void CheckedChanged()
         {
-            smartRouting = form.SmartRouting_CheckBox_Checked;
+            //smartRouting = form.SmartRouting_CheckBox_Checked;
+            smartRouting = formMT.checkBoxSmartRouting.Checked;
 
             CreateChildStates();
 

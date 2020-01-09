@@ -38,9 +38,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         void Clear()
         {
-            form.Model_ComboBox_Clear();
-            form.Model_TextBox_Text = string.Empty;
-            form.Model_CheckBox_Checked = false;
+            formMT.comboBoxModels.Items.Clear();
+            formMT.textBoxModel.Text = string.Empty;
+            formMT.checkBoxUseCustomModel.Checked = false;
         }
 
         bool controls_ok = false;
@@ -63,71 +63,68 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             if (modelMode == StateModeEnum.prohibited)
             {
-                form.Model_Group_Enabled = false;
-                //form.Model_CheckBox_Visible = false;
+                Model_Group_Enabled(formMT, false);
                 return;
             }
 
             ReadModels();
 
-            form.Model_Group_Enabled = true;
-            //form.Model_CheckBox_Visible = true;
+            Model_Group_Enabled(formMT, false);
 
             if (isList)
             {
-                form.Model_ComboBox_Visible = true;
-                form.Model_TextBox_Visible = false;
+                formMT.comboBoxModels.Visible = true;
+                formMT.textBoxModel.Visible = false;
 
                 if (models.Count > 1 || modelMode == StateModeEnum.optional)
-                    form.Model_ComboBox_Add("");
+                    formMT.comboBoxModels.Items.Add("");
 
                 // Fill comboBoxModels and choose SelectedIndex
                 foreach (string x in models.Select(x => (string)x.Key).OrderBy(x => x))
                 {
-                    int n = form.Model_ComboBox_Add(x);
+                    int n = formMT.comboBoxModels.Items.Add(x);
                     if (models[x].id == options.CustomModel)
-                        form.Model_ComboBox_SelectedIndex = n;
+                        formMT.comboBoxModels.SelectedIndex = n;
                 }
-                form.Model_ComboBox_Visible = !(form.Model_TextBox_Visible = false);
-                if (form.Model_ComboBox_Count == 1)
-                {
-                    form.Model_ComboBox_SelectedIndex = 0;
-                }
+                formMT.comboBoxModels.Visible = !(formMT.textBoxModel.Visible = false);
 
+                if (formMT.comboBoxModels.Items.Count == 1)
+                {
+                    formMT.comboBoxModels.SelectedIndex = 0;
+                }
                 if (modelMode == StateModeEnum.required)
                 {
-                    form.Model_CheckBox_Checked = true;
-                    form.Model_CheckBox_Enabled = false;
+                    formMT.checkBoxUseCustomModel.Checked = true;
+                    formMT.checkBoxUseCustomModel.Enabled = false;
                 }
                 else
                 {
-                    form.Model_CheckBox_Checked = options.UseCustomModel;
-                    form.Model_CheckBox_Enabled = true;
+                    formMT.checkBoxUseCustomModel.Checked = options.UseCustomModel;
+                    formMT.checkBoxUseCustomModel.Enabled = true;
                 }
             }
             else
             {   // Text box to enter model
-                form.Model_TextBox_Visible = true;
-                form.Model_ComboBox_Visible = false;
+                formMT.textBoxModel.Visible = true;
+                formMT.comboBoxModels.Visible = false;
 
                 if (modelMode == StateModeEnum.optional)
-                    form.Model_CheckBox_Enabled = true;
+                {
+                    formMT.checkBoxUseCustomModel.Enabled = true;
+                }
                 else
                 {
-                    form.Model_CheckBox_Enabled = false;
-                    form.Model_CheckBox_Checked = true;
+                    formMT.checkBoxUseCustomModel.Enabled = false;
+                    formMT.checkBoxUseCustomModel.Checked = true;
                 }
             }
         }
 
-        public static string Draw(IForm form, ModelState state)
+        public static string Draw(IntentoTranslationProviderOptionsForm form, ModelState state)
         {
             if (state == null)
             {
-                // form.Model_TextBox_Visible = false;
-                // form.Model_ComboBox_Visible = false;
-                //form.Model_CheckBox_Visible = false;
-                form.Model_Group_Enabled = false;
+                Model_Group_Enabled(form.formMT, false);
                 return null;
             }
             return state.Draw();
@@ -136,31 +133,30 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string Draw()
         {
             FillModelControls();
-            form.Model_Control_BackColor_State(false);
+            Model_Control_BackColor_State(false);
             if (modelMode == StateModeEnum.prohibited)
                 return null;
 
             string errorMessage = null;
 
-            form.Model_Group_Enabled = true;
+            Model_Group_Enabled(form.formMT, true);
 
             // set state of checkBoxUseCustomModel
             if (modelMode == StateModeEnum.required && string.IsNullOrEmpty(ModelName))
                 errorMessage = Resource.ModelRequiredMessage;
-            else if (form.Model_CheckBox_Checked && string.IsNullOrEmpty(ModelName))
+            else if (formMT.checkBoxUseCustomModel.Checked && string.IsNullOrEmpty(ModelName))
                 errorMessage = Resource.CustomModelRequiredMessage;
 
             // set back color 
-            form.Model_Control_BackColor_State(!string.IsNullOrEmpty(errorMessage));
+            Model_Control_BackColor_State(!string.IsNullOrEmpty(errorMessage));
 
             return errorMessage;
         }
 
         public void checkBoxUseCustomModel_CheckedChanged()
         {
-            options.UseCustomModel = form.Model_CheckBox_Checked;
-            form.Model_CheckBox_Checked = form.Model_CheckBox_Checked;
-            form.Optional_Group_Enabled = form.Model_CheckBox_Checked;
+            options.UseCustomModel = formMT.checkBoxUseCustomModel.Checked;
+            Optional_Group_Enabled(formMT.checkBoxUseCustomModel.Checked);
             EnableDisable();
         }
 
@@ -178,16 +174,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 
                 if (!isList)
                 {   // Use model name form text box
-                    if (string.IsNullOrEmpty(form.Model_TextBox_Text))
+                    if (string.IsNullOrEmpty(formMT.textBoxModel.Text))
                         return null;
-                    return form.Model_TextBox_Text;
+                    return formMT.textBoxModel.Text;
                 }
 
                 // Use model name from combo box
                 dynamic d;
-                if (models.TryGetValue(form.Model_ComboBox_Text, out d))
+                if (models.TryGetValue(formMT.comboBoxModels.Text, out d))
                 {
-                    string modelName = (string)models[form.Model_ComboBox_Text].id;
+                    string modelName = (string)models[formMT.comboBoxModels.Text].id;
                     if (string.IsNullOrEmpty(modelName))
                         return null;
                     return modelName;
@@ -198,7 +194,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         }
 
         public bool UseModel
-        { get { return form.Model_CheckBox_Checked; } }
+        { get { return formMT.checkBoxUseCustomModel.Checked; } }
 
         public static void FillOptions(ModelState state, IntentoMTFormOptions options)
         {
@@ -226,6 +222,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             options.UseCustomModel = false;
             options.CustomModel = null;
+            Model_GroupBox_Disable();
+
             Clear();
         }
 
@@ -239,7 +237,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             models = new Dictionary<string, dynamic>();
             try
             {
-                IList<dynamic> providerModelsRec = form.Models(
+                IList<dynamic> providerModelsRec = form._translate.Models(
                     authState.providerState.currentProviderId, 
                     authState.UseCustomAuth ? authState.providerDataAuthDict : null);
                 if (providerModelsRec != null)
@@ -257,6 +255,54 @@ namespace Intento.MT.Plugin.PropertiesForm
             return;
         }
 
+        #region methods for managing a group of controls
+
+        static void Model_Group_Enabled(IntentoFormOptionsMT formMT, bool value)
+        {
+                //if (!value)
+                //    ((IForm)this).Model_Control_BackColor_State(false);
+                formMT.groupBoxModel.Enabled = value;
+                formMT.comboBoxModels.Enabled = formMT.checkBoxUseCustomModel.Checked;
+                formMT.textBoxModel.Enabled = formMT.checkBoxUseCustomModel.Checked;
+        }
+
+        void Model_Control_BackColor_State(bool hasErrors)
+        {
+
+            if (hasErrors)
+            {
+                formMT.comboBoxModels.BackColor = Color.LightPink;
+                formMT.textBoxModel.BackColor = Color.LightPink;
+            }
+            else
+            {
+                formMT.comboBoxModels.BackColor = formMT.comboBoxModels.Enabled ? Color.White : SystemColors.Window;
+                formMT.textBoxModel.BackColor = formMT.comboBoxModels.Enabled ? Color.White : SystemColors.Window;
+            }
+        }
+
+        void Optional_Group_Enabled(bool value)
+        {
+            if (value)
+                formMT.groupBoxOptional.Enabled = value;
+            else
+            {
+                formMT.groupBoxOptional.Enabled = options.UseCustomModel
+                    || !string.IsNullOrWhiteSpace(authState?.GetGlossaryState()?.currentGlossary);
+            }
+        }
+
+        void Model_GroupBox_Disable()
+        {
+            formMT.groupBoxModel.Enabled = false;
+            formMT.comboBoxModels.Visible = false;
+            formMT.textBoxModel.Visible = true;
+            formMT.checkBoxUseCustomModel.Checked = false;
+            formMT.textBoxModel.Text = "";
+            formMT.comboBoxModels.Items.Clear();
+        }
+
+        #endregion methods for managing a group of controls
 
     }
 }

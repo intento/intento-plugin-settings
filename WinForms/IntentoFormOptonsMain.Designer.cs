@@ -357,8 +357,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox groupBoxMTConnect;
         private System.Windows.Forms.GroupBox groupBoxMTSettings;
         private System.Windows.Forms.Button buttonSetApi;
         private System.Windows.Forms.Label labelRegister2;
@@ -370,16 +368,17 @@
         private System.Windows.Forms.TextBox textBoxModel;
         private System.Windows.Forms.GroupBox groupBoxBillingAccount;
         private System.Windows.Forms.TextBox textBoxAccount;
-        private System.Windows.Forms.Button buttonMTSetting;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBoxProviderName;
-        private System.Windows.Forms.Button buttonContinue;
-        private System.Windows.Forms.GroupBox groupBoxMTConnect2;
         private System.Windows.Forms.Label labelIAK;
         public System.Windows.Forms.TextBox apiKey_tb;
         public System.Windows.Forms.Button buttonCheck;
         private System.Windows.Forms.Button buttonAdvanced;
         private System.Windows.Forms.Label labelApiKeyIsChanged;
         private System.Windows.Forms.Button buttonHelp;
+        public System.Windows.Forms.Button buttonContinue;
+        public System.Windows.Forms.GroupBox groupBoxMTConnect;
+        public System.Windows.Forms.GroupBox groupBoxMTConnect2;
+        public System.Windows.Forms.Button buttonMTSetting;
     }
 }

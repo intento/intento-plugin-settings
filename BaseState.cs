@@ -11,7 +11,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 {
     public class BaseState
     {
-        public IForm form;
+        public IntentoTranslationProviderOptionsForm form;
+        public IntentoFormOptionsMT formMT;
         public BaseState parent;
         public IntentoMTFormOptions options;
 
@@ -21,13 +22,15 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 this.parent = parent;
                 this.form = parent.form;
+                this.formMT = parent.formMT;
             }
             this.options = options;
         }
 
-        public BaseState(IForm form, IntentoMTFormOptions options)
+        public BaseState(IntentoTranslationProviderOptionsForm form, IntentoMTFormOptions options)
         {
             this.form = form;
+            this.formMT = form.formMT;
             this.options = options;
         }
 
@@ -54,21 +57,21 @@ namespace Intento.MT.Plugin.PropertiesForm
         #region custom helper methods
         public void EnableDisable()
         {
-            if (form.InsideEnableDisable)
+            if (form.insideEnableDisable)
                 return;
 
             form.SuspendLayout();
             try
             {
-                form.InsideEnableDisable = true;
-                form.Errors = new List<string>();
+                form.insideEnableDisable = true;
+                form.errors = new List<string>();
 
-                form.Errors.Add(form.ApiKeyState.Draw());
+                form.errors.Add(form.apiKeyState.Draw());
 
             }
             finally
             {
-                form.InsideEnableDisable = false;
+                form.insideEnableDisable = false;
             }
             ShowErrorMessage();
             form.ResumeLayout();
@@ -76,17 +79,17 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private bool ShowErrorMessage()
         {
-            form.Errors = form.Errors.Where(i => i != null).ToList();
-            if ((form.Errors == null || form.Errors.Count == 0))
+            form.errors = form.errors.Where(i => i != null).ToList();
+            if ((form.errors == null || form.errors.Count == 0))
             {
-                form.Continue_Button_Enabled = true;
+                form.buttonContinue.Enabled = true;
                 SetErrorMessage();
                 return true;
             }
             else
             {
-                SetErrorMessage(string.Join(", ", form.Errors.Where(i => i != null)));
-                form.Continue_Button_Enabled = false;
+                SetErrorMessage(string.Join(", ", form.errors.Where(i => i != null)));
+                form.buttonContinue.Enabled = false;
                 return false;
             }
         }
@@ -95,13 +98,13 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             if (message != null)
             {
-                form.ErrorMessage_TextBox_Text = message;
-                form.ErrorMessage_TextBox_BackColor = Color.LightPink;
+                form.formMT.labelTMP.Text = message;
+                form.formMT.labelTMP.BackColor = Color.LightPink;
             }
             else
             {
-                form.ErrorMessage_TextBox_Text = string.Empty;
-                form.ErrorMessage_TextBox_BackColor = SystemColors.Control;
+                form.formMT.labelTMP.Text = string.Empty;
+                form.formMT.labelTMP.BackColor = SystemColors.Control;
             }
         }
         #endregion custom helper methods

@@ -89,7 +89,6 @@
     <Compile Include="BaseState.cs" />
     <Compile Include="GitHash.cs" />
     <Compile Include="GlossaryState.cs" />
-    <Compile Include="IForm.cs" />
     <Compile Include="IntentoMTFormOptions.cs" />
     <Compile Include="WinForms\IntentoFormOptionsMT.cs">
       <SubType>Form</SubType>

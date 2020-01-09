@@ -37,8 +37,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         public delegate void ApiKeyChanged(bool isOK);
         public event ApiKeyChanged apiKeyChangedEvent;
 
-        public ApiKeyState(IForm _form, IntentoMTFormOptions options) : 
-            base(_form, options)
+        //IntentoFormOptionsMT formMT;
+
+        public ApiKeyState(IntentoTranslationProviderOptionsForm _form, IntentoMTFormOptions options) : base(_form, options)
         {
             apiKey = options.ApiKey;
 
@@ -50,7 +51,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     apiKey = apiKey2;
                 }
                 if (!string.IsNullOrEmpty(apiKey2))
-                    form.SaveApiKeyInRegistry_CheckBox_Checked = true;
+                    form.formAdvanced.checkBoxSaveApiKeyInRegistry.Checked = true;
             }
         }
 
@@ -64,50 +65,66 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public string Draw()
         {
-            form.ApiKey_TextBox_Text = apiKey;
-            form.ApiKeyCheck_Button_Enabled = CheckPossible;
+            //form.ApiKey_TextBox_Text = apiKey;
+            //form.ApiKeyCheck_Button_Enabled = CheckPossible;
+
+            form.formApi.apiKey_tb.Text = apiKey;
+            form.formApi.buttonSave.Enabled = CheckPossible;
 
             switch (apiKeyStatus)
             {
                 case EApiKeyStatus.start:
                     if (string.IsNullOrEmpty(apiKey))
                     {
-                        form.ApiKey_TextBox_Enabled = true;
-                        form.ApiKey_TextBox_BackColor = Color.LightPink;
+                        //form.ApiKey_TextBox_Enabled = true;
+                        //form.ApiKey_TextBox_BackColor = Color.LightPink;
+                        form.formApi.apiKey_tb.Enabled = true;
+                        form.formApi.apiKey_tb.BackColor = Color.LightPink;
+
                         // "Enter your API key and press \"Check\" button."
                         error_reason = Resource.ApiKeyNeededErrorMessage;
                     }
                     else
                     {
-                        form.ApiKey_TextBox_Enabled = false;
-                        form.ApiKey_TextBox_BackColor = Color.White;
+                        //form.ApiKey_TextBox_Enabled = false;
+                        //form.ApiKey_TextBox_BackColor = Color.White;
+                        form.formApi.apiKey_tb.Enabled = false;
+                        form.formApi.apiKey_tb.BackColor = Color.White;
                         // "API key verification in progress ...."
                         error_reason = Resource.ApiKeyVerificationInProgressMessage;
                     }
                     break;
 
                 case EApiKeyStatus.download:
-                    form.ApiKey_TextBox_Enabled = false;
-                    form.ApiKey_TextBox_BackColor = Color.White;
+                    //form.ApiKey_TextBox_Enabled = false;
+                    //form.ApiKey_TextBox_BackColor = Color.White;
+                    form.formApi.apiKey_tb.Enabled = false;
+                    form.formApi.apiKey_tb.BackColor = Color.White;
                     // "API key verification in progress ...."
                     error_reason = Resource.ApiKeyVerificationInProgressMessage;
                     break;
 
                 case EApiKeyStatus.ok:
-                    form.ApiKey_TextBox_Enabled = true;
-                    form.ApiKey_TextBox_BackColor = Color.White;
+                    //form.ApiKey_TextBox_Enabled = true;
+                    //form.ApiKey_TextBox_BackColor = Color.White;
+                    form.formApi.apiKey_tb.Enabled = true;
+                    form.formApi.apiKey_tb.BackColor = Color.White;
                     //form.MainForm_ApiKey_TextBox_Visible = true;
                     error_reason = null;
                     break;
 
                 case EApiKeyStatus.error:
-                    form.ApiKey_TextBox_Enabled = true;
-                    form.ApiKey_TextBox_BackColor = Color.LightPink;
+                    //form.ApiKey_TextBox_Enabled = true;
+                    //form.ApiKey_TextBox_BackColor = Color.LightPink;
+                    form.formApi.apiKey_tb.Enabled = true;
+                    form.formApi.apiKey_tb.BackColor = Color.LightPink;
                     break;
 
                 case EApiKeyStatus.changed:
-                    form.ApiKey_TextBox_BackColor = Color.LightPink;
-                    form.ApiKey_TextBox_Enabled = true;
+                    //form.ApiKey_TextBox_BackColor = Color.LightPink;
+                    //form.ApiKey_TextBox_Enabled = true;
+                    form.formApi.apiKey_tb.Enabled = true;
+                    form.formApi.apiKey_tb.BackColor = Color.LightPink;
                     if (string.IsNullOrEmpty(apiKey))
                         // Enter your API key and press \"Check\" button.
                         error_reason = Resource.ApiKeyNeededErrorMessage; 
@@ -116,7 +133,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                         error_reason = Resource.ApiKeyVerificationInProgressMessage;
                     break;
             }
-            form.ApiKey_Set_Panel();
+            ApiKey_Set_Panel(IsOK);
             if (!IsOK)
             {
                 SmartRoutingState.Draw(form, null);
@@ -133,7 +150,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public void ReadProviders()
         {
-            using (new IntentoTranslationProviderOptionsForm.CursorFormMT(form.FormMT))
+            using (new IntentoTranslationProviderOptionsForm.CursorFormMT(form.formMT))
             {
                 if (string.IsNullOrEmpty(apiKey))
                 {
@@ -149,7 +166,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 
                     ChangeStatus(EApiKeyStatus.download);
 
-                    providers = form.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
+                    //providers = form.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
+                    providers = form._translate.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
 
                     // SmartRoutingState created inside
                     ChangeStatus(EApiKeyStatus.ok);
@@ -223,6 +241,16 @@ namespace Intento.MT.Plugin.PropertiesForm
             SmartRoutingState.FillOptions(smartRoutingState, options);
         }
 
+        #region methods for managing a group of controls
+
+        void ApiKey_Set_Panel(bool apiKeyStateIsOK)
+        {
+            form.groupBoxMTConnect.Visible = !apiKeyStateIsOK;
+            form.groupBoxMTConnect2.Visible = apiKeyStateIsOK;
+            form.buttonMTSetting.Enabled = apiKeyStateIsOK;
+        }
+
+        #endregion methods for managing a group of controls
 
     }
 }

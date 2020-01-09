@@ -16,7 +16,7 @@ using static Intento.MT.Plugin.PropertiesForm.ModelState;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
-    public partial class IntentoTranslationProviderOptionsForm : Form, IForm
+    public partial class IntentoTranslationProviderOptionsForm : Form //, IForm
     {
         public class LangPair
         {
@@ -48,18 +48,19 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public ApiKeyState apiKeyState;
 
-        List<string> errors;
+        public List<string> errors;
 
         // Fabric to create intento connection. Parameters: apiKey and UserAgent for Settings Form 
         Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric;
 
         string version;
 
-        private IntentoFormOptionsAPI formApi;
-        private IntentoFormOptionsMT formMT;
-        private IntentoFormAdvanced formAdvanced;
+        public IntentoFormOptionsAPI formApi;
+        public IntentoFormOptionsMT formMT;
+        public IntentoFormAdvanced formAdvanced;
         private int cursorCount = 0;
         private bool settingsIsSet;
+        public bool insideEnableDisable = false;
 
         #endregion vars
 
@@ -419,19 +420,19 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public class CursorForm : IDisposable
         {
-            IForm form;
-            public CursorForm(IForm form)
+            IntentoTranslationProviderOptionsForm form;
+            public CursorForm(IntentoTranslationProviderOptionsForm form)
             {
                 this.form = form;
-                if (form.CursorCount == 0)
+                if (form.cursorCount == 0)
                     form.Cursor = Cursors.WaitCursor;
-                form.CursorCount++;
+                form.cursorCount++;
             }
 
             public void Dispose()
             {
-                form.CursorCount--;
-                if (form.CursorCount == 0)
+                form.cursorCount--;
+                if (form.cursorCount == 0)
                     form.Cursor = Cursors.Default;
             }
         }
@@ -455,301 +456,212 @@ namespace Intento.MT.Plugin.PropertiesForm
         }
 
         #region IForm
+        //public bool insideEnableDisable = false;
+        //public string ErrorMessage_Control_Text { get { return formMT.labelTMP.Text; } set { formMT.labelTMP.Text = value; } }
+        //public Color ErrorMessage_Control_BackColor { set { formMT.labelTMP.BackColor = value; } }
+        //public bool SaveApiKeyInRegistry_CheckBox_Checked { get { return formAdvanced.checkBoxSaveApiKeyInRegistry.Checked; } set { formAdvanced.checkBoxSaveApiKeyInRegistry.Checked = value; } }
+        //public string ApiKey_TextBox_Text { get { return formApi.apiKey_tb.Text; } set { formApi.apiKey_tb.Text = value; } }
+        //public bool ApiKeyCheck_Button_Enabled { set { formApi.buttonSave.Enabled = value; } get { return formApi.buttonSave.Enabled; } }
+        //public bool ApiKey_TextBox_Enabled { set { formApi.apiKey_tb.Enabled = value; } }
+        //public Color ApiKey_TextBox_BackColor { set { formApi.apiKey_tb.BackColor = value; } }
+        //public IEnumerable<dynamic> Providers(Dictionary<string, string> filter) { return _translate.Providers(filter: filter); }
+        //public bool SmartRouting_CheckBox_Checked { get { return formMT.checkBoxSmartRouting.Checked; } set { formMT.checkBoxSmartRouting.Checked = value; } }
+        //public bool SmartRouting_CheckBox_Enabled { set { formMT.checkBoxSmartRouting.Enabled = value; } }
+        //public void Providers_ComboBox_Clear() { formMT.comboBoxProviders.Items.Clear(); }
+        //public void Providers_ComboBox_AddRange(object[] items) { formMT.comboBoxProviders.Items.AddRange(items); }
+        //public string Providers_ComboBox_SelectedItem { set { formMT.comboBoxProviders.SelectedItem = value; } }
+        //public dynamic Provider(string provider, string additionalParams) { return _translate.Provider(provider: provider, additionalParams: additionalParams); }
+        //public void Language_Comboboxes_Fill(Dictionary<string, string> from, Dictionary<string, string> to)
+        //{
+        //    formMT.comboBoxFrom.Items.Clear();
+        //    formMT.comboBoxTo.Items.Clear();
+        //    if (from != null)
+        //    {
+        //        formMT.comboBoxFrom.Items.AddRange(from.Select(x => x.Value).ToArray());
+        //        if (from.ContainsKey("en"))
+        //            formMT.comboBoxFrom.SelectedItem = from["en"];
+        //        else
+        //            formMT.comboBoxFrom.SelectedIndex = 1;
+        //    }
+        //    if (from != null)
+        //    {
+        //        formMT.comboBoxTo.Items.AddRange(to.Select(x => x.Value).ToArray());
+        //        if (to.ContainsKey("es"))
+        //            formMT.comboBoxTo.SelectedItem = to["es"];
+        //        else
+        //            formMT.comboBoxTo.SelectedIndex = 1;
+        //    }
+        //}
+        //public string Providers_ComboBox_Text { get { return formMT.comboBoxProviders.Text; } }
+        //public bool Providers_Group_Enabled { set { formMT.groupBoxProvider.Enabled = value; } }
+        //public void Providers_ComboBox_BackColor_State(bool hasErrors)
+        //{
+        //    if (hasErrors)
+        //        formMT.comboBoxProviders.BackColor = Color.LightPink;
+        //    else
+        //        formMT.comboBoxProviders.BackColor = formMT.groupBoxProvider.Enabled ? Color.White : SystemColors.Control;// .Window; ;
+        //}
+        //public bool Auth_CheckBox_Enabled { set { formMT.checkBoxUseOwnCred.Enabled = value; } }
+        //public bool Auth_GroupBox_Enabled { set { formMT.groupBoxBillingAccount.Enabled = value; } }
+        //public bool Auth_CheckBox_Checked { get { return formMT.checkBoxUseOwnCred.Checked; } set { formMT.checkBoxUseOwnCred.Checked = value; } }
+        //public bool Auth_CheckBox_Visible { set { formMT.groupBoxBillingAccount.Enabled = value; } }
+        //public void Auth_GroupBox_Disable()
+        //{
+        //    formMT.groupBoxBillingAccount.Enabled = false;
+        //    formMT.textBoxCredentials.Visible = false;
+        //    formMT.buttonWizard.Visible = false;
+        //    formMT.comboBoxCredentialId.Visible = true;
+        //    formMT.checkBoxUseOwnCred.Checked = false;
+        //    formMT.textBoxCredentials.Text = "";
+        //    formMT.comboBoxCredentialId.Items.Clear();
+        //}
+        //public void Auth_Control_Clear()
+        //{
+        //    formMT.comboBoxCredentialId.Items.Clear();
+        //    formMT.textBoxCredentials.Text = "";
+        //}
+        //public IList<dynamic> DelegatedCredentials() { return _translate.DelegatedCredentials(); }
+        //public void AuthCombo_ComboBox_AddRange(object[] items) { formMT.comboBoxCredentialId.Items.AddRange(items); }
+        //public void AuthCombo_ComboBox_Insert(int n, string text) { formMT.comboBoxCredentialId.Items.Insert(n, text); }
+        //public bool AuthCombo_ComboBox_Enabled { set { formMT.comboBoxCredentialId.Enabled = value; } }
+        //public bool AuthCombo_ComboBox_Contains(string text) { return formMT.comboBoxCredentialId.Items.Contains(text); }
+        //public object AuthCombo_ComboBox_SelectedItem { get { return formMT.comboBoxCredentialId.SelectedItem; } set { formMT.comboBoxCredentialId.SelectedItem = value; } }
+        //public string AuthText_TextBox_Text { set { formMT.textBoxCredentials.Text = value; } }
+        //public bool AuthCombo_Group_Visible { set { formMT.comboBoxCredentialId.Enabled = value; } }
+        //public bool AuthText_Group_Visible
+        //{
+        //    set
+        //    {
+        //        formMT.groupBoxBillingAccount.Enabled = formMT.groupBoxBillingAccount.Enabled;
+        //        formMT.textBoxCredentials.Visible = value;
+        //        formMT.buttonWizard.Visible = value;
+        //        formMT.comboBoxCredentialId.Visible = !value;
+        //    }
+        //}
+        //public void Auth_Control_BackColor_State(bool hasErrors)
+        //{
+        //    if (hasErrors)
+        //    {
+        //        formMT.comboBoxCredentialId.BackColor = Color.LightPink;
+        //        formMT.textBoxCredentials.BackColor = Color.LightPink;
+        //    }
+        //    else
+        //    {
+        //        formMT.comboBoxCredentialId.BackColor = formMT.checkBoxUseOwnCred.Checked ? Color.White : SystemColors.Control;
+        //        formMT.textBoxCredentials.BackColor = formMT.checkBoxUseOwnCred.Checked ? Color.White : SystemColors.Control;
+        //    }
+        //}
+        //public bool ShowHidden_CheckBox_Checked { get { return formApi.checkBoxShowHidden.Checked; } }
+        //public string AuthCombo_ComboBox_Text { get { return formMT.comboBoxCredentialId.Text; } }
+        //public void Model_ComboBox_Clear() { formMT.comboBoxModels.Items.Clear(); }
+        //public string Model_TextBox_Text { get { return formMT.textBoxModel.Text; } set { formMT.textBoxModel.Text = value; } }
+        //public bool Model_CheckBox_Checked
+        //{
+        //    get { return formMT.checkBoxUseCustomModel.Checked; }
+        //    set
+        //    {
+        //        formMT.checkBoxUseCustomModel.Checked = value;
+        //        formMT.comboBoxModels.Enabled = value;
+        //        formMT.textBoxModel.Enabled = value;
+        //    }
+        //}
+        //public bool Model_Group_Enabled
+        //{
+        //    set
+        //    {
+        //        //if (!value)
+        //        //    ((IForm)this).Model_Control_BackColor_State(false);
+        //        formMT.groupBoxModel.Enabled = value;
+        //        formMT.comboBoxModels.Enabled = formMT.checkBoxUseCustomModel.Checked;
+        //        formMT.textBoxModel.Enabled = formMT.checkBoxUseCustomModel.Checked;
+        //    }
+        //}
+        //public bool Model_ComboBox_Visible { set { formMT.comboBoxModels.Visible = value; } }
+        //public bool Model_TextBox_Visible { set { formMT.textBoxModel.Visible = value; } }
+        //public int Model_ComboBox_Add(string text) { return formMT.comboBoxModels.Items.Add(text); }
+        //public int Model_ComboBox_SelectedIndex { set { formMT.comboBoxModels.SelectedIndex = value; } }
+        //public int Model_ComboBox_Count { get { return formMT.comboBoxModels.Items.Count; } }
+        //public bool Model_CheckBox_Enabled
+        //{
+        //    set
+        //    {
+        //        formMT.checkBoxUseCustomModel.Enabled = value;
+        //        formMT.comboBoxModels.Enabled = value || formMT.checkBoxUseCustomModel.Checked;
+        //        formMT.textBoxModel.Enabled = value || formMT.checkBoxUseCustomModel.Checked;
+        //    }
+        //}
+        //public void Model_Control_BackColor_State(bool hasErrors)
+        //{
 
-        ApiKeyState IForm.ApiKeyState { get { return apiKeyState; } }
-
-        // Continue Button (buttonContinue)
-        bool Continue_Button_Enabled
-        {
-            get => buttonContinue.Enabled;
-            set => buttonContinue.Enabled = value;
-        }
-
-        // ApiKey textBox (apiKey_tb)
-        string IForm.ApiKey_TextBox_Text { get { return formApi.apiKey_tb.Text; } set { formApi.apiKey_tb.Text = value; } }
-        bool IForm.ApiKey_TextBox_Enabled { set { formApi.apiKey_tb.Enabled = value; } }
-        Color IForm.ApiKey_TextBox_BackColor { set { formApi.apiKey_tb.BackColor = value; } }
-
-        // ApiKey Check Button (buttonCheck)
-        bool IForm.ApiKeyCheck_Button_Enabled { set { formApi.buttonSave.Enabled = value; } get { return formApi.buttonSave.Enabled; } }
-
-        // Select panel "Connect to Intento MT HUB" on main form
-        // -----------------------------------------
-        void IForm.ApiKey_Set_Panel()
-        {
-            groupBoxMTConnect.Visible = !apiKeyState.IsOK;
-            groupBoxMTConnect2.Visible = apiKeyState.IsOK;
-            buttonMTSetting.Enabled = apiKeyState.IsOK;
-            apiKey_tb.Text = apiKeyState.apiKey;
-            buttonMTSetting.Enabled = apiKeyState.IsOK;
-        }
-
-        // SmartRouting_CheckBox (checkBoxSmartRouting)
-        bool IForm.SmartRouting_CheckBox_Checked { get { return formMT.checkBoxSmartRouting.Checked; } set { formMT.checkBoxSmartRouting.Checked = value; } }
-        bool IForm.SmartRouting_CheckBox_Visible { set { formMT.checkBoxSmartRouting.Visible = value; } }
-        bool IForm.SmartRouting_CheckBox_Enabled { set { formMT.checkBoxSmartRouting.Enabled = value; } }
-
-        // Providers_ComboBox (comboBoxProviders)
-        void IForm.Providers_ComboBox_Clear() { formMT.comboBoxProviders.Items.Clear(); }
-        void IForm.Providers_ComboBox_AddRange(object[] items) { formMT.comboBoxProviders.Items.AddRange(items); }
-        string IForm.Providers_ComboBox_SelectedItem { set { formMT.comboBoxProviders.SelectedItem = value; } }
-        string IForm.Providers_ComboBox_Text { get { return formMT.comboBoxProviders.Text; } }
-        void IForm.Providers_ComboBox_ClearSelection()
-        {
-            formMT.comboBoxProviders.SelectedIndex = -1;
-            formMT.comboBoxProviders.Text = null;
-        }
-        //Color IForm.Providers_ComboBox_BackColor { set { formMT.comboBoxProviders.BackColor = value; } }
-
-        bool IForm.Providers_Group_Enabled { set { formMT.groupBoxProvider.Enabled = value; } }
-
-        // -----------------------------------------------------
-        void IForm.Providers_ComboBox_BackColor_State(bool hasErrors)
-        {
-            if (hasErrors)
-                formMT.comboBoxProviders.BackColor = Color.LightPink;
-            else
-                formMT.comboBoxProviders.BackColor = formMT.groupBoxProvider.Enabled ? Color.White : SystemColors.Control;// .Window; ;
-        }
-
-        // Auth_CheckBox (checkBoxUseOwnCred)
-        //        bool IForm.Auth_CheckBox_Visible { set { formMT.checkBoxUseOwnCred.Visible = value; } }
-        bool IForm.Auth_CheckBox_Visible { set { formMT.groupBoxBillingAccount.Enabled = value; } }
-        bool IForm.Auth_CheckBox_Enabled { set { formMT.checkBoxUseOwnCred.Enabled = value; } }
-        bool IForm.Auth_GroupBox_Enabled { set { formMT.groupBoxBillingAccount.Enabled = value; } }
-        bool IForm.Auth_CheckBox_Checked { get { return formMT.checkBoxUseOwnCred.Checked; } set { formMT.checkBoxUseOwnCred.Checked = value; } }
-
-        // AuthText_Group (groupBoxAuth)
-        bool IForm.AuthText_Group_Visible
-        {
-            set
-            {
-                formMT.groupBoxBillingAccount.Enabled = formMT.groupBoxBillingAccount.Enabled;
-                formMT.textBoxCredentials.Visible = value;
-                formMT.buttonWizard.Visible = value;
-                formMT.comboBoxCredentialId.Visible = !value;
-            }
-        }
-        void IForm.Auth_GroupBox_Disable()
-        {
-            formMT.groupBoxBillingAccount.Enabled = false;
-            formMT.textBoxCredentials.Visible = false;
-            formMT.buttonWizard.Visible = false;
-            formMT.comboBoxCredentialId.Visible = true;
-            formMT.checkBoxUseOwnCred.Checked = false;
-            formMT.textBoxCredentials.Text = "";
-            formMT.comboBoxCredentialId.Items.Clear();
-        }
-
-        // AuthText_TextBox (textBoxCredentials)
-        //Color IForm.AuthText_TextBox_BackColor { set { formMT.textBoxCredentials.BackColor = value; } }
-        string IForm.AuthText_TextBox_Text { set { formMT.textBoxCredentials.Text = value; } }
-
-        // AuthCombo_Group (groupBoxAuthCredentialId)
-        bool IForm.AuthCombo_Group_Visible { set { formMT.comboBoxCredentialId.Enabled = value; } }
-
-        void IForm.Auth_Control_BackColor_State(bool hasErrors)
-        {
-            if (hasErrors)
-            {
-                formMT.comboBoxCredentialId.BackColor = Color.LightPink;
-                formMT.textBoxCredentials.BackColor = Color.LightPink;
-            }
-            else
-            {
-                formMT.comboBoxCredentialId.BackColor = formMT.checkBoxUseOwnCred.Checked ? Color.White : SystemColors.Control;
-                formMT.textBoxCredentials.BackColor = formMT.checkBoxUseOwnCred.Checked ? Color.White : SystemColors.Control;
-            }
-        }
-
-        // AuthCombo_ComboBox (comboBoxCredentialId)
-        void IForm.Auth_Control_Clear()
-        {
-            formMT.comboBoxCredentialId.Items.Clear();
-            formMT.textBoxCredentials.Text = "";
-        }
-        void IForm.AuthCombo_ComboBox_AddRange(object[] items) { formMT.comboBoxCredentialId.Items.AddRange(items); }
-        void IForm.AuthCombo_ComboBox_Insert(int n, string text) { formMT.comboBoxCredentialId.Items.Insert(n, text); }
-        bool IForm.AuthCombo_ComboBox_Contains(string text) { return formMT.comboBoxCredentialId.Items.Contains(text); }
-        object IForm.AuthCombo_ComboBox_SelectedItem { get { return formMT.comboBoxCredentialId.SelectedItem; } set { formMT.comboBoxCredentialId.SelectedItem = value; } }
-        bool IForm.AuthCombo_ComboBox_Enabled { set { formMT.comboBoxCredentialId.Enabled = value; } }
-        int IForm.AuthCombo_ComboBox_Count { get { return formMT.comboBoxCredentialId.Items.Count; } }
-        int IForm.AuthCombo_ComboBox_SelectedIndex { set { formMT.comboBoxCredentialId.SelectedIndex = value; } }
-        //Color IForm.AuthCombo_ComboBox_BackColor { set { formMT.comboBoxCredentialId.BackColor = value; } }
-        string IForm.AuthCombo_ComboBox_Text { get { return formMT.comboBoxCredentialId.Text; } }
-
-        // Model_CheckBox (checkBoxUseCustomModel)
-        bool IForm.Model_CheckBox_Checked
-        {
-            get { return formMT.checkBoxUseCustomModel.Checked; }
-            set
-            {
-                formMT.checkBoxUseCustomModel.Checked = value;
-                formMT.comboBoxModels.Enabled = value;
-                formMT.textBoxModel.Enabled = value;
-            }
-        }
-
-        //bool IForm.Model_CheckBox_Visible { set { formMT.checkBoxUseCustomModel.Enabled = value; } }
-        bool IForm.Model_CheckBox_Enabled
-        {
-            set
-            {
-                formMT.checkBoxUseCustomModel.Enabled = value;
-                formMT.comboBoxModels.Enabled = value || formMT.checkBoxUseCustomModel.Checked;
-                formMT.textBoxModel.Enabled = value || formMT.checkBoxUseCustomModel.Checked;
-            }
-        }
-
-        bool IForm.Model_Group_Enabled
-        {
-            set
-            {
-                //if (!value)
-                //    ((IForm)this).Model_Control_BackColor_State(false);
-                formMT.groupBoxModel.Enabled = value;
-                formMT.comboBoxModels.Enabled = formMT.checkBoxUseCustomModel.Checked;
-                formMT.textBoxModel.Enabled = formMT.checkBoxUseCustomModel.Checked;
-            }
-        }
-
-        void IForm.Model_GroupBox_Disable()
-        {
-            formMT.groupBoxModel.Enabled = false;
-            formMT.comboBoxModels.Visible = false;
-            formMT.textBoxModel.Visible = true;
-            formMT.checkBoxUseCustomModel.Checked = false;
-            formMT.textBoxModel.Text = "";
-            formMT.comboBoxModels.Items.Clear();
-        }
-
-
-        // Model_ComboBox (comboBoxModels)
-        void IForm.Model_ComboBox_Clear() { formMT.comboBoxModels.Items.Clear(); }
-        int IForm.Model_ComboBox_Add(string text) { return formMT.comboBoxModels.Items.Add(text); }
-        int IForm.Model_ComboBox_SelectedIndex { set { formMT.comboBoxModels.SelectedIndex = value; } }
-        int IForm.Model_ComboBox_Count { get { return formMT.comboBoxModels.Items.Count; } }
-        bool IForm.Model_ComboBox_Visible { set { formMT.comboBoxModels.Visible = value; } }
-        //Color IForm.Model_ComboBox_BackColor { set { formMT.comboBoxModels.BackColor = value; } }
-        string IForm.Model_ComboBox_Text { get { return formMT.comboBoxModels.Text; } set { formMT.comboBoxModels.Text = value; } }
-        // -----------------------------------------------------
-        void IForm.Model_Control_BackColor_State(bool hasErrors)
-        {
-
-            if (hasErrors)
-            {
-                formMT.comboBoxModels.BackColor = Color.LightPink;
-                formMT.textBoxModel.BackColor = Color.LightPink;
-            }
-            else
-            {
-                formMT.comboBoxModels.BackColor = formMT.comboBoxModels.Enabled ? Color.White : SystemColors.Window;
-                formMT.textBoxModel.BackColor = formMT.comboBoxModels.Enabled ? Color.White : SystemColors.Window;
-            }
-        }
-
-        // Model_TextBox (textBoxModel)
-        bool IForm.Model_TextBox_Visible { set { formMT.textBoxModel.Visible = value; } }
-        string IForm.Model_TextBox_Text { get { return formMT.textBoxModel.Text; } set { formMT.textBoxModel.Text = value; } }
-        //Color IForm.Model_TextBox_BackColor { set { formMT.textBoxModel.BackColor = value; } }
-
-        // Glossary_Group (groupBoxGlossary)
-        bool IForm.Glossary_Group_Visible { get { return formMT.groupBoxGlossary.Enabled; } set { formMT.groupBoxGlossary.Enabled = value; } }
-        void IForm.Glossary_GroupBox_Disable()
-        {
-            formMT.groupBoxGlossary.Enabled = false;
-            formMT.comboBoxGlossaries.Visible = false;
-            formMT.textBoxGlossary.Visible = true;
-            formMT.checkBoxUseCustomModel.Checked = false;
-            formMT.textBoxGlossary.Text = "";
-            formMT.comboBoxGlossaries.Items.Clear();
-        }
+        //    if (hasErrors)
+        //    {
+        //        formMT.comboBoxModels.BackColor = Color.LightPink;
+        //        formMT.textBoxModel.BackColor = Color.LightPink;
+        //    }
+        //    else
+        //    {
+        //        formMT.comboBoxModels.BackColor = formMT.comboBoxModels.Enabled ? Color.White : SystemColors.Window;
+        //        formMT.textBoxModel.BackColor = formMT.comboBoxModels.Enabled ? Color.White : SystemColors.Window;
+        //    }
+        //}
+        //public bool Optional_Group_Enabled
+        //{
+        //    get { return formMT.groupBoxOptional.Enabled; }
+        //    set
+        //    {
+        //        if (value)
+        //            formMT.groupBoxOptional.Enabled = value;
+        //        else
+        //        {
+        //            formMT.groupBoxOptional.Enabled = apiKeyState.options.UseCustomModel
+        //                || !string.IsNullOrWhiteSpace(apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.GetGlossaryState()?.currentGlossary);
+        //        }
+        //    }
+        //}
+        //public string Model_ComboBox_Text { get { return formMT.comboBoxModels.Text; } set { formMT.comboBoxModels.Text = value; } }
+        //public void Model_GroupBox_Disable()
+        //{
+        //    formMT.groupBoxModel.Enabled = false;
+        //    formMT.comboBoxModels.Visible = false;
+        //    formMT.textBoxModel.Visible = true;
+        //    formMT.checkBoxUseCustomModel.Checked = false;
+        //    formMT.textBoxModel.Text = "";
+        //    formMT.comboBoxModels.Items.Clear();
+        //}
+        //public IList<dynamic> Models(string provider, Dictionary<string, string> credential_id) { return _translate.Models(provider: provider, credentials: credential_id); }
+        //public IList<dynamic> Glossaries(string provider, Dictionary<string, string> credential_id) { return _translate.Glossaries(provider: provider, credentials: credential_id); }
+        //public void Glossary_ComboBox_Clear() { formMT.comboBoxGlossaries.Items.Clear(); }
+        //public string Glossary_TextBox_Text { get { return formMT.textBoxGlossary.Text; } set { formMT.textBoxGlossary.Text = value; } }
+        //public bool Glossary_Group_Visible { get { return formMT.groupBoxGlossary.Enabled; } set { formMT.groupBoxGlossary.Enabled = value; } }
+        //public void Glossary_GroupBox_Disable()
+        //{
+        //    formMT.groupBoxGlossary.Enabled = false;
+        //    formMT.comboBoxGlossaries.Visible = false;
+        //    formMT.textBoxGlossary.Visible = true;
+        //    formMT.checkBoxUseCustomModel.Checked = false;
+        //    formMT.textBoxGlossary.Text = "";
+        //    formMT.comboBoxGlossaries.Items.Clear();
+        //}
+        //public int Glossary_ComboBoxAdd(string text) { return formMT.comboBoxGlossaries.Items.Add(text); }
+        //public void Glossary_ComboBox_Insert(int n, string text) { formMT.comboBoxGlossaries.Items.Insert(n, text); }
+        //public int Glossary_ComboBox_SelectedIndex { set { formMT.comboBoxGlossaries.SelectedIndex = value; } }
+        //public bool Glossary_TextBox_Visible { set { formMT.textBoxGlossary.Visible = value; } }
+        //public bool Glossary_TextBox_Enabled { set { formMT.textBoxGlossary.Enabled = value; } }
+        //public bool Glossary_ComboBox_Visible { set { formMT.comboBoxGlossaries.Visible = value; } }
+        //public bool Glossary_ComboBox_Enabled { set { formMT.comboBoxGlossaries.Enabled = value; } }
+        //public string Glossary_ComboBox_Text { get { return formMT.comboBoxGlossaries.Text; } }
 
 
-        // Glossary_TextBox (textBoxGlossary)
-        bool IForm.Glossary_TextBox_Visible { set { formMT.textBoxGlossary.Visible = value; } }
-        bool IForm.Glossary_TextBox_Enabled { set { formMT.textBoxGlossary.Enabled = value; } }
-        string IForm.Glossary_TextBox_Text { get { return formMT.textBoxGlossary.Text; } set { formMT.textBoxGlossary.Text = value; } }
 
-        // Glossary_ComboBox (comboBoxGlossaries)
-        void IForm.Glossary_ComboBox_Clear() { formMT.comboBoxGlossaries.Items.Clear(); }
-        int IForm.Glossary_ComboBoxAdd(string text) { return formMT.comboBoxGlossaries.Items.Add(text); }
-        void IForm.Glossary_ComboBox_Insert(int n, string text) { formMT.comboBoxGlossaries.Items.Insert(n, text); }
-        int IForm.Glossary_ComboBox_SelectedIndex { set { formMT.comboBoxGlossaries.SelectedIndex = value; } }
-        bool IForm.Glossary_ComboBox_Visible { set { formMT.comboBoxGlossaries.Visible = value; } }
-        bool IForm.Glossary_ComboBox_Enabled { set { formMT.comboBoxGlossaries.Enabled = value; } }
-        string IForm.Glossary_ComboBox_Text { get { return formMT.comboBoxGlossaries.Text; } }
-
-        // Continue Button (buttonContinue)
-        bool IForm.Continue_Button_Enabled { get { return formMT.buttonSave.Enabled; } set { formMT.buttonSave.Enabled = value; } }
-
-        // ErrorMessage TextBox (toolStripStatusLabel1)
-        //string IForm.ErrorMessage_TextBox_Text { get { return toolStripStatusLabel1.Text; } set { toolStripStatusLabel1.Text = value; } }
-        //Color IForm.ErrorMessage_TextBox_BackColor { set { toolStripStatusLabel1.BackColor = value; } }
-        string IForm.ErrorMessage_TextBox_Text { get { return formMT.labelTMP.Text; } set { formMT.labelTMP.Text = value; } }
-        Color IForm.ErrorMessage_TextBox_BackColor { set { formMT.labelTMP.BackColor = value; } }
-
-        void IForm.Language_Comboboxes_Fill(Dictionary<string, string> from, Dictionary<string, string> to)
-        {
-            formMT.comboBoxFrom.Items.Clear();
-            formMT.comboBoxTo.Items.Clear();
-            formMT.comboBoxFrom.Items.AddRange(from.Select(x => x.Value).ToArray());
-            formMT.comboBoxTo.Items.AddRange(to.Select(x => x.Value).ToArray());
-            if (from.ContainsKey("en"))
-                formMT.comboBoxFrom.SelectedItem = from["en"];
-            else
-                formMT.comboBoxFrom.SelectedIndex = 1;
-            if (to.ContainsKey("es"))
-                formMT.comboBoxTo.SelectedItem = to["es"];
-            else
-                formMT.comboBoxTo.SelectedIndex = 1;
-        }
-
-        bool IForm.Optional_Group_Enabled
-        {
-            get { return formMT.groupBoxOptional.Enabled; }
-            set
-            {
-                if (value)
-                    formMT.groupBoxOptional.Enabled = value;
-                else
-                {
-                    formMT.groupBoxOptional.Enabled = apiKeyState.options.UseCustomModel
-                        || !string.IsNullOrWhiteSpace(apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.GetGlossaryState()?.currentGlossary);
-                }
-            }
-        }
-
-
-        // SaveApiKeyInRegistry checkBox ()
-        bool IForm.SaveApiKeyInRegistry_CheckBox_Checked { get { return formAdvanced.checkBoxSaveApiKeyInRegistry.Checked; } set { formAdvanced.checkBoxSaveApiKeyInRegistry.Checked = value; } }
-
-        // ShowHidden_CheckBox (checkBoxShowHidden)
-        bool IForm.ShowHidden_CheckBox_Checked { get { return formApi.checkBoxShowHidden.Checked; } }
-
-        // Intento API
-        IEnumerable<dynamic> IForm.Providers(Dictionary<string, string> filter) { return _translate.Providers(filter: filter); }
-        dynamic IForm.Provider(string provider, string additionalParams) { return _translate.Provider(provider: provider, additionalParams: additionalParams); }
-        IList<dynamic> IForm.DelegatedCredentials() { return _translate.DelegatedCredentials(); }
-        IList<dynamic> IForm.Models(string provider, Dictionary<string, string> credential_id) { return _translate.Models(provider: provider, credentials: credential_id); }
-        IList<dynamic> IForm.Glossaries(string provider, Dictionary<string, string> credential_id) { return _translate.Glossaries(provider: provider, credentials: credential_id); }
-
-        // Other
-        int IForm.CursorCount { get { return cursorCount; } set { cursorCount = value; } }
-        Cursor IForm.Cursor { set { Cursor = value; } }
-        void IForm.SuspendLayout() { SuspendLayout(); }
-        void IForm.ResumeLayout() { ResumeLayout(); }
-        List<string> IForm.Errors { get { return errors; } set { errors = value; } }
-        LangPair[] IForm.LanguagePairs { get { return _languagePairs; } }
-        bool IForm.ButtonContinue_Button_Enabled { get { return buttonContinue.Enabled; } set { buttonContinue.Enabled = value; } }
-
-        bool insideEnableDisable = false;
-        bool IForm.InsideEnableDisable { get { return insideEnableDisable; } set { insideEnableDisable = value; } }
-
-        public static ResourceManager resourceManager = new ResourceManager(typeof(Resource));
-        ResourceManager IForm.ResourceManager { get { return resourceManager; } }
-        IntentoFormOptionsMT IForm.FormMT { get { return formMT; } }
-
+        //methods for state controllers
+        //public void ApiKey_Set_Panel(bool apiKeyStateIsOK)
+        //{
+        //    groupBoxMTConnect.Visible = !apiKeyStateIsOK;
+        //    groupBoxMTConnect2.Visible = apiKeyStateIsOK;
+        //    buttonMTSetting.Enabled = apiKeyStateIsOK;
+        //    //apiKey_tb.Text = apiKey;
+        //    buttonMTSetting.Enabled = apiKeyStateIsOK;
+        //}
         #endregion IForm
 
         private void FillOptions(IntentoMTFormOptions options)
