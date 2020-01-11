@@ -34,9 +34,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             checkBoxUseOwnCred.CheckedChanged += parent.checkBoxUseOwnCred_CheckedChanged;
             checkBoxUseCustomModel.CheckedChanged += parent.checkBoxUseCustomModel_CheckedChanged;
             buttonWizard.Click += parent.buttonWizard_Click;
-            comboBoxModels.SelectedIndexChanged += parent.comboBoxModels_SelectedIndexChanged;
+            comboBoxModels.SelectedIndexChanged += parent.modelControls_ValueChanged;
             comboBoxCredentialId.SelectedIndexChanged += parent.comboBoxCredentialId_SelectedIndexChanged;
-            textBoxModel.TextChanged += parent.textBoxModel_TextChanged;
+            textBoxModel.TextChanged += parent.modelControls_ValueChanged;
             checkBoxSmartRouting.CheckedChanged += parent.checkBoxSmartRouting_CheckedChanged;
             textBoxCredentials.Enter += parent.textBoxCredentials_Enter;
             textBoxGlossary.TextChanged += parent.glossaryControls_ValueChanged;
@@ -181,15 +181,13 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-
-
-        private void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
-        {
-            var value = checkBoxUseOwnCred.Checked;
-            comboBoxCredentialId.Enabled = value;
-            textBoxCredentials.Enabled = value;
-            buttonWizard.Enabled = value;
-        }
+        //private void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    var value = checkBoxUseOwnCred.Checked;
+        //    comboBoxCredentialId.Enabled = value;
+        //    textBoxCredentials.Enabled = value;
+        //    buttonWizard.Enabled = value;
+        //}
 
         private void helpLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -225,6 +223,17 @@ namespace Intento.MT.Plugin.PropertiesForm
                     }
             }
 
+        }
+
+        private void textBoxCredentials_VisibleChanged(object sender, EventArgs e)
+        {
+            buttonWizard.Visible = textBoxCredentials.Visible;
+        }
+
+        private void comboBoxCredentialId_VisibleChanged(object sender, EventArgs e)
+        {
+            if (comboBoxCredentialId.Visible)
+                buttonWizard.Visible = false;
         }
     }
 }

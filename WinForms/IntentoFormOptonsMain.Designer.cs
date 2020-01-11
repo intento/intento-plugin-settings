@@ -336,8 +336,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "IntentoTranslationProviderOptionsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainForm";
-            this.Shown += new System.EventHandler(this.IntentoFormOptonsMain_Shown);
             this.groupBoxMTConnect.ResumeLayout(false);
             this.groupBoxMTConnect.PerformLayout();
             this.groupBoxMTSettings.ResumeLayout(false);

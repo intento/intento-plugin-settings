@@ -159,7 +159,6 @@
             // 
             // buttonWizard
             // 
-            this.buttonWizard.Enabled = false;
             this.buttonWizard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonWizard.Location = new System.Drawing.Point(374, 77);
             this.buttonWizard.Name = "buttonWizard";
@@ -174,7 +173,6 @@
             this.textBoxCredentials.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxCredentials.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxCredentials.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.textBoxCredentials.Enabled = false;
             this.textBoxCredentials.ForeColor = System.Drawing.SystemColors.WindowText;
             this.textBoxCredentials.Location = new System.Drawing.Point(11, 79);
             this.textBoxCredentials.Name = "textBoxCredentials";
@@ -183,6 +181,7 @@
             this.textBoxCredentials.TabIndex = 13;
             this.textBoxCredentials.Tag = "accountControl";
             this.textBoxCredentials.UseSystemPasswordChar = true;
+            this.textBoxCredentials.VisibleChanged += new System.EventHandler(this.textBoxCredentials_VisibleChanged);
             // 
             // labelHelpBillingAccount
             // 
@@ -207,7 +206,6 @@
             this.checkBoxUseOwnCred.Tag = "accountControl";
             this.checkBoxUseOwnCred.Text = "1Use your own MT Provider account";
             this.checkBoxUseOwnCred.UseVisualStyleBackColor = true;
-            this.checkBoxUseOwnCred.CheckedChanged += new System.EventHandler(this.checkBoxUseOwnCred_CheckedChanged);
             // 
             // comboBoxCredentialId
             // 
@@ -222,6 +220,7 @@
             this.comboBoxCredentialId.TabIndex = 10;
             this.comboBoxCredentialId.Tag = "accountControl";
             this.comboBoxCredentialId.Visible = false;
+            this.comboBoxCredentialId.VisibleChanged += new System.EventHandler(this.comboBoxCredentialId_VisibleChanged);
             // 
             // groupBoxModel
             // 
@@ -247,6 +246,7 @@
             this.textBoxModel.Size = new System.Drawing.Size(438, 20);
             this.textBoxModel.TabIndex = 14;
             this.textBoxModel.Tag = "modelControl";
+            this.textBoxModel.Visible = false;
             // 
             // labelHelpModel
             // 
@@ -277,7 +277,6 @@
             this.comboBoxModels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxModels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxModels.Enabled = false;
             this.comboBoxModels.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxModels.FormattingEnabled = true;
             this.comboBoxModels.ItemHeight = 13;
@@ -324,6 +323,7 @@
             this.textBoxGlossary.Size = new System.Drawing.Size(438, 20);
             this.textBoxGlossary.TabIndex = 14;
             this.textBoxGlossary.Tag = "glossaryControl";
+            this.textBoxGlossary.Visible = false;
             // 
             // labelHelpGlossary
             // 

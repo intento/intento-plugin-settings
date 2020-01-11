@@ -35,9 +35,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         string error_reason = null;
 
         public delegate void ApiKeyChanged(bool isOK);
-        public event ApiKeyChanged apiKeyChangedEvent;
-
-        //IntentoFormOptionsMT formMT;
 
         public ApiKeyState(IntentoTranslationProviderOptionsForm _form, IntentoMTFormOptions options) : base(_form, options)
         {
@@ -55,19 +52,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-        public void SetValue(string _apiKey)
-        {
-            if (apiKey == _apiKey)
-                return;
-            apiKey = _apiKey;
-            ChangeStatus(EApiKeyStatus.changed);
-        }
-
         public string Draw()
         {
-            //form.ApiKey_TextBox_Text = apiKey;
-            //form.ApiKeyCheck_Button_Enabled = CheckPossible;
-
             form.formApi.apiKey_tb.Text = apiKey;
             form.formApi.buttonSave.Enabled = CheckPossible;
 
@@ -76,18 +62,13 @@ namespace Intento.MT.Plugin.PropertiesForm
                 case EApiKeyStatus.start:
                     if (string.IsNullOrEmpty(apiKey))
                     {
-                        //form.ApiKey_TextBox_Enabled = true;
-                        //form.ApiKey_TextBox_BackColor = Color.LightPink;
                         form.formApi.apiKey_tb.Enabled = true;
                         form.formApi.apiKey_tb.BackColor = Color.LightPink;
-
                         // "Enter your API key and press \"Check\" button."
                         error_reason = Resource.ApiKeyNeededErrorMessage;
                     }
                     else
                     {
-                        //form.ApiKey_TextBox_Enabled = false;
-                        //form.ApiKey_TextBox_BackColor = Color.White;
                         form.formApi.apiKey_tb.Enabled = false;
                         form.formApi.apiKey_tb.BackColor = Color.White;
                         // "API key verification in progress ...."
@@ -96,8 +77,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                     break;
 
                 case EApiKeyStatus.download:
-                    //form.ApiKey_TextBox_Enabled = false;
-                    //form.ApiKey_TextBox_BackColor = Color.White;
                     form.formApi.apiKey_tb.Enabled = false;
                     form.formApi.apiKey_tb.BackColor = Color.White;
                     // "API key verification in progress ...."
@@ -105,29 +84,22 @@ namespace Intento.MT.Plugin.PropertiesForm
                     break;
 
                 case EApiKeyStatus.ok:
-                    //form.ApiKey_TextBox_Enabled = true;
-                    //form.ApiKey_TextBox_BackColor = Color.White;
                     form.formApi.apiKey_tb.Enabled = true;
                     form.formApi.apiKey_tb.BackColor = Color.White;
-                    //form.MainForm_ApiKey_TextBox_Visible = true;
                     error_reason = null;
                     break;
 
                 case EApiKeyStatus.error:
-                    //form.ApiKey_TextBox_Enabled = true;
-                    //form.ApiKey_TextBox_BackColor = Color.LightPink;
                     form.formApi.apiKey_tb.Enabled = true;
                     form.formApi.apiKey_tb.BackColor = Color.LightPink;
                     break;
 
                 case EApiKeyStatus.changed:
-                    //form.ApiKey_TextBox_BackColor = Color.LightPink;
-                    //form.ApiKey_TextBox_Enabled = true;
                     form.formApi.apiKey_tb.Enabled = true;
                     form.formApi.apiKey_tb.BackColor = Color.LightPink;
                     if (string.IsNullOrEmpty(apiKey))
                         // Enter your API key and press \"Check\" button.
-                        error_reason = Resource.ApiKeyNeededErrorMessage; 
+                        error_reason = Resource.ApiKeyNeededErrorMessage;
                     else
                         // "API key verification in progress ...."
                         error_reason = Resource.ApiKeyVerificationInProgressMessage;
@@ -139,8 +111,15 @@ namespace Intento.MT.Plugin.PropertiesForm
                 SmartRoutingState.Draw(form, null);
                 return error_reason;
             }
-
             return SmartRoutingState.Draw(form, smartRoutingState);
+        }
+
+        public void SetValue(string _apiKey)
+        {
+            if (apiKey == _apiKey)
+                return;
+            apiKey = _apiKey;
+            ChangeStatus(EApiKeyStatus.changed);
         }
 
         public string Error()
@@ -220,10 +199,15 @@ namespace Intento.MT.Plugin.PropertiesForm
         private void ChangeStatus(EApiKeyStatus status)
         {
             apiKeyStatus = status;
-            ApiKeyChanged handler = apiKeyChangedEvent;
-            handler(status == EApiKeyStatus.ok);
-
-            CreateChildStates();
+            if (apiKeyStatus == ApiKeyState.EApiKeyStatus.download)
+                form._translate = form.fabric(apiKey, String.Format("{1}/{2}", options.UserAgent, "Intento.PluginSettingsForm", form.version), options.proxySettings);
+            else
+            {
+                //EnableDisable();
+                //ApiKeyChanged handler = apiKeyChangedEvent;
+                //handler(status == EApiKeyStatus.ok);
+                CreateChildStates();
+            }
         }
 
         public List<dynamic> Providers
