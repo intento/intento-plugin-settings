@@ -109,7 +109,10 @@ namespace Intento.MT.Plugin.PropertiesForm
                 }
 
                 //providerData = form.Provider(currentProviderId, "?fields=auth,custom_glossary");
-                providerData = form._translate.Provider(currentProviderId, "?fields=auth,custom_glossary");
+                if (form.testOneProviderData != null)
+                    providerData = form.testOneProviderData;
+                else
+                    providerData = form._translate.Provider(currentProviderId, "?fields=auth,custom_glossary");
 
                 if (providerData != null)
                 {
@@ -388,7 +391,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (hasErrors)
                 formMT.comboBoxProviders.BackColor = Color.LightPink;
             else
-                formMT.comboBoxProviders.BackColor = formMT.groupBoxProvider.Enabled ? Color.White : SystemColors.Control;
+                formMT.comboBoxProviders.BackColor = SystemColors.Window;
+                // formMT.comboBoxProviders.BackColor = formMT.groupBoxProvider.Enabled ? SystemColors.Window : SystemColors.Control;
         }
 
         #endregion methods for managing a group of controls

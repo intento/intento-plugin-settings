@@ -62,6 +62,19 @@ namespace Intento.MT.Plugin.PropertiesForm
         private bool settingsIsSet;
         public bool insideEnableDisable = false;
 
+
+        // Glossary data was obtained directly, without a request to the Intento service
+        public List<dynamic> testListProvidersData;
+        // Provider data was obtained directly, without a request to the Intento service
+        public dynamic testOneProviderData;
+        // Model data was obtained directly, without a request to the Intento service
+        public IList<dynamic> testModelData;
+        // Credentional data was obtained directly, without a request to the Intento service
+        public List<dynamic> testAuthData;
+        // Glossary data was obtained directly, without a request to the Intento service
+        public IList<dynamic> testGlossaryData;
+
+
         #endregion vars
 
         public IntentoTranslationProviderOptionsForm(
@@ -128,6 +141,29 @@ namespace Intento.MT.Plugin.PropertiesForm
             splashForm.Close();
             this.Visible = true;
 
+        }
+
+        public IntentoTranslationProviderOptionsForm(
+            IntentoMTFormOptions options,
+            LangPair[] languagePairs,
+            Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric,
+            bool testings
+            )
+        {
+            this.fabric = fabric;
+
+            InitializeComponent();
+            LocalizeContent();
+
+            originalOptions = options;
+            currentOptions = originalOptions.Duplicate();
+
+            formAdvanced = new IntentoFormAdvanced(this);
+            formApi = new IntentoFormOptionsAPI(this);
+            formMT = new IntentoFormOptionsMT(this);
+
+            _languagePairs = languagePairs;
+            DialogResult = DialogResult.None;
         }
 
         public IntentoMTFormOptions GetOptions()

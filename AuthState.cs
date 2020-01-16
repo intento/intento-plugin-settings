@@ -129,17 +129,20 @@ namespace Intento.MT.Plugin.PropertiesForm
                 {   // Delegated creds - use combo box 
                     formMT.comboBoxCredentialId.Visible = true;
                     formMT.textBoxCredentials.Visible = false;
+                    formMT.buttonWizard.Visible = false;
                 }
                 else
                 {   // Direct auth
                     formMT.comboBoxCredentialId.Visible = false;
                     formMT.textBoxCredentials.Visible = true;
+                    formMT.buttonWizard.Visible = true;
                 }
             }
             else
             {
                 formMT.comboBoxCredentialId.Visible = false;
                 formMT.textBoxCredentials.Visible = false;
+                formMT.buttonWizard.Visible = false;
             }
             // checkBoxUseOwnCred
             if (formMT.checkBoxUseOwnCred.Checked && (providerDataAuthDict == null || providerDataAuthDict.Count == 0 || providerDataAuthDict.Any(i => string.IsNullOrEmpty(i.Value))))
@@ -147,6 +150,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             {   // Credentials required but not filled in full
                 Auth_Control_BackColor_State(formMT, true);
                 error_message = Resource.OwnCredentialsNeededErrorMessage;
+                formMT.groupBoxOptional.Enabled = false;
             }
             else
             {   // All fields in credentals are filled
@@ -161,10 +165,18 @@ namespace Intento.MT.Plugin.PropertiesForm
                 return error_message;
             }
 
-            error_message = ModelState.Draw(form, GetModelState());
-            string error_message2 = GlossaryState.Draw(form, GetGlossaryState());
+            var modelSt = GetModelState();
+            error_message = ModelState.Draw(form, modelSt);
+            var glossarySt = GetGlossaryState();
+            string error_message2 = GlossaryState.Draw(form, glossarySt);
             if (string.IsNullOrEmpty(error_message))
                 error_message = error_message2;
+
+            if (modelSt != null && modelSt.UseModel)
+                formMT.groupBoxOptional.Enabled = true;
+            else if (glossarySt != null && glossarySt.currentGlossary != null)
+                formMT.groupBoxOptional.Enabled = true;
+            else formMT.groupBoxOptional.Enabled = false;
 
             return error_message;
         }
@@ -187,7 +199,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         private void FillDelegatedCredentials()
         {
             Clear();
-            IList<dynamic> credentials = form._translate.DelegatedCredentials();
+            IList<dynamic> credentials = form.testAuthData != null ? form.testAuthData : form._translate.DelegatedCredentials();
             IEnumerable<dynamic> cred = credentials.Where(q => q.temporary_credentials != null
                 && q.temporary_credentials_created_at != null
                 && q.temporary_credentials_expiry_at != null);
@@ -446,16 +458,18 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         static void Auth_Control_BackColor_State(IntentoFormOptionsMT formMT, bool hasErrors)
         {
-            if (hasErrors)
-            {
-                formMT.comboBoxCredentialId.BackColor = Color.LightPink;
-                formMT.textBoxCredentials.BackColor = Color.LightPink;
-            }
-            else
-            {
-                formMT.comboBoxCredentialId.BackColor = formMT.checkBoxUseOwnCred.Checked ? Color.White : SystemColors.Control;
-                formMT.textBoxCredentials.BackColor = formMT.checkBoxUseOwnCred.Checked ? Color.White : SystemColors.Control;
-            }
+            formMT.comboBoxCredentialId.BackColor = hasErrors ? Color.LightPink : SystemColors.Window;
+            formMT.textBoxCredentials.BackColor = hasErrors ? Color.LightPink : SystemColors.Window;
+            //if (hasErrors)
+            //{
+            //    formMT.comboBoxCredentialId.BackColor = Color.LightPink;
+            //    formMT.textBoxCredentials.BackColor = Color.LightPink;
+            //}
+            //else
+            //{
+            //    formMT.comboBoxCredentialId.BackColor = formMT.checkBoxUseOwnCred.Checked ? SystemColors.Window : SystemColors.Control;
+            //    formMT.textBoxCredentials.BackColor = formMT.checkBoxUseOwnCred.Checked ? SystemColors.Window : SystemColors.Control;
+            //}
         }
 
         #endregion methods for managing a group of controls

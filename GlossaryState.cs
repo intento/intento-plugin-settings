@@ -232,7 +232,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             try
             {
-                IList<dynamic> providerGlossariesRec = form._translate.Glossaries(
+                IList<dynamic> providerGlossariesRec = form.testGlossaryData != null ? form.testGlossaryData :
+                 form._translate.Glossaries(
                     providerState.currentProviderId, 
                     authState.UseCustomAuth ? authState.providerDataAuthDict : null);
                 glossaries = new Dictionary<string, dynamic>();

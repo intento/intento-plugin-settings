@@ -70,7 +70,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     else
                     {
                         form.formApi.apiKey_tb.Enabled = false;
-                        form.formApi.apiKey_tb.BackColor = Color.White;
+                        form.formApi.apiKey_tb.BackColor = SystemColors.Window; 
                         // "API key verification in progress ...."
                         error_reason = Resource.ApiKeyVerificationInProgressMessage;
                     }
@@ -78,14 +78,14 @@ namespace Intento.MT.Plugin.PropertiesForm
 
                 case EApiKeyStatus.download:
                     form.formApi.apiKey_tb.Enabled = false;
-                    form.formApi.apiKey_tb.BackColor = Color.White;
+                    form.formApi.apiKey_tb.BackColor = SystemColors.Window;
                     // "API key verification in progress ...."
                     error_reason = Resource.ApiKeyVerificationInProgressMessage;
                     break;
 
                 case EApiKeyStatus.ok:
                     form.formApi.apiKey_tb.Enabled = true;
-                    form.formApi.apiKey_tb.BackColor = Color.White;
+                    form.formApi.apiKey_tb.BackColor = SystemColors.Window;
                     error_reason = null;
                     break;
 
@@ -146,7 +146,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     ChangeStatus(EApiKeyStatus.download);
 
                     //providers = form.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
-                    providers = form._translate.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
+                    providers = form.testListProvidersData != null ? form.testListProvidersData : form._translate.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
 
                     // SmartRoutingState created inside
                     ChangeStatus(EApiKeyStatus.ok);
@@ -199,7 +199,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         private void ChangeStatus(EApiKeyStatus status)
         {
             apiKeyStatus = status;
-            if (apiKeyStatus == ApiKeyState.EApiKeyStatus.download)
+            if (apiKeyStatus == EApiKeyStatus.download)
                 form._translate = form.fabric(apiKey, String.Format("{1}/{2}", options.UserAgent, "Intento.PluginSettingsForm", form.version), options.proxySettings);
             else
             {

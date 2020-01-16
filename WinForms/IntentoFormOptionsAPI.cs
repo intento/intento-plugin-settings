@@ -72,7 +72,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             _options = currentOptions;
             labelError.Visible = false;
-//            ((IForm)parent).ApiKey_TextBox_BackColor = Color.White;
+//            ((IForm)parent).ApiKey_TextBox_BackColor = SystemColors.Window;
             buttonSave.Enabled = !string.IsNullOrWhiteSpace(apiKey_tb.Text);
             checkBoxShowHidden.Checked = false;
         }

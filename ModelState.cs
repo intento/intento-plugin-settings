@@ -27,6 +27,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         // List of custom models obtained from provider
         private Dictionary<string, dynamic> models;
 
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -230,7 +232,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             models = new Dictionary<string, dynamic>();
             try
             {
-                IList<dynamic> providerModelsRec = form._translate.Models(
+                IList<dynamic> providerModelsRec = form.testModelData != null ? form.testModelData :
+                    form._translate.Models(
                     authState.providerState.currentProviderId, 
                     authState.UseCustomAuth ? authState.providerDataAuthDict : null);
                 if (providerModelsRec != null)
@@ -305,16 +308,18 @@ namespace Intento.MT.Plugin.PropertiesForm
         void Model_Control_BackColor_State(bool hasErrors)
         {
 
-            if (hasErrors)
-            {
-                formMT.comboBoxModels.BackColor = Color.LightPink;
-                formMT.textBoxModel.BackColor = Color.LightPink;
-            }
-            else
-            {
-                formMT.comboBoxModels.BackColor = formMT.comboBoxModels.Enabled ? Color.White : SystemColors.Window;
-                formMT.textBoxModel.BackColor = formMT.comboBoxModels.Enabled ? Color.White : SystemColors.Window;
-            }
+            formMT.comboBoxModels.BackColor = hasErrors ? Color.LightPink : SystemColors.Window;
+            formMT.textBoxModel.BackColor = hasErrors ? Color.LightPink : SystemColors.Window;
+            //if (hasErrors)
+            //{
+            //    formMT.comboBoxModels.BackColor = Color.LightPink;
+            //    formMT.textBoxModel.BackColor = Color.LightPink;
+            //}
+            //else
+            //{
+            //    formMT.comboBoxModels.BackColor = formMT.comboBoxModels.Enabled ? SystemColors.Window : SystemColors.Window;
+            //    formMT.textBoxModel.BackColor = formMT.comboBoxModels.Enabled ? SystemColors.Window : SystemColors.Window;
+            //}
         }
 
         void Optional_Group_Enabled(bool value)
