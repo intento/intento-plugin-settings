@@ -167,6 +167,7 @@
             this.buttonWizard.Tag = "accountControl";
             this.buttonWizard.Text = "Fill or edit";
             this.buttonWizard.UseVisualStyleBackColor = true;
+            this.buttonWizard.Visible = false;
             // 
             // textBoxCredentials
             // 
@@ -181,6 +182,7 @@
             this.textBoxCredentials.TabIndex = 13;
             this.textBoxCredentials.Tag = "accountControl";
             this.textBoxCredentials.UseSystemPasswordChar = true;
+            this.textBoxCredentials.Visible = false;
             this.textBoxCredentials.VisibleChanged += new System.EventHandler(this.textBoxCredentials_VisibleChanged);
             // 
             // labelHelpBillingAccount
@@ -466,6 +468,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(491, 635);
+            this.Controls.Add(this.textBoxLabelURL);
             this.Controls.Add(this.labelTMP);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
@@ -474,7 +477,6 @@
             this.Controls.Add(this.groupBoxModel);
             this.Controls.Add(this.groupBoxBillingAccount);
             this.Controls.Add(this.groupBoxProvider);
-            this.Controls.Add(this.textBoxLabelURL);
             this.Controls.Add(this.checkBoxSmartRouting);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;

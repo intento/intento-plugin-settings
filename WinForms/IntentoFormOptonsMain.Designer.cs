@@ -51,6 +51,7 @@
             this.buttonCheck = new System.Windows.Forms.Button();
             this.buttonAdvanced = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBoxMTConnect.SuspendLayout();
             this.groupBoxMTSettings.SuspendLayout();
             this.groupBoxGlossary.SuspendLayout();
@@ -322,11 +323,21 @@
             this.buttonHelp.UseVisualStyleBackColor = true;
             this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 430);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(10, 13);
+            this.label1.TabIndex = 24;
+            this.label1.Text = ".";
+            // 
             // IntentoTranslationProviderOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(647, 456);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonAdvanced);
             this.Controls.Add(this.groupBoxMTConnect2);
@@ -353,6 +364,7 @@
             this.groupBoxMTConnect2.ResumeLayout(false);
             this.groupBoxMTConnect2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -363,13 +375,9 @@
         private System.Windows.Forms.TextBox textBoxLabel1;
         private System.Windows.Forms.Label labelRegister1;
         private System.Windows.Forms.GroupBox groupBoxGlossary;
-        private System.Windows.Forms.TextBox textBoxGlossary;
         private System.Windows.Forms.GroupBox groupBoxModel;
-        private System.Windows.Forms.TextBox textBoxModel;
         private System.Windows.Forms.GroupBox groupBoxBillingAccount;
-        private System.Windows.Forms.TextBox textBoxAccount;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBoxProviderName;
         private System.Windows.Forms.Label labelIAK;
         public System.Windows.Forms.TextBox apiKey_tb;
         public System.Windows.Forms.Button buttonCheck;
@@ -380,5 +388,10 @@
         public System.Windows.Forms.GroupBox groupBoxMTConnect;
         public System.Windows.Forms.GroupBox groupBoxMTConnect2;
         public System.Windows.Forms.Button buttonMTSetting;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox textBoxGlossary;
+        public System.Windows.Forms.TextBox textBoxModel;
+        public System.Windows.Forms.TextBox textBoxAccount;
+        public System.Windows.Forms.TextBox textBoxProviderName;
     }
 }

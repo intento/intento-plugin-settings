@@ -54,18 +54,13 @@ namespace Intento.MT.Plugin.PropertiesForm
             providersData = providersRaw.ToDictionary(s => (string)s.id, q => q);
             providersNames = providersRaw.ToDictionary(s => (string)s.name, q => (string)q.id);
 
-            //form.Providers_ComboBox_Clear();
-            //form.Providers_ComboBox_AddRange(providersNames.Select(x => (string)x.Key).OrderBy(x => x).ToArray());
-
             formMT.comboBoxProviders.Items.Clear();
             formMT.comboBoxProviders.Items.AddRange(providersNames.Select(x => (string)x.Key).OrderBy(x => x).ToArray());
 
             dynamic providerDataFromList = null;
             if (!string.IsNullOrEmpty(currentProviderId) && providersData.TryGetValue(currentProviderId, out providerDataFromList))
             {   // Set current provider in combo box 
-                //form.Providers_ComboBox_SelectedItem = (string)providerDataFromList.name;
                 formMT.comboBoxProviders.SelectedItem = (string)providerDataFromList.name;
-
                 currentProviderName = (string)providerDataFromList.name;
             }
             else
@@ -108,7 +103,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                     return;
                 }
 
-                //providerData = form.Provider(currentProviderId, "?fields=auth,custom_glossary");
                 if (form.testOneProviderData != null)
                     providerData = form.testOneProviderData;
                 else
@@ -190,7 +184,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         public void SelectedIndexChanged()
         {
             string provName = formMT.comboBoxProviders.Text;
-            // if (string.IsNullOrWhiteSpace(form.Providers_ComboBox_Text))
             if (string.IsNullOrWhiteSpace(provName))
             {
                 // No provider choosed
@@ -268,9 +261,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             if (state == null)
             {
-                //form.Providers_Group_Enabled = false;
-                //form.Providers_ComboBox_BackColor_State(false);
-
                 form.formMT.groupBoxProvider.Enabled = false;
                 Providers_ComboBox_BackColor_State(form.formMT, false);
 
@@ -284,21 +274,15 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string Draw()
         {
             string errors;
-
-            // form.Providers_Group_Enabled = true;
             formMT.groupBoxProvider.Enabled = true;
-
-            //if (string.IsNullOrEmpty(form.Providers_ComboBox_Text))
             if (string.IsNullOrEmpty(formMT.comboBoxProviders.Text))
             {
                 Providers_ComboBox_BackColor_State(formMT, true);
+                AuthState.Draw(form, null);
                 return Resource.YouNeedToChooseAProviderMessage;
             }
-
             Providers_ComboBox_BackColor_State(formMT, false);
-
             errors = AuthState.Draw(form, GetAuthState());
-
             return errors;
         }
 
@@ -319,7 +303,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
             else
             {
-
                 options.ProviderId = state.currentProviderId;
                 options.ProviderName = state.CurrentProviderName;
                 options.Format = state.format;

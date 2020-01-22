@@ -20,13 +20,17 @@ namespace Intento.MT.Plugin.PropertiesForm
     {
         public class LangPair
         {
-            public string _from;
+            string _from;
             string _to;
 
             public LangPair(string from, string to)
             {
-                this.from = from;
-                this.to = to;
+                if (from.Contains("-"))
+                    from = from.Substring(0, from.IndexOf('-'));
+                if (to.Contains("-"))
+                    to = to.Substring(0, to.IndexOf('-'));
+                _from = from;
+                _to = to;
             }
 
             public string from { get => _from; set => _from = value; }
@@ -59,7 +63,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         public IntentoFormOptionsMT formMT;
         public IntentoFormAdvanced formAdvanced;
         private int cursorCount = 0;
-        private bool settingsIsSet;
+        public bool settingsIsSet;
         public bool insideEnableDisable = false;
 
 
@@ -164,6 +168,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             _languagePairs = languagePairs;
             DialogResult = DialogResult.None;
+
         }
 
         public IntentoMTFormOptions GetOptions()
@@ -481,14 +486,14 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-        private void FillOptions(IntentoMTFormOptions options)
+        public void FillOptions(IntentoMTFormOptions options)
         {
             options.ForbidSaveApikey = currentOptions.ForbidSaveApikey;
             options.HideHiddenTextButton = currentOptions.HideHiddenTextButton;
             apiKeyState.FillOptions(options);
         }
 
-        private void RefreshFormInfo()
+        public void RefreshFormInfo()
         {
             SmartRoutingState smartRoutingState = apiKeyState?.smartRoutingState;
             buttonContinue.Enabled = false;
@@ -503,6 +508,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 textBoxModel.Text = Resource.MFNa;
                 textBoxGlossary.Text = Resource.MFNa;
                 buttonContinue.Enabled = true;
+                if (apiKeyState.IsOK)
+                    apiKey_tb.Text = apiKeyState.apiKey;
             }
             else
             {

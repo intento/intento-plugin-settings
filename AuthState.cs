@@ -442,7 +442,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 formMT.groupBoxBillingAccount.Enabled = false;
                 formMT.textBoxCredentials.Visible = false;
                 //formMT.buttonWizard.Visible = false;
-                formMT.comboBoxCredentialId.Visible = true;
+                formMT.comboBoxCredentialId.Visible = false;
                 Internal_Change_checkBoxUseOwnCred_Checked(formMT, false);
                 formMT.comboBoxCredentialId.Items.Clear();
                 formMT.textBoxCredentials.Text = "";

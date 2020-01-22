@@ -78,11 +78,11 @@ namespace Intento.MT.Plugin.PropertiesForm
         //    toolTipHelp.SetToolTip((Control)sender, "Name should start with Capital letter");
         //}
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        public void buttonSave_Click(object sender, EventArgs e)
         {
             string msg = null;
             SmartRoutingState smartRoutingState = parent.apiKeyState?.smartRoutingState;
-            if (smartRoutingState == null || !smartRoutingState.SmartRouting)
+            if ((smartRoutingState == null || !smartRoutingState.SmartRouting) && sender != null)
             {
                 var res = TestTranslationIsSuccessful(ref msg);
                 if (msg != null)

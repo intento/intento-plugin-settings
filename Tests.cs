@@ -6,6 +6,7 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Intento.MT.Plugin.PropertiesForm.WinForms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft;
 using Newtonsoft.Json.Linq;
@@ -34,6 +35,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         IntentoTranslationProviderOptionsForm.LangPair[] langPair = new IntentoTranslationProviderOptionsForm.LangPair[1]
                         { new IntentoTranslationProviderOptionsForm.LangPair("en", "ru") };
 
+        #region initional paremeters
         dynamic testProviderData = JObject.Parse(
             "{'billing': 'true', 'description': 'Translation test prov'," +
             "'production': 'false', 'integrated': 'true', 'billable': 'true', 'own_auth': 'true', 'stock_model': 'true'," +
@@ -75,14 +77,14 @@ namespace Intento.MT.Plugin.PropertiesForm
                 JObject.Parse("{ 'id': 'glossaries/rws_zh_en', 'name': 'gloss_zh_en', 'from': 'zh', 'to': 'en', 'entry_count': 101, 'internal_id': '171572280795.rws_zh_en' }".Replace('\'', '"')),
                 JObject.Parse("{ 'id': 'glossaries/rws_ru_en', 'name': 'gloss_ru_en', 'from': 'ru', 'to': 'en', 'entry_count': 101, 'internal_id': '171572280795.rws_ru_en' }".Replace('\'', '"')),
             };
+        #endregion initional paremeters
 
-        IntentoFormOptionsMT InitializeForm(IntentoTranslationProviderOptionsForm form)
+        Form InitializeForm(Form form)
         {
-            var qqq = form.formMT;
-            qqq.WindowState = FormWindowState.Minimized;
-            qqq.Show();
-            qqq.Refresh();
-            return qqq;
+            form.WindowState = FormWindowState.Minimized;
+            form.Show();
+            form.Refresh();
+            return form;
 
         }
 
@@ -92,188 +94,212 @@ namespace Intento.MT.Plugin.PropertiesForm
             apiKeyState.ReadProviders();
             apiKeyState.EnableDisable();
 
-            var qqq = InitializeForm(form);
+            var qqq = (IntentoFormOptionsMT)InitializeForm(form.formMT);
 
             Assert.AreEqual(options.SmartRouting, qqq.checkBoxSmartRouting.Checked);
             if (options.SmartRouting)
             {
-                Assert.AreEqual(string.Empty, qqq.comboBoxProviders.Text);
-                Assert.IsFalse(qqq.comboBoxProviders.Enabled);
+                Assert.AreEqual(false, qqq.groupBoxProvider.Enabled);
                 Assert.AreEqual(false, qqq.groupBoxBillingAccount.Enabled);
-                Assert.AreEqual(false, qqq.checkBoxUseOwnCred.Visible);
                 Assert.AreEqual(false, qqq.textBoxCredentials.Visible);
                 Assert.AreEqual(false, qqq.comboBoxCredentialId.Visible);
                 Assert.AreEqual(false, qqq.buttonWizard.Visible);
                 Assert.AreEqual(false, qqq.groupBoxModel.Enabled);
-                Assert.AreEqual(false, qqq.checkBoxUseCustomModel.Visible);
                 Assert.AreEqual(false, qqq.textBoxModel.Visible);
                 Assert.AreEqual(false, qqq.comboBoxModels.Visible);
                 Assert.AreEqual(false, qqq.groupBoxGlossary.Enabled);
-                Assert.AreEqual(false, qqq.checkBoxUseGlossary.Visible);
                 Assert.AreEqual(false, qqq.textBoxGlossary.Visible);
                 Assert.AreEqual(false, qqq.comboBoxGlossaries.Visible);
             }
             else
             {
-                Assert.AreEqual(options.ProviderName, qqq.comboBoxProviders.Text);
+                Assert.AreEqual(string.IsNullOrWhiteSpace(options.ProviderName), string.IsNullOrWhiteSpace(qqq.comboBoxProviders.Text));
 
                 #region тест контролов ввода credential
-                if (!(bool)testProviderData.billable && !(bool)testProviderData.stock_model)
+                if (string.IsNullOrWhiteSpace(options.ProviderName))
                 {
-                    //StateModeEnum.required
-                    Assert.AreEqual(true, qqq.groupBoxBillingAccount.Enabled);
-                    Assert.AreEqual(false, qqq.checkBoxUseOwnCred.Enabled);
-                    Assert.AreEqual(true, qqq.checkBoxUseOwnCred.Visible);
-                    Assert.AreEqual(true, qqq.checkBoxUseOwnCred.Checked);
-                }
-                else if (!(bool)testProviderData.own_auth)
-                {
-                    //StateModeEnum.prohibited
                     Assert.AreEqual(false, qqq.groupBoxBillingAccount.Enabled);
-                    Assert.AreEqual(false, qqq.checkBoxUseOwnCred.Enabled);
-                    Assert.AreEqual(false, qqq.checkBoxUseOwnCred.Visible);
                     Assert.AreEqual(false, qqq.checkBoxUseOwnCred.Checked);
+                    Assert.AreEqual(false, qqq.textBoxCredentials.Visible);
+                    Assert.AreEqual(false, qqq.comboBoxCredentialId.Visible);
+                    Assert.AreEqual(qqq.textBoxCredentials.Visible, qqq.buttonWizard.Visible);
                 }
                 else
                 {
-                    //StateModeEnum.optional
-                    Assert.AreEqual(true, qqq.groupBoxBillingAccount.Enabled);
-                    Assert.AreEqual(true, qqq.checkBoxUseOwnCred.Enabled);
-                    Assert.AreEqual(true, qqq.checkBoxUseOwnCred.Visible);
-                    Assert.AreEqual(options.UseCustomAuth, qqq.checkBoxUseOwnCred.Checked);
-                }
-                Assert.AreEqual(qqq.checkBoxUseOwnCred.Checked && !(bool)testProviderData.delegated_credentials, qqq.textBoxCredentials.Visible);
-                Assert.AreEqual(qqq.checkBoxUseOwnCred.Checked && (bool)testProviderData.delegated_credentials, qqq.comboBoxCredentialId.Visible);
-                Assert.AreEqual(qqq.textBoxCredentials.Visible, qqq.buttonWizard.Visible);
-                if (qqq.checkBoxUseOwnCred.Enabled)
-                {
-                    if ((bool)testProviderData.delegated_credentials)
+                    if (!(bool)testProviderData.billable && !(bool)testProviderData.stock_model)
                     {
-                        dynamic credential = JToken.Parse(options.CustomAuth);
-                        Assert.AreEqual((string)credential.credential_id, qqq.comboBoxCredentialId.Text);
-                        Assert.AreEqual(SystemColors.Window, qqq.comboBoxCredentialId.BackColor);
+                        //StateModeEnum.required
+                        Assert.AreEqual(true, qqq.groupBoxBillingAccount.Enabled);
+                        Assert.AreEqual(false, qqq.checkBoxUseOwnCred.Enabled);
+                        Assert.AreEqual(true, qqq.checkBoxUseOwnCred.Visible);
+                        Assert.AreEqual(true, qqq.checkBoxUseOwnCred.Checked);
+                    }
+                    else if (!(bool)testProviderData.own_auth)
+                    {
+                        //StateModeEnum.prohibited
+                        Assert.AreEqual(false, qqq.groupBoxBillingAccount.Enabled);
+                        Assert.AreEqual(false, qqq.checkBoxUseOwnCred.Enabled);
+                        Assert.AreEqual(false, qqq.checkBoxUseOwnCred.Visible);
+                        Assert.AreEqual(false, qqq.checkBoxUseOwnCred.Checked);
                     }
                     else
                     {
-                        string tbText = string.Empty;
-                        var dct = apiKeyState.smartRoutingState.providerState.GetAuthState().providerDataAuthDict;
-                        foreach (string item in apiKeyState.smartRoutingState.providerState.providerAuthList)
+                        //StateModeEnum.optional
+                        Assert.AreEqual(true, qqq.groupBoxBillingAccount.Enabled);
+                        Assert.AreEqual(true, qqq.checkBoxUseOwnCred.Enabled);
+                        Assert.AreEqual(true, qqq.checkBoxUseOwnCred.Visible);
+                        Assert.AreEqual(options.UseCustomAuth, qqq.checkBoxUseOwnCred.Checked);
+                    }
+                    Assert.AreEqual(qqq.checkBoxUseOwnCred.Checked && !(bool)testProviderData.delegated_credentials, qqq.textBoxCredentials.Visible);
+                    Assert.AreEqual(qqq.checkBoxUseOwnCred.Checked && (bool)testProviderData.delegated_credentials, qqq.comboBoxCredentialId.Visible);
+                    Assert.AreEqual(qqq.textBoxCredentials.Visible, qqq.buttonWizard.Visible);
+                    if (qqq.checkBoxUseOwnCred.Enabled)
+                    {
+                        if ((bool)testProviderData.delegated_credentials)
                         {
-                            // словарь контроллера содержит ключ полученный от провайдера
-                            Assert.IsTrue(dct.ContainsKey(item));
-
+                            dynamic credential = JToken.Parse(options.CustomAuth);
+                            Assert.AreEqual((string)credential.credential_id, qqq.comboBoxCredentialId.Text);
+                            Assert.AreEqual(SystemColors.Window, qqq.comboBoxCredentialId.BackColor);
                         }
-                        var arr = dct.Select(z => String.Format("{0}:{1}", z.Key, z.Value)).ToArray();
-                        tbText = string.Join(", ", arr);
-                        Assert.AreEqual((tbText).Trim(), qqq.textBoxCredentials.Text);
-                        Assert.IsTrue(qqq.textBoxCredentials.Enabled);
-                        Assert.AreEqual(SystemColors.Window, qqq.textBoxCredentials.BackColor);
+                        else
+                        {
+                            string tbText = string.Empty;
+                            var dct = apiKeyState.smartRoutingState.providerState.GetAuthState().providerDataAuthDict;
+                            foreach (string item in apiKeyState.smartRoutingState.providerState.providerAuthList)
+                            {
+                                // словарь контроллера содержит ключ полученный от провайдера
+                                Assert.IsTrue(dct.ContainsKey(item));
+
+                            }
+                            var arr = dct.Select(z => String.Format("{0}:{1}", z.Key, z.Value)).ToArray();
+                            tbText = string.Join(", ", arr);
+                            Assert.AreEqual((tbText).Trim(), qqq.textBoxCredentials.Text);
+                            Assert.IsTrue(qqq.textBoxCredentials.Enabled);
+                            Assert.AreEqual(SystemColors.Window, qqq.textBoxCredentials.BackColor);
+                        }
                     }
                 }
                 #endregion тест контролов ввода credential
 
                 #region тест контролов ввода models
-                Assert.AreEqual((bool)testProviderData.custom_model, qqq.groupBoxModel.Enabled);
-                if (!(bool)testProviderData.stock_model && (bool)testProviderData.custom_model)
+                if (string.IsNullOrWhiteSpace(options.ProviderName))
                 {
-                    // StateModeEnum.required;
-                    Assert.AreEqual(true, qqq.groupBoxModel.Enabled);
-                    Assert.AreEqual(true, qqq.checkBoxUseCustomModel.Visible);
-                    Assert.AreEqual(false, qqq.checkBoxUseCustomModel.Enabled);
-                    Assert.AreEqual(true, qqq.checkBoxUseCustomModel.Checked);
-                }
-                else if (!(bool)testProviderData.custom_model)
-                {
-                    // StateModeEnum.prohibited;
                     Assert.AreEqual(false, qqq.groupBoxModel.Enabled);
-                    Assert.AreEqual(false, qqq.checkBoxUseCustomModel.Visible);
+                    Assert.AreEqual(false, qqq.checkBoxUseCustomModel.Enabled);
+                    Assert.AreEqual(false, qqq.checkBoxUseCustomModel.Checked);
                     Assert.AreEqual(false, qqq.textBoxModel.Visible);
                     Assert.AreEqual(false, qqq.comboBoxModels.Visible);
-                    Assert.AreEqual(false, qqq.checkBoxUseCustomModel.Checked);
                 }
                 else
                 {
-                    // StateModeEnum.optional;
-                    Assert.AreEqual(true, qqq.groupBoxModel.Enabled);
-                    Assert.AreEqual(true, qqq.checkBoxUseCustomModel.Visible);
-                    Assert.AreEqual(true, qqq.checkBoxUseCustomModel.Enabled);
-                }
-                if (options.UseCustomModel)
-                {
-                    Assert.AreEqual(true, qqq.checkBoxUseCustomModel.Checked);
-                    Assert.AreEqual(form.testModelData == null || !form.testModelData.Any(), qqq.textBoxModel.Visible);
-                    Assert.AreEqual(!qqq.textBoxModel.Visible, qqq.comboBoxModels.Visible);
-                    if (qqq.comboBoxModels.Visible)
+                    Assert.AreEqual((bool)testProviderData.custom_model, qqq.groupBoxModel.Enabled);
+                    if (!(bool)testProviderData.stock_model && (bool)testProviderData.custom_model)
                     {
-                        string modelName = string.Empty;
-                        foreach (dynamic item in form.testModelData)
-                        {
-                            if ((string)item.id == options.CustomModel)
-                            {
-                                modelName = (string)item.name;
-                                break;
-                            }
-                        }
-                        Assert.AreEqual(modelName, qqq.comboBoxModels.Text);
-                        Assert.AreEqual(SystemColors.Window, qqq.comboBoxModels.BackColor);
+                        // StateModeEnum.required;
+                        Assert.AreEqual(true, qqq.groupBoxModel.Enabled);
+                        Assert.AreEqual(true, qqq.checkBoxUseCustomModel.Visible);
+                        Assert.AreEqual(false, qqq.checkBoxUseCustomModel.Enabled);
+                        Assert.AreEqual(true, qqq.checkBoxUseCustomModel.Checked);
+                    }
+                    else if (!(bool)testProviderData.custom_model)
+                    {
+                        // StateModeEnum.prohibited;
+                        Assert.AreEqual(false, qqq.groupBoxModel.Enabled);
+                        Assert.AreEqual(false, qqq.checkBoxUseCustomModel.Visible);
+                        Assert.AreEqual(false, qqq.textBoxModel.Visible);
+                        Assert.AreEqual(false, qqq.comboBoxModels.Visible);
+                        Assert.AreEqual(false, qqq.checkBoxUseCustomModel.Checked);
                     }
                     else
                     {
-                        Assert.AreEqual(options.CustomModel, qqq.textBoxModel.Text);
-                        Assert.AreEqual(SystemColors.Window, qqq.textBoxModel.BackColor);
+                        // StateModeEnum.optional;
+                        Assert.AreEqual(true, qqq.groupBoxModel.Enabled);
+                        Assert.AreEqual(true, qqq.checkBoxUseCustomModel.Visible);
+                        Assert.AreEqual(true, qqq.checkBoxUseCustomModel.Enabled);
                     }
+                    if (options.UseCustomModel)
+                    {
+                        Assert.AreEqual(true, qqq.checkBoxUseCustomModel.Checked);
+                        Assert.AreEqual(form.testModelData == null || !form.testModelData.Any(), qqq.textBoxModel.Visible);
+                        Assert.AreEqual(!qqq.textBoxModel.Visible, qqq.comboBoxModels.Visible);
+                        if (qqq.comboBoxModels.Visible)
+                        {
+                            string modelName = string.Empty;
+                            foreach (dynamic item in form.testModelData)
+                            {
+                                if ((string)item.id == options.CustomModel)
+                                {
+                                    modelName = (string)item.name;
+                                    break;
+                                }
+                            }
+                            Assert.AreEqual(modelName, qqq.comboBoxModels.Text);
+                            Assert.AreEqual(SystemColors.Window, qqq.comboBoxModels.BackColor);
+                        }
+                        else
+                        {
+                            Assert.AreEqual(options.CustomModel, qqq.textBoxModel.Text);
+                            Assert.AreEqual(SystemColors.Window, qqq.textBoxModel.BackColor);
+                        }
 
-                }
-                else
-                {
-                    Assert.AreEqual(false, qqq.checkBoxUseCustomModel.Checked);
-                    Assert.AreEqual(false, qqq.textBoxModel.Visible);
-                    Assert.AreEqual(false, qqq.comboBoxModels.Visible);
+                    }
+                    else
+                    {
+                        Assert.AreEqual(false, qqq.checkBoxUseCustomModel.Checked);
+                        Assert.AreEqual(false, qqq.textBoxModel.Visible);
+                        Assert.AreEqual(false, qqq.comboBoxModels.Visible);
+                    }
                 }
                 #endregion тест контролов ввода models
 
                 #region тест контролов ввода glossary
-                Assert.AreEqual((bool)testProviderData.custom_glossary, qqq.groupBoxModel.Enabled);
-                if (!(bool)testProviderData.custom_glossary)
+                if (string.IsNullOrWhiteSpace(options.ProviderName))
                 {
-                    // StateModeEnum.prohibited;
                     Assert.AreEqual(false, qqq.groupBoxGlossary.Enabled);
                     Assert.AreEqual(false, qqq.checkBoxUseGlossary.Visible);
                     Assert.AreEqual(false, qqq.textBoxGlossary.Visible);
                     Assert.AreEqual(false, qqq.comboBoxGlossaries.Visible);
-                    //Assert.AreEqual(false, qqq.checkBoxUseGlossary.Checked);
                 }
                 else
                 {
-                    // StateModeEnum.optional;
-                    Assert.AreEqual(true, qqq.groupBoxGlossary.Enabled);
-                    //Assert.AreEqual(true, qqq.checkBoxUseGlossary.Visible);
-                    //Assert.AreEqual(true, qqq.checkBoxUseGlossary.Enabled);
-                    Assert.AreEqual(form.testGlossaryData == null || !form.testGlossaryData.Any(), qqq.textBoxGlossary.Visible);
-                    Assert.AreEqual(!qqq.textBoxGlossary.Visible, qqq.comboBoxGlossaries.Visible);
-                    if (!string.IsNullOrWhiteSpace(options.Glossary))
+                    Assert.AreEqual((bool)testProviderData.custom_glossary, qqq.groupBoxModel.Enabled);
+                    if (!(bool)testProviderData.custom_glossary)
                     {
-                        //Assert.AreEqual(true, qqq.checkBoxUseGlossary.Checked);
-                        if (qqq.comboBoxGlossaries.Visible)
+                        // StateModeEnum.prohibited;
+                        Assert.AreEqual(false, qqq.groupBoxGlossary.Enabled);
+                        Assert.AreEqual(false, qqq.checkBoxUseGlossary.Visible);
+                        Assert.AreEqual(false, qqq.textBoxGlossary.Visible);
+                        Assert.AreEqual(false, qqq.comboBoxGlossaries.Visible);
+                    }
+                    else
+                    {
+                        // StateModeEnum.optional;
+                        Assert.AreEqual(true, qqq.groupBoxGlossary.Enabled);
+                        Assert.AreEqual(form.testGlossaryData == null || !form.testGlossaryData.Any(), qqq.textBoxGlossary.Visible);
+                        Assert.AreEqual(!qqq.textBoxGlossary.Visible, qqq.comboBoxGlossaries.Visible);
+                        if (!string.IsNullOrWhiteSpace(options.Glossary))
                         {
-                            string gName = string.Empty;
-                            foreach (dynamic item in form.testGlossaryData)
+                            if (qqq.comboBoxGlossaries.Visible)
                             {
-                                if ((string)item.id == options.Glossary)
+                                string gName = string.Empty;
+                                foreach (dynamic item in form.testGlossaryData)
                                 {
-                                    gName = (string)item.name;
-                                    break;
+                                    if ((string)item.id == options.Glossary)
+                                    {
+                                        gName = (string)item.name;
+                                        break;
+                                    }
                                 }
+                                Assert.AreEqual(gName, qqq.comboBoxGlossaries.Text);
+                                Assert.AreEqual(SystemColors.Window, qqq.comboBoxGlossaries.BackColor);
                             }
-                            Assert.AreEqual(gName, qqq.comboBoxGlossaries.Text);
-                            Assert.AreEqual(SystemColors.Window, qqq.comboBoxGlossaries.BackColor);
-                        }
-                        else
-                        {
-                            Assert.AreEqual(options.Glossary, qqq.textBoxGlossary.Text);
-                            Assert.AreEqual(SystemColors.Window, qqq.textBoxGlossary.BackColor);
-                        }
+                            else
+                            {
+                                Assert.AreEqual(options.Glossary, qqq.textBoxGlossary.Text);
+                                Assert.AreEqual(SystemColors.Window, qqq.textBoxGlossary.BackColor);
+                            }
 
+                        }
                     }
                 }
 
@@ -289,15 +315,25 @@ namespace Intento.MT.Plugin.PropertiesForm
                 else
                     Assert.AreEqual(false, qqq.groupBoxOptional.Enabled);
                 #endregion тест контролов Optional
-
-                qqq.Close();
             }
+            form.apiKeyState.EnableDisable();
+            form.FillOptions(form.currentOptions);
+            form.apiKeyState.EnableDisable();
+            form.RefreshFormInfo();
+            //form.Visible = true;
+            InitializeForm(form);
+            //form.WindowState = FormWindowState.Minimized;
+            //form.Show();
+            //form.Refresh();
         }
 
 
         [TestMethod]
         public void InitionalFillOptionsForm()
         {
+            IntentoTranslationProviderOptionsForm form;
+            //if (false)
+            //{
             #region all parametries filled, auth - not delegated, models & glossary - delegated
             options = new IntentoMTFormOptions()
             {
@@ -313,17 +349,26 @@ namespace Intento.MT.Plugin.PropertiesForm
                 Format = null,
                 ForbidSaveApikey = true,
             };
-            IntentoTranslationProviderOptionsForm form = 
-                new IntentoTranslationProviderOptionsForm(options, langPair, Fabric, true);
+            using (form = new IntentoTranslationProviderOptionsForm(options, langPair, Fabric, true))
+            {
+                form.testListProvidersData = testProvidersData;
+                form.testOneProviderData = testProviderData;
+                form.testAuthData = testAuthData;
+                form.testModelData = testModelData;
+                form.testGlossaryData = testGlossaryData;
 
-            form.testListProvidersData = testProvidersData;
-            form.testOneProviderData = testProviderData;
-            form.testAuthData = testAuthData;
-            form.testModelData = testModelData;
-            form.testGlossaryData = testGlossaryData;
-
-            // all parametries filled, auth - not delegated, models & glossary - delegated
-            CheckControlsByOptions(form);
+                // all parametries filled, auth - not delegated, models & glossary - delegated
+                CheckControlsByOptions(form);
+                Assert.AreEqual(false, form.groupBoxMTConnect.Visible);
+                Assert.AreEqual(true, form.groupBoxMTConnect2.Visible);
+                Assert.AreEqual(options.ApiKey, form.apiKey_tb.Text);
+                Assert.AreEqual(options.ProviderName, form.textBoxProviderName.Text);
+                Assert.AreEqual(false, string.IsNullOrWhiteSpace(form.textBoxAccount.Text));
+                Assert.AreEqual(false, string.IsNullOrWhiteSpace(form.textBoxModel.Text));
+                Assert.AreEqual(false, string.IsNullOrWhiteSpace(form.textBoxGlossary.Text));
+                Assert.AreEqual(true, form.buttonContinue.Enabled);
+                form.formMT.Close();
+            }
             #endregion all parametries filled, auth - not delegated, models & glossary - delegated
 
             #region all parametries filled, auth - delegated, models & glossary - not delegated
@@ -341,14 +386,25 @@ namespace Intento.MT.Plugin.PropertiesForm
                 Format = null,
                 ForbidSaveApikey = true,
             };
-            form = new IntentoTranslationProviderOptionsForm(options, langPair, Fabric, true);
-            testProviderData.delegated_credentials = true;
-            form.testListProvidersData = testProvidersData;
-            form.testOneProviderData = testProviderData;
-            form.testAuthData = testAuthData;
-            form.testModelData = null;
-            form.testGlossaryData = null;
-            CheckControlsByOptions(form);
+            using (form = new IntentoTranslationProviderOptionsForm(options, langPair, Fabric, true))
+            {
+                testProviderData.delegated_credentials = true;
+                form.testListProvidersData = testProvidersData;
+                form.testOneProviderData = testProviderData;
+                form.testAuthData = testAuthData;
+                form.testModelData = null;
+                form.testGlossaryData = null;
+                CheckControlsByOptions(form);
+                Assert.AreEqual(false, form.groupBoxMTConnect.Visible);
+                Assert.AreEqual(true, form.groupBoxMTConnect2.Visible);
+                Assert.AreEqual(options.ApiKey, form.apiKey_tb.Text);
+                Assert.AreEqual(options.ProviderName, form.textBoxProviderName.Text);
+                Assert.AreEqual(false, string.IsNullOrWhiteSpace(form.textBoxAccount.Text));
+                Assert.AreEqual(false, string.IsNullOrWhiteSpace(form.textBoxModel.Text));
+                Assert.AreEqual(false, string.IsNullOrWhiteSpace(form.textBoxGlossary.Text));
+                Assert.AreEqual(true, form.buttonContinue.Enabled);
+                form.formMT.Close();
+            }
             #endregion all parametries filled, auth - delegated, models & glossary - not delegated
 
             #region only provider filled
@@ -366,16 +422,97 @@ namespace Intento.MT.Plugin.PropertiesForm
                 Format = null,
                 ForbidSaveApikey = true,
             };
-//            options.CustomAuth = "{'credential_id':'xxx', 'temporary_credentials':'1', 'temporary_credentials_created_at':'2'}".Replace('\'', '"');
-            form = new IntentoTranslationProviderOptionsForm(options, langPair, Fabric, true);
-            testProviderData.delegated_credentials = false;
-            //testProviderData.stock_model = false;
-            form.testListProvidersData = testProvidersData;
-            form.testOneProviderData = testProviderData;
-            form.testAuthData = testAuthData;
-            form.testModelData = null;
-            form.testGlossaryData = null;
-            CheckControlsByOptions(form);
+            using (form = new IntentoTranslationProviderOptionsForm(options, langPair, Fabric, true))
+            {
+                testProviderData.delegated_credentials = false;
+                //testProviderData.stock_model = false;
+                form.testListProvidersData = testProvidersData;
+                form.testOneProviderData = testProviderData;
+                form.testAuthData = null;
+                form.testModelData = null;
+                form.testGlossaryData = null;
+                CheckControlsByOptions(form);
+                Assert.AreEqual(false, form.groupBoxMTConnect.Visible);
+                Assert.AreEqual(true, form.groupBoxMTConnect2.Visible);
+                Assert.AreEqual(options.ApiKey, form.apiKey_tb.Text);
+                Assert.AreEqual(options.ProviderName, form.textBoxProviderName.Text);
+                Assert.AreEqual(Resource.Empty, form.textBoxAccount.Text);
+                Assert.AreEqual(Resource.Empty, form.textBoxModel.Text);
+                Assert.AreEqual(Resource.Empty, form.textBoxGlossary.Text);
+                Assert.AreEqual(true, form.buttonContinue.Enabled);
+                form.formMT.Close();
+            }
+            #endregion only provider filled
+
+            #region only API key filled, smartRouting - false
+            options = new IntentoMTFormOptions()
+            {
+                ApiKey = "def",
+                SmartRouting = false,
+                ProviderId = null,
+                ProviderName = null,
+                UseCustomAuth = false,
+                CustomAuth = "{'credential_id': 'test1'}".Replace('\'', '"'),
+                UseCustomModel = false,
+                CustomModel = "model2",
+                Glossary = null,
+                Format = null,
+                ForbidSaveApikey = true,
+            };
+            using (form = new IntentoTranslationProviderOptionsForm(options, langPair, Fabric, true))
+            {
+                form.testListProvidersData = testProvidersData;
+                form.testOneProviderData = null;
+                form.testAuthData = null;
+                form.testModelData = null;
+                form.testGlossaryData = null;
+                CheckControlsByOptions(form);
+                Assert.AreEqual(false, form.groupBoxMTConnect.Visible);
+                Assert.AreEqual(true, form.groupBoxMTConnect2.Visible);
+                Assert.AreEqual(options.ApiKey, form.apiKey_tb.Text);
+                Assert.AreEqual(Resource.NeedAChoise, form.textBoxProviderName.Text);
+                Assert.AreEqual(Resource.MFNa, form.textBoxAccount.Text);
+                Assert.AreEqual(Resource.MFNa, form.textBoxModel.Text);
+                Assert.AreEqual(Resource.MFNa, form.textBoxGlossary.Text);
+                Assert.AreEqual(false, form.buttonContinue.Enabled);
+                form.formMT.Close();
+            }
+            #endregion only provider filled
+            //}
+
+            #region only API key filled, smartRouting - true
+            options = new IntentoMTFormOptions()
+            {
+                ApiKey = "def",
+                SmartRouting = true,
+                ProviderId = null,
+                ProviderName = null,
+                UseCustomAuth = false,
+                CustomAuth = "{'credential_id': 'test1'}".Replace('\'', '"'),
+                UseCustomModel = false,
+                CustomModel = "model2",
+                Glossary = null,
+                Format = null,
+                ForbidSaveApikey = true,
+            };
+            using (form = new IntentoTranslationProviderOptionsForm(options, langPair, Fabric, true))
+            {
+                form.testListProvidersData = testProvidersData;
+                form.testOneProviderData = null;
+                form.testAuthData = null;
+                form.testModelData = null;
+                form.testGlossaryData = null;
+                CheckControlsByOptions(form);
+                Assert.AreEqual(false, form.groupBoxMTConnect.Visible);
+                Assert.AreEqual(true, form.groupBoxMTConnect2.Visible);
+                Assert.AreEqual(options.ApiKey, form.apiKey_tb.Text);
+                Assert.AreEqual(Resource.MFSmartRoutingText, form.textBoxProviderName.Text);
+                Assert.AreEqual(Resource.MFNa, form.textBoxAccount.Text);
+                Assert.AreEqual(Resource.MFNa, form.textBoxModel.Text);
+                Assert.AreEqual(Resource.MFNa, form.textBoxGlossary.Text);
+                Assert.AreEqual(true, form.buttonContinue.Enabled);
+            }
+
             #endregion only provider filled
 
         }
@@ -398,7 +535,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 Format = null,
                 ForbidSaveApikey = true,
             };
-            IntentoTranslationProviderOptionsForm form = 
+            IntentoTranslationProviderOptionsForm form =
                 new IntentoTranslationProviderOptionsForm(options, langPair, Fabric, true);
 
             form.testListProvidersData = testProvidersData;
@@ -411,7 +548,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             apiKeyState.ReadProviders();
             apiKeyState.EnableDisable();
 
-            var qqq = InitializeForm(form);
+            var qqq = (IntentoFormOptionsMT)InitializeForm(form.formMT);
             #endregion all parametries filled, auth - not delegated, models & glossary - delegated
 
             qqq.comboBoxProviders.SelectedIndex = 1;
@@ -470,7 +607,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             apiKeyState.ReadProviders();
             apiKeyState.EnableDisable();
 
-            var qqq = InitializeForm(form);
+            var qqq = (IntentoFormOptionsMT)InitializeForm(form.formMT);
 
             qqq.comboBoxCredentialId.SelectedIndex = 0;
             qqq.Refresh();
