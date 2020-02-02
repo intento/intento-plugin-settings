@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 12.0.21005.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntentoSDK", "intento-csharp\IntentoSDK.csproj", "{14D9DA22-F8D4-4F62-975A-7BD821807528}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intento.MT.Plugin.PropertiesFormMemoQ", "Intento.MT.Plugin.PropertiesFormMemoQ.csproj", "{A4374128-DD01-4CE3-B62C-4CC3460620C0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{14D9DA22-F8D4-4F62-975A-7BD821807528} = {14D9DA22-F8D4-4F62-975A-7BD821807528}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntentoMTPlugin", "IntentoMTPlugin.csproj", "{FE6C971C-96B6-46A4-9F9B-CA111E935627}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient", "intento-plugin-memoq\TestClient\TestClient.csproj", "{77FC0E92-A49B-4650-BE0E-5779B29A3244}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		memoQ|Any CPU = memoQ|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14D9DA22-F8D4-4F62-975A-7BD821807528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14D9DA22-F8D4-4F62-975A-7BD821807528}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14D9DA22-F8D4-4F62-975A-7BD821807528}.memoQ|Any CPU.ActiveCfg = Release|Any CPU
+		{14D9DA22-F8D4-4F62-975A-7BD821807528}.memoQ|Any CPU.Build.0 = Release|Any CPU
+		{14D9DA22-F8D4-4F62-975A-7BD821807528}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14D9DA22-F8D4-4F62-975A-7BD821807528}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.memoQ|Any CPU.ActiveCfg = memoQ|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.memoQ|Any CPU.Build.0 = memoQ|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE6C971C-96B6-46A4-9F9B-CA111E935627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE6C971C-96B6-46A4-9F9B-CA111E935627}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE6C971C-96B6-46A4-9F9B-CA111E935627}.memoQ|Any CPU.ActiveCfg = memoQ|Any CPU
+		{FE6C971C-96B6-46A4-9F9B-CA111E935627}.memoQ|Any CPU.Build.0 = memoQ|Any CPU
+		{FE6C971C-96B6-46A4-9F9B-CA111E935627}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE6C971C-96B6-46A4-9F9B-CA111E935627}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77FC0E92-A49B-4650-BE0E-5779B29A3244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77FC0E92-A49B-4650-BE0E-5779B29A3244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77FC0E92-A49B-4650-BE0E-5779B29A3244}.memoQ|Any CPU.ActiveCfg = memoQ|Any CPU
+		{77FC0E92-A49B-4650-BE0E-5779B29A3244}.memoQ|Any CPU.Build.0 = memoQ|Any CPU
+		{77FC0E92-A49B-4650-BE0E-5779B29A3244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77FC0E92-A49B-4650-BE0E-5779B29A3244}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59B308F2-F15A-4296-A12D-191DAE6E91BF}
+	EndGlobalSection
+EndGlobal

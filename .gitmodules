@@ -1,0 +1,11 @@
+[submodule "intento-csharp"]
+	path = intento-csharp
+	url = https://github.com/intento/intento-csharp
+	branch = 1.3.0-9-g027fb95
+[submodule "intento-plugin-settings"]
+	path = intento-plugin-settings
+	url = https://github.com/intento/intento-plugin-settings
+	branch = 1.5.1-37-g2cefe01
+[submodule "intento-plugin-memoq"]
+	path = intento-plugin-memoq
+	url = https://github.com/intento/intento-plugin-memoq.git
