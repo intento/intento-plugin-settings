@@ -7,5 +7,10 @@
 	url = https://github.com/intento/intento-plugin-settings
 	branch = 1.5.1-37-g2cefe01
 [submodule "intento-plugin-memoq"]
+	
 	path = intento-plugin-memoq
+	
 	url = https://github.com/intento/intento-plugin-memoq.git
+
+	branch = master	
+	

@@ -5,12 +5,16 @@ VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 12.0.21005.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntentoSDK", "intento-csharp\IntentoSDK.csproj", "{14D9DA22-F8D4-4F62-975A-7BD821807528}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intento.MT.Plugin.PropertiesFormMemoQ", "Intento.MT.Plugin.PropertiesFormMemoQ.csproj", "{A4374128-DD01-4CE3-B62C-4CC3460620C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intento.MT.Plugin.PropertiesForm", "intento-plugin-settings\Intento.MT.Plugin.PropertiesForm.csproj", "{A4374128-DD01-4CE3-B62C-4CC3460620C0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{14D9DA22-F8D4-4F62-975A-7BD821807528} = {14D9DA22-F8D4-4F62-975A-7BD821807528}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntentoMTPlugin", "IntentoMTPlugin.csproj", "{FE6C971C-96B6-46A4-9F9B-CA111E935627}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntentoMTPlugin", "intento-plugin-memoq\IntentoMTPlugin\IntentoMTPlugin.csproj", "{FE6C971C-96B6-46A4-9F9B-CA111E935627}"
+	ProjectSection(ProjectDependencies) = postProject
+		{14D9DA22-F8D4-4F62-975A-7BD821807528} = {14D9DA22-F8D4-4F62-975A-7BD821807528}
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0} = {A4374128-DD01-4CE3-B62C-4CC3460620C0}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient", "intento-plugin-memoq\TestClient\TestClient.csproj", "{77FC0E92-A49B-4650-BE0E-5779B29A3244}"
 EndProject
@@ -29,8 +33,8 @@ Global
 		{14D9DA22-F8D4-4F62-975A-7BD821807528}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.memoQ|Any CPU.ActiveCfg = memoQ|Any CPU
-		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.memoQ|Any CPU.Build.0 = memoQ|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.memoQ|Any CPU.ActiveCfg = Release|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.memoQ|Any CPU.Build.0 = Release|Any CPU
 		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE6C971C-96B6-46A4-9F9B-CA111E935627}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
