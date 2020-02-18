@@ -66,5 +66,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Version for memoQ 9.3
         // 2.1.0: 2020-02-09
         // - Version for plugins ver 2.1.0
+        // - Splash form
+        // 2.1.1: 2020-02-18
+        // - Try-catch around splash form
     }
 }
