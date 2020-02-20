@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IntentoFormSplash));
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBoxSplash = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSplash)).BeginInit();
@@ -45,6 +46,7 @@
             // 
             // pictureBoxSplash
             // 
+            this.pictureBoxSplash.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxSplash.Image")));
             this.pictureBoxSplash.Location = new System.Drawing.Point(31, 13);
             this.pictureBoxSplash.Name = "pictureBoxSplash";
             this.pictureBoxSplash.Size = new System.Drawing.Size(50, 50);

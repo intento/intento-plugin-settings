@@ -15,12 +15,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         public IntentoFormSplash()
         {
             InitializeComponent();
-            try
-            {
-                pictureBoxSplash.Image = Resource.intento.ToBitmap();
-            }
-            catch { }
-
         }
     }
 }
