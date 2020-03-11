@@ -71,5 +71,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Try-catch around splash form
         // 2.1.2: 2020-02-20
         // - Built-in icon on the splash form
+        // 2.1.3: 2020-02-20
+        // - Public version
     }
 }
