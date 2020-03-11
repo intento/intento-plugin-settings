@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="APIFcheckBoxShowHidden" xml:space="preserve">
+    <value>Unmask</value>
+  </data>
+  <data name="APIFlabelAPI" xml:space="preserve">
+    <value>Intento API Key:</value>
+  </data>
+  <data name="BillingAccount" xml:space="preserve">
+    <value>Billing Account</value>
+  </data>
+  <data name="EnterIntentoAPIKey" xml:space="preserve">
+    <value>Enter your Intento API key</value>
+  </data>
+  <data name="Glossary" xml:space="preserve">
+    <value>Glossary</value>
+  </data>
+  <data name="MFbuttonClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="MFbuttonMTSetting" xml:space="preserve">
+    <value>Change MT Settings</value>
+  </data>
+  <data name="MFcaption" xml:space="preserve">
+    <value>Intento plugin settings</value>
+  </data>
+  <data name="MFgroupBoxMTSettings" xml:space="preserve">
+    <value>Machine Translation Settings</value>
+  </data>
+  <data name="MFlabelRegister1" xml:space="preserve">
+    <value>or register at</value>
+  </data>
+  <data name="MFlabelRegister2" xml:space="preserve">
+    <value>to get one.</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="MTcaption" xml:space="preserve">
+    <value>Configure Machine Translation</value>
+  </data>
+  <data name="MTcheckBoxUseCustomModel" xml:space="preserve">
+    <value>Use custom MT model</value>
+  </data>
+  <data name="MTcheckBoxUseGlossary" xml:space="preserve">
+    <value>Use custom glossary</value>
+  </data>
+  <data name="MTcheckBoxUseOwnCred" xml:space="preserve">
+    <value>Use your own MT Provider account</value>
+  </data>
+  <data name="MTgroupBoxOptional" xml:space="preserve">
+    <value>OPTIONAL</value>
+  </data>
+  <data name="MTlabelHelpBillingAccount" xml:space="preserve">
+    <value>Most of the MT Providers are available via Intento contracts, but you may also use your own account at MT Provider by providing your credentials below.</value>
+  </data>
+  <data name="MTlabelHelpGlossary" xml:space="preserve">
+    <value>Some of MT Providers enable using your custom terminology or glossary. If you habe one, please specify it below.</value>
+  </data>
+  <data name="MTlabelHelpModel" xml:space="preserve">
+    <value>By default, the pre-trained general-purpose MT model is used. If it's not available or you want to use your custom-trained model, please specify it below.</value>
+  </data>
+  <data name="MTlabelHelpOptional" xml:space="preserve">
+    <value>We will send one-character translation request to test this configuration.
+If you have selected custom model or glossary, please adjust the language pair:</value>
+  </data>
+  <data name="MTtextBoxLabelURL" xml:space="preserve">
+    <value>the Intento Benchmarks.</value>
+  </data>
+  <data name="Provider" xml:space="preserve">
+    <value>Provider</value>
+  </data>
+  <data name="TestAndSave" xml:space="preserve">
+    <value>Test and save</value>
+  </data>
+  <data name="FAcaption" xml:space="preserve">
+    <value>Advanced settings</value>
+  </data>
+  <data name="FAcheckBoxAuth" xml:space="preserve">
+    <value>Authorization required</value>
+  </data>
+  <data name="FAcheckBoxProxy" xml:space="preserve">
+    <value>Enable proxy server (Attention! Proxy settings apply to all sets of settings)</value>
+  </data>
+  <data name="FAcheckBoxTrace" xml:space="preserve">
+    <value>Log translation text for 30 minutes</value>
+  </data>
+  <data name="FAgroupBoxProxySettings" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FAlabelAddress" xml:space="preserve">
+    <value>IP address or host name: http(s)://</value>
+  </data>
+  <data name="FAlabelPassword" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="FAlabelPort" xml:space="preserve">
+    <value>Port:</value>
+  </data>
+  <data name="FAlabelUserName" xml:space="preserve">
+    <value>User name:</value>
+  </data>
+  <data name="MFbuttonAdvanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="MFbuttonCheck" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>empty</value>
+  </data>
+  <data name="MFNa" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="MFSmartRoutingText" xml:space="preserve">
+    <value>Smart Routing (default)</value>
+  </data>
+  <data name="MTcheckBoxSmartRouting" xml:space="preserve">
+    <value>Select MT Provider automatically based on</value>
+  </data>
+  <data name="NeedAChoise" xml:space="preserve">
+    <value>need a choice...</value>
+  </data>
+  <data name="ProxyConnectionError" xml:space="preserve">
+    <value>Proxy connection error</value>
+  </data>
+  <data name="CustomModelRequiredMessage" xml:space="preserve">
+    <value>You must specify a custom model or uncheck "Use your custom model"</value>
+  </data>
+  <data name="ModelRequiredMessage" xml:space="preserve">
+    <value>You must specify a model for this provider</value>
+  </data>
+  <data name="ApiKeyNeededErrorMessage" xml:space="preserve">
+    <value>Enter your API key and press "Check" button.</value>
+  </data>
+  <data name="ApiKeyVerificationInProgressMessage" xml:space="preserve">
+    <value>API key verification in progress ....</value>
+  </data>
+  <data name="AuthWizardFormCaption" xml:space="preserve">
+    <value>Enter credentials</value>
+  </data>
+  <data name="CustomCredentials" xml:space="preserve">
+    <value>Custom credentials (required)</value>
+  </data>
+  <data name="CustomModelRequiredMessa" xml:space="preserve">
+    <value>You must specify a custom model or uncheck "Use your custom model"</value>
+  </data>
+  <data name="InvalidApiKeyMessage" xml:space="preserve">
+    <value>Invalid API key</value>
+  </data>
+  <data name="OKLabel" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OwnCredentialsNeededErrorMessage" xml:space="preserve">
+    <value>You must provide your own credentials for this provider.</value>
+  </data>
+  <data name="ShowHiddenTextLabel" xml:space="preserve">
+    <value>Show hidden text</value>
+  </data>
+  <data name="YouNeedToChooseAProviderMessage" xml:space="preserve">
+    <value>You need to choose a provider</value>
+  </data>
+  <data name="ButtonContinueEdit" xml:space="preserve">
+    <value>Continue edit</value>
+  </data>
+  <data name="ButtonIgnoreAndSave_Ignore" xml:space="preserve">
+    <value>Ignore error and save</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error:</value>
+  </data>
+  <data name="ErrorTestTranslation" xml:space="preserve">
+    <value>The answer returned an error</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="intento" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\intento.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MFlabelApiKeyIsChanged" xml:space="preserve">
+    <value>You changed ApiKey. We recommend to test MT Settings.</value>
+  </data>
+  <data name="ButtonIgnoreAndSave_Ok" xml:space="preserve">
+    <value>It’s OK, save settings</value>
+  </data>
+  <data name="TestTranslationWarning" xml:space="preserve">
+    <value>We tried to translate "{0}", but received an unexpected answer "{1}"</value>
+  </data>
+</root>
