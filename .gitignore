@@ -35,8 +35,8 @@ Intento.MT/sdlplugin.*/
 *.7z
 !References/8/*
 !References/9/*
-!ILMerge.exe
-!kgsign.exe
+!ILMerge/*
+!kgsign/*
 
 #Ignore file with github hash
 GitHash.cs
