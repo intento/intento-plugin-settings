@@ -106,6 +106,7 @@ namespace IntentoMemoQMTPlugin
         // - Correct processing of translate errors
         // 2.1.2: 2020-03-06
         // - Error handling in multi-segment translation
-
+        // 2.1.3: 2020-02-20
+        // - Public version
     }
 }
