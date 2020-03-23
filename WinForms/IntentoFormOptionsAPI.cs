@@ -17,6 +17,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         IntentoMTFormOptions _options;
 
         public IntentoMTFormOptions currentOptions;
+        public string errorInfo;
 
         public IntentoFormOptionsAPI(IntentoTranslationProviderOptionsForm form)
         {
@@ -41,25 +42,32 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             parent.apiKeyState.ReadProviders();
             string err = parent.apiKeyState.Error();
+            IEnumerable <string> errDetail = parent.apiKeyState.ErrorDetail();
+            var nl = Environment.NewLine;
             if (!string.IsNullOrWhiteSpace(err))
             {
                 labelError.Text = string.Format("ERROR: {0}", err);
                 labelError.Visible = true;
+                if (errDetail != null)
+                {
+                    errorInfo = (
+                        string.Format("{0}{1}---------------------------{1}{2}", 
+                        DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"), 
+                        nl, 
+                        string.Join(nl, errDetail.ToArray()) 
+                        ));
+
+                    toolTip1.SetToolTip(labelError, Resource.APIToolTipMessage);
+                }
             }
             else
                 this.DialogResult = DialogResult.OK;
-                //Close();
         }
 
         private void checkBoxShowHidden_CheckedChanged(object sender, EventArgs e)
         {
             apiKey_tb.UseSystemPasswordChar = !checkBoxShowHidden.Checked;
         }
-
-        //private void apiKey_tb_TextChanged(object sender, EventArgs e)
-        //{
-        //    buttonSave.Enabled = !string.IsNullOrWhiteSpace(apiKey_tb.Text);
-        //}
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
@@ -72,9 +80,13 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             _options = currentOptions;
             labelError.Visible = false;
-//            ((IForm)parent).ApiKey_TextBox_BackColor = SystemColors.Window;
             buttonSave.Enabled = !string.IsNullOrWhiteSpace(apiKey_tb.Text);
             checkBoxShowHidden.Checked = false;
+        }
+
+        private void labelError_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(errorInfo);
         }
     }
 }

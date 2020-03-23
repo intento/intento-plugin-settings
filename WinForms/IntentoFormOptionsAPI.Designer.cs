@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelAPI = new System.Windows.Forms.Label();
             this.apiKey_tb = new System.Windows.Forms.TextBox();
             this.checkBoxShowHidden = new System.Windows.Forms.CheckBox();
             this.labelError = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // labelAPI
@@ -70,13 +72,16 @@
             // labelError
             // 
             this.labelError.AutoSize = true;
+            this.labelError.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelError.ForeColor = System.Drawing.Color.Red;
             this.labelError.Location = new System.Drawing.Point(12, 78);
             this.labelError.Name = "labelError";
             this.labelError.Size = new System.Drawing.Size(44, 13);
             this.labelError.TabIndex = 23;
             this.labelError.Text = "EMPTY";
+            this.toolTip1.SetToolTip(this.labelError, "1Click to copy error to clipboard");
             this.labelError.Visible = false;
+            this.labelError.Click += new System.EventHandler(this.labelError_Click);
             // 
             // buttonSave
             // 
@@ -131,5 +136,6 @@
         private System.Windows.Forms.Label labelError;
         private System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

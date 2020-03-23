@@ -33,6 +33,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         public List<dynamic> providers;
 
         string error_reason = null;
+        IEnumerable<string> error_detail;
 
         public delegate void ApiKeyChanged(bool isOK);
 
@@ -127,6 +128,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             return error_reason;
         }
 
+        public IEnumerable<string> ErrorDetail()
+        {
+            return error_detail;
+        }
+
         public void ReadProviders()
         {
             using (new IntentoTranslationProviderOptionsForm.CursorFormMT(form.formMT))
@@ -180,6 +186,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
                     // SmartRoutingState not created inside because status is not ok
                     ChangeStatus(EApiKeyStatus.error);
+                    error_detail = IntentoTranslationProviderOptionsForm.LoggingEx(ex2);
                 }
                 finally
                 {

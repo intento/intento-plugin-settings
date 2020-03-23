@@ -73,5 +73,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Built-in icon on the splash form
         // 2.1.3: 2020-02-20
         // - Public version
+        // 2.1.4: 2020-02-20
+        // - Ability to copy ApiKey validation error to clipboard
+        // - Control of the state of the "Test and save" button on options form.
     }
 }

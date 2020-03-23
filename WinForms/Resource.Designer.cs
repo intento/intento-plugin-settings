@@ -97,6 +97,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to copy error to clipboard.
+        /// </summary>
+        internal static string APIToolTipMessage {
+            get {
+                return ResourceManager.GetString("APIToolTipMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter credentials.
         /// </summary>
         internal static string AuthWizardFormCaption {
