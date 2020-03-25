@@ -311,4 +311,7 @@ If you have selected custom model or glossary, please adjust the language pair:<
   <data name="APIToolTipMessage" xml:space="preserve">
     <value>Click to copy error to clipboard</value>
   </data>
+  <data name="FAlabelCustomSettingsName" xml:space="preserve">
+    <value>Custom name for plugin settings (set blank for default name)</value>
+  </data>
 </root>

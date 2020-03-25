@@ -76,5 +76,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         // 2.1.4: 2020-02-20
         // - Ability to copy ApiKey validation error to clipboard
         // - Control of the state of the "Test and save" button on options form.
+        // 2.1.5: 2020-02-25
+        // - Custom name support in Trados plugin
+
+
     }
 }

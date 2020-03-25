@@ -69,6 +69,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string AppName { get; set; }
         // Proxy server configuration class for service requests
         public ProxySettings proxySettings { get; set; }
+        // Custom settings name. Using  in trados plugin
+        public string CustomSettingsName { get; set; }
 
         // Special options for public memoQ plugin special requirements
         // Forbit to save ApiKey in registry 
@@ -133,6 +135,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 Translate = this.Translate,
                 ForbidSaveApikey = this.ForbidSaveApikey,
                 HideHiddenTextButton = this.HideHiddenTextButton,
+                CustomSettingsName = this.CustomSettingsName,
                 сallHelpAction = this.сallHelpAction,
                 _authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),
             };

@@ -277,6 +277,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom name for plugin settings (set blank for default name).
+        /// </summary>
+        internal static string FAlabelCustomSettingsName {
+            get {
+                return ResourceManager.GetString("FAlabelCustomSettingsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password:.
         /// </summary>
         internal static string FAlabelPassword {
