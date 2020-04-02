@@ -78,6 +78,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Control of the state of the "Test and save" button on options form.
         // 2.1.5: 2020-02-25
         // - Custom name support in Trados plugin
+        // 2.1.6: 2020-04-02
+        // - Asynchronous test request
 
 
     }

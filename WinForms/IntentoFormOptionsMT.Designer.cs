@@ -485,6 +485,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "IntentoFormOptionsMT";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IntentoFormOptionsMT_FormClosing);
             this.groupBoxProvider.ResumeLayout(false);
             this.groupBoxBillingAccount.ResumeLayout(false);
             this.groupBoxBillingAccount.PerformLayout();
