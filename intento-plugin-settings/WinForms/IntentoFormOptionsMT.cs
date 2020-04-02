@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Intento.MT.Plugin.PropertiesForm.WinForms;
@@ -23,6 +24,12 @@ namespace Intento.MT.Plugin.PropertiesForm
         readonly IList<string> testResultString = new ReadOnlyCollection<string>
             (new List<string> { "14", "14.", "Catorce" });
         public int cursorCountMT = 0;
+        private delegate void TestResultsDelegate(bool res, string msg);
+        //cursor while the asynchronous request is running
+        private CursorFormMT testAndSaveCursor;
+        // frozen controls while the asynchronous request is running
+        private List<Control> disabledControls = new List<Control>();
+        private CancellationTokenSource cts;
 
         public IntentoFormOptionsMT(IntentoTranslationProviderOptionsForm form)
         {
@@ -73,60 +80,69 @@ namespace Intento.MT.Plugin.PropertiesForm
             groupBoxProvider.Text = Resource.Provider;
         }
 
-        //private void linkLabelHelp_Click(object sender, EventArgs e)
-        //{
-        //    toolTipHelp.SetToolTip((Control)sender, "Name should start with Capital letter");
-        //}
-
         public void buttonSave_Click(object sender, EventArgs e)
         {
-            string msg = null;
             SmartRoutingState smartRoutingState = parent.apiKeyState?.smartRoutingState;
             if ((smartRoutingState == null || !smartRoutingState.SmartRouting) && sender != null)
             {
-                var res = TestTranslationIsSuccessful(ref msg);
-                if (msg != null)
-                {
-                    var errorForm = new IntentoFormIgnoreError();
-                    errorForm.labelError.Text = msg;
-                    if (res)
-                    {
-                        errorForm.labelError.ForeColor = Color.Blue;
-                        errorForm.buttonIgnoreAndSave.Text = Resource.ButtonIgnoreAndSave_Ok;
-                    }
-                    else
-                    {
-                        errorForm.labelError.ForeColor = Color.Red;
-                        errorForm.buttonIgnoreAndSave.Text = Resource.ButtonIgnoreAndSave_Ignore;
-                    }
-                    errorForm.ShowDialog();
-                    if (errorForm.DialogResult == DialogResult.OK)
-                        msg = null;
-                }
+                FreezeForm(true);
+                var providerState = parent.apiKeyState.smartRoutingState.providerState;
+                string to = comboBoxTo.SelectedIndex != -1 ?
+                    providerState.toLanguages.Where(x => x.Value == comboBoxTo.Text).First().Key : "es";
+                string from = comboBoxFrom.SelectedIndex != -1 ?
+                    providerState.fromLanguages.Where(x => x.Value == comboBoxFrom.Text).First().Key : "en";
+
+                cts = new CancellationTokenSource();
+                CancellationToken ct = cts.Token;
+                Task<KeyValuePair<bool, string>> testTask = new Task<KeyValuePair<bool, string>>(() => TestTranslationTask(from, to));
+                testTask.ContinueWith((x) => DoInvokeTestResult(x.Result.Key, x.Result.Value, ct));
+                testTask.Start();
+
             }
+            else
+                this.DialogResult = DialogResult.OK;
+        }
+
+        /// <summary>
+        /// callback for test asynchronous request
+        /// </summary>
+        /// <param name="res">true if there were no errors in the answer, else false</param>
+        /// <param name="msg">message for user</param>
+        private void TestResults(bool res, string msg)
+        {
+            if (msg != null)
+            {
+                var errorForm = new IntentoFormIgnoreError();
+                errorForm.labelError.Text = msg;
+                if (res)
+                {
+                    errorForm.labelError.ForeColor = Color.Blue;
+                    errorForm.buttonIgnoreAndSave.Text = Resource.ButtonIgnoreAndSave_Ok;
+                }
+                else
+                {
+                    errorForm.labelError.ForeColor = Color.Red;
+                    errorForm.buttonIgnoreAndSave.Text = Resource.ButtonIgnoreAndSave_Ignore;
+                }
+                errorForm.ShowDialog(parent);
+                if (errorForm.DialogResult == DialogResult.OK)
+                    msg = null;
+            }
+
+            FreezeForm(false);
             if (msg == null)
                 this.DialogResult = DialogResult.OK;
         }
-        /// <summary>
-        /// ref msg  - error message
-        /// </summary>
-        /// <returns>true if there were no errors in the answer, else false </returns>
-        private bool TestTranslationIsSuccessful(ref string msg)
+
+        private KeyValuePair<bool, string> TestTranslationTask(string from, string to)
         {
             IntentoTranslationProviderOptionsForm.Logging("Trados Translate: start");
             try
             {
-                using (new CursorFormMT(this))
-                {
-                    IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
-                    parent.apiKeyState.FillOptions(testOptions);
-                    var providerState = parent.apiKeyState.smartRoutingState.providerState;
-                    string to = comboBoxTo.SelectedIndex != -1 ? 
-                        providerState.toLanguages.Where(x => x.Value == comboBoxTo.Text).First().Key : "es";
-                    string from = comboBoxFrom.SelectedIndex != -1 ?
-                        providerState.fromLanguages.Where(x => x.Value == comboBoxFrom.Text).First().Key : "en";
-                    // Call test translate intent 
-                    dynamic result = parent._translate.Fulfill(
+                IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
+                parent.apiKeyState.FillOptions(testOptions);
+                // Call test translate intent 
+                dynamic result = parent._translate.Fulfill(
                         testString,
                         to: to,
                         from: from,
@@ -142,52 +158,57 @@ namespace Intento.MT.Plugin.PropertiesForm
                         wait_async: true,
                         trace: IntentoTranslationProviderOptionsForm.IsTrace()
                         );
-                    if (result.error != null)
-                    {
-                        msg = Resource.ErrorTestTranslation;
-                        return false;
+                if (result.error != null)
+                {
+                    return new KeyValuePair<bool, string>(false, Resource.ErrorTestTranslation);
+                }
+                else
+                {
+                    dynamic response = result.response;
+                    if (response != null && response.First != null)
+                    {   // Ordinary response of operations call (result of async request)
+                        foreach (dynamic str in response.First.results)
+                        {
+                            string res = (string)str;
+                            if (str == null || !testResultString.Any(x => x == res))
+                            {
+                                return new KeyValuePair<bool, string>(true, string.Format(Resource.TestTranslationWarning, testString, res));
+                            }
+                        }
                     }
                     else
                     {
-                        dynamic response = result.response;
-                        if (response != null && response.First != null)
-                        {   // Ordinary response of operations call (result of async request)
-                            foreach (dynamic str in response.First.results)
-                            {
-                                string res = (string)str;
-                                if (str == null || !testResultString.Any(x => x == res))
-                                {
-                                    msg = string.Format(Resource.TestTranslationWarning, testString, res);
-                                    return true;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            msg = Resource.ErrorTestTranslation;
-                            return true;
-                        }
-
-                        IntentoTranslationProviderOptionsForm.Logging("Trados Translate: finish");
+                        return new KeyValuePair<bool, string>(true, Resource.ErrorTestTranslation);
                     }
+
+                    IntentoTranslationProviderOptionsForm.Logging("Trados Translate: finish");
                 }
-                return true;
+                return new KeyValuePair<bool, string>(true, null);
             }
             catch (AggregateException ex2)
             {
                 IntentoTranslationProviderOptionsForm.Logging("Trados Translate: error", ex: ex2);
-                msg = ex2.Message;
-                return false;
+                return new KeyValuePair<bool, string>(false, ex2.Message);
             }
         }
 
-        //private void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    var value = checkBoxUseOwnCred.Checked;
-        //    comboBoxCredentialId.Enabled = value;
-        //    textBoxCredentials.Enabled = value;
-        //    buttonWizard.Enabled = value;
-        //}
+        private void DoInvokeTestResult(bool res, string msg, CancellationToken ct)
+        {
+            try
+            {
+                if (!ct.IsCancellationRequested)
+                    BeginInvoke(new TestResultsDelegate(TestResults), res, msg);
+            }
+            catch { }
+        }
+
+        private void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
+        {
+            var value = checkBoxUseOwnCred.Checked;
+            comboBoxCredentialId.Enabled = value;
+            textBoxCredentials.Enabled = value;
+            buttonWizard.Enabled = value;
+        }
 
         private void helpLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -234,6 +255,41 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             if (comboBoxCredentialId.Visible)
                 buttonWizard.Visible = false;
+        }
+
+        private void IntentoFormOptionsMT_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            FreezeForm(false);
+        }
+
+        /// <summary>
+        /// Freezing form controls during the asynchronous execution of a test translation
+        /// </summary>
+        /// <param name="freeze">true - locking, false - unlocking</param>
+        private void FreezeForm(bool freeze)
+        {
+            if (freeze)
+            {
+                foreach (Control ctrl in this.Controls)
+                {
+                    if (ctrl.Enabled)
+                    {
+                        disabledControls.Add(ctrl);
+                        ctrl.Enabled = false;
+                    }
+                }
+                testAndSaveCursor = new CursorFormMT(this);
+            }
+            else
+            {
+                foreach (Control ctrl in disabledControls)
+                    ctrl.Enabled = true;
+                disabledControls.Clear();
+                if (testAndSaveCursor != null)
+                    testAndSaveCursor.Dispose();
+                if (cts != null)
+                    cts.Cancel();
+            }
         }
     }
 }

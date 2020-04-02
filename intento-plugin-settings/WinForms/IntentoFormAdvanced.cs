@@ -37,6 +37,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             buttonSave.Text = Resource.Save;
             checkBoxTrace.Text = Resource.FAcheckBoxTrace;
             Text = Resource.FAcaption;
+            labelCustomSettingsName.Text = Resource.FAlabelCustomSettingsName;
             if (parent.GetOptions().ForbidSaveApikey)
                 checkBoxSaveApiKeyInRegistry.Visible = false;
         }
@@ -49,6 +50,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         private void buttonSave_Click(object sender, EventArgs e)
         {
             IntentoTranslationProviderOptionsForm.TraceEndTime = DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40);
+            parent.currentOptions.CustomSettingsName = string.IsNullOrWhiteSpace(textBoxCustomSettingsName.Text) ? null : textBoxCustomSettingsName.Text;
             if (!checkBoxProxy.Checked)
             {
                 parent.currentOptions.proxySettings = null;
@@ -154,6 +156,13 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         private void IntentoFormAdvanced_Shown(object sender, EventArgs e)
         {
             proxySettings = parent.currentOptions.proxySettings;
+            if (parent.currentOptions.AppName != "SdlTradosStudioPlugin")
+            {
+                textBoxCustomSettingsName.Visible = false;
+                labelCustomSettingsName.Visible = false;
+            }
+            textBoxCustomSettingsName.Text = parent.currentOptions.CustomSettingsName;
+            //var t =    parent.currentOptions.CustomSettingsName == null;
             if (proxySettings == null)
             {
                 textBoxAddress.Text = parent.apiKeyState.GetValueFromRegistry("ProxyAddress");

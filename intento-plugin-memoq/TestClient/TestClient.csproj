@@ -124,6 +124,12 @@
   <ItemGroup>
     <Content Include="MemoQ.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IntentoMTPlugin\IntentoMTPlugin.csproj">
+      <Project>{fe6c971c-96b6-46a4-9f9b-ca111e935627}</Project>
+      <Name>IntentoMTPlugin</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

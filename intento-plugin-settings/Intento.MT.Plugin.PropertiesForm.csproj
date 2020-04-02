@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include=".gitmodules" />
     <None Include="githashForm.bat" />
     <None Include="intento.pfx" />
     <None Include="README.md" />

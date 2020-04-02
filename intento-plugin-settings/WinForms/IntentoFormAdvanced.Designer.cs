@@ -47,6 +47,8 @@
             this.labelError = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.textBoxCustomSettingsName = new System.Windows.Forms.TextBox();
+            this.labelCustomSettingsName = new System.Windows.Forms.Label();
             this.groupBoxProxy.SuspendLayout();
             this.groupBoxAuth.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -182,7 +184,7 @@
             // checkBoxSaveApiKeyInRegistry
             // 
             this.checkBoxSaveApiKeyInRegistry.AutoSize = true;
-            this.checkBoxSaveApiKeyInRegistry.Location = new System.Drawing.Point(240, 303);
+            this.checkBoxSaveApiKeyInRegistry.Location = new System.Drawing.Point(240, 350);
             this.checkBoxSaveApiKeyInRegistry.Name = "checkBoxSaveApiKeyInRegistry";
             this.checkBoxSaveApiKeyInRegistry.Size = new System.Drawing.Size(179, 17);
             this.checkBoxSaveApiKeyInRegistry.TabIndex = 15;
@@ -203,7 +205,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(384, 276);
+            this.buttonCancel.Location = new System.Drawing.Point(384, 323);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(81, 30);
             this.buttonCancel.TabIndex = 33;
@@ -212,7 +214,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(293, 276);
+            this.buttonSave.Location = new System.Drawing.Point(293, 323);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(81, 30);
             this.buttonSave.TabIndex = 32;
@@ -224,7 +226,7 @@
             // 
             this.labelError.AutoSize = true;
             this.labelError.ForeColor = System.Drawing.Color.Red;
-            this.labelError.Location = new System.Drawing.Point(13, 285);
+            this.labelError.Location = new System.Drawing.Point(13, 332);
             this.labelError.Name = "labelError";
             this.labelError.Size = new System.Drawing.Size(113, 13);
             this.labelError.TabIndex = 34;
@@ -235,7 +237,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 318);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 365);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.statusStrip1.Size = new System.Drawing.Size(481, 22);
@@ -250,13 +252,34 @@
             this.toolStripStatusLabel1.Text = "0.0.0.0";
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // textBoxCustomSettingsName
+            // 
+            this.textBoxCustomSettingsName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxCustomSettingsName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxCustomSettingsName.Location = new System.Drawing.Point(16, 290);
+            this.textBoxCustomSettingsName.Name = "textBoxCustomSettingsName";
+            this.textBoxCustomSettingsName.Size = new System.Drawing.Size(449, 20);
+            this.textBoxCustomSettingsName.TabIndex = 36;
+            // 
+            // labelCustomSettingsName
+            // 
+            this.labelCustomSettingsName.AutoSize = true;
+            this.labelCustomSettingsName.Location = new System.Drawing.Point(13, 269);
+            this.labelCustomSettingsName.Name = "labelCustomSettingsName";
+            this.labelCustomSettingsName.Size = new System.Drawing.Size(287, 13);
+            this.labelCustomSettingsName.TabIndex = 37;
+            this.labelCustomSettingsName.Text = "Custom name for plugin settings (set blank for default name)\r\n";
+            // 
             // IntentoFormAdvanced
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(481, 340);
+            this.ClientSize = new System.Drawing.Size(481, 387);
+            this.Controls.Add(this.labelCustomSettingsName);
+            this.Controls.Add(this.textBoxCustomSettingsName);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.buttonCancel);
@@ -306,5 +329,7 @@
         private System.Windows.Forms.Label labelError;
         private System.Windows.Forms.StatusStrip statusStrip1;
         public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.TextBox textBoxCustomSettingsName;
+        private System.Windows.Forms.Label labelCustomSettingsName;
     }
 }

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 12.0.21005.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient", "TestClient\TestClient.csproj", "{77FC0E92-A49B-4650-BE0E-5779B29A3244}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FE6C971C-96B6-46A4-9F9B-CA111E935627} = {FE6C971C-96B6-46A4-9F9B-CA111E935627}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntentoMTPlugin", "IntentoMTPlugin\IntentoMTPlugin.csproj", "{FE6C971C-96B6-46A4-9F9B-CA111E935627}"
 EndProject

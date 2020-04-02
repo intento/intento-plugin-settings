@@ -1,40 +1,35 @@
 echo on
-set arg1=%1
-set arg2=%2
-echo %arg1%
-echo %arg2%
+cd ..
 
-if not exist %arg1%..\bin\IntentoSDK.dll goto error2
-if not exist %arg1%..\ilmerge\ilmerge.exe goto error3
-if not exist %arg1%..\bin\Intento.MT.Plugin.PropertiesForm.dll goto error5
+if not exist bin\IntentoSDK.dll goto error2
+if not exist ilmerge\ilmerge.exe goto error3
+if not exist bin\Intento.MT.Plugin.PropertiesForm.dll goto error5
 
-rem echo --- target directory
-mkdir %arg1%..\..\MemoQ.IntentoMT
+echo --- mkdirs ---
+if not exist Merged mkdir Merged
+del Merged\*.* /Q
+if not exist Signed mkdir Signed
+del Signed\*.* /Q
+if not exist MemoQ.IntentoMT mkdir MemoQ.IntentoMT
+del MemoQ.IntentoMT\*.* /Q
 
-rem echo --- ilmerge ---
-echo %arg1%..\ilmerge\ilmerge /targetplatform:v4 /out:%arg1%..\..\MemoQ.IntentoMT\MemoQ.IntentoMT.dll %arg1%%arg2%Intento.MemoQMTPlugin.dll %arg1%..\bin\IntentoSDK.dll %arg1%..\bin\Intento.MT.Plugin.PropertiesForm.dll  %arg1%..\bin\Newtonsoft.Json.dll
-%arg1%..\ilmerge\ilmerge /targetplatform:v4 /out:%arg1%..\..\MemoQ.IntentoMT\MemoQ.IntentoMT.dll %arg1%%arg2%Intento.MemoQMTPlugin.dll %arg1%..\bin\IntentoSDK.dll %arg1%..\bin\Intento.MT.Plugin.PropertiesForm.dll  %arg1%..\bin\Newtonsoft.Json.dll
-
-rem copy %arg1%..\bin\Intento.MemoQMTPlugin.dll %arg1%Intento.MemoQMTPlugin.Splitted
-rem copy %arg1%..\bin\Intento.MemoQMTPlugin.pdb %arg1%Intento.MemoQMTPlugin.Splitted
-rem copy %arg1%..\bin\Intento.MT.Plugin.PropertiesForm.dll %arg1%Intento.MemoQMTPlugin.Splitted
-rem copy %arg1%..\bin\Intento.MT.Plugin.PropertiesForm.pdb %arg1%Intento.MemoQMTPlugin.Splitted
-rem copy %arg1%..\bin\IntentoSDK.dll %arg1%Intento.MemoQMTPlugin.Splitted
-rem copy %arg1%..\bin\IntentoSDK.pdb %arg1%Intento.MemoQMTPlugin.Splitted
-rem copy %arg1%..\bin\Newtonsoft.Json.dll %arg1%Intento.MemoQMTPlugin.Splitted
-
-
-rem exit 0	
+echo --- ilmerge ---
+echo ilmerge\ilmerge /targetplatform:v4 /out:Merged\MemoQ.IntentoMT.dll bin\Intento.MemoQMTPlugin.dll bin\IntentoSDK.dll bin\Intento.MT.Plugin.PropertiesForm.dll bin\Newtonsoft.Json.dll
+ilmerge\ilmerge /targetplatform:v4 /out:Merged\MemoQ.IntentoMT.dll bin\Intento.MemoQMTPlugin.dll bin\IntentoSDK.dll bin\Intento.MT.Plugin.PropertiesForm.dll bin\Newtonsoft.Json.dll
 
 echo --- signing ---
-echo %arg1%..\kgsign\MemoQ.AddinSigner.exe -s %arg1%..\Intento.MemoQMTPlugin.Splitted\Intento.MemoQMTPlugin.dll %arg1%..\kgsign\Intento.MemoQMTPluginPrivatePublicKey.xml\Intento.MemoQMTPluginPrivatePublicKey.xml
-%arg1%..\kgsign\MemoQ.AddinSigner.exe -s %arg1%..\..\MemoQ.IntentoMT\MemoQ.IntentoMT.dll %arg1%..\kgsign\Intento.MemoQMTPluginPrivatePublicKey.xml
+copy Merged\MemoQ.IntentoMT.dll Signed
+echo kgsign\MemoQ.AddinSigner.exe -s Signed\MemoQ.IntentoMT.dll kgsign\Intento.MemoQMTPluginPrivatePublicKey.xml
+kgsign\MemoQ.AddinSigner.exe -s Signed\MemoQ.IntentoMT.dll kgsign\Intento.MemoQMTPluginPrivatePublicKey.xml
 
-rem echo --- zipping ---
-rem if not exist "C:\Program Files\7-Zip\7z.exe" goto noZip
-rem del ..\Intento.MemoQMTPlugin.7z
-rem echo "C:\Program Files\7-Zip\7z.exe" a ..\Intento.MemoQMTPlugin.7z ..\IntentoMTPlugin\Intento.MemoQMTPlugin.dll ..\kgsign\Intento.MemoQMTPlugin.kgsign
-rem "C:\Program Files\7-Zip\7z.exe" a ..\Intento.MemoQMTPlugin.7z ..\IntentoMTPlugin\Intento.MemoQMTPlugin.dll ..\IntentoMTPlugin\Intento.MemoQMTPlugin.kgsign
+echo --- copying ---
+copy Signed\MemoQ.IntentoMT.dll MemoQ.IntentoMT
+copy Signed\MemoQ.IntentoMT.kgsign MemoQ.IntentoMT
+copy Signed\MemoQ.IntentoMT.kgsign MemoQ.IntentoMT\MemoQ.IntentoMT.skgsign
+
+if not exist MemoQ.IntentoMT\MemoQ.IntentoMT.dll goto error6
+if not exist MemoQ.IntentoMT\MemoQ.IntentoMT.kgsign goto error6
+if not exist MemoQ.IntentoMT\MemoQ.IntentoMT.skgsign goto error6
 
 echo OK!
 exit 0
@@ -58,4 +53,8 @@ exit 4
 :error5
 echo No %arg1%bin\Intento.MT.Plugin.PropertiesForm.dll
 exit 5
+
+:error6
+echo Build error!!!
+exit 6
 

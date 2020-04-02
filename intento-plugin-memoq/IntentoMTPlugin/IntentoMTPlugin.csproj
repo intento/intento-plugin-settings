@@ -106,7 +106,6 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Embed.bat" />
     <None Include="githashForm.bat" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -123,7 +122,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>call  $(ProjectDir)Embed $(ProjectDir) $(OutDir)</PostBuildEvent>
+    <PostBuildEvent>call  $(ProjectDir)..\References\8\Embed.PRIVATE $(ProjectDir) $(OutDir)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>$(ProjectDir)githashForm.bat &gt;$(ProjectDir)GitHash.cs</PreBuildEvent>

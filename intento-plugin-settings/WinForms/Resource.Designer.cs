@@ -97,6 +97,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to copy error to clipboard.
+        /// </summary>
+        internal static string APIToolTipMessage {
+            get {
+                return ResourceManager.GetString("APIToolTipMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter credentials.
         /// </summary>
         internal static string AuthWizardFormCaption {
@@ -264,6 +273,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         internal static string FAlabelAddress {
             get {
                 return ResourceManager.GetString("FAlabelAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom name for plugin settings (set blank for default name).
+        /// </summary>
+        internal static string FAlabelCustomSettingsName {
+            get {
+                return ResourceManager.GetString("FAlabelCustomSettingsName", resourceCulture);
             }
         }
         
