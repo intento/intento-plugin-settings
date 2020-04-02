@@ -80,6 +80,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Custom name support in Trados plugin
         // 2.1.6: 2020-04-02
         // - Asynchronous test request
+        // 2.1.7: 2020-04-02
+        // - Public memoQ version
 
 
     }
