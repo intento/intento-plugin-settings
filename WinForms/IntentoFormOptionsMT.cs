@@ -139,7 +139,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             IntentoTranslationProviderOptionsForm.Logging("Trados Translate: start");
             try
             {
-                Thread.Sleep(10000);
                 IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
                 parent.apiKeyState.FillOptions(testOptions);
                 // Call test translate intent 
