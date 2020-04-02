@@ -197,7 +197,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             try
             {
                 if (!ct.IsCancellationRequested)
-                    BeginInvoke(new TestResultsDelegate(TestResults), true, null);
+                    BeginInvoke(new TestResultsDelegate(TestResults), res, msg);
             }
             catch { }
         }
