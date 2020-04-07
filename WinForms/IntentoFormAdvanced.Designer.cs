@@ -267,9 +267,9 @@
             this.labelCustomSettingsName.AutoSize = true;
             this.labelCustomSettingsName.Location = new System.Drawing.Point(13, 269);
             this.labelCustomSettingsName.Name = "labelCustomSettingsName";
-            this.labelCustomSettingsName.Size = new System.Drawing.Size(287, 13);
+            this.labelCustomSettingsName.Size = new System.Drawing.Size(316, 13);
             this.labelCustomSettingsName.TabIndex = 37;
-            this.labelCustomSettingsName.Text = "Custom name for plugin settings (set blank for default name)\r\n";
+            this.labelCustomSettingsName.Text = "Custom name for plugin settings (leave blank to use default name)";
             // 
             // IntentoFormAdvanced
             // 
