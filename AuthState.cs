@@ -219,6 +219,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 if (_delegatedCredentials.Count == 0)
                 {
                     formMT.comboBoxCredentialId.Visible = false;
+                    formMT.panelCreateDelegatedCredential.Visible = true;
                 }
                 else //if (_delegatedCredentials.Count > 1)     - nned more testing to hide combo box selection in case only 1 credential is available
                 {
@@ -230,6 +231,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     }
                     //formMT.comboBoxCredentialId.Enabled = true;
                     formMT.comboBoxCredentialId.Visible = true;
+                    formMT.panelCreateDelegatedCredential.Visible = false;
                 }
                 //else if (form.AuthCombo_ComboBox_Count == 1)
                 //{
@@ -237,7 +239,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                 //    form.AuthCombo_ComboBox_Enabled = false;
                 //    providerDataAuthDict["credential_id"] = _delegatedCredentials[0];
                 // }
-                formMT.panelCreateDelegatedCredential.Visible = !formMT.comboBoxCredentialId.Visible;
             }
         }
 
