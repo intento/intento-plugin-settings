@@ -67,14 +67,16 @@
             this.textBoxAddress = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.checkBoxHideHiddenTextButton = new System.Windows.Forms.CheckBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonShow
             // 
-            this.buttonShow.Location = new System.Drawing.Point(32, 429);
+            this.buttonShow.Location = new System.Drawing.Point(56, 447);
             this.buttonShow.Name = "buttonShow";
-            this.buttonShow.Size = new System.Drawing.Size(80, 30);
+            this.buttonShow.Size = new System.Drawing.Size(102, 41);
             this.buttonShow.TabIndex = 0;
             this.buttonShow.Text = "Open Form";
             this.buttonShow.UseVisualStyleBackColor = true;
@@ -167,7 +169,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(48, 218);
+            this.label6.Location = new System.Drawing.Point(48, 245);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(46, 13);
             this.label6.TabIndex = 15;
@@ -175,7 +177,7 @@
             // 
             // textBoxGlossary
             // 
-            this.textBoxGlossary.Location = new System.Drawing.Point(103, 218);
+            this.textBoxGlossary.Location = new System.Drawing.Point(103, 245);
             this.textBoxGlossary.Name = "textBoxGlossary";
             this.textBoxGlossary.Size = new System.Drawing.Size(305, 20);
             this.textBoxGlossary.TabIndex = 14;
@@ -192,9 +194,9 @@
             // 
             // buttonSaveData
             // 
-            this.buttonSaveData.Location = new System.Drawing.Point(333, 429);
+            this.buttonSaveData.Location = new System.Drawing.Point(239, 447);
             this.buttonSaveData.Name = "buttonSaveData";
-            this.buttonSaveData.Size = new System.Drawing.Size(75, 30);
+            this.buttonSaveData.Size = new System.Drawing.Size(75, 23);
             this.buttonSaveData.TabIndex = 17;
             this.buttonSaveData.Text = "Save Data";
             this.buttonSaveData.UseVisualStyleBackColor = true;
@@ -203,7 +205,7 @@
             // comboBoxTestName
             // 
             this.comboBoxTestName.FormattingEnabled = true;
-            this.comboBoxTestName.Location = new System.Drawing.Point(118, 429);
+            this.comboBoxTestName.Location = new System.Drawing.Point(203, 497);
             this.comboBoxTestName.Name = "comboBoxTestName";
             this.comboBoxTestName.Size = new System.Drawing.Size(192, 21);
             this.comboBoxTestName.TabIndex = 18;
@@ -227,7 +229,7 @@
             // 
             // buttonTranslatePlain
             // 
-            this.buttonTranslatePlain.Location = new System.Drawing.Point(222, 475);
+            this.buttonTranslatePlain.Location = new System.Drawing.Point(111, 524);
             this.buttonTranslatePlain.Name = "buttonTranslatePlain";
             this.buttonTranslatePlain.Size = new System.Drawing.Size(126, 30);
             this.buttonTranslatePlain.TabIndex = 20;
@@ -238,7 +240,7 @@
             // checkBoxStage
             // 
             this.checkBoxStage.AutoSize = true;
-            this.checkBoxStage.Location = new System.Drawing.Point(354, 474);
+            this.checkBoxStage.Location = new System.Drawing.Point(256, 537);
             this.checkBoxStage.Name = "checkBoxStage";
             this.checkBoxStage.Size = new System.Drawing.Size(54, 17);
             this.checkBoxStage.TabIndex = 22;
@@ -247,21 +249,21 @@
             // 
             // textBoxFrom
             // 
-            this.textBoxFrom.Location = new System.Drawing.Point(32, 475);
+            this.textBoxFrom.Location = new System.Drawing.Point(142, 218);
             this.textBoxFrom.Name = "textBoxFrom";
             this.textBoxFrom.Size = new System.Drawing.Size(34, 20);
             this.textBoxFrom.TabIndex = 23;
             // 
             // textBoxTo
             // 
-            this.textBoxTo.Location = new System.Drawing.Point(72, 475);
+            this.textBoxTo.Location = new System.Drawing.Point(244, 218);
             this.textBoxTo.Name = "textBoxTo";
             this.textBoxTo.Size = new System.Drawing.Size(34, 20);
             this.textBoxTo.TabIndex = 24;
             // 
             // textBoxText
             // 
-            this.textBoxText.Location = new System.Drawing.Point(32, 511);
+            this.textBoxText.Location = new System.Drawing.Point(32, 560);
             this.textBoxText.Name = "textBoxText";
             this.textBoxText.Size = new System.Drawing.Size(376, 20);
             this.textBoxText.TabIndex = 25;
@@ -269,7 +271,7 @@
             // checkBoxFormatted
             // 
             this.checkBoxFormatted.AutoSize = true;
-            this.checkBoxFormatted.Location = new System.Drawing.Point(112, 475);
+            this.checkBoxFormatted.Location = new System.Drawing.Point(32, 537);
             this.checkBoxFormatted.Name = "checkBoxFormatted";
             this.checkBoxFormatted.Size = new System.Drawing.Size(73, 17);
             this.checkBoxFormatted.TabIndex = 26;
@@ -279,7 +281,7 @@
             // textBoxResult
             // 
             this.textBoxResult.Enabled = false;
-            this.textBoxResult.Location = new System.Drawing.Point(32, 539);
+            this.textBoxResult.Location = new System.Drawing.Point(32, 588);
             this.textBoxResult.Name = "textBoxResult";
             this.textBoxResult.Size = new System.Drawing.Size(376, 20);
             this.textBoxResult.TabIndex = 27;
@@ -287,16 +289,16 @@
             // 
             // textBoxExpected
             // 
-            this.textBoxExpected.Location = new System.Drawing.Point(32, 565);
+            this.textBoxExpected.Location = new System.Drawing.Point(32, 614);
             this.textBoxExpected.Name = "textBoxExpected";
             this.textBoxExpected.Size = new System.Drawing.Size(376, 20);
             this.textBoxExpected.TabIndex = 28;
             // 
             // buttonTestReadData
             // 
-            this.buttonTestReadData.Location = new System.Drawing.Point(348, 420);
+            this.buttonTestReadData.Location = new System.Drawing.Point(320, 447);
             this.buttonTestReadData.Name = "buttonTestReadData";
-            this.buttonTestReadData.Size = new System.Drawing.Size(75, 30);
+            this.buttonTestReadData.Size = new System.Drawing.Size(75, 23);
             this.buttonTestReadData.TabIndex = 19;
             this.buttonTestReadData.Text = "Read Data";
             this.buttonTestReadData.UseVisualStyleBackColor = true;
@@ -308,7 +310,7 @@
             this.checkBoxForbidSaveApikey.AutoSize = true;
             this.checkBoxForbidSaveApikey.Checked = true;
             this.checkBoxForbidSaveApikey.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxForbidSaveApikey.Location = new System.Drawing.Point(103, 245);
+            this.checkBoxForbidSaveApikey.Location = new System.Drawing.Point(103, 272);
             this.checkBoxForbidSaveApikey.Name = "checkBoxForbidSaveApikey";
             this.checkBoxForbidSaveApikey.Size = new System.Drawing.Size(112, 17);
             this.checkBoxForbidSaveApikey.TabIndex = 29;
@@ -327,7 +329,7 @@
             this.groupBox1.Controls.Add(this.textBoxAddress);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Enabled = false;
-            this.groupBox1.Location = new System.Drawing.Point(48, 268);
+            this.groupBox1.Location = new System.Drawing.Point(48, 295);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(360, 146);
             this.groupBox1.TabIndex = 30;
@@ -417,18 +419,38 @@
             // checkBoxHideHiddenTextButton
             // 
             this.checkBoxHideHiddenTextButton.AutoSize = true;
-            this.checkBoxHideHiddenTextButton.Location = new System.Drawing.Point(222, 245);
+            this.checkBoxHideHiddenTextButton.Location = new System.Drawing.Point(222, 272);
             this.checkBoxHideHiddenTextButton.Name = "checkBoxHideHiddenTextButton";
             this.checkBoxHideHiddenTextButton.Size = new System.Drawing.Size(134, 17);
             this.checkBoxHideHiddenTextButton.TabIndex = 31;
             this.checkBoxHideHiddenTextButton.Text = "HideHiddenTextButton";
             this.checkBoxHideHiddenTextButton.UseVisualStyleBackColor = true;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(109, 221);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(27, 13);
+            this.label11.TabIndex = 34;
+            this.label11.Text = "from";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(222, 221);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(16, 13);
+            this.label12.TabIndex = 36;
+            this.label12.Text = "to";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(435, 596);
+            this.ClientSize = new System.Drawing.Size(435, 656);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.checkBoxHideHiddenTextButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.checkBoxForbidSaveApikey);
@@ -510,6 +532,8 @@
         private System.Windows.Forms.TextBox textBoxUserName;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox checkBoxHideHiddenTextButton;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
     }
 }
 

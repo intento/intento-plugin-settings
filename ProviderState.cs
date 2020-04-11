@@ -116,7 +116,10 @@ namespace Intento.MT.Plugin.PropertiesForm
                     own_auth = providerData.auth != null && ((JContainer)providerData.auth).HasValues;
                     custom_model = providerData.custom_model != null && (bool)providerData.custom_model;
                     custom_glossary = providerData.custom_glossary != null && (bool)providerData.custom_glossary;
-                    delegated_credentials = providerData.delegated_credentials != null && (bool)providerData.delegated_credentials;
+
+                    // forced installation
+                    //delegated_credentials = providerData.delegated_credentials != null && (bool)providerData.delegated_credentials;
+                    delegated_credentials = true;
 
                     providerAuthList = null;
 
@@ -354,7 +357,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (from != null)
             {
                 formMT.comboBoxFrom.Items.AddRange(from.Select(x => x.Value).ToArray());
-                if (from.ContainsKey("en"))
+                if (!string.IsNullOrWhiteSpace(options.FromLanguage) && from.ContainsKey(options.FromLanguage))
+                    formMT.comboBoxFrom.SelectedItem = from[options.FromLanguage];
+                else if (from.ContainsKey("en"))
                     formMT.comboBoxFrom.SelectedItem = from["en"];
                 else
                     formMT.comboBoxFrom.SelectedIndex = 1;
@@ -362,7 +367,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (from != null)
             {
                 formMT.comboBoxTo.Items.AddRange(to.Select(x => x.Value).ToArray());
-                if (to.ContainsKey("es"))
+                if (!string.IsNullOrWhiteSpace(options.ToLanguage) && to.ContainsKey(options.ToLanguage))
+                    formMT.comboBoxTo.SelectedItem = to[options.ToLanguage];
+                else if (to.ContainsKey("es"))
                     formMT.comboBoxTo.SelectedItem = to["es"];
                 else
                     formMT.comboBoxTo.SelectedIndex = 1;

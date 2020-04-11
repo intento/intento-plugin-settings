@@ -49,10 +49,12 @@ namespace Intento.MT.Plugin.PropertiesForm
             textBoxGlossary.TextChanged += parent.glossaryControls_ValueChanged;
             comboBoxGlossaries.TextChanged += parent.glossaryControls_ValueChanged;
             textBoxLabelURL.Click += parent.linkLabel_LinkClicked;
+            textBoxAccountLink.Click += parent.linkLabel_LinkClicked;
             checkBoxSmartRouting.Select();
 
             textBoxModel.Location = comboBoxModels.Location;
             textBoxGlossary.Location = comboBoxGlossaries.Location;
+            panelCreateDelegatedCredential.Location = comboBoxCredentialId.Location;
 
             move_Controls("account", false);
             move_Controls("model", false);
@@ -78,6 +80,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             groupBoxGlossary.Text = Resource.Glossary;
             checkBoxSmartRouting.Text = Resource.MTcheckBoxSmartRouting;
             groupBoxProvider.Text = Resource.Provider;
+            labelCreateOn.Text = Resource.MTLabelCreateOn;
         }
 
         public void buttonSave_Click(object sender, EventArgs e)
@@ -87,14 +90,16 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 FreezeForm(true);
                 var providerState = parent.apiKeyState.smartRoutingState.providerState;
-                string to = comboBoxTo.SelectedIndex != -1 ?
-                    providerState.toLanguages.Where(x => x.Value == comboBoxTo.Text).First().Key : "es";
-                string from = comboBoxFrom.SelectedIndex != -1 ?
-                    providerState.fromLanguages.Where(x => x.Value == comboBoxFrom.Text).First().Key : "en";
+                //string to = comboBoxTo.SelectedIndex != -1 ?
+                //    providerState.toLanguages.Where(x => x.Value == comboBoxTo.Text).First().Key : "es";
+                //string from = comboBoxFrom.SelectedIndex != -1 ?
+                //    providerState.fromLanguages.Where(x => x.Value == comboBoxFrom.Text).First().Key : "en";
 
+                IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
+                parent.apiKeyState.FillOptions(testOptions);
                 cts = new CancellationTokenSource();
                 CancellationToken ct = cts.Token;
-                Task<KeyValuePair<bool, string>> testTask = new Task<KeyValuePair<bool, string>>(() => TestTranslationTask(from, to));
+                Task<KeyValuePair<bool, string>> testTask = new Task<KeyValuePair<bool, string>>(() => TestTranslationTask(testOptions));
                 testTask.ContinueWith((x) => DoInvokeTestResult(x.Result.Key, x.Result.Value, ct));
                 testTask.Start();
 
@@ -134,18 +139,18 @@ namespace Intento.MT.Plugin.PropertiesForm
                 this.DialogResult = DialogResult.OK;
         }
 
-        private KeyValuePair<bool, string> TestTranslationTask(string from, string to)
+        private KeyValuePair<bool, string> TestTranslationTask(IntentoMTFormOptions testOptions)
         {
             IntentoTranslationProviderOptionsForm.Logging("Trados Translate: start");
             try
             {
-                IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
-                parent.apiKeyState.FillOptions(testOptions);
+                //IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
+                //parent.apiKeyState.FillOptions(testOptions);
                 // Call test translate intent 
                 dynamic result = parent._translate.Fulfill(
                         testString,
-                        to: to,
-                        from: from,
+                        to: string.IsNullOrWhiteSpace(testOptions.ToLanguage) ? "es" : testOptions.ToLanguage,
+                        from: string.IsNullOrWhiteSpace(testOptions.FromLanguage) ? "en" : testOptions.FromLanguage,
                         provider: testOptions.ProviderId,
                         format: null,
                         async: true,
@@ -291,5 +296,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                     cts.Cancel();
             }
         }
+
     }
 }

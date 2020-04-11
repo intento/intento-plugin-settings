@@ -166,7 +166,7 @@
     <value>Use custom glossary</value>
   </data>
   <data name="MTcheckBoxUseOwnCred" xml:space="preserve">
-    <value>Use your own MT Provider account</value>
+    <value>Use Connected Account</value>
   </data>
   <data name="MTgroupBoxOptional" xml:space="preserve">
     <value>OPTIONAL</value>
@@ -313,5 +313,8 @@ If you have selected custom model or glossary, please adjust the language pair:<
   </data>
   <data name="FAlabelCustomSettingsName" xml:space="preserve">
     <value>Custom name for plugin settings (leave blank to use default name)</value>
+  </data>
+  <data name="MTLabelCreateOn" xml:space="preserve">
+    <value>Create on</value>
   </data>
 </root>

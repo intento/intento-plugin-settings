@@ -44,6 +44,10 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string CustomModel { get; set; }
         // string of custom model name
         public string CustomModelName { get; set; }
+        // source language for the selected model
+        public string FromLanguage { get; set; }
+        // target language for the selected model
+        public string ToLanguage { get; set; }
         //
         public StateModeEnum CustomModelMode { get; set; }
         // string of custom glossary
@@ -101,16 +105,21 @@ namespace Intento.MT.Plugin.PropertiesForm
                 return _authDict;
             if (!string.IsNullOrWhiteSpace(CustomAuth))
             {
-                dynamic credential = JToken.Parse(CustomAuth);
-                if (((JObject)credential).HasValues)
+                dynamic credential;
+                try
                 {
-                    _authDict = new Dictionary<string, string>();
-                    foreach (JProperty param in credential)
+                    credential = JToken.Parse(CustomAuth);
+                    if (((JObject)credential).HasValues)
                     {
-                        _authDict.Add(param.Name, (string)param.Value);
+                        _authDict = new Dictionary<string, string>();
+                        foreach (JProperty param in credential)
+                        {
+                            _authDict.Add(param.Name, (string)param.Value);
+                        }
+                        return _authDict;
                     }
-                    return _authDict;
                 }
+                catch { }
             }
             return null;
         }
@@ -137,6 +146,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 HideHiddenTextButton = this.HideHiddenTextButton,
                 CustomSettingsName = this.CustomSettingsName,
                 сallHelpAction = this.сallHelpAction,
+                FromLanguage = this.FromLanguage,
+                ToLanguage = this.ToLanguage,
                 _authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),
             };
             return res;
