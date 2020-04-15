@@ -35,6 +35,9 @@
             this.comboBoxProviders = new System.Windows.Forms.ComboBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBoxBillingAccount = new System.Windows.Forms.GroupBox();
+            this.panelCreateDelegatedCredential = new System.Windows.Forms.Panel();
+            this.labelCreateOn = new System.Windows.Forms.Label();
+            this.textBoxAccountLink = new System.Windows.Forms.TextBox();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.buttonWizard = new System.Windows.Forms.Button();
             this.textBoxCredentials = new System.Windows.Forms.TextBox();
@@ -63,6 +66,7 @@
             this.labelTMP = new System.Windows.Forms.Label();
             this.groupBoxProvider.SuspendLayout();
             this.groupBoxBillingAccount.SuspendLayout();
+            this.panelCreateDelegatedCredential.SuspendLayout();
             this.groupBoxModel.SuspendLayout();
             this.groupBoxGlossary.SuspendLayout();
             this.groupBoxOptional.SuspendLayout();
@@ -131,6 +135,7 @@
             // 
             // groupBoxBillingAccount
             // 
+            this.groupBoxBillingAccount.Controls.Add(this.panelCreateDelegatedCredential);
             this.groupBoxBillingAccount.Controls.Add(this.linkLabel3);
             this.groupBoxBillingAccount.Controls.Add(this.buttonWizard);
             this.groupBoxBillingAccount.Controls.Add(this.textBoxCredentials);
@@ -143,6 +148,41 @@
             this.groupBoxBillingAccount.TabIndex = 26;
             this.groupBoxBillingAccount.TabStop = false;
             this.groupBoxBillingAccount.Text = "1Billing account";
+            // 
+            // panelCreateDelegatedCredential
+            // 
+            this.panelCreateDelegatedCredential.BackColor = System.Drawing.Color.LightPink;
+            this.panelCreateDelegatedCredential.Controls.Add(this.labelCreateOn);
+            this.panelCreateDelegatedCredential.Controls.Add(this.textBoxAccountLink);
+            this.panelCreateDelegatedCredential.Location = new System.Drawing.Point(11, 52);
+            this.panelCreateDelegatedCredential.Name = "panelCreateDelegatedCredential";
+            this.panelCreateDelegatedCredential.Size = new System.Drawing.Size(444, 21);
+            this.panelCreateDelegatedCredential.TabIndex = 35;
+            this.panelCreateDelegatedCredential.Tag = "accountControl";
+            this.panelCreateDelegatedCredential.Visible = false;
+            // 
+            // labelCreateOn
+            // 
+            this.labelCreateOn.AutoSize = true;
+            this.labelCreateOn.Location = new System.Drawing.Point(14, 4);
+            this.labelCreateOn.Name = "labelCreateOn";
+            this.labelCreateOn.Size = new System.Drawing.Size(53, 13);
+            this.labelCreateOn.TabIndex = 36;
+            this.labelCreateOn.Text = "Create on";
+            // 
+            // textBoxAccountLink
+            // 
+            this.textBoxAccountLink.BackColor = System.Drawing.Color.LightPink;
+            this.textBoxAccountLink.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxAccountLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.textBoxAccountLink.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxAccountLink.ForeColor = System.Drawing.Color.Blue;
+            this.textBoxAccountLink.Location = new System.Drawing.Point(67, 4);
+            this.textBoxAccountLink.Name = "textBoxAccountLink";
+            this.textBoxAccountLink.Size = new System.Drawing.Size(172, 13);
+            this.textBoxAccountLink.TabIndex = 35;
+            this.textBoxAccountLink.Tag = "https://console.inten.to/accounts";
+            this.textBoxAccountLink.Text = "https://console.inten.to/accounts";
             // 
             // linkLabel3
             // 
@@ -489,6 +529,8 @@
             this.groupBoxProvider.ResumeLayout(false);
             this.groupBoxBillingAccount.ResumeLayout(false);
             this.groupBoxBillingAccount.PerformLayout();
+            this.panelCreateDelegatedCredential.ResumeLayout(false);
+            this.panelCreateDelegatedCredential.PerformLayout();
             this.groupBoxModel.ResumeLayout(false);
             this.groupBoxModel.PerformLayout();
             this.groupBoxGlossary.ResumeLayout(false);
@@ -530,9 +572,12 @@
         public System.Windows.Forms.Button buttonSave;
         public System.Windows.Forms.Label labelTMP;
         public System.Windows.Forms.Button buttonWizard;
-        private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel2;
         public System.Windows.Forms.GroupBox groupBoxProvider;
         public System.Windows.Forms.GroupBox groupBoxOptional;
+        private System.Windows.Forms.LinkLabel linkLabel3;
+        private System.Windows.Forms.Label labelCreateOn;
+        public System.Windows.Forms.TextBox textBoxAccountLink;
+        public System.Windows.Forms.Panel panelCreateDelegatedCredential;
     }
 }

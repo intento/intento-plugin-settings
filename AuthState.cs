@@ -143,6 +143,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 formMT.comboBoxCredentialId.Visible = false;
                 formMT.textBoxCredentials.Visible = false;
                 formMT.buttonWizard.Visible = false;
+                formMT.panelCreateDelegatedCredential.Visible = false;
             }
             // checkBoxUseOwnCred
             if (formMT.checkBoxUseOwnCred.Checked && (providerDataAuthDict == null || providerDataAuthDict.Count == 0 || providerDataAuthDict.Any(i => string.IsNullOrEmpty(i.Value))))
@@ -199,31 +200,46 @@ namespace Intento.MT.Plugin.PropertiesForm
         private void FillDelegatedCredentials()
         {
             Clear();
-            IList<dynamic> credentials = form.testAuthData != null ? form.testAuthData : form._translate.DelegatedCredentials();
-            IEnumerable<dynamic> cred = credentials.Where(q => q.temporary_credentials != null
-                && q.temporary_credentials_created_at != null
-                && q.temporary_credentials_expiry_at != null);
-            _delegatedCredentials = cred.Select(q => (string)q.credential_id).ToList();
-            formMT.comboBoxCredentialId.Items.AddRange(_delegatedCredentials.ToArray());
-            if (_delegatedCredentials.Count == 0)
-                formMT.comboBoxCredentialId.Enabled = false;
-            else //if (_delegatedCredentials.Count > 1)     - nned more testing to hide combo box selection in case only 1 credential is available
+            if (formMT.checkBoxUseOwnCred.Checked)
             {
-                formMT.comboBoxCredentialId.Items.Insert(0, "");
-                string credential_id = providerDataAuthDict["credential_id"];
-                if (formMT.comboBoxCredentialId.Items.Contains(credential_id))
+                IList<dynamic> credentials = form.testAuthData != null ? form.testAuthData : form._translate.DelegatedCredentials();
+                if (providerState.currentProviderId.StartsWith("ai.text.translate.google.")
+                    && providerState.currentProviderId != "ai.text.translate.google.translate_api.2-0")
                 {
-                    formMT.comboBoxCredentialId.SelectedItem = credential_id;
+                    credentials = credentials.Where(q =>
+                        q.temporary_credentials != null
+                        && q.temporary_credentials_created_at != null
+                        && q.temporary_credentials_expiry_at != null
+                        && q.credential_type == "google_service_account").ToList();
                 }
-                formMT.comboBoxCredentialId.Enabled = true;
-                formMT.comboBoxCredentialId.Visible = true;
+                else
+                    credentials = credentials.Where(q => q.credential_type == providerState.currentProviderId).ToList();
+                _delegatedCredentials = credentials.Select(q => (string)q.credential_id).ToList();
+                formMT.comboBoxCredentialId.Items.AddRange(_delegatedCredentials.ToArray());
+                if (_delegatedCredentials.Count == 0)
+                {
+                    formMT.comboBoxCredentialId.Visible = false;
+                    formMT.panelCreateDelegatedCredential.Visible = true;
+                }
+                else //if (_delegatedCredentials.Count > 1)     - nned more testing to hide combo box selection in case only 1 credential is available
+                {
+                    formMT.comboBoxCredentialId.Items.Insert(0, "");
+                    string credential_id = providerDataAuthDict["credential_id"];
+                    if (formMT.comboBoxCredentialId.Items.Contains(credential_id))
+                    {
+                        formMT.comboBoxCredentialId.SelectedItem = credential_id;
+                    }
+                    //formMT.comboBoxCredentialId.Enabled = true;
+                    formMT.comboBoxCredentialId.Visible = true;
+                    formMT.panelCreateDelegatedCredential.Visible = false;
+                }
+                //else if (form.AuthCombo_ComboBox_Count == 1)
+                //{
+                //    form.AuthCombo_ComboBox_SelectedIndex = 0;
+                //    form.AuthCombo_ComboBox_Enabled = false;
+                //    providerDataAuthDict["credential_id"] = _delegatedCredentials[0];
+                // }
             }
-            //else if (form.AuthCombo_ComboBox_Count == 1)
-            //{
-            //    form.AuthCombo_ComboBox_SelectedIndex = 0;
-            //    form.AuthCombo_ComboBox_Enabled = false;
-            //    providerDataAuthDict["credential_id"] = _delegatedCredentials[0];
-            // }
         }
 
         private void FillTextBoxCredentials()
@@ -446,6 +462,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 Internal_Change_checkBoxUseOwnCred_Checked(formMT, false);
                 formMT.comboBoxCredentialId.Items.Clear();
                 formMT.textBoxCredentials.Text = "";
+                formMT.panelCreateDelegatedCredential.Visible = false;
 
             }
         }

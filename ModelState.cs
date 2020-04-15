@@ -105,6 +105,25 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
+        public string To
+        {
+            get
+            {
+                return ModelName != null && formMT.comboBoxTo.SelectedIndex != -1 ?
+                authState.providerState.toLanguages.Where(x => x.Value == formMT.comboBoxTo.Text).First().Key : "es";
+            }
+        }
+        public string From
+        {
+            get
+            {
+                return ModelName != null && formMT.comboBoxFrom.SelectedIndex != -1 ?
+                authState.providerState.fromLanguages.Where(x => x.Value == formMT.comboBoxFrom.Text).First().Key : "en";
+            }
+        }
+
+
+
         public bool UseModel
         { get { return formMT.checkBoxUseCustomModel.Checked; } }
 
@@ -199,6 +218,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 options.CustomModel = null;
                 options.GlossaryMode = StateModeEnum.unknown;
                 options.CustomModelName = null;
+                options.FromLanguage = null;
+                options.ToLanguage = null;
             }
             else
             {
@@ -209,6 +230,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 if (state.models != null)
                     mData = state.models.Select(x => (dynamic)x.Value).Where(y => (string)y.id == state.ModelName).FirstOrDefault();
                 options.CustomModelName = mData != null ? mData.name : state.ModelName;
+                options.FromLanguage = options.CustomModelName == null || !options.UseCustomModel ? null : state.From;
+                options.ToLanguage = options.CustomModelName == null || !options.UseCustomModel ? null : state.To;
 
             }
         }

@@ -38,6 +38,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             checkBoxTrace.Text = Resource.FAcheckBoxTrace;
             Text = Resource.FAcaption;
             labelCustomSettingsName.Text = Resource.FAlabelCustomSettingsName;
+
             if (parent.GetOptions().ForbidSaveApikey)
                 checkBoxSaveApiKeyInRegistry.Visible = false;
         }

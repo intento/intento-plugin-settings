@@ -146,6 +146,8 @@ namespace TestForm
             options.Glossary = checkBoxSmartRouting.Checked ? string.Empty : textBoxGlossary.Text;
             options.AppName = "PluginForm\\TestForm";
             options.ForbidSaveApikey = checkBoxForbidSaveApikey.Checked;
+            options.FromLanguage = textBoxFrom.Text;
+            options.ToLanguage = textBoxTo.Text;
             options.proxySettings = new IntentoSDK.ProxySettings()
             {
                 ProxyAddress = textBoxAddress.Text,
@@ -192,6 +194,8 @@ namespace TestForm
             checkBoxModel.Checked = options.UseCustomModel;
             textBoxModel.Text = options.CustomModel;
             textBoxGlossary.Text = options.Glossary;
+            textBoxFrom.Text = options.FromLanguage;
+            textBoxTo.Text = options.ToLanguage;
             var key = GetKey(null);
             checkBoxProxy.Checked = (string)key.GetValue("ProxyEnabled", "0") != "0";
             textBoxAddress.Text = (string)key.GetValue("ProxyAddress", null);

@@ -277,7 +277,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Custom name for plugin settings (set blank for default name).
+        ///   Looks up a localized string similar to Custom name for plugin settings (leave blank to use default name).
         /// </summary>
         internal static string FAlabelCustomSettingsName {
             get {
@@ -494,7 +494,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use your own MT Provider account.
+        ///   Looks up a localized string similar to Use Connected Account.
         /// </summary>
         internal static string MTcheckBoxUseOwnCred {
             get {
@@ -508,6 +508,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         internal static string MTgroupBoxOptional {
             get {
                 return ResourceManager.GetString("MTgroupBoxOptional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create on.
+        /// </summary>
+        internal static string MTLabelCreateOn {
+            get {
+                return ResourceManager.GetString("MTLabelCreateOn", resourceCulture);
             }
         }
         

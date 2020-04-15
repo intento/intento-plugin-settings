@@ -82,6 +82,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Asynchronous test request
         // 2.1.7: 2020-04-02
         // - Public memoQ version
+        // 2.2.0: 2020-04-11
+        // - Only delegated credentional
+        // - Saving translation direction if a model is specified
 
 
     }
