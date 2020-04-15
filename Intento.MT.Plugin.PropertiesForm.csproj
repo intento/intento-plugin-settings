@@ -37,9 +37,6 @@
     <AssemblyOriginatorKeyFile>intento.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IntentoSDK">
-      <HintPath>..\intento-csharp\bin\IntentoSDK.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
@@ -157,6 +154,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\intento.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\intento-csharp\IntentoSDK.csproj">
+      <Project>{14d9da22-f8d4-4f62-975a-7bd821807528}</Project>
+      <Name>IntentoSDK</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
