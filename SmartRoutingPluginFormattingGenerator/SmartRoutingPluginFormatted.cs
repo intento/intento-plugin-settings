@@ -28,6 +28,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         static List<string> prohibited = new List<string> {
             "ai.text.translate.gtcom.yeecloud_translation_api",
             "ai.text.translate.modernmt.enterprise",
+            "ai.text.translate.modernmt.realtime",
             "ai.text.translate.sdl.beglobal_translate_api.4-0",
             "ai.text.translate.sdl.language_cloud_translation_toolkit",
             "ai.text.translate.systran.pnmt",
