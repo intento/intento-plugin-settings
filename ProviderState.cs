@@ -187,35 +187,35 @@ namespace Intento.MT.Plugin.PropertiesForm
         public void SelectedIndexChanged()
         {
             string provName = formMT.comboBoxProviders.Text;
-            if (string.IsNullOrWhiteSpace(provName))
-            {
-                // No provider choosed
-                ClearOptions(options);
-                providerData = null;
-                currentProviderId = null;
-                currentProviderName = null;
-                ExtractProviderData();
-            }
-            else if (providersNames != null && currentProviderId != providersNames[provName])
-            {
-                ClearOptions(options);
-                if (!string.IsNullOrEmpty(currentProviderId))
-                {   // Prev provider was not empty - need to clear parameters
-                    GetAuthState()?.ClearOptions(options);
-                    authState = null;
-                }
+			if (string.IsNullOrWhiteSpace(provName))
+			{
+				// No provider choosed
+				ClearOptions(options);
+				providerData = null;
+				currentProviderId = null;
+				currentProviderName = null;
+				ExtractProviderData();
+			}
+			else
+			{
+				// Need to clear parameters
+				GetAuthState()?.ClearOptions(options);
+				authState = null;
+				// another provider choosed
+				if (providersNames != null && currentProviderId != providersNames[provName])
+				{
+					ClearOptions(options);
+					currentProviderId = providersNames[provName];
+					providerData = providersData[currentProviderId];
+					currentProviderName = providerData.name;
+					ExtractProviderData();
+				}
+				else
+				{ // Selected same provider as was selected before. No changes in settings
+				}
+			}
 
-                // another provider choosed
-                currentProviderId = providersNames[provName];
-                providerData = providersData[currentProviderId];
-                currentProviderName = providerData.name;
-                ExtractProviderData();
-            }
-            else
-            { // Selected same provider as was selected before. No changes in settings
-            }
-
-            EnableDisable();
+			EnableDisable();
 
             return;
 

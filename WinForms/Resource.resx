@@ -172,7 +172,7 @@
     <value>OPTIONAL</value>
   </data>
   <data name="MTlabelHelpBillingAccount" xml:space="preserve">
-    <value>Most of the MT Providers are available via Intento contracts, but you may also use your own account at MT Provider by providing your credentials below.</value>
+    <value>Most of the MT Providers are available via Intento contracts, but you may also use your own account at MT Provider connected via Intento Console.</value>
   </data>
   <data name="MTlabelHelpGlossary" xml:space="preserve">
     <value>Some of MT Providers enable using your custom terminology or glossary. If you habe one, please specify it below.</value>
@@ -316,5 +316,11 @@ If you have selected custom model or glossary, please adjust the language pair:<
   </data>
   <data name="MTLabelCreateOn" xml:space="preserve">
     <value>Create on</value>
+  </data>
+  <data name="MTbuttonRefreshToolTip" xml:space="preserve">
+    <value>Refresh your account list for this provider</value>
+  </data>
+  <data name="MTLinkConnectAccount" xml:space="preserve">
+    <value>Connect your own account for this provider</value>
   </data>
 </root>

@@ -123,7 +123,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                         }
 
                     default:
-                        throw new Exception(string.Format("Invalid mode {0}", mode));
+						return null;
+						throw new Exception(string.Format("Invalid mode {0}", mode));
                 }
 
             }

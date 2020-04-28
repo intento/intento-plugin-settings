@@ -51,29 +51,28 @@ namespace Intento.MT.Plugin.PropertiesForm
             options = _options;
 
             // set mode of checkBoxUseOwnCred
-            formMT.checkBoxUseOwnCred.Enabled = true;
             if (!providerState.billable || !providerState.stock_model)  // Auth Required
             {
                 formMT.groupBoxBillingAccount.Enabled = true;
-                if (!fromForm)
-                {
-                    Internal_Change_checkBoxUseOwnCred_Checked(formMT, true);
-                    formMT.checkBoxUseOwnCred.Enabled = false;
-                }
+                //if (!fromForm)
+                //{
+                //    Internal_Change_checkBoxUseOwnCred_Checked(formMT, true);
+                //    formMT.checkBoxUseOwnCred.Enabled = false;
+                //}
                 mode = StateModeEnum.required;
             }
             else if (!providerState.own_auth) // Auth Prohibited 
             {
                 formMT.groupBoxBillingAccount.Enabled = false;
-                if (!fromForm)
-                    Internal_Change_checkBoxUseOwnCred_Checked(formMT, false);
+                //if (!fromForm)
+                //    Internal_Change_checkBoxUseOwnCred_Checked(formMT, false);
                 mode = StateModeEnum.prohibited;
             }
             else
             {   // Auth optional
                 formMT.groupBoxBillingAccount.Enabled = true;
-                if (!fromForm)
-                    Internal_Change_checkBoxUseOwnCred_Checked(formMT, options.UseCustomAuth);
+                //if (!fromForm)
+                //    Internal_Change_checkBoxUseOwnCred_Checked(formMT, options.UseCustomAuth);
                 mode = StateModeEnum.optional;
             }
 
@@ -113,7 +112,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public string Draw()
         {
-            if (firstTimeDraw)
+            if (firstTimeDraw && formMT.comboBoxCredentialId.SelectedIndex < 0)
             {   // Need to fill all items - first tiem drawing after making AuthState
                 FillCredentials();
                 firstTimeDraw = false;
@@ -121,44 +120,32 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             error_message = null;
 
-            formMT.checkBoxUseOwnCred.Visible = true;
-            if (formMT.checkBoxUseOwnCred.Checked)
+            if (formMT.groupBoxBillingAccount.Enabled)
             {
-                // Credentials group boxes 
-                if (IsDelegatedCredentials)
-                {   // Delegated creds - use combo box 
-                    formMT.comboBoxCredentialId.Visible = true;
-                    formMT.textBoxCredentials.Visible = false;
-                    formMT.buttonWizard.Visible = false;
-                }
-                else
-                {   // Direct auth
-                    formMT.comboBoxCredentialId.Visible = false;
-                    formMT.textBoxCredentials.Visible = true;
-                    formMT.buttonWizard.Visible = true;
-                }
-            }
+                formMT.comboBoxCredentialId.Visible = true;
+				if (mode == StateModeEnum.required)
+					formMT.comboBoxCredentialId.Items.Remove("via Intento");
+				else if (formMT.comboBoxCredentialId.SelectedIndex < 0)
+				{
+					formMT.comboBoxCredentialId.SelectedIndexChanged -= providerState.form.comboBoxCredentialId_SelectedIndexChanged;
+					formMT.comboBoxCredentialId.SelectedItem = "via Intento";
+					formMT.comboBoxCredentialId.SelectedIndexChanged += providerState.form.comboBoxCredentialId_SelectedIndexChanged;
+				}
+				if (mode == StateModeEnum.required && formMT.comboBoxCredentialId.SelectedIndex==-1)
+				{// Credentials required but not filled in full
+					Auth_Control_BackColor_State(formMT, true);
+					error_message = Resource.OwnCredentialsNeededErrorMessage;
+					formMT.groupBoxOptional.Enabled = false;
+				}
+				else
+				{// All fields in credentals are filled
+					Auth_Control_BackColor_State(formMT, false);
+				}
+			}
             else
             {
                 formMT.comboBoxCredentialId.Visible = false;
-                formMT.textBoxCredentials.Visible = false;
-                formMT.buttonWizard.Visible = false;
-                formMT.panelCreateDelegatedCredential.Visible = false;
             }
-            // checkBoxUseOwnCred
-            if (formMT.checkBoxUseOwnCred.Checked && (providerDataAuthDict == null || providerDataAuthDict.Count == 0 || providerDataAuthDict.Any(i => string.IsNullOrEmpty(i.Value))))
-            //if (formMT.checkBoxUseOwnCred.Checked && (providerDataAuthDict == null || providerDataAuthDict.Count == 0 || String.IsNullOrWhiteSpace(formMT.comboBoxCredentialId.Text)))
-            {   // Credentials required but not filled in full
-                Auth_Control_BackColor_State(formMT, true);
-                error_message = Resource.OwnCredentialsNeededErrorMessage;
-                formMT.groupBoxOptional.Enabled = false;
-            }
-            else
-            {   // All fields in credentals are filled
-                Auth_Control_BackColor_State(formMT, false);
-                formMT.textBoxCredentials.Text = string.Join(", ", providerDataAuthDict.Select(i => string.Format("{0}:{1}", i.Key, i.Value)));
-            }
-            //formMT.buttonWizard.Visible = formMT.textBoxCredentials.Visible;
             if (!string.IsNullOrEmpty(error_message))
             {
                 ModelState.Draw(form, null);
@@ -184,78 +171,40 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private void FillCredentials()
         {
-            // Read and fill a list of delegated credentials for this provider
-            if (IsDelegatedCredentials)
-                FillDelegatedCredentials();
-            else
-                FillTextBoxCredentials();
-        }
+			// Read and fill a list of delegated credentials for this provider
+			Clear();
+			if (formMT.groupBoxBillingAccount.Enabled)
+			{
+				formMT.comboBoxCredentialId.Visible = true;
+				IList<dynamic> credentials = form.testAuthData != null ? form.testAuthData : form._translate.DelegatedCredentials();
+				if (providerState.currentProviderId.StartsWith("ai.text.translate.google.")
+					&& providerState.currentProviderId != "ai.text.translate.google.translate_api.2-0")
+				{
+					credentials = credentials.Where(q =>
+						q.temporary_credentials != null
+						&& q.temporary_credentials_created_at != null
+						&& q.temporary_credentials_expiry_at != null
+						&& q.credential_type == "google_service_account").ToList();
+				}
+				else
+					credentials = credentials.Where(q => q.credential_type == providerState.currentProviderId).ToList();
+				_delegatedCredentials = credentials.Select(q => (string)q.credential_id).ToList();
+				formMT.comboBoxCredentialId.Items.AddRange(_delegatedCredentials.ToArray());
+				if (_delegatedCredentials.Count != 0)
+				{
+					string credential_id = providerDataAuthDict["credential_id"];
+					if (formMT.comboBoxCredentialId.Items.Contains(credential_id))
+					{
+						formMT.comboBoxCredentialId.SelectedItem = credential_id;
+					}
+				}
+			}
+		}
 
         public void Clear()
         {
             formMT.comboBoxCredentialId.Items.Clear();
-            formMT.textBoxCredentials.Text = "";
-        }
-
-        private void FillDelegatedCredentials()
-        {
-            Clear();
-            if (formMT.checkBoxUseOwnCred.Checked)
-            {
-                IList<dynamic> credentials = form.testAuthData != null ? form.testAuthData : form._translate.DelegatedCredentials();
-                if (providerState.currentProviderId.StartsWith("ai.text.translate.google.")
-                    && providerState.currentProviderId != "ai.text.translate.google.translate_api.2-0")
-                {
-                    credentials = credentials.Where(q =>
-                        q.temporary_credentials != null
-                        && q.temporary_credentials_created_at != null
-                        && q.temporary_credentials_expiry_at != null
-                        && q.credential_type == "google_service_account").ToList();
-                }
-                else
-                    credentials = credentials.Where(q => q.credential_type == providerState.currentProviderId).ToList();
-                _delegatedCredentials = credentials.Select(q => (string)q.credential_id).ToList();
-                formMT.comboBoxCredentialId.Items.AddRange(_delegatedCredentials.ToArray());
-                if (_delegatedCredentials.Count == 0)
-                {
-                    formMT.comboBoxCredentialId.Visible = false;
-                    formMT.panelCreateDelegatedCredential.Visible = true;
-                }
-                else //if (_delegatedCredentials.Count > 1)     - nned more testing to hide combo box selection in case only 1 credential is available
-                {
-                    formMT.comboBoxCredentialId.Items.Insert(0, "");
-                    string credential_id = providerDataAuthDict["credential_id"];
-                    if (formMT.comboBoxCredentialId.Items.Contains(credential_id))
-                    {
-                        formMT.comboBoxCredentialId.SelectedItem = credential_id;
-                    }
-                    //formMT.comboBoxCredentialId.Enabled = true;
-                    formMT.comboBoxCredentialId.Visible = true;
-                    formMT.panelCreateDelegatedCredential.Visible = false;
-                }
-                //else if (form.AuthCombo_ComboBox_Count == 1)
-                //{
-                //    form.AuthCombo_ComboBox_SelectedIndex = 0;
-                //    form.AuthCombo_ComboBox_Enabled = false;
-                //    providerDataAuthDict["credential_id"] = _delegatedCredentials[0];
-                // }
-            }
-        }
-
-        private void FillTextBoxCredentials()
-        {
-            var str = string.Empty;
-            if (providerDataAuthDict != null)
-            {
-                foreach (KeyValuePair<string, string> val in providerDataAuthDict)
-                {
-                    if (val.Value != null && !string.IsNullOrWhiteSpace(val.Value))
-                        str += String.Format("{0}:{1} ", val.Key, val.Value);
-                }
-            }
-            if (credentials != str.TrimEnd(' '))
-                credentials = str;
-            formMT.textBoxCredentials.Text = str;
+			formMT.comboBoxCredentialId.Items.Add("via Intento");
         }
 
         // Something changed in auth settings on form. Need to clear model and glossary settings. 
@@ -275,8 +224,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
             if (!firstTimeDraw)
                 ResetChildrensState();
-            //ModelState.Draw(form, null);
-            //GlossaryState.Draw(form, null);
         }
 
         private void ResetChildrensState()
@@ -291,7 +238,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         }
 
         public bool UseCustomAuth
-        { get { return formMT.checkBoxUseOwnCred.Checked; } }
+        { get { return formMT.comboBoxCredentialId.SelectedIndex > 0; } }
 
         public static void FillOptions(AuthState state, IntentoMTFormOptions options)
         {
@@ -328,58 +275,23 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             options.UseCustomAuth = false;
             options.CustomAuth = null;
-            formMT.textBoxCredentials.Visible = false;
-            //formMT.buttonWizard.Visible = false;
             formMT.comboBoxCredentialId.Visible = true;
-            Internal_Change_checkBoxUseOwnCred_Checked(formMT, false);
-            formMT.comboBoxCredentialId.Items.Clear();
-            formMT.textBoxCredentials.Text = "";
+			Clear();
             ResetChildrensState();
         }
 
         #region Events
 
-        public void buttonWizard_Click()
-        {
-            var dialog = new IntentoFormProviderAuthWizard(providerDataAuthDict, form.formApi.checkBoxShowHidden.Checked, options.HideHiddenTextButton);
-            dialog.ShowDialog();
-            if (dialog.DialogResult == DialogResult.OK)
-            {
-                providerDataAuthDict = dialog.authParam;
-                modelState = null;
-                glossaryState = null;
-                FillTextBoxCredentials();
-            }
-            EnableDisable();
-        }
-
         public void comboBoxCredentialId_SelectedIndexChanged()
         {
             ClearCredentials();
-            //ClearOptions(options);
-            EnableDisable();
-        }
-
-        public void checkBoxUseOwnCred_CheckedChanged()
-        {
-            if (!firstTimeDraw && !internalControlChange)
-            {
-                //ClearCredentials();
-                GetModelState()?.ClearOptions(options);
+			//ClearOptions(options);
+			if (!firstTimeDraw && !internalControlChange)
+			{
+				GetModelState()?.ClearOptions(options);
                 GetGlossaryState()?.ClearOptions(options);
-
-                //ModelState.Draw(form, null);
-                //GlossaryState.Draw(form, null);
-
-
-                formMT.comboBoxCredentialId.Items.Clear();
-                formMT.textBoxCredentials.Clear();
-                if (formMT.checkBoxUseOwnCred.Checked)
-                    FillCredentials();
-                firstTimeDraw = true;
-                EnableDisable();
-                internalControlChange = false;
-            }
+			}
+			EnableDisable();
         }
 
         #endregion Events
@@ -456,27 +368,15 @@ namespace Intento.MT.Plugin.PropertiesForm
             else
             {
                 formMT.groupBoxBillingAccount.Enabled = false;
-                formMT.textBoxCredentials.Visible = false;
-                //formMT.buttonWizard.Visible = false;
                 formMT.comboBoxCredentialId.Visible = false;
-                Internal_Change_checkBoxUseOwnCred_Checked(formMT, false);
                 formMT.comboBoxCredentialId.Items.Clear();
-                formMT.textBoxCredentials.Text = "";
-                formMT.panelCreateDelegatedCredential.Visible = false;
-
+				formMT.comboBoxCredentialId.Items.Add("via Intento");
             }
-        }
-
-        static void Internal_Change_checkBoxUseOwnCred_Checked(IntentoFormOptionsMT formMT, bool value)
-        {
-            internalControlChange = formMT.checkBoxUseOwnCred.Checked != value;
-            formMT.checkBoxUseOwnCred.Checked = value;
         }
 
         static void Auth_Control_BackColor_State(IntentoFormOptionsMT formMT, bool hasErrors)
         {
             formMT.comboBoxCredentialId.BackColor = hasErrors ? Color.LightPink : SystemColors.Window;
-            formMT.textBoxCredentials.BackColor = hasErrors ? Color.LightPink : SystemColors.Window;
             //if (hasErrors)
             //{
             //    formMT.comboBoxCredentialId.BackColor = Color.LightPink;
