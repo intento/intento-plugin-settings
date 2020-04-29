@@ -307,13 +307,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 		//    SizeF stringSize = e.Graphics.MeasureString(control.Text, control.Font);
 		//    control.Font = new Font(FontFamily.GenericSansSerif, control.Font.Size);
 		//}
-		public void buttonRefresh_Click(object sender, EventArgs e)
-		{
-			using (new CursorForm(this))
-			{
-				apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.RefreshDelegatedCredentials();
-			}
-		}
 
 		private void buttonHelp_Click(object sender, EventArgs e)
         {
