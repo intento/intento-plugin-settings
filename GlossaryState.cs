@@ -62,6 +62,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     break;
 
                 case StateModeEnum.optional:
+                    formMT.groupBoxGlossary.Visible = true;
                     if (isList)
                     {
                         formMT.groupBoxGlossary.Visible = true;
