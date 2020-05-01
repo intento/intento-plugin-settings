@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Intento.MT.Plugin.PropertiesForm.WinForms;
+using MemoQ.IntentoMT.Settings.WinForms;
 using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
 namespace Intento.MT.Plugin.PropertiesForm
@@ -197,7 +198,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             try
             {
                 if (!ct.IsCancellationRequested)
-                    BeginInvoke(new TestResultsDelegate(TestResults), true, null);
+                    BeginInvoke(new TestResultsDelegate(TestResults), res, msg);
             }
             catch { }
         }
@@ -272,7 +273,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 foreach (Control ctrl in this.Controls)
                 {
-                    if (ctrl.Enabled)
+                    if (ctrl.Enabled && ctrl.Name != "buttonCancel")
                     {
                         disabledControls.Add(ctrl);
                         ctrl.Enabled = false;
