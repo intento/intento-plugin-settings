@@ -241,6 +241,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom HTML tags parser.
+        /// </summary>
+        internal static string FAcheckBoxCustomTagParser {
+            get {
+                return ResourceManager.GetString("FAcheckBoxCustomTagParser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable proxy server (Attention! Proxy settings apply to all sets of settings).
         /// </summary>
         internal static string FAcheckBoxProxy {
@@ -539,7 +548,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Some of MT Providers enable using your custom terminology or glossary. If you habe one, please specify it below..
+        ///   Looks up a localized string similar to Some of MT Providers enable using your custom terminology or glossary. If you have one, please specify it below..
         /// </summary>
         internal static string MTlabelHelpGlossary {
             get {

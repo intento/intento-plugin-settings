@@ -482,7 +482,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             options.ForbidSaveApikey = currentOptions.ForbidSaveApikey;
             options.HideHiddenTextButton = currentOptions.HideHiddenTextButton;
             options.CustomSettingsName = currentOptions.CustomSettingsName;
-            apiKeyState.FillOptions(options);
+			options.CustomTagParser = currentOptions.CustomTagParser;
+
+			apiKeyState.FillOptions(options);
         }
 
         public void RefreshFormInfo()

@@ -75,10 +75,12 @@ namespace Intento.MT.Plugin.PropertiesForm
         public ProxySettings proxySettings { get; set; }
         // Custom settings name. Using  in trados plugin
         public string CustomSettingsName { get; set; }
+		// Custom html tags parser. Using  in MemoQ plugin
+		public bool CustomTagParser { get; set; }
 
-        // Special options for public memoQ plugin special requirements
-        // Forbit to save ApiKey in registry 
-        public bool ForbidSaveApikey { get; set; }
+		// Special options for public memoQ plugin special requirements
+		// Forbit to save ApiKey in registry 
+		public bool ForbidSaveApikey { get; set; }
         // Hide "Show hidden text" button
         public bool HideHiddenTextButton { get; set; }
         // Action on pressing Help button. In case it is not empty Help button is shown
@@ -126,26 +128,27 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public IntentoMTFormOptions Duplicate()
         {
-            IntentoMTFormOptions res = new IntentoMTFormOptions()
-            {
-                ApiKey = this.ApiKey,
-                SmartRouting = this.SmartRouting,
-                ProviderId = this.ProviderId,
-                ProviderName = this.ProviderName,
-                UseCustomAuth = this.UseCustomAuth,
-                CustomAuth = this.CustomAuth,
-                UseCustomModel = this.UseCustomModel,
-                Glossary = this.Glossary,
-                CustomModel = this.CustomModel,
-                Format = this.Format,
-                UserAgent = this.UserAgent,
-                Signature = this.Signature,
-                AppName = this.AppName,
-                Translate = this.Translate,
-                ForbidSaveApikey = this.ForbidSaveApikey,
-                HideHiddenTextButton = this.HideHiddenTextButton,
-                CustomSettingsName = this.CustomSettingsName,
-                сallHelpAction = this.сallHelpAction,
+			IntentoMTFormOptions res = new IntentoMTFormOptions()
+			{
+				ApiKey = this.ApiKey,
+				SmartRouting = this.SmartRouting,
+				ProviderId = this.ProviderId,
+				ProviderName = this.ProviderName,
+				UseCustomAuth = this.UseCustomAuth,
+				CustomAuth = this.CustomAuth,
+				UseCustomModel = this.UseCustomModel,
+				Glossary = this.Glossary,
+				CustomModel = this.CustomModel,
+				Format = this.Format,
+				UserAgent = this.UserAgent,
+				Signature = this.Signature,
+				AppName = this.AppName,
+				Translate = this.Translate,
+				ForbidSaveApikey = this.ForbidSaveApikey,
+				HideHiddenTextButton = this.HideHiddenTextButton,
+				CustomSettingsName = this.CustomSettingsName,
+				CustomTagParser = this.CustomTagParser,
+				сallHelpAction = this.сallHelpAction,
                 FromLanguage = this.FromLanguage,
                 ToLanguage = this.ToLanguage,
                 _authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),

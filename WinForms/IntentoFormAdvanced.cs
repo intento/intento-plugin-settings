@@ -38,8 +38,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             checkBoxTrace.Text = Resource.FAcheckBoxTrace;
             Text = Resource.FAcaption;
             labelCustomSettingsName.Text = Resource.FAlabelCustomSettingsName;
+			checkBoxCustomTagParser.Text = Resource.FAcheckBoxCustomTagParser;
 
-            if (parent.GetOptions().ForbidSaveApikey)
+			if (parent.GetOptions().ForbidSaveApikey)
                 checkBoxSaveApiKeyInRegistry.Visible = false;
         }
 
@@ -52,7 +53,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         {
             IntentoTranslationProviderOptionsForm.TraceEndTime = DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40);
             parent.currentOptions.CustomSettingsName = string.IsNullOrWhiteSpace(textBoxCustomSettingsName.Text) ? null : textBoxCustomSettingsName.Text;
-            if (!checkBoxProxy.Checked)
+			parent.currentOptions.CustomTagParser = checkBoxCustomTagParser.Checked;
+
+			if (!checkBoxProxy.Checked)
             {
                 parent.currentOptions.proxySettings = null;
                 DialogResult = DialogResult.OK;
@@ -157,12 +160,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         private void IntentoFormAdvanced_Shown(object sender, EventArgs e)
         {
             proxySettings = parent.currentOptions.proxySettings;
-            if (parent.currentOptions.AppName != "SdlTradosStudioPlugin")
+			textBoxCustomSettingsName.Text = parent.currentOptions.CustomSettingsName;
+			checkBoxCustomTagParser.Checked = parent.currentOptions.CustomTagParser;
+			checkBoxCustomTagParser.Location = labelCustomSettingsName.Location;
+			if (parent.currentOptions.AppName != "SdlTradosStudioPlugin")
             {
-                textBoxCustomSettingsName.Visible = false;
+				textBoxCustomSettingsName.Visible = false;
                 labelCustomSettingsName.Visible = false;
-            }
-            textBoxCustomSettingsName.Text = parent.currentOptions.CustomSettingsName;
+				checkBoxCustomTagParser.Visible = true;
+			}
             //var t =    parent.currentOptions.CustomSettingsName == null;
             if (proxySettings == null)
             {

@@ -141,14 +141,15 @@ namespace TestForm
             options.CustomAuth = textBoxAuth.Text;
             options.UseCustomModel = checkBoxModel.Checked;
             options.CustomModel = textBoxModel.Text;
-            options.UserAgent = "TestForm/1.0.0";
-            options.Signature = "TestForm";
             options.Glossary = checkBoxSmartRouting.Checked ? string.Empty : textBoxGlossary.Text;
-            options.AppName = "PluginForm\\TestForm";
             options.ForbidSaveApikey = checkBoxForbidSaveApikey.Checked;
             options.FromLanguage = textBoxFrom.Text;
             options.ToLanguage = textBoxTo.Text;
-            options.proxySettings = new IntentoSDK.ProxySettings()
+			options.UserAgent = "TestForm/1.0.0";
+			options.Signature = "TestForm";
+			options.AppName = checkBoxTradosApp.Checked ? "SdlTradosStudioPlugin" : "PluginForm\\TestForm";
+			options.CustomTagParser = checkBoxCustomTagParser.Checked;
+			options.proxySettings = new IntentoSDK.ProxySettings()
             {
                 ProxyAddress = textBoxAddress.Text,
                 ProxyPort = textBoxPort.Text,
@@ -196,7 +197,8 @@ namespace TestForm
             textBoxGlossary.Text = options.Glossary;
             textBoxFrom.Text = options.FromLanguage;
             textBoxTo.Text = options.ToLanguage;
-            var key = GetKey(null);
+			checkBoxCustomTagParser.Checked = options.CustomTagParser;
+			var key = GetKey(null);
             checkBoxProxy.Checked = (string)key.GetValue("ProxyEnabled", "0") != "0";
             textBoxAddress.Text = (string)key.GetValue("ProxyAddress", null);
             textBoxPort.Text = (string)key.GetValue("ProxyPort", null);
@@ -269,5 +271,10 @@ namespace TestForm
             else
                 textBoxExpected.BackColor = Color.White;
         }
-    }
+
+		private void checkBoxTradosApp_CheckedChanged(object sender, EventArgs e)
+		{
+			checkBoxCustomTagParser.Enabled = !checkBoxTradosApp.Checked;
+		}
+	}
 }
