@@ -1,4 +1,5 @@
 ﻿using Intento.MT.Plugin.PropertiesForm.WinForms;
+using MemoQ.IntentoMT.Settings.WinForms;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;

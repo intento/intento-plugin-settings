@@ -70,9 +70,8 @@
             // 
             // checkBoxSmartRouting
             // 
-            this.checkBoxSmartRouting.AutoSize = true;
             this.checkBoxSmartRouting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxSmartRouting.Location = new System.Drawing.Point(12, 12);
+            this.checkBoxSmartRouting.Location = new System.Drawing.Point(23, 12);
             this.checkBoxSmartRouting.Name = "checkBoxSmartRouting";
             this.checkBoxSmartRouting.Size = new System.Drawing.Size(234, 17);
             this.checkBoxSmartRouting.TabIndex = 23;
@@ -86,7 +85,7 @@
             this.textBoxLabelURL.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textBoxLabelURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxLabelURL.ForeColor = System.Drawing.Color.Blue;
-            this.textBoxLabelURL.Location = new System.Drawing.Point(236, 14);
+            this.textBoxLabelURL.Location = new System.Drawing.Point(249, 13);
             this.textBoxLabelURL.Name = "textBoxLabelURL";
             this.textBoxLabelURL.Size = new System.Drawing.Size(118, 13);
             this.textBoxLabelURL.TabIndex = 24;
@@ -199,11 +198,10 @@
             // 
             this.checkBoxUseOwnCred.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxUseOwnCred.AutoSize = true;
             this.checkBoxUseOwnCred.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxUseOwnCred.Location = new System.Drawing.Point(11, 56);
             this.checkBoxUseOwnCred.Name = "checkBoxUseOwnCred";
-            this.checkBoxUseOwnCred.Size = new System.Drawing.Size(197, 17);
+            this.checkBoxUseOwnCred.Size = new System.Drawing.Size(444, 17);
             this.checkBoxUseOwnCred.TabIndex = 11;
             this.checkBoxUseOwnCred.Tag = "accountControl";
             this.checkBoxUseOwnCred.Text = "1Use your own MT Provider account";
@@ -264,11 +262,10 @@
             // 
             this.checkBoxUseCustomModel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxUseCustomModel.AutoSize = true;
             this.checkBoxUseCustomModel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxUseCustomModel.Location = new System.Drawing.Point(11, 56);
             this.checkBoxUseCustomModel.Name = "checkBoxUseCustomModel";
-            this.checkBoxUseCustomModel.Size = new System.Drawing.Size(135, 17);
+            this.checkBoxUseCustomModel.Size = new System.Drawing.Size(438, 17);
             this.checkBoxUseCustomModel.TabIndex = 11;
             this.checkBoxUseCustomModel.Tag = "modelControl";
             this.checkBoxUseCustomModel.Text = "1Use custom MT model";
@@ -334,7 +331,7 @@
             this.labelHelpGlossary.Size = new System.Drawing.Size(427, 32);
             this.labelHelpGlossary.TabIndex = 13;
             this.labelHelpGlossary.Text = "1Some of MT Providers enable using your custom terminology or glossary. If you ha" +
-    "be one, please specify it below.";
+    "ve one, please specify it below.";
             this.labelHelpGlossary.Visible = false;
             // 
             // checkBoxUseGlossary
@@ -469,6 +466,7 @@
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(491, 635);
             this.Controls.Add(this.textBoxLabelURL);
+            this.Controls.Add(this.checkBoxSmartRouting);
             this.Controls.Add(this.labelTMP);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
@@ -477,7 +475,6 @@
             this.Controls.Add(this.groupBoxModel);
             this.Controls.Add(this.groupBoxBillingAccount);
             this.Controls.Add(this.groupBoxProvider);
-            this.Controls.Add(this.checkBoxSmartRouting);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
