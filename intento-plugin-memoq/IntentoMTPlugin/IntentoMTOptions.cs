@@ -72,7 +72,8 @@
             set { customModel = value; }
         }
 
-    }
+		public bool ForbidSaveApikey => true;
+	}
 
     /// <summary>
     /// Secure settings, content not preserved when settings leave the machine.
