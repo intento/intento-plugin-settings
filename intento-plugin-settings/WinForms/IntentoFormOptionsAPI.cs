@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Intento.MT.Plugin.PropertiesForm.WinForms;
-using MemoQ.IntentoMT.Settings.WinForms;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {

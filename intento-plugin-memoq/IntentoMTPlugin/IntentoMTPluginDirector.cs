@@ -307,7 +307,10 @@ namespace IntentoMTPlugin
                     {   // Settings form was exited with Continue button
                         environment.PluginAvailabilityChanged();
 
-                        intentoMTServiceHelper.intentoAiTextTranslate = formOptions.Translate;
+						if (Options.GeneralSettings.ProviderId != formOptions.ProviderId)
+							langPairs = null;
+
+						intentoMTServiceHelper.intentoAiTextTranslate = formOptions.Translate;
                         intentoMTServiceHelper.format = formOptions.Format;
                         Options.GeneralSettings.ProviderFormats = formOptions.Format;
 

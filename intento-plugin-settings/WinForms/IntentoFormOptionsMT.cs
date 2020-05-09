@@ -10,7 +10,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Intento.MT.Plugin.PropertiesForm.WinForms;
-using MemoQ.IntentoMT.Settings.WinForms;
 using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
 namespace Intento.MT.Plugin.PropertiesForm

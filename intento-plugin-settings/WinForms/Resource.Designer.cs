@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MemoQ.IntentoMT.Settings.WinForms {
+namespace Intento.MT.Plugin.PropertiesForm.WinForms {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace MemoQ.IntentoMT.Settings.WinForms {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MemoQ.IntentoMT.Settings.WinForms.Resource", typeof(Resource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Intento.MT.Plugin.PropertiesForm.WinForms.Resource", typeof(Resource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
