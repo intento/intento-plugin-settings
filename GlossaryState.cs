@@ -65,7 +65,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                     formMT.groupBoxGlossary.Visible = true;
                     if (isList)
                     {
-                        formMT.groupBoxGlossary.Visible = true;
                         if (glossaries.Count == 0)
                         {
                             formMT.textBoxGlossary.Visible = true;

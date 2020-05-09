@@ -272,8 +272,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 foreach (Control ctrl in this.Controls)
                 {
-                    if (ctrl.Enabled)
-                    {
+					if (ctrl.Enabled && ctrl.Name != "buttonCancel")
+					{
                         disabledControls.Add(ctrl);
                         ctrl.Enabled = false;
                     }
