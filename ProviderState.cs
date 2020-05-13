@@ -355,28 +355,41 @@ namespace Intento.MT.Plugin.PropertiesForm
             formMT.comboBoxFrom.Items.Clear();
             formMT.comboBoxTo.Items.Clear();
             if (from != null)
-            {
                 formMT.comboBoxFrom.Items.AddRange(from.Select(x => x.Value).ToArray());
-                if (!string.IsNullOrWhiteSpace(options.FromLanguage) && from.ContainsKey(options.FromLanguage))
-                    formMT.comboBoxFrom.SelectedItem = from[options.FromLanguage];
-                else if (from.ContainsKey("en"))
-                    formMT.comboBoxFrom.SelectedItem = from["en"];
-                else
-                    formMT.comboBoxFrom.SelectedIndex = 1;
-            }
-            if (from != null)
-            {
+            if (to != null)
                 formMT.comboBoxTo.Items.AddRange(to.Select(x => x.Value).ToArray());
-                if (!string.IsNullOrWhiteSpace(options.ToLanguage) && to.ContainsKey(options.ToLanguage))
-                    formMT.comboBoxTo.SelectedItem = to[options.ToLanguage];
-                else if (to.ContainsKey("es"))
-                    formMT.comboBoxTo.SelectedItem = to["es"];
-                else
-                    formMT.comboBoxTo.SelectedIndex = 1;
-            }
+			SetLanguageComboBoxes(options.FromLanguage, options.ToLanguage);
         }
 
-        static void Providers_ComboBox_BackColor_State(IntentoFormOptionsMT formMT, bool hasErrors)
+		public void SetLanguageComboBoxes(string from, string to)
+		{
+			if (fromLanguages != null)
+			{
+				if (!string.IsNullOrWhiteSpace(from) && fromLanguages.ContainsKey(from))
+					formMT.comboBoxFrom.SelectedItem = fromLanguages[from];
+				else if (!string.IsNullOrWhiteSpace(options.FromLanguage) && fromLanguages.ContainsKey(options.FromLanguage))
+					formMT.comboBoxFrom.SelectedItem = fromLanguages[options.FromLanguage];
+				else if (fromLanguages.ContainsKey("en"))
+					formMT.comboBoxFrom.SelectedItem = fromLanguages["en"];
+				else
+					formMT.comboBoxFrom.SelectedIndex = 1;
+			}
+
+			if (toLanguages != null)
+			{
+				if (!string.IsNullOrWhiteSpace(to) && toLanguages.ContainsKey(to))
+					formMT.comboBoxTo.SelectedItem = toLanguages[to];
+				else if (!string.IsNullOrWhiteSpace(options.ToLanguage) && fromLanguages.ContainsKey(options.ToLanguage))
+					formMT.comboBoxTo.SelectedItem = fromLanguages[options.ToLanguage];
+				else if (toLanguages.ContainsKey("es"))
+					formMT.comboBoxTo.SelectedItem = toLanguages["es"];
+				else
+					formMT.comboBoxTo.SelectedIndex = 1;
+			}
+		}
+
+
+		static void Providers_ComboBox_BackColor_State(IntentoFormOptionsMT formMT, bool hasErrors)
         {
             if (hasErrors)
                 formMT.comboBoxProviders.BackColor = Color.LightPink;

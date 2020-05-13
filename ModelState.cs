@@ -71,8 +71,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             // set back color 
             Model_Control_BackColor_State(!string.IsNullOrEmpty(errorMessage));
+			if (SelectedModelFrom != null && providerState.fromLanguages != null)
+				formMT.comboBoxFrom.SelectedItem = providerState.fromLanguages[SelectedModelFrom];
+			if (SelectedModelTo != null && providerState.toLanguages != null)
+				formMT.comboBoxTo.SelectedItem = providerState.toLanguages[SelectedModelTo];
 
-            return errorMessage;
+			return errorMessage;
         }
 
         #region Properties
@@ -122,9 +126,30 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
+		public string SelectedModelTo
+		{
+			get
+			{
+				if (!UseModel || !isList || ModelName == null)
+					return null;
+				dynamic model =models[formMT.comboBoxModels.Text];
+				return (string)model.to;
+			}
+		}
+		public string SelectedModelFrom
+		{
+			get
+			{
+				if (!UseModel || !isList || ModelName == null)
+					return null;
+				dynamic model = models[formMT.comboBoxModels.Text];
+				return (string)model.from;
+			}
+		}
 
 
-        public bool UseModel
+
+		public bool UseModel
         { get { return formMT.checkBoxUseCustomModel.Checked; } }
 
         #endregion Properties
@@ -289,6 +314,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         public void modelControls_ValueChanged()
         {
             if (!firstTimeDraw && !internalControlChange)
+			if (!firstTimeDraw && !internalControlChange)
                 ModelState.FillOptions(this, options);
             EnableDisable();
         }

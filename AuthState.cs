@@ -160,13 +160,22 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (string.IsNullOrEmpty(error_message))
                 error_message = error_message2;
 
-            if (modelSt != null && modelSt.UseModel)
-                formMT.groupBoxOptional.Enabled = true;
-            else if (glossarySt != null && glossarySt.currentGlossary != null)
-                formMT.groupBoxOptional.Enabled = true;
-            else formMT.groupBoxOptional.Enabled = false;
-
-            return error_message;
+			if (modelSt != null && modelSt.UseModel)
+			{
+				formMT.groupBoxOptional.Enabled = true;
+				providerState.SetLanguageComboBoxes(modelSt.SelectedModelFrom, modelSt.SelectedModelTo);
+			}
+			else if (glossarySt != null && glossarySt.currentGlossary != null)
+			{
+				formMT.groupBoxOptional.Enabled = true;
+				providerState.SetLanguageComboBoxes(glossarySt.SelectedGlossaryFrom, glossarySt.SelectedGlossaryTo);
+			}
+			else
+			{
+				formMT.groupBoxOptional.Enabled = false;
+				providerState.SetLanguageComboBoxes(null, null);
+			}
+				return error_message;
         }
 
         private void FillCredentials()

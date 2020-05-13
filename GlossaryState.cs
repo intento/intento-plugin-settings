@@ -152,9 +152,30 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-        #endregion Properties
+		public string SelectedGlossaryTo
+		{
+			get
+			{
+				if (!isList || currentGlossary == null)
+					return null;
+				dynamic glossary = glossaries[formMT.comboBoxGlossaries.Text];
+				return (string)glossary.to;
+			}
+		}
+		public string SelectedGlossaryFrom
+		{
+			get
+			{
+				if (!isList || currentGlossary == null)
+					return null;
+				dynamic glossary = glossaries[formMT.comboBoxGlossaries.Text];
+				return (string)glossary.from;
+			}
+		}
 
-        void Clear()
+		#endregion Properties
+
+		void Clear()
         {
             internalControlChange = true;
             formMT.comboBoxGlossaries.Items.Clear();
@@ -259,13 +280,14 @@ namespace Intento.MT.Plugin.PropertiesForm
             formMT.groupBoxOptional.Enabled = options.UseCustomModel || currentGlossary != null;
             if (!internalControlChange)
                 GlossaryState.FillOptions(this, options);
-        }
+			EnableDisable();
+		}
 
-        #endregion Events
+		#endregion Events
 
-        #region methods for managing a group of controls
+		#region methods for managing a group of controls
 
-        static void Glossary_GroupBox_Disable(IntentoFormOptionsMT formMT)
+		static void Glossary_GroupBox_Disable(IntentoFormOptionsMT formMT)
         {
             formMT.groupBoxGlossary.Enabled = false;
             formMT.comboBoxGlossaries.Visible = false;
