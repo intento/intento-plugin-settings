@@ -29,7 +29,18 @@ namespace TestForm
         {
             comboBoxTestName.Items.Clear();
             comboBoxTestName.Items.AddRange(GetSettingNames());
-        }
+			Dictionary<int, string> versionDct = new Dictionary<int, string>();
+			versionDct.Add(0, "Default (installed)");
+			versionDct.Add(7, "7");
+			versionDct.Add(8, "8");
+			versionDct.Add(9, "9");
+			versionDct.Add(10, "10");
+			versionDct.Add(11, "11 and above");
+			comboBoxIEVersion.DataSource = new BindingSource(versionDct, null);
+			comboBoxIEVersion.DisplayMember = "Value";
+			comboBoxIEVersion.ValueMember = "Key";
+			comboBoxIEVersion.SelectedValue = 0;
+		}
 
         private bool str2bool(object z)
         {
@@ -275,6 +286,13 @@ namespace TestForm
 		private void checkBoxTradosApp_CheckedChanged(object sender, EventArgs e)
 		{
 			checkBoxCustomTagParser.Enabled = !checkBoxTradosApp.Checked;
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			BrowserForm BFrom = new BrowserForm((int)comboBoxIEVersion.SelectedValue);
+			if (!BFrom.IsDisposed)
+				BFrom.ShowDialog();
 		}
 	}
 }
