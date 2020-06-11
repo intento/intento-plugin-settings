@@ -71,7 +71,7 @@
 			this.label12 = new System.Windows.Forms.Label();
 			this.checkBoxCustomTagParser = new System.Windows.Forms.CheckBox();
 			this.checkBoxTradosApp = new System.Windows.Forms.CheckBox();
-			this.button1 = new System.Windows.Forms.Button();
+			this.buttonWL = new System.Windows.Forms.Button();
 			this.label13 = new System.Windows.Forms.Label();
 			this.comboBoxIEVersion = new System.Windows.Forms.ComboBox();
 			this.groupBox1.SuspendLayout();
@@ -245,6 +245,8 @@
 			// checkBoxStage
 			// 
 			this.checkBoxStage.AutoSize = true;
+			this.checkBoxStage.Checked = true;
+			this.checkBoxStage.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.checkBoxStage.Location = new System.Drawing.Point(256, 537);
 			this.checkBoxStage.Name = "checkBoxStage";
 			this.checkBoxStage.Size = new System.Drawing.Size(54, 17);
@@ -470,15 +472,15 @@
 			this.checkBoxTradosApp.UseVisualStyleBackColor = true;
 			this.checkBoxTradosApp.CheckedChanged += new System.EventHandler(this.checkBoxTradosApp_CheckedChanged);
 			// 
-			// button1
+			// buttonWL
 			// 
-			this.button1.Location = new System.Drawing.Point(32, 648);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(101, 30);
-			this.button1.TabIndex = 39;
-			this.button1.Text = "Web Login";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			this.buttonWL.Location = new System.Drawing.Point(32, 648);
+			this.buttonWL.Name = "buttonWL";
+			this.buttonWL.Size = new System.Drawing.Size(101, 30);
+			this.buttonWL.TabIndex = 39;
+			this.buttonWL.Text = "Web Login";
+			this.buttonWL.UseVisualStyleBackColor = true;
+			this.buttonWL.Click += new System.EventHandler(this.buttonWL_Click);
 			// 
 			// label13
 			// 
@@ -506,7 +508,7 @@
 			this.ClientSize = new System.Drawing.Size(435, 690);
 			this.Controls.Add(this.comboBoxIEVersion);
 			this.Controls.Add(this.label13);
-			this.Controls.Add(this.button1);
+			this.Controls.Add(this.buttonWL);
 			this.Controls.Add(this.checkBoxTradosApp);
 			this.Controls.Add(this.checkBoxCustomTagParser);
 			this.Controls.Add(this.label12);
@@ -596,7 +598,7 @@
         private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.CheckBox checkBoxCustomTagParser;
 		private System.Windows.Forms.CheckBox checkBoxTradosApp;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button buttonWL;
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.ComboBox comboBoxIEVersion;
 	}

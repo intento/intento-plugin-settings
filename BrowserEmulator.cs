@@ -7,7 +7,7 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestForm
+namespace Intento.MT.Plugin.PropertiesForm
 {
 	public enum BrowserEmulationVersion
 	{
@@ -170,31 +170,30 @@ namespace TestForm
 				ieVersion = GetInternetExplorerMajorVersion();
 
 			if (ieVersion >= 11)
-			{
 				emulationCode = BrowserEmulationVersion.Version11;
-			}
 			else
-			{
-				switch (ieVersion)
-				{
-					case 10:
-						emulationCode = BrowserEmulationVersion.Version10;
-						break;
-					case 9:
-						emulationCode = BrowserEmulationVersion.Version9;
-						break;
-					case 8:
-						emulationCode = BrowserEmulationVersion.Version8;
-						break;
-					case 7:
-						emulationCode = BrowserEmulationVersion.Version7;
-						break;
-					default:
-						return false;
-						//emulationCode = BrowserEmulationVersion.Version7;
-						//break;
-				}
-			}
+				return false;
+			//{
+			//	switch (ieVersion)
+			//	{
+			//		case 10:
+			//			emulationCode = BrowserEmulationVersion.Version10;
+			//			break;
+			//		case 9:
+			//			emulationCode = BrowserEmulationVersion.Version9;
+			//			break;
+			//		case 8:
+			//			emulationCode = BrowserEmulationVersion.Version8;
+			//			break;
+			//		case 7:
+			//			emulationCode = BrowserEmulationVersion.Version7;
+			//			break;
+			//		default:
+			//			return false;
+			//			//emulationCode = BrowserEmulationVersion.Version7;
+			//			//break;
+			//	}
+			//}
 			
 			return SetBrowserEmulationVersion(emulationCode);
 		}

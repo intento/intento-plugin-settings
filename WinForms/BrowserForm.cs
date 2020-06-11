@@ -10,15 +10,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace TestForm
+namespace Intento.MT.Plugin.PropertiesForm
 {
 	public partial class BrowserForm : Form
 	{
+		public Trusted trust;
+
 		[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
 		[System.Runtime.InteropServices.ComVisibleAttribute(true)]
 		public class Trusted
 		{
-			BrowserForm form;
+			BrowserForm form { get; set; }
+			public string jsonString;
 
 			public Trusted(BrowserForm form)
 			{
@@ -26,16 +29,32 @@ namespace TestForm
 			}
 			public void Exchange(String jsonString)
 			{
+				this.jsonString = jsonString;
 				dynamic data = JObject.Parse(jsonString);
-				form.label2.Text = (string)data.apikey;
+				var apiKey = (string)data.key;
+				form.label2.Text = apiKey;
+				form.DialogResult = DialogResult.OK;
+				form.Close();
 			}
 		}
 
+		public BrowserForm(string url)
+		{
+			InitializeComponent();
+			this.MinimumSize = new System.Drawing.Size(612, 536);
+			this.MaximumSize = new System.Drawing.Size(612, 536);
+			trust = new Trusted(this);
+			webBrowser1.ObjectForScripting = trust;
+			webBrowser1.Url = new Uri(url);
+			panelTest.Height = 0;
+		}
+
+		#region TestForm methods
 		public BrowserForm(int ieVersion = -1)
 		{
 			InitializeComponent();
 			string err = null;
-			if (BrowserEmulator.GetInternetExplorerMajorVersion() == -1 )
+			if (BrowserEmulator.GetInternetExplorerMajorVersion() == -1)
 				err = "Internet Explorer is not installed on your operating system";
 			else if (!BrowserEmulator.SetBrowserEmulationVersion(ieVersion))
 				err = "Requires installed Internet Explorer version 11 or later";
@@ -53,7 +72,6 @@ namespace TestForm
 				BrowserForm_Resize(null, null);
 			}
 		}
-
 		private void buttonToIntento_Click(object sender, EventArgs e)
 		{
 			webBrowser1.Url = new Uri(((Button)sender).Text);
@@ -61,21 +79,6 @@ namespace TestForm
 
 		private void buttonFillCode_Click(object sender, EventArgs e)
 		{
-			//webBrowser1.DocumentText =
-			//	"<html><head><script>" +
-			//	"function testfromwinform(message) { alert(message); }" +
-			//	"var s = '{\"apikey\":\"1234567890-0987654321\"}'" +
-			//	"</script></head><body><button " +
-			//	"onclick='window.external.Exchange(s)'>" +
-			//	"call winform code with apikey data 1234567890-0987654321</button>" +
-			//	"<br><br><strong>Code for button</strong><br>" +
-			//	"<pre><xmp><script>\r\n" +
-			//	"function testfromwinform(message) { alert(message); }\r\n" +
-			//	"var s = '{\"apikey\":\"1234567890-0987654321\"}'\r\n" +
-			//	"</script>\r\n<button " +
-			//	"onclick='window.external.Exchange(s)'>" +
-			//	"call winform code with apikey data 1234567890-0987654321</button>" +
-			//	"</xmp><pre></body></html>";
 			webBrowser1.DocumentText =
 				"<html><head><script>" +
 				"var s = '{\"apikey\":\"1234567890-0987654321\"}';" +
@@ -93,7 +96,7 @@ namespace TestForm
 				"</xmp><pre></body></html>";
 		}
 
-	private void button1_Click(object sender, EventArgs e)
+		private void button1_Click(object sender, EventArgs e)
 		{
 			label2.Text = "";
 		}
@@ -103,5 +106,8 @@ namespace TestForm
 			var s = string.Format("{0}x{1}", webBrowser1.Width, webBrowser1.Height);
 			label4.Text = s;
 		}
+
 	}
+	#endregion TestForm methods
+
 }

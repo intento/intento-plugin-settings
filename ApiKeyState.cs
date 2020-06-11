@@ -236,8 +236,19 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         void ApiKey_Set_Panel(bool apiKeyStateIsOK)
         {
-            form.groupBoxMTConnect.Visible = !apiKeyStateIsOK;
-            form.groupBoxMTConnect2.Visible = apiKeyStateIsOK;
+			if (options.UseWebLogin)
+			{
+				form.groupBoxMTConnectWL.Visible = true;
+				form.groupBoxMTConnect.Visible = false;
+				form.groupBoxMTConnect2.Visible = false;
+				form.buttonWL.Text = apiKeyStateIsOK ? Resource.MFClearApikey : Resource.MFWebLogin;
+			}
+			else
+			{
+				form.groupBoxMTConnectWL.Visible = false;
+				form.groupBoxMTConnect.Visible = !apiKeyStateIsOK;
+				form.groupBoxMTConnect2.Visible = apiKeyStateIsOK;
+			}
             form.buttonMTSetting.Enabled = apiKeyStateIsOK;
         }
 

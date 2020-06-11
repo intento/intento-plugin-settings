@@ -288,9 +288,9 @@ namespace TestForm
 			checkBoxCustomTagParser.Enabled = !checkBoxTradosApp.Checked;
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		private void buttonWL_Click(object sender, EventArgs e)
 		{
-			BrowserForm BFrom = new BrowserForm((int)comboBoxIEVersion.SelectedValue);
+			Intento.MT.Plugin.PropertiesForm.BrowserForm BFrom = new Intento.MT.Plugin.PropertiesForm.BrowserForm((int)comboBoxIEVersion.SelectedValue);
 			if (!BFrom.IsDisposed)
 				BFrom.ShowDialog();
 		}

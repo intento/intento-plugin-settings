@@ -77,6 +77,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string CustomSettingsName { get; set; }
 		// Custom html tags parser. Using  in MemoQ plugin
 		public bool CustomTagParser { get; set; }
+		// If the installed IE 11, then use the web login
+		public bool UseWebLogin { get; set; }
 
 		// Special options for public memoQ plugin special requirements
 		// Forbit to save ApiKey in registry 
@@ -152,6 +154,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 FromLanguage = this.FromLanguage,
                 ToLanguage = this.ToLanguage,
                 _authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),
+				UseWebLogin = this.UseWebLogin
             };
             return res;
         }

@@ -57,7 +57,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrowserEmulator.cs" />
     <Compile Include="Tests.cs" />
+    <Compile Include="WinForms\BrowserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\BrowserForm.designer.cs">
+      <DependentUpon>BrowserForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\IntentoFormIgnoreError.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +126,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="WinForms\BrowserForm.resx">
+      <DependentUpon>BrowserForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinForms\IntentoFormIgnoreError.resx">
       <DependentUpon>IntentoFormIgnoreError.cs</DependentUpon>
     </EmbeddedResource>

@@ -326,4 +326,10 @@ If you have selected custom model or glossary, please adjust the language pair:<
   <data name="FAcheckBoxCustomTagParser" xml:space="preserve">
     <value>Custom HTML tags parser</value>
   </data>
+  <data name="MFClearApikey" xml:space="preserve">
+    <value>Clear Api Key</value>
+  </data>
+  <data name="MFWebLogin" xml:space="preserve">
+    <value>Login to Intento</value>
+  </data>
 </root>

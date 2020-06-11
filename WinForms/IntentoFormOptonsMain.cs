@@ -65,6 +65,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		private int cursorCount = 0;
 		public bool settingsIsSet;
 		public bool insideEnableDisable = false;
+		public bool useWL = false;
 
 
 		// Glossary data was obtained directly, without a request to the Intento service
@@ -103,8 +104,14 @@ namespace Intento.MT.Plugin.PropertiesForm
 				IntentoHelpers.GetVersion(currentAssem),
 				IntentoHelpers.GetGitCommitHash(currentAssem));
 
+			// checking the installed version of IE for web login
+			int ieVersion = BrowserEmulator.GetInternetExplorerMajorVersion();
+			options.UseWebLogin = (ieVersion != -1 && BrowserEmulator.SetBrowserEmulationVersion(ieVersion));
+
 			originalOptions = options;
 			currentOptions = originalOptions.Duplicate();
+
+
 			formAdvanced = new IntentoFormAdvanced(this);
 			formApi = new IntentoFormOptionsAPI(this);
 			formMT = new IntentoFormOptionsMT(this);
@@ -126,6 +133,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			var arr = originalOptions.Signature.Split('/');
 			formAdvanced.toolStripStatusLabel1.Text = arr.Count() == 3 ? String.Format("{0}/{1}", arr[0], arr[2]) : originalOptions.Signature;
 			groupBoxMTConnect2.Location = groupBoxMTConnect.Location;
+			groupBoxMTConnectWL.Location = groupBoxMTConnect.Location;
 
 			if (!string.IsNullOrWhiteSpace(apiKeyState.apiKey))
 			{
@@ -558,6 +566,43 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         }
 
-    }
+		private void buttonWL_Click(object sender, EventArgs e)
+		{
+			using (new CursorForm(this))
+			{
+				// test1_intento@amtse.ru / test1_intento@amtse.ru
+				string url = String.Format("https://console-dt.inten.to/{0}/memoq", !apiKeyState.IsOK ? "login" : "logout");
+				BrowserForm BFrom = new BrowserForm(url);
+				BFrom.ShowDialog();
+				string jsonString = BFrom.trust.jsonString;
+				if (BFrom.DialogResult == DialogResult.OK && jsonString != null)
+				{
+					dynamic data = JObject.Parse(jsonString);
+					string apiKey = (string)data.key;
+					var signout = (string)data.signedOut;
+					var sandboxKey = (string)data.sandboxKey;
+					var email = (string)data.email;
+
+					if (apiKey == null && signout == "False")
+						return;
+
+					if (apiKeyState.apiKey != apiKey)
+					{
+						apiKeyState.SetValue(apiKey);
+						apiKeyState.ReadProviders();
+						settingsIsSet = true;
+						RefreshFormInfo();
+						labelSBKey.Visible = sandboxKey == "True";
+					}
+					labelWL.Text = apiKeyState.IsOK ? $"You are currently logged in as {email}" : "Log in to the intento service";
+				}
+			}
+		}
+
+
+
+
+
+	}
 
 }
