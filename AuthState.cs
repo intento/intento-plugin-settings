@@ -247,7 +247,14 @@ namespace Intento.MT.Plugin.PropertiesForm
         }
 
         public bool UseCustomAuth
-        { get { return formMT.comboBoxCredentialId.SelectedIndex > 0; } }
+        { get
+			{
+				if (IsDelegatedCredentials && mode == StateModeEnum.required)
+					return !string.IsNullOrEmpty(formMT.comboBoxCredentialId.Text);
+				else
+					return formMT.comboBoxCredentialId.SelectedIndex > 0;
+			}
+		}
 
         public static void FillOptions(AuthState state, IntentoMTFormOptions options)
         {
