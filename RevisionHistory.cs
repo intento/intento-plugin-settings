@@ -88,6 +88,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// - Ñhange settings for connected accounts
 		// 2.2.1: 2020-05-13
 		// - Setting a language pair for a test request from model/glossary data
+		// 2.2.2: 2020-06-17
+		// - Bug fix with required & delegated auth mode
         // 2.2.4: 2020-06-19
         // - Write logs to AWS
 	}
