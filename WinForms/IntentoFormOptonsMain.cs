@@ -87,7 +87,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 			Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric
 			)
 		{
-			var splashForm = new IntentoFormSplash();
+            Logs.Write2("Test", "test content");
+
+            var splashForm = new IntentoFormSplash();
 			splashForm.Show();
 			this.Visible = false;
 			this.fabric = fabric;
