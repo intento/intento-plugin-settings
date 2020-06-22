@@ -374,7 +374,10 @@ namespace Intento.MT.Plugin.PropertiesForm
         void Optional_Group_Enabled(bool value)
         {
             if (value)
-                formMT.groupBoxOptional.Enabled = value;
+            {
+                // temporary! formMT.groupBoxOptional.Enabled = value;
+                formMT.groupBoxOptional.Enabled = true;
+            }
             else
             {
                 //formMT.groupBoxOptional.Enabled = options.UseCustomModel

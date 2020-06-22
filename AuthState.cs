@@ -135,7 +135,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				{// Credentials required but not filled in full
 					Auth_Control_BackColor_State(formMT, true);
 					error_message = Resource.OwnCredentialsNeededErrorMessage;
-					formMT.groupBoxOptional.Enabled = false;
+					// temporary! formMT.groupBoxOptional.Enabled = false;
 				}
 				else
 				{// All fields in credentals are filled
@@ -163,19 +163,19 @@ namespace Intento.MT.Plugin.PropertiesForm
 			if (modelSt != null && modelSt.UseModel)
 			{
 				formMT.groupBoxOptional.Enabled = true;
-				providerState.SetLanguageComboBoxes(modelSt.SelectedModelFrom, modelSt.SelectedModelTo);
+				providerState.SetLanguageComboBoxes(modelSt.SelectedModelFrom, modelSt.SelectedModelTo, null);
 			}
 			else if (glossarySt != null && glossarySt.currentGlossary != null)
 			{
 				formMT.groupBoxOptional.Enabled = true;
-				providerState.SetLanguageComboBoxes(glossarySt.SelectedGlossaryFrom, glossarySt.SelectedGlossaryTo);
+				providerState.SetLanguageComboBoxes(glossarySt.SelectedGlossaryFrom, glossarySt.SelectedGlossaryTo, null);
 			}
 			else
-			{
-				formMT.groupBoxOptional.Enabled = false;
-				providerState.SetLanguageComboBoxes(null, null);
+			{   // No model or glossaqry, we do not need to show language selection
+                // temporary! formMT.groupBoxOptional.Enabled = false;
+                providerState.SetLanguageComboBoxes(null, null, null);
 			}
-				return error_message;
+			return error_message;
         }
 
         private void FillCredentials()

@@ -48,8 +48,10 @@
                 options.Format = "[\"text\",\"html\",\"xml\"]";
 
             EnableDisable();
-			if (formMT.checkBoxSmartRouting.Checked)
-				formMT.groupBoxOptional.Enabled = false;
+            if (formMT.checkBoxSmartRouting.Checked)
+            {
+                // temporary! formMT.groupBoxOptional.Enabled = false;
+            }
         }
 
         public bool IsOK
