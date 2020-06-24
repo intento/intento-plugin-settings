@@ -38,12 +38,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\intento-plugin-memoq\IntentoMTPlugin\AWS\AWSSDK.Core.dll</HintPath>
+      <HintPath>..\Plugins\packages\AWSSDK.Core.3.3.107.14\lib\net45\AWSSDK.Core.dll</HintPath>
     </Reference>
     <Reference Include="AWSSDK.S3, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\intento-plugin-memoq\IntentoMTPlugin\AWS\AWSSDK.S3.dll</HintPath>
+      <HintPath>..\Plugins\packages\AWSSDK.S3.3.3.111.14\lib\net45\AWSSDK.S3.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -158,6 +156,7 @@
     <None Include=".gitignore" />
     <None Include="githashForm.bat" />
     <None Include="intento.pfx" />
+    <None Include="packages.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +167,9 @@
       <Project>{14d9da22-f8d4-4f62-975a-7bd821807528}</Project>
       <Name>IntentoSDK</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\Plugins\packages\AWSSDK.S3.3.3.111.14\analyzers\dotnet\cs\AWSSDK.S3.CodeAnalysis.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
