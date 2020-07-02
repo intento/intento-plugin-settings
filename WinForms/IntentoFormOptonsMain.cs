@@ -107,6 +107,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 			originalOptions = options;
 			currentOptions = originalOptions.Duplicate();
+			TraceEndTime = originalOptions.TraceEndTime;
 			formAdvanced = new IntentoFormAdvanced(this);
 			formApi = new IntentoFormOptionsAPI(this);
 			formMT = new IntentoFormOptionsMT(this);
@@ -560,6 +561,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         }
 
-    }
+		private void IntentoTranslationProviderOptionsForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			originalOptions.TraceEndTime = TraceEndTime;
+		}
+	}
 
 }

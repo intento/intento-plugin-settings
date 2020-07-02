@@ -18,6 +18,7 @@ namespace TestForm
     {
         IntentoMTFormOptions options;
         string REG_PATH = "Software\\Intento\\PluginForm\\TestForm";
+		DateTime TraceEndDT;
 
         public Form1()
         {
@@ -172,10 +173,11 @@ namespace TestForm
                 options.ForbidSaveApikey = true;
             if (checkBoxHideHiddenTextButton.Checked)
                 options.HideHiddenTextButton = true;
+			options.TraceEndTime = DateTime.Now.AddMinutes(checkBox1.Checked ? 30 : -40);
 
 
 
-            IntentoTranslationProviderOptionsForm.LangPair[] languagePair = new IntentoTranslationProviderOptionsForm.LangPair[1] 
+			IntentoTranslationProviderOptionsForm.LangPair[] languagePair = new IntentoTranslationProviderOptionsForm.LangPair[1] 
                 { new IntentoTranslationProviderOptionsForm.LangPair("en", "de") };
 
             IntentoTranslationProviderOptionsForm form = new IntentoTranslationProviderOptionsForm(options, languagePair, Fabric);
@@ -215,7 +217,15 @@ namespace TestForm
             textBoxPort.Text = (string)key.GetValue("ProxyPort", null);
             textBoxUserName.Text = (string)key.GetValue("ProxyUserName", null);
             textBoxPassword.Text = (string)key.GetValue("ProxyPassw", null);
-        }
+			if (options.TraceEndTime > DateTime.Now)
+			{
+				checkBox1.Checked = true;
+				textBoxDTLog.Text = TraceEndDT.ToString("HH:MM:ss yy.mm.yyyy");
+			}
+			else
+				checkBox1.Checked = false;
+
+		}
 
         private void buttonSaveData_Click(object sender, EventArgs e)
         {
@@ -293,6 +303,21 @@ namespace TestForm
 			BrowserForm BFrom = new BrowserForm((int)comboBoxIEVersion.SelectedValue);
 			if (!BFrom.IsDisposed)
 				BFrom.ShowDialog();
+		}
+
+		private void checkBox1_CheckedChanged(object sender, EventArgs e)
+		{
+			if (checkBox1.Checked)
+			{
+				TraceEndDT = DateTime.Now.AddMinutes(30);
+				textBoxDTLog.Text = TraceEndDT.ToString("HH:MM:ss yy.mm.yyyy");
+			}
+			else
+			{
+				TraceEndDT = DateTime.Now.AddMinutes(-30);
+				textBoxDTLog.Text = "";
+			}
+
 		}
 	}
 }

@@ -71,9 +71,11 @@
 			this.label12 = new System.Windows.Forms.Label();
 			this.checkBoxCustomTagParser = new System.Windows.Forms.CheckBox();
 			this.checkBoxTradosApp = new System.Windows.Forms.CheckBox();
-			this.button1 = new System.Windows.Forms.Button();
+			this.buttonWebLogin = new System.Windows.Forms.Button();
 			this.label13 = new System.Windows.Forms.Label();
 			this.comboBoxIEVersion = new System.Windows.Forms.ComboBox();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.textBoxDTLog = new System.Windows.Forms.TextBox();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -81,7 +83,7 @@
 			// 
 			this.buttonShow.Location = new System.Drawing.Point(32, 447);
 			this.buttonShow.Name = "buttonShow";
-			this.buttonShow.Size = new System.Drawing.Size(102, 41);
+			this.buttonShow.Size = new System.Drawing.Size(102, 53);
 			this.buttonShow.TabIndex = 0;
 			this.buttonShow.Text = "Open Form";
 			this.buttonShow.UseVisualStyleBackColor = true;
@@ -199,7 +201,7 @@
 			// 
 			// buttonSaveData
 			// 
-			this.buttonSaveData.Location = new System.Drawing.Point(235, 495);
+			this.buttonSaveData.Location = new System.Drawing.Point(235, 504);
 			this.buttonSaveData.Name = "buttonSaveData";
 			this.buttonSaveData.Size = new System.Drawing.Size(75, 23);
 			this.buttonSaveData.TabIndex = 17;
@@ -210,7 +212,7 @@
 			// comboBoxTestName
 			// 
 			this.comboBoxTestName.FormattingEnabled = true;
-			this.comboBoxTestName.Location = new System.Drawing.Point(32, 497);
+			this.comboBoxTestName.Location = new System.Drawing.Point(32, 506);
 			this.comboBoxTestName.Name = "comboBoxTestName";
 			this.comboBoxTestName.Size = new System.Drawing.Size(192, 21);
 			this.comboBoxTestName.TabIndex = 18;
@@ -234,7 +236,7 @@
 			// 
 			// buttonTranslatePlain
 			// 
-			this.buttonTranslatePlain.Location = new System.Drawing.Point(111, 524);
+			this.buttonTranslatePlain.Location = new System.Drawing.Point(111, 533);
 			this.buttonTranslatePlain.Name = "buttonTranslatePlain";
 			this.buttonTranslatePlain.Size = new System.Drawing.Size(126, 30);
 			this.buttonTranslatePlain.TabIndex = 20;
@@ -245,7 +247,7 @@
 			// checkBoxStage
 			// 
 			this.checkBoxStage.AutoSize = true;
-			this.checkBoxStage.Location = new System.Drawing.Point(256, 537);
+			this.checkBoxStage.Location = new System.Drawing.Point(256, 546);
 			this.checkBoxStage.Name = "checkBoxStage";
 			this.checkBoxStage.Size = new System.Drawing.Size(54, 17);
 			this.checkBoxStage.TabIndex = 22;
@@ -268,7 +270,7 @@
 			// 
 			// textBoxText
 			// 
-			this.textBoxText.Location = new System.Drawing.Point(32, 560);
+			this.textBoxText.Location = new System.Drawing.Point(32, 569);
 			this.textBoxText.Name = "textBoxText";
 			this.textBoxText.Size = new System.Drawing.Size(257, 20);
 			this.textBoxText.TabIndex = 25;
@@ -276,7 +278,7 @@
 			// checkBoxFormatted
 			// 
 			this.checkBoxFormatted.AutoSize = true;
-			this.checkBoxFormatted.Location = new System.Drawing.Point(32, 537);
+			this.checkBoxFormatted.Location = new System.Drawing.Point(32, 546);
 			this.checkBoxFormatted.Name = "checkBoxFormatted";
 			this.checkBoxFormatted.Size = new System.Drawing.Size(73, 17);
 			this.checkBoxFormatted.TabIndex = 26;
@@ -286,7 +288,7 @@
 			// textBoxResult
 			// 
 			this.textBoxResult.Enabled = false;
-			this.textBoxResult.Location = new System.Drawing.Point(32, 588);
+			this.textBoxResult.Location = new System.Drawing.Point(32, 597);
 			this.textBoxResult.Name = "textBoxResult";
 			this.textBoxResult.Size = new System.Drawing.Size(257, 20);
 			this.textBoxResult.TabIndex = 27;
@@ -294,14 +296,14 @@
 			// 
 			// textBoxExpected
 			// 
-			this.textBoxExpected.Location = new System.Drawing.Point(32, 614);
+			this.textBoxExpected.Location = new System.Drawing.Point(32, 623);
 			this.textBoxExpected.Name = "textBoxExpected";
 			this.textBoxExpected.Size = new System.Drawing.Size(257, 20);
 			this.textBoxExpected.TabIndex = 28;
 			// 
 			// buttonTestReadData
 			// 
-			this.buttonTestReadData.Location = new System.Drawing.Point(316, 495);
+			this.buttonTestReadData.Location = new System.Drawing.Point(316, 504);
 			this.buttonTestReadData.Name = "buttonTestReadData";
 			this.buttonTestReadData.Size = new System.Drawing.Size(75, 23);
 			this.buttonTestReadData.TabIndex = 19;
@@ -470,22 +472,23 @@
 			this.checkBoxTradosApp.UseVisualStyleBackColor = true;
 			this.checkBoxTradosApp.CheckedChanged += new System.EventHandler(this.checkBoxTradosApp_CheckedChanged);
 			// 
-			// button1
+			// buttonWebLogin
 			// 
-			this.button1.Location = new System.Drawing.Point(32, 648);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(101, 30);
-			this.button1.TabIndex = 39;
-			this.button1.Text = "Web Login";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			this.buttonWebLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.buttonWebLogin.Location = new System.Drawing.Point(32, 672);
+			this.buttonWebLogin.Name = "buttonWebLogin";
+			this.buttonWebLogin.Size = new System.Drawing.Size(101, 30);
+			this.buttonWebLogin.TabIndex = 39;
+			this.buttonWebLogin.Text = "Web Login";
+			this.buttonWebLogin.UseVisualStyleBackColor = true;
+			this.buttonWebLogin.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// label13
 			// 
 			this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.label13.AutoSize = true;
 			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.label13.Location = new System.Drawing.Point(172, 662);
+			this.label13.Location = new System.Drawing.Point(172, 686);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(103, 13);
 			this.label13.TabIndex = 41;
@@ -493,20 +496,42 @@
 			// 
 			// comboBoxIEVersion
 			// 
+			this.comboBoxIEVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.comboBoxIEVersion.FormattingEnabled = true;
-			this.comboBoxIEVersion.Location = new System.Drawing.Point(281, 654);
+			this.comboBoxIEVersion.Location = new System.Drawing.Point(281, 678);
 			this.comboBoxIEVersion.Name = "comboBoxIEVersion";
 			this.comboBoxIEVersion.Size = new System.Drawing.Size(121, 21);
 			this.comboBoxIEVersion.TabIndex = 42;
+			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Location = new System.Drawing.Point(155, 470);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(79, 17);
+			this.checkBox1.TabIndex = 43;
+			this.checkBox1.Text = "Log enable";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+			// 
+			// textBoxDTLog
+			// 
+			this.textBoxDTLog.Location = new System.Drawing.Point(235, 467);
+			this.textBoxDTLog.Name = "textBoxDTLog";
+			this.textBoxDTLog.ReadOnly = true;
+			this.textBoxDTLog.Size = new System.Drawing.Size(167, 20);
+			this.textBoxDTLog.TabIndex = 44;
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(435, 690);
+			this.ClientSize = new System.Drawing.Size(435, 714);
+			this.Controls.Add(this.textBoxDTLog);
+			this.Controls.Add(this.checkBox1);
 			this.Controls.Add(this.comboBoxIEVersion);
 			this.Controls.Add(this.label13);
-			this.Controls.Add(this.button1);
+			this.Controls.Add(this.buttonWebLogin);
 			this.Controls.Add(this.checkBoxTradosApp);
 			this.Controls.Add(this.checkBoxCustomTagParser);
 			this.Controls.Add(this.label12);
@@ -596,9 +621,11 @@
         private System.Windows.Forms.Label label12;
 		private System.Windows.Forms.CheckBox checkBoxCustomTagParser;
 		private System.Windows.Forms.CheckBox checkBoxTradosApp;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button buttonWebLogin;
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.ComboBox comboBoxIEVersion;
+		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.TextBox textBoxDTLog;
 	}
 }
 

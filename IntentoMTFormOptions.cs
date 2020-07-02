@@ -11,8 +11,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 {
     public class IntentoMTFormOptions
     {
-
-        public enum StateModeEnum
+		public enum StateModeEnum
         {
             unknown = 0,
             prohibited,
@@ -85,8 +84,10 @@ namespace Intento.MT.Plugin.PropertiesForm
         public bool HideHiddenTextButton { get; set; }
         // Action on pressing Help button. In case it is not empty Help button is shown
         public Action сallHelpAction;
+		// Trace end time
+		public DateTime TraceEndTime { get; set; }
 
-        public IntentoAiTextTranslate Translate { get; set; }
+		public IntentoAiTextTranslate Translate { get; set; }
 
         private Dictionary<string, string> _authDict = null;
 
@@ -149,8 +150,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 				CustomSettingsName = this.CustomSettingsName,
 				CustomTagParser = this.CustomTagParser,
 				сallHelpAction = this.сallHelpAction,
-                FromLanguage = this.FromLanguage,
-                ToLanguage = this.ToLanguage,
+				FromLanguage = this.FromLanguage,
+				ToLanguage = this.ToLanguage,
+				TraceEndTime = this.TraceEndTime,
                 _authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),
             };
             return res;
