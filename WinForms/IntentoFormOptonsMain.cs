@@ -182,11 +182,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public LangPair[] LanguagePairs
 		{ get { return _languagePairs; } }
 
-		private void CreateIntentoConnection()
-		{
-			_translate = fabric(apiKeyState.apiKey, String.Format("{1}/{2}", originalOptions.UserAgent, "Intento.PluginSettingsForm", version), currentOptions.proxySettings);
-		}
-
 		public static bool IsTrace()
 		{
 			return (TraceEndTime - DateTime.Now).Minutes > 0;

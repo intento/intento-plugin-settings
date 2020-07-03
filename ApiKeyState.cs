@@ -16,8 +16,8 @@ namespace Intento.MT.Plugin.PropertiesForm
     {
         public string apiKey;
 
-        // Controlled components
-        public SmartRoutingState smartRoutingState;
+		// Controlled components
+		public SmartRoutingState smartRoutingState;
 
         public enum EApiKeyStatus
         {
@@ -128,7 +128,12 @@ namespace Intento.MT.Plugin.PropertiesForm
             return error_reason;
         }
 
-        public IEnumerable<string> ErrorDetail()
+		public IntentoAiTextTranslate CreateIntentoConnection(ProxySettings proxySettings, string additionalUserAgent = null )
+		{
+			return form.fabric(apiKey, String.Format("Intento.PluginSettingsForm/{0} {1}", form.version, additionalUserAgent), proxySettings);
+		}
+
+		public IEnumerable<string> ErrorDetail()
         {
             return error_detail;
         }
@@ -207,7 +212,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             apiKeyStatus = status;
             if (apiKeyStatus == EApiKeyStatus.download)
-                form._translate = form.fabric(apiKey, String.Format("{1}/{2}", options.UserAgent, "Intento.PluginSettingsForm", form.version), options.proxySettings);
+                form._translate = CreateIntentoConnection(options.proxySettings);
             else
             {
                 //EnableDisable();

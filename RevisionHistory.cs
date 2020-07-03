@@ -94,5 +94,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// - Use en-zh in testing of plugin settings if en-es unavailable
 		// 2.2.5: 2020-07-02
 		// - Added TraceEndTime to parameters of IntentoMTFormOptions
+		// 2.2.6: 2020-07-03
+		// - Test request marker added
+		// - Fix: use of proxy for test translation request
 	}
 }
