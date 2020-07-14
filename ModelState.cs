@@ -285,7 +285,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     authState.providerState.currentProviderId, 
                     authState.UseCustomAuth ? authState.providerDataAuthDict : null);
                 if (providerModelsRec != null)
-                    models = providerModelsRec.ToDictionary(s => (string)s.name, q => q);
+                    models = ProcessModels(providerState, providerModelsRec);
                 isList = true;
 
                 // Temporary! Empty list means that manual entry is possbile

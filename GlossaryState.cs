@@ -260,7 +260,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     authState.UseCustomAuth ? authState.providerDataAuthDict : null);
                 glossaries = new Dictionary<string, dynamic>();
                 if (providerGlossariesRec != null && providerGlossariesRec.Any())
-                    glossaries = providerGlossariesRec.ToDictionary(s => (string)s.name, q => q);
+                    glossaries = ProcessModels(providerState, providerGlossariesRec);
                 isList = true;
 
                 // Temporary! Empty list means that manual entry is possbile

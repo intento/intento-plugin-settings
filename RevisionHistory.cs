@@ -92,5 +92,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Write logs to AWS
         // - Bug fix with required & delegated auth mode
         // - Use en-zh in testing of plugin settings if en-es unavailable
+        // 2.2.5: 2020-07-14
+        // - Improved list of models
     }
 }

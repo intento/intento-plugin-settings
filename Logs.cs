@@ -43,7 +43,10 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             try
             {
-                WriteLog(info, string.Format("{0}", string.Format(text, parameters)));
+                if (text != null)
+                    WriteLog(info, string.Format("{0}", string.Format(text, parameters)));
+                else
+                    WriteLog(info, "");
             }
             catch { }
         }
