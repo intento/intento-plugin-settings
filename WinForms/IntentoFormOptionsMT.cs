@@ -28,7 +28,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         private List<Control> disabledControls = new List<Control>();
         private CancellationTokenSource cts;
 
-        public IntentoFormOptionsMT(IntentoTranslationProviderOptionsForm form)
+		public IntentoFormOptionsMT(IntentoTranslationProviderOptionsForm form)
         {
             InitializeComponent();
             LocalizeContent();
@@ -95,6 +95,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
                 IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
                 parent.apiKeyState.FillOptions(testOptions);
+				testOptions.proxySettings = parent.currentOptions.proxySettings;
                 cts = new CancellationTokenSource();
                 CancellationToken ct = cts.Token;
                 Task<KeyValuePair<bool, string>> testTask = new Task<KeyValuePair<bool, string>>(() => TestTranslationTask(testOptions));
@@ -142,10 +143,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             IntentoTranslationProviderOptionsForm.Logging("Trados Translate: start");
             try
             {
-                //IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
-                //parent.apiKeyState.FillOptions(testOptions);
-                // Call test translate intent 
-                dynamic result = parent._translate.Fulfill(
+				var testTranslate = parent.apiKeyState.CreateIntentoConnection(testOptions.proxySettings, "Intento.CheckSettings");
+				// Call test translate intent 
+				dynamic result = testTranslate.Fulfill(
                         testString,
                         to: string.IsNullOrWhiteSpace(testOptions.ToLanguage) ? "es" : testOptions.ToLanguage,
                         from: string.IsNullOrWhiteSpace(testOptions.FromLanguage) ? "en" : testOptions.FromLanguage,

@@ -107,6 +107,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 			originalOptions = options;
 			currentOptions = originalOptions.Duplicate();
+			TraceEndTime = originalOptions.TraceEndTime;
 			formAdvanced = new IntentoFormAdvanced(this);
 			formApi = new IntentoFormOptionsAPI(this);
 			formMT = new IntentoFormOptionsMT(this);
@@ -180,11 +181,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 		public LangPair[] LanguagePairs
 		{ get { return _languagePairs; } }
-
-		private void CreateIntentoConnection()
-		{
-			_translate = fabric(apiKeyState.apiKey, String.Format("{1}/{2}", originalOptions.UserAgent, "Intento.PluginSettingsForm", version), currentOptions.proxySettings);
-		}
 
 		public static bool IsTrace()
 		{
@@ -560,6 +556,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         }
 
-    }
+		private void IntentoTranslationProviderOptionsForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			originalOptions.TraceEndTime = TraceEndTime;
+		}
+	}
 
 }
