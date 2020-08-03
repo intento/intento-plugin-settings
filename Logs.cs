@@ -14,7 +14,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         private static readonly RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
         private static IAmazonS3 client = null;
         private static int n = 0;
-        private static string prefix = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss");
+        private static string time_prefix = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss");
+        private static string guid_prefix = Guid.NewGuid().ToString();
 
         private static IAmazonS3 AwsClient()
         {
@@ -24,7 +25,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
 
                 client = new AmazonS3Client(
-                    "AKIAX7JK6EQEP57GIIQP", "Q4CotSp99dLLiA9wRo6P4/bC75p1wMd/7d+QIBt6", 
+                    "AKIAX7JK6EQEP57GIIQP", 
+                    "Q4CotSp99dLLiA9wRo6P4/bC75p1wMd/7d+QIBt6", 
                     RegionEndpoint.USWest2);
                 return client;
             }
@@ -43,19 +45,33 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             try
             {
-                if (text != null)
+                if (parameters.Length != 0)
                     WriteLog(info, string.Format("{0}", string.Format(text, parameters)));
                 else
-                    WriteLog(info, "");
+                    WriteLog(info, text);
             }
             catch { }
         }
 
+        public static bool IsLogging()
+        {
+            string env = Environment.GetEnvironmentVariable("intento_plugin_logging");
+            if (env != null)
+            {
+                env = env.ToLower();
+                if (env == "1" || env == "true")
+                    return true;
+            }
+            return IntentoTranslationProviderOptionsForm.IsTrace();
+        }
+
         private static void WriteLog(string info, string text)
         {
-            if (!IntentoTranslationProviderOptionsForm.IsTrace())
-                return;
+            if (!IsLogging())
+               return;
 
+            if (text == null)
+                text = "";
             var dt = DateTime.UtcNow;
             string name;
             if (string.IsNullOrEmpty(info))
@@ -65,7 +81,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             var putRequest1 = new PutObjectRequest
             {
                 BucketName = bucketName,
-                Key = string.Format("{0}/memoQ/{1}", prefix, name),
+                Key = string.Format("memoq/{0}/{2}", time_prefix, guid_prefix, name),
                 ContentBody = text ?? ""
             };
 

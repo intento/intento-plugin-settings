@@ -1,5 +1,6 @@
 ﻿using Intento.MT.Plugin.PropertiesForm.WinForms;
 using IntentoSDK;
+using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -182,9 +183,31 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public LangPair[] LanguagePairs
 		{ get { return _languagePairs; } }
 
-		public static bool IsTrace()
+		public static bool IsTrace(string pluginID=null)
 		{
-			return (TraceEndTime - DateTime.Now).Minutes > 0;
+            RegistryKey key;
+            if (pluginID != null)
+                key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}", pluginID));
+            else
+                key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento", pluginID));
+
+            string loggingReg = (string)key.GetValue("Logging", null);
+            if (loggingReg != null)
+            {
+                loggingReg = loggingReg.ToLower();
+                if (loggingReg == "1" || loggingReg == "true")
+                    return true;
+            }
+
+            string loggingEnv = Environment.GetEnvironmentVariable("intento_plugin_logging");
+            if (loggingEnv != null)
+            {
+                loggingEnv = loggingEnv.ToLower();
+                if (loggingEnv == "1" || loggingEnv == "true")
+                    return true;
+            }
+
+            return (TraceEndTime - DateTime.Now).Minutes > 0;
 		}
 
 		private string customAuthJsonToString(string authJsonString)
