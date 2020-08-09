@@ -69,19 +69,22 @@
 			this.checkBoxHideHiddenTextButton = new System.Windows.Forms.CheckBox();
 			this.label11 = new System.Windows.Forms.Label();
 			this.label12 = new System.Windows.Forms.Label();
-			this.checkBoxCustomTagParser = new System.Windows.Forms.CheckBox();
-			this.checkBoxTradosApp = new System.Windows.Forms.CheckBox();
 			this.buttonWebLogin = new System.Windows.Forms.Button();
 			this.label13 = new System.Windows.Forms.Label();
 			this.comboBoxIEVersion = new System.Windows.Forms.ComboBox();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.textBoxDTLog = new System.Windows.Forms.TextBox();
+			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.checkBoxTradosApp = new System.Windows.Forms.CheckBox();
+			this.CheckBoxCutTag = new System.Windows.Forms.CheckBox();
+			this.checkBoxCustomTagParser = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
+			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// buttonShow
 			// 
-			this.buttonShow.Location = new System.Drawing.Point(32, 447);
+			this.buttonShow.Location = new System.Drawing.Point(20, 378);
 			this.buttonShow.Name = "buttonShow";
 			this.buttonShow.Size = new System.Drawing.Size(102, 53);
 			this.buttonShow.TabIndex = 0;
@@ -91,7 +94,7 @@
 			// 
 			// textBoxApiKey
 			// 
-			this.textBoxApiKey.Location = new System.Drawing.Point(103, 18);
+			this.textBoxApiKey.Location = new System.Drawing.Point(75, 18);
 			this.textBoxApiKey.Name = "textBoxApiKey";
 			this.textBoxApiKey.Size = new System.Drawing.Size(305, 20);
 			this.textBoxApiKey.TabIndex = 1;
@@ -99,7 +102,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(45, 18);
+			this.label1.Location = new System.Drawing.Point(17, 18);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(40, 13);
 			this.label1.TabIndex = 2;
@@ -107,21 +110,21 @@
 			// 
 			// textBoxProviderId
 			// 
-			this.textBoxProviderId.Location = new System.Drawing.Point(103, 66);
+			this.textBoxProviderId.Location = new System.Drawing.Point(75, 66);
 			this.textBoxProviderId.Name = "textBoxProviderId";
 			this.textBoxProviderId.Size = new System.Drawing.Size(305, 20);
 			this.textBoxProviderId.TabIndex = 3;
 			// 
 			// textBoxModel
 			// 
-			this.textBoxModel.Location = new System.Drawing.Point(103, 192);
+			this.textBoxModel.Location = new System.Drawing.Point(75, 192);
 			this.textBoxModel.Name = "textBoxModel";
 			this.textBoxModel.Size = new System.Drawing.Size(305, 20);
 			this.textBoxModel.TabIndex = 4;
 			// 
 			// textBoxAuth
 			// 
-			this.textBoxAuth.Location = new System.Drawing.Point(103, 142);
+			this.textBoxAuth.Location = new System.Drawing.Point(75, 142);
 			this.textBoxAuth.Name = "textBoxAuth";
 			this.textBoxAuth.Size = new System.Drawing.Size(305, 20);
 			this.textBoxAuth.TabIndex = 5;
@@ -129,7 +132,7 @@
 			// checkBoxAuth
 			// 
 			this.checkBoxAuth.AutoSize = true;
-			this.checkBoxAuth.Location = new System.Drawing.Point(103, 119);
+			this.checkBoxAuth.Location = new System.Drawing.Point(75, 119);
 			this.checkBoxAuth.Name = "checkBoxAuth";
 			this.checkBoxAuth.Size = new System.Drawing.Size(48, 17);
 			this.checkBoxAuth.TabIndex = 7;
@@ -139,7 +142,7 @@
 			// checkBoxModel
 			// 
 			this.checkBoxModel.AutoSize = true;
-			this.checkBoxModel.Location = new System.Drawing.Point(103, 169);
+			this.checkBoxModel.Location = new System.Drawing.Point(75, 169);
 			this.checkBoxModel.Name = "checkBoxModel";
 			this.checkBoxModel.Size = new System.Drawing.Size(55, 17);
 			this.checkBoxModel.TabIndex = 8;
@@ -149,7 +152,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(45, 66);
+			this.label2.Location = new System.Drawing.Point(17, 66);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(58, 13);
 			this.label2.TabIndex = 9;
@@ -158,7 +161,7 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(48, 148);
+			this.label4.Location = new System.Drawing.Point(20, 148);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(29, 13);
 			this.label4.TabIndex = 11;
@@ -167,7 +170,7 @@
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(48, 192);
+			this.label5.Location = new System.Drawing.Point(20, 192);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(36, 13);
 			this.label5.TabIndex = 12;
@@ -176,7 +179,7 @@
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(48, 245);
+			this.label6.Location = new System.Drawing.Point(20, 245);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(46, 13);
 			this.label6.TabIndex = 15;
@@ -184,7 +187,7 @@
 			// 
 			// textBoxGlossary
 			// 
-			this.textBoxGlossary.Location = new System.Drawing.Point(103, 245);
+			this.textBoxGlossary.Location = new System.Drawing.Point(75, 245);
 			this.textBoxGlossary.Name = "textBoxGlossary";
 			this.textBoxGlossary.Size = new System.Drawing.Size(305, 20);
 			this.textBoxGlossary.TabIndex = 14;
@@ -192,7 +195,7 @@
 			// checkBoxSmartRouting
 			// 
 			this.checkBoxSmartRouting.AutoSize = true;
-			this.checkBoxSmartRouting.Location = new System.Drawing.Point(103, 43);
+			this.checkBoxSmartRouting.Location = new System.Drawing.Point(75, 43);
 			this.checkBoxSmartRouting.Name = "checkBoxSmartRouting";
 			this.checkBoxSmartRouting.Size = new System.Drawing.Size(88, 17);
 			this.checkBoxSmartRouting.TabIndex = 16;
@@ -201,7 +204,7 @@
 			// 
 			// buttonSaveData
 			// 
-			this.buttonSaveData.Location = new System.Drawing.Point(235, 504);
+			this.buttonSaveData.Location = new System.Drawing.Point(610, 178);
 			this.buttonSaveData.Name = "buttonSaveData";
 			this.buttonSaveData.Size = new System.Drawing.Size(75, 23);
 			this.buttonSaveData.TabIndex = 17;
@@ -212,7 +215,7 @@
 			// comboBoxTestName
 			// 
 			this.comboBoxTestName.FormattingEnabled = true;
-			this.comboBoxTestName.Location = new System.Drawing.Point(32, 506);
+			this.comboBoxTestName.Location = new System.Drawing.Point(407, 180);
 			this.comboBoxTestName.Name = "comboBoxTestName";
 			this.comboBoxTestName.Size = new System.Drawing.Size(192, 21);
 			this.comboBoxTestName.TabIndex = 18;
@@ -220,7 +223,7 @@
 			// 
 			// textBoxFormat
 			// 
-			this.textBoxFormat.Location = new System.Drawing.Point(103, 92);
+			this.textBoxFormat.Location = new System.Drawing.Point(75, 92);
 			this.textBoxFormat.Name = "textBoxFormat";
 			this.textBoxFormat.Size = new System.Drawing.Size(305, 20);
 			this.textBoxFormat.TabIndex = 6;
@@ -228,7 +231,7 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(45, 92);
+			this.label3.Location = new System.Drawing.Point(17, 92);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(39, 13);
 			this.label3.TabIndex = 10;
@@ -236,7 +239,7 @@
 			// 
 			// buttonTranslatePlain
 			// 
-			this.buttonTranslatePlain.Location = new System.Drawing.Point(111, 533);
+			this.buttonTranslatePlain.Location = new System.Drawing.Point(410, 207);
 			this.buttonTranslatePlain.Name = "buttonTranslatePlain";
 			this.buttonTranslatePlain.Size = new System.Drawing.Size(126, 30);
 			this.buttonTranslatePlain.TabIndex = 20;
@@ -247,7 +250,7 @@
 			// checkBoxStage
 			// 
 			this.checkBoxStage.AutoSize = true;
-			this.checkBoxStage.Location = new System.Drawing.Point(256, 546);
+			this.checkBoxStage.Location = new System.Drawing.Point(555, 220);
 			this.checkBoxStage.Name = "checkBoxStage";
 			this.checkBoxStage.Size = new System.Drawing.Size(54, 17);
 			this.checkBoxStage.TabIndex = 22;
@@ -256,21 +259,21 @@
 			// 
 			// textBoxFrom
 			// 
-			this.textBoxFrom.Location = new System.Drawing.Point(142, 218);
+			this.textBoxFrom.Location = new System.Drawing.Point(114, 218);
 			this.textBoxFrom.Name = "textBoxFrom";
 			this.textBoxFrom.Size = new System.Drawing.Size(34, 20);
 			this.textBoxFrom.TabIndex = 23;
 			// 
 			// textBoxTo
 			// 
-			this.textBoxTo.Location = new System.Drawing.Point(244, 218);
+			this.textBoxTo.Location = new System.Drawing.Point(216, 218);
 			this.textBoxTo.Name = "textBoxTo";
 			this.textBoxTo.Size = new System.Drawing.Size(34, 20);
 			this.textBoxTo.TabIndex = 24;
 			// 
 			// textBoxText
 			// 
-			this.textBoxText.Location = new System.Drawing.Point(32, 569);
+			this.textBoxText.Location = new System.Drawing.Point(407, 243);
 			this.textBoxText.Name = "textBoxText";
 			this.textBoxText.Size = new System.Drawing.Size(257, 20);
 			this.textBoxText.TabIndex = 25;
@@ -278,7 +281,7 @@
 			// checkBoxFormatted
 			// 
 			this.checkBoxFormatted.AutoSize = true;
-			this.checkBoxFormatted.Location = new System.Drawing.Point(32, 546);
+			this.checkBoxFormatted.Location = new System.Drawing.Point(626, 220);
 			this.checkBoxFormatted.Name = "checkBoxFormatted";
 			this.checkBoxFormatted.Size = new System.Drawing.Size(73, 17);
 			this.checkBoxFormatted.TabIndex = 26;
@@ -288,7 +291,7 @@
 			// textBoxResult
 			// 
 			this.textBoxResult.Enabled = false;
-			this.textBoxResult.Location = new System.Drawing.Point(32, 597);
+			this.textBoxResult.Location = new System.Drawing.Point(407, 271);
 			this.textBoxResult.Name = "textBoxResult";
 			this.textBoxResult.Size = new System.Drawing.Size(257, 20);
 			this.textBoxResult.TabIndex = 27;
@@ -296,14 +299,14 @@
 			// 
 			// textBoxExpected
 			// 
-			this.textBoxExpected.Location = new System.Drawing.Point(32, 623);
+			this.textBoxExpected.Location = new System.Drawing.Point(407, 297);
 			this.textBoxExpected.Name = "textBoxExpected";
 			this.textBoxExpected.Size = new System.Drawing.Size(257, 20);
 			this.textBoxExpected.TabIndex = 28;
 			// 
 			// buttonTestReadData
 			// 
-			this.buttonTestReadData.Location = new System.Drawing.Point(316, 504);
+			this.buttonTestReadData.Location = new System.Drawing.Point(691, 178);
 			this.buttonTestReadData.Name = "buttonTestReadData";
 			this.buttonTestReadData.Size = new System.Drawing.Size(75, 23);
 			this.buttonTestReadData.TabIndex = 19;
@@ -317,7 +320,7 @@
 			this.checkBoxForbidSaveApikey.AutoSize = true;
 			this.checkBoxForbidSaveApikey.Checked = true;
 			this.checkBoxForbidSaveApikey.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.checkBoxForbidSaveApikey.Location = new System.Drawing.Point(48, 271);
+			this.checkBoxForbidSaveApikey.Location = new System.Drawing.Point(23, 338);
 			this.checkBoxForbidSaveApikey.Name = "checkBoxForbidSaveApikey";
 			this.checkBoxForbidSaveApikey.Size = new System.Drawing.Size(112, 17);
 			this.checkBoxForbidSaveApikey.TabIndex = 29;
@@ -336,7 +339,7 @@
 			this.groupBox1.Controls.Add(this.textBoxAddress);
 			this.groupBox1.Controls.Add(this.label10);
 			this.groupBox1.Enabled = false;
-			this.groupBox1.Location = new System.Drawing.Point(48, 295);
+			this.groupBox1.Location = new System.Drawing.Point(407, 18);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(360, 146);
 			this.groupBox1.TabIndex = 30;
@@ -426,7 +429,7 @@
 			// checkBoxHideHiddenTextButton
 			// 
 			this.checkBoxHideHiddenTextButton.AutoSize = true;
-			this.checkBoxHideHiddenTextButton.Location = new System.Drawing.Point(155, 271);
+			this.checkBoxHideHiddenTextButton.Location = new System.Drawing.Point(178, 338);
 			this.checkBoxHideHiddenTextButton.Name = "checkBoxHideHiddenTextButton";
 			this.checkBoxHideHiddenTextButton.Size = new System.Drawing.Size(134, 17);
 			this.checkBoxHideHiddenTextButton.TabIndex = 31;
@@ -436,7 +439,7 @@
 			// label11
 			// 
 			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(109, 221);
+			this.label11.Location = new System.Drawing.Point(81, 221);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(27, 13);
 			this.label11.TabIndex = 34;
@@ -445,37 +448,15 @@
 			// label12
 			// 
 			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(222, 221);
+			this.label12.Location = new System.Drawing.Point(194, 221);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(16, 13);
 			this.label12.TabIndex = 36;
 			this.label12.Text = "to";
 			// 
-			// checkBoxCustomTagParser
-			// 
-			this.checkBoxCustomTagParser.AutoSize = true;
-			this.checkBoxCustomTagParser.Location = new System.Drawing.Point(289, 271);
-			this.checkBoxCustomTagParser.Name = "checkBoxCustomTagParser";
-			this.checkBoxCustomTagParser.Size = new System.Drawing.Size(111, 17);
-			this.checkBoxCustomTagParser.TabIndex = 37;
-			this.checkBoxCustomTagParser.Text = "Custom tag parser";
-			this.checkBoxCustomTagParser.UseVisualStyleBackColor = true;
-			// 
-			// checkBoxTradosApp
-			// 
-			this.checkBoxTradosApp.AutoSize = true;
-			this.checkBoxTradosApp.Location = new System.Drawing.Point(155, 447);
-			this.checkBoxTradosApp.Name = "checkBoxTradosApp";
-			this.checkBoxTradosApp.Size = new System.Drawing.Size(224, 17);
-			this.checkBoxTradosApp.TabIndex = 38;
-			this.checkBoxTradosApp.Text = "Set AppName to \"SdlTradosStudioPlugin\"";
-			this.checkBoxTradosApp.UseVisualStyleBackColor = true;
-			this.checkBoxTradosApp.CheckedChanged += new System.EventHandler(this.checkBoxTradosApp_CheckedChanged);
-			// 
 			// buttonWebLogin
 			// 
-			this.buttonWebLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.buttonWebLogin.Location = new System.Drawing.Point(32, 672);
+			this.buttonWebLogin.Location = new System.Drawing.Point(407, 393);
 			this.buttonWebLogin.Name = "buttonWebLogin";
 			this.buttonWebLogin.Size = new System.Drawing.Size(101, 30);
 			this.buttonWebLogin.TabIndex = 39;
@@ -485,10 +466,9 @@
 			// 
 			// label13
 			// 
-			this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.label13.AutoSize = true;
 			this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.label13.Location = new System.Drawing.Point(172, 686);
+			this.label13.Location = new System.Drawing.Point(524, 410);
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(103, 13);
 			this.label13.TabIndex = 41;
@@ -496,9 +476,8 @@
 			// 
 			// comboBoxIEVersion
 			// 
-			this.comboBoxIEVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.comboBoxIEVersion.FormattingEnabled = true;
-			this.comboBoxIEVersion.Location = new System.Drawing.Point(281, 678);
+			this.comboBoxIEVersion.Location = new System.Drawing.Point(633, 402);
 			this.comboBoxIEVersion.Name = "comboBoxIEVersion";
 			this.comboBoxIEVersion.Size = new System.Drawing.Size(121, 21);
 			this.comboBoxIEVersion.TabIndex = 42;
@@ -506,7 +485,7 @@
 			// checkBox1
 			// 
 			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(155, 470);
+			this.checkBox1.Location = new System.Drawing.Point(136, 409);
 			this.checkBox1.Name = "checkBox1";
 			this.checkBox1.Size = new System.Drawing.Size(79, 17);
 			this.checkBox1.TabIndex = 43;
@@ -516,24 +495,67 @@
 			// 
 			// textBoxDTLog
 			// 
-			this.textBoxDTLog.Location = new System.Drawing.Point(235, 467);
+			this.textBoxDTLog.Location = new System.Drawing.Point(216, 407);
 			this.textBoxDTLog.Name = "textBoxDTLog";
 			this.textBoxDTLog.ReadOnly = true;
 			this.textBoxDTLog.Size = new System.Drawing.Size(167, 20);
 			this.textBoxDTLog.TabIndex = 44;
 			// 
+			// groupBox2
+			// 
+			this.groupBox2.Controls.Add(this.CheckBoxCutTag);
+			this.groupBox2.Controls.Add(this.checkBoxCustomTagParser);
+			this.groupBox2.Controls.Add(this.checkBoxTradosApp);
+			this.groupBox2.Location = new System.Drawing.Point(23, 275);
+			this.groupBox2.Name = "groupBox2";
+			this.groupBox2.Size = new System.Drawing.Size(360, 52);
+			this.groupBox2.TabIndex = 46;
+			this.groupBox2.TabStop = false;
+			this.groupBox2.Text = "groupBox2";
+			// 
+			// checkBoxTradosApp
+			// 
+			this.checkBoxTradosApp.AutoSize = true;
+			this.checkBoxTradosApp.Location = new System.Drawing.Point(6, 0);
+			this.checkBoxTradosApp.Name = "checkBoxTradosApp";
+			this.checkBoxTradosApp.Size = new System.Drawing.Size(224, 17);
+			this.checkBoxTradosApp.TabIndex = 39;
+			this.checkBoxTradosApp.Text = "Set AppName to \"SdlTradosStudioPlugin\"";
+			this.checkBoxTradosApp.UseVisualStyleBackColor = true;
+			this.checkBoxTradosApp.CheckedChanged += new System.EventHandler(this.checkBoxTradosApp_CheckedChanged);
+			// 
+			// CheckBoxCutTag
+			// 
+			this.CheckBoxCutTag.AutoSize = true;
+			this.CheckBoxCutTag.Enabled = false;
+			this.CheckBoxCutTag.Location = new System.Drawing.Point(33, 23);
+			this.CheckBoxCutTag.Name = "CheckBoxCutTag";
+			this.CheckBoxCutTag.Size = new System.Drawing.Size(92, 17);
+			this.CheckBoxCutTag.TabIndex = 47;
+			this.CheckBoxCutTag.Text = "Only plain text";
+			this.CheckBoxCutTag.UseVisualStyleBackColor = true;
+			// 
+			// checkBoxCustomTagParser
+			// 
+			this.checkBoxCustomTagParser.AutoSize = true;
+			this.checkBoxCustomTagParser.Location = new System.Drawing.Point(165, 23);
+			this.checkBoxCustomTagParser.Name = "checkBoxCustomTagParser";
+			this.checkBoxCustomTagParser.Size = new System.Drawing.Size(111, 17);
+			this.checkBoxCustomTagParser.TabIndex = 46;
+			this.checkBoxCustomTagParser.Text = "Custom tag parser";
+			this.checkBoxCustomTagParser.UseVisualStyleBackColor = true;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(435, 714);
+			this.ClientSize = new System.Drawing.Size(787, 439);
+			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.textBoxDTLog);
 			this.Controls.Add(this.checkBox1);
 			this.Controls.Add(this.comboBoxIEVersion);
 			this.Controls.Add(this.label13);
 			this.Controls.Add(this.buttonWebLogin);
-			this.Controls.Add(this.checkBoxTradosApp);
-			this.Controls.Add(this.checkBoxCustomTagParser);
 			this.Controls.Add(this.label12);
 			this.Controls.Add(this.label11);
 			this.Controls.Add(this.checkBoxHideHiddenTextButton);
@@ -571,6 +593,8 @@
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
+			this.groupBox2.ResumeLayout(false);
+			this.groupBox2.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -619,13 +643,15 @@
         private System.Windows.Forms.CheckBox checkBoxHideHiddenTextButton;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-		private System.Windows.Forms.CheckBox checkBoxCustomTagParser;
-		private System.Windows.Forms.CheckBox checkBoxTradosApp;
 		private System.Windows.Forms.Button buttonWebLogin;
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.ComboBox comboBoxIEVersion;
 		private System.Windows.Forms.CheckBox checkBox1;
 		private System.Windows.Forms.TextBox textBoxDTLog;
+		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.CheckBox CheckBoxCutTag;
+		private System.Windows.Forms.CheckBox checkBoxCustomTagParser;
+		private System.Windows.Forms.CheckBox checkBoxTradosApp;
 	}
 }
 

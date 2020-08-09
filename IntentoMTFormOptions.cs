@@ -76,6 +76,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string CustomSettingsName { get; set; }
 		// Custom html tags parser. Using  in MemoQ plugin
 		public bool CustomTagParser { get; set; }
+		// Remove tags from source text. Now (2020-08-10) used only in the Trados plugin
+		public bool CutTag { get; set; }
 
 		// Special options for public memoQ plugin special requirements
 		// Forbit to save ApiKey in registry 
@@ -149,6 +151,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				HideHiddenTextButton = this.HideHiddenTextButton,
 				CustomSettingsName = this.CustomSettingsName,
 				CustomTagParser = this.CustomTagParser,
+				CutTag = this.CutTag,
 				сallHelpAction = this.сallHelpAction,
 				FromLanguage = this.FromLanguage,
 				ToLanguage = this.ToLanguage,

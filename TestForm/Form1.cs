@@ -161,6 +161,7 @@ namespace TestForm
 			options.Signature = "TestForm";
 			options.AppName = checkBoxTradosApp.Checked ? "SdlTradosStudioPlugin" : "PluginForm\\TestForm";
 			options.CustomTagParser = checkBoxCustomTagParser.Checked;
+			options.CutTag = CheckBoxCutTag.Checked;
 			options.proxySettings = new IntentoSDK.ProxySettings()
             {
                 ProxyAddress = textBoxAddress.Text,
@@ -211,6 +212,7 @@ namespace TestForm
             textBoxFrom.Text = options.FromLanguage;
             textBoxTo.Text = options.ToLanguage;
 			checkBoxCustomTagParser.Checked = options.CustomTagParser;
+			CheckBoxCutTag.Checked = options.CutTag;
 			var key = GetKey(null);
             checkBoxProxy.Checked = (string)key.GetValue("ProxyEnabled", "0") != "0";
             textBoxAddress.Text = (string)key.GetValue("ProxyAddress", null);
@@ -296,6 +298,7 @@ namespace TestForm
 		private void checkBoxTradosApp_CheckedChanged(object sender, EventArgs e)
 		{
 			checkBoxCustomTagParser.Enabled = !checkBoxTradosApp.Checked;
+			CheckBoxCutTag.Enabled = checkBoxTradosApp.Checked;
 		}
 
 		private void button1_Click(object sender, EventArgs e)

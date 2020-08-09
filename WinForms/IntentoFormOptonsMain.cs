@@ -504,6 +504,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             options.HideHiddenTextButton = currentOptions.HideHiddenTextButton;
             options.CustomSettingsName = currentOptions.CustomSettingsName;
 			options.CustomTagParser = currentOptions.CustomTagParser;
+			options.CutTag = currentOptions.CutTag;
 
 			apiKeyState.FillOptions(options);
         }

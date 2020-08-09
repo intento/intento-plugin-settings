@@ -97,7 +97,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// 2.2.6: 2020-07-03
 		// - Test request marker added
 		// - Fix: use of proxy for test translation request
-        // 2.2.8: 2020-07-14
-        // - Improved list of models
+		// 2.2.8: 2020-07-14
+		// - Improved list of models
+		// 2.2.9: 2020-08-09
+		// - Advanced settings: added option "Only plain text" 
 	}
 }

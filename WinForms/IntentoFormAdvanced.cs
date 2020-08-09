@@ -39,6 +39,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             Text = Resource.FAcaption;
             labelCustomSettingsName.Text = Resource.FAlabelCustomSettingsName;
 			checkBoxCustomTagParser.Text = Resource.FAcheckBoxCustomTagParser;
+			checkBoxCutTags.Text = Resource.FACheckBoxCutTags;
 
 			if (parent.GetOptions().ForbidSaveApikey)
                 checkBoxSaveApiKeyInRegistry.Visible = false;
@@ -54,6 +55,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             IntentoTranslationProviderOptionsForm.TraceEndTime = DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40);
             parent.currentOptions.CustomSettingsName = string.IsNullOrWhiteSpace(textBoxCustomSettingsName.Text) ? null : textBoxCustomSettingsName.Text;
 			parent.currentOptions.CustomTagParser = checkBoxCustomTagParser.Checked;
+			parent.currentOptions.CutTag = checkBoxCutTags.Checked;
 
 			if (!checkBoxProxy.Checked)
             {
@@ -162,15 +164,18 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             proxySettings = parent.currentOptions.proxySettings;
 			textBoxCustomSettingsName.Text = parent.currentOptions.CustomSettingsName;
 			checkBoxCustomTagParser.Checked = parent.currentOptions.CustomTagParser;
+			checkBoxCutTags.Checked = parent.currentOptions.CutTag;
 			checkBoxCustomTagParser.Location = labelCustomSettingsName.Location;
-			if (parent.currentOptions.AppName != "SdlTradosStudioPlugin")
-            {
-				textBoxCustomSettingsName.Visible = false;
-                labelCustomSettingsName.Visible = false;
-				checkBoxCustomTagParser.Visible = true;
-			}
-            //var t =    parent.currentOptions.CustomSettingsName == null;
-            if (proxySettings == null)
+
+			bool isTrados = (parent.currentOptions.AppName == "SdlTradosStudioPlugin");
+			// Specific setting for Trados
+			textBoxCustomSettingsName.Visible = isTrados;
+			labelCustomSettingsName.Visible = isTrados;
+			checkBoxCutTags.Visible = isTrados;
+			// Specific setting for Memoq
+			checkBoxCustomTagParser.Visible = !isTrados;
+
+			if (proxySettings == null)
             {
                 textBoxAddress.Text = parent.apiKeyState.GetValueFromRegistry("ProxyAddress");
                 textBoxPort.Text = parent.apiKeyState.GetValueFromRegistry("ProxyPort");
