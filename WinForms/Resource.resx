@@ -327,6 +327,6 @@ If you have selected custom model or glossary, please adjust the language pair:<
     <value>Custom HTML tags parser</value>
   </data>
   <data name="FACheckBoxCutTags" xml:space="preserve">
-    <value>Only plain text</value>
+    <value>Translate as plain text</value>
   </data>
 </root>

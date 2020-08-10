@@ -250,7 +250,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only plain text.
+        ///   Looks up a localized string similar to Translate as plain text.
         /// </summary>
         internal static string FACheckBoxCutTags {
             get {
