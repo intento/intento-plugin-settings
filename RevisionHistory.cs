@@ -101,5 +101,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Improved list of models
         // 2.2.12: 2020-08-09
         // - Added the ability to remove tags from the source text - "Translate as plain text" check box
+        // 2.2.13: 2020-08-20
+        // - Ready for public version: More comments, Readme, 
+        //   SmartRoutingPluginFormattingGenerator removed from the project
     }
 }

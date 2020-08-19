@@ -12,11 +12,18 @@ To get more information check out [the site](https://inten.to/).
 
 In case you don't have a key to use Intento API, please register here [console.inten.to](https://console.inten.to).
 
-## Development
+## Compiling
 
-This code is required for developing [Intento memoQ plugin](https://github.com/intento/intento-plugin-memoq) and [Intento Trados plugin](https://github.com/intento/intento-plugin-trados).
 Compile by Visual Studio 2017. 
+Solution: Intento.MT.Plugin.PropertiesForm.sln
+Projects: 
+- Intento.MT.Plugin.PropertiesForm
+- TestForm: Testing form settings and example of using Intento.MT.Plugin.PropertiesForm
+- SmartRoutingPluginFormattingGenerator: Generator for html/xml Smart Routing tables. Not used to compile Intento.MT.Plugin.PropertiesForm 
 
 ### Dependencies
 
-[intento-csharp](https://github.com/intento/intento-csharp)
+- [intento-csharp](https://github.com/intento/intento-csharp)
+- AWS (for logging)
+- Newtonsoft.Json
+
