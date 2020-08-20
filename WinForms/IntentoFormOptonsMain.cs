@@ -4,16 +4,11 @@ using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Resources;
 using System.Windows.Forms;
-using static Intento.MT.Plugin.PropertiesForm.AuthState;
-using static Intento.MT.Plugin.PropertiesForm.GlossaryState;
 using static Intento.MT.Plugin.PropertiesForm.IntentoMTFormOptions;
-using static Intento.MT.Plugin.PropertiesForm.ModelState;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
@@ -88,7 +83,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric
 			)
 		{
-            Logs.Write2("Test", "test content");
+            // Logs.Write2("Test", "test content");
 
             var splashForm = new IntentoFormSplash();
 			splashForm.Show();
