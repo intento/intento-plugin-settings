@@ -103,6 +103,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Added the ability to remove tags from the source text - "Translate as plain text" check box
         // 2.2.13: 2020-08-20
         // - Ready for public version: More comments, Readme, 
-        //   SmartRoutingPluginFormattingGenerator removed from the project
+        //   SmartRoutingPluginFormattingGenerator, Log and AWS removed from the project
     }
 }

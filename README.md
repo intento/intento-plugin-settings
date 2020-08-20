@@ -19,11 +19,9 @@ Solution: Intento.MT.Plugin.PropertiesForm.sln
 Projects: 
 - Intento.MT.Plugin.PropertiesForm
 - TestForm: Testing form settings and example of using Intento.MT.Plugin.PropertiesForm
-- SmartRoutingPluginFormattingGenerator: Generator for html/xml Smart Routing tables. Not used to compile Intento.MT.Plugin.PropertiesForm 
 
 ### Dependencies
 
 - [intento-csharp](https://github.com/intento/intento-csharp)
-- AWS (for logging)
 - Newtonsoft.Json
 
