@@ -5,6 +5,7 @@ using MemoQ.Addins.Common.DataStructures;
 using MemoQ.MTInterfaces;
 using MemoQ.Addins.Common.Utils;
 using Intento.MT.Plugin.PropertiesForm;
+using static IntentoMTPlugin.ConverterHtml;
 
 namespace IntentoMTPlugin
 {
@@ -35,13 +36,15 @@ namespace IntentoMTPlugin
 
         public IntentoMTSession(IntentoMTServiceHelper serviceHelper, string srcLangCode, string trgLangCode, IntentoMTOptions options)
         {
-            using (new Logs.Pair("IntentoMTSession.ctor"))
+            // using (new Logs.Pair("IntentoMTSession.ctor"))
             {
                 this.options = options;
                 this.srcLangCode = srcLangCode;
                 this.trgLangCode = trgLangCode;
                 this.options = options;
                 this.serviceHelper = serviceHelper;
+				serviceHelper.format = options.GeneralSettings.ProviderFormats;
+                Logs.Write2(string.Format("IsTrace: {0}", IntentoTranslationProviderOptionsForm.IsTrace()), null);
             }
         }
 
@@ -64,36 +67,54 @@ namespace IntentoMTPlugin
         /// </summary>
         public TranslationResult TranslateCorrectSegment(Segment segm, Segment tmSource, Segment tmTarget)
         {
-            using (new Logs.Pair("IntentoMTSession.TranslateCorrectSegment-1"))
-            { 
-                TranslationResult result = new TranslationResult();
-                try
-                {
-                    bool tagged = segm.ITags.Length != 0;
-                    string data = ConvertSegmentToString(segm, tagged);
-                    string res;
-                    if (!string.IsNullOrEmpty(options.GeneralSettings.ProviderId))
-                    {   // provider_id available
-                        string format = tagged ? GetTaggedFormat() : null;
-                        string data2 = PluginHelper.PrepareText(format, data);
-
-                        string res2 = serviceHelper.Translate(options, data2, this.srcLangCode, this.trgLangCode, format: format);
-
-                        res = PluginHelper.PrepareResult(format, res2);
-                    }
-                    else
-                    {   // smart routing. Format is provided by special smart routing table
-                        res = serviceHelper.Translate(options, data, this.srcLangCode, this.trgLangCode, routing: tagged ? "intento-tagged" : null);
-                    }
-                    result = ConverStringToSegment(res, segm.ITags, tagged);
-                }
-                catch (Exception e)
-                {
-                    result.Exception = new MTException(e.Message, e.Message, e);
-                    Logs.Write(string.Format("IntentoMTSession.TranslateCorrectSegment-1 exception: {0}", e.Message));
-                }
+            // using (new Logs.Pair("IntentoMTSession.TranslateCorrectSegment-1"))
+            {
+                TranslationResult[] results = TranslateCorrectSegment(new Segment[] { segm }, new Segment[] { tmSource }, new Segment[] { tmTarget });
+                TranslationResult result = results[0];
                 return result;
             }
+        }
+
+        private void LogSegmentData(Segment[] segs)
+        {
+            foreach (Segment seg in segs)
+            {
+                var str = new List<string>();
+                str.Add(string.Format("Length {0}, NumberOfInlineTags {1}, NumberOfStructuralTags {2}, NumberOfTags {3}\r\n", 
+                    seg.Length, seg.NumberOfInlineTags, seg.NumberOfStructuralTags, seg.NumberOfTags));
+                str.Add(string.Format("PlainText: {0}", seg.PlainText));
+                str.Add(string.Format("PlainTextWithSpacesForTags: {0}", seg.PlainTextWithSpacesForTags));
+
+                Logs.Write2("segs data", string.Join("\r\n", str));
+            }
+        }
+
+        private bool IsTagged(Segment[] segs)
+        {
+            bool tagged = segs.Any(i => i.ITags.Length != 0);
+    
+            /*
+            // Check for necessity to use tagged translation
+            bool tagged = false;
+            int major = 0;
+            int minor = 0;
+            string ver_raw = null;
+            string[] ver; 
+            try
+            {   // Only memoQ 8.7 and higher support tagged docs
+                ver_raw = IntentoMTServiceHelper.memoqVersion;
+                ver = ver_raw.Split('.');
+                major = int.Parse(ver[0]);
+                minor = int.Parse(ver[1]);
+                if (major > 8 || (major == 8 && minor >= 7))
+                    tagged = segs.Any(i => i.ITags.Length != 0);
+                Logs.Write2(string.Format("tagged: {0}, ver {1}.{2}", tagged, major, minor), null);
+            }
+            catch (Exception ex){
+                Logs.Write2(string.Format("catch tagged: {0}, ver_raw: {1}", tagged, ver_raw), ex.Message);
+            }
+            */
+            return tagged;
         }
 
         /// <summary>
@@ -101,52 +122,68 @@ namespace IntentoMTPlugin
         /// </summary>
         public TranslationResult[] TranslateCorrectSegment(Segment[] segs, Segment[] tmSources, Segment[] tmTargets)
         {
-            using (new Logs.Pair("IntentoMTSession.TranslateCorrectSegment-2"))
+            // using (new Logs.Pair("IntentoMTSession.TranslateCorrectSegment-2"))
             {
+                LogSegmentData(segs);
+
                 TranslationResult[] results = new TranslationResult[segs.Length];
                 Exception ex = null;
+				bool intentoTagReplacement = options.GeneralSettings.IntentoTagReplacement;
                 try
                 {
                     // Check for necessity to use tagged translation
-                    bool tagged = false;
-                    try
-                    {   // Only memoQ 8.7 and higher support tagged docs
-                        var ver = IntentoMTServiceHelper.memoqVersion.Split('.');
-                        int major = int.Parse(ver[0]);
-                        if (major > 8 || (major == 8 && int.Parse(ver[1]) >= 7))
-                            tagged = segs.Any(i => i.ITags.Length != 0);
-                    }
-                    catch { }
+                    bool tagged = IsTagged(segs);
 
-                    IList<string> data = segs.Select(i => ConvertSegmentToString(i, tagged)).ToList();
+                    IList<string> data;
+					IntentoMTServiceHelper.ResultBatchTranslate resultBatchTranslate;
+                    string format = tagged ? GetTaggedFormat() : null;
+                    string routing = null; //provider_id available
+                    if (string.IsNullOrEmpty(options.GeneralSettings.ProviderId) && tagged)
+                        routing = "intento-tagged"; // smart routing. Format is provided by special smart routing table
+                    IList<IntentoSegment> iData = null;
 
-                    List<string> res;
-                    if (!string.IsNullOrEmpty(options.GeneralSettings.ProviderId))
-                    {   // provider_id available
-                        string format = tagged ? GetTaggedFormat() : null;
-                        IEnumerable<string> data2 = data.Select(i => PluginHelper.PrepareText(format, i));
+                    // if there are structural tags, we do not use intento tag replacement 
+                    if (intentoTagReplacement)
+                        intentoTagReplacement = !segs.Any(i => i.NumberOfStructuralTags != 0);
 
-                        List<string> res2 = serviceHelper.BatchTranslate(options, data2, this.srcLangCode, this.trgLangCode, format: format);
-
-                        res = res2.Select(i => PluginHelper.PrepareResult(format, i)).ToList();
+                    if (intentoTagReplacement && tagged)
+                    {
+                        Logs.Write2("1: intentoTagReplacement", "{0}, format: {1}, tagged: {2}", intentoTagReplacement, format, tagged);
+                        iData = segs.Select(i => new IntentoSegment(i)).ToList();
+                        data = iData.Select(i => i.Encode()).ToList();
+						resultBatchTranslate = serviceHelper.BatchTranslate(options, data, this.srcLangCode, this.trgLangCode, 
+                            format: format, routing: routing);
                     }
                     else
-                    {   // smart routing. Format is provided by special smart routing table
-                        res = serviceHelper.BatchTranslate(options, data, this.srcLangCode, this.trgLangCode, routing: tagged ? "intento-tagged" : null);
-                    }
-                    if (segs.Length != res.Count)
-                        throw new Exception(string.Format("Invalid result from Intento API: segments count is different {0}/{1}", segs.Length, res.Count));
-                    for (int i = 0; i < segs.Length; i++)
                     {
-                        //  if the segment returned null, then an error occurred while translating = new JArray(){ null }
-                        if (res[i] != null)
-                            results[i] = ConverStringToSegment(res[i], segs[i].ITags, tagged);
+                        Logs.Write2("2: intentoTagReplacement", "{0}, format: {1}, tagged: {2}", intentoTagReplacement, format, tagged);
+                        data = segs.Select(i => ConvertSegmentToString(i, tagged)).ToList();
+                        data = data.Select(i => PluginHelper.PrepareText(format, i)).ToList();
+						resultBatchTranslate = serviceHelper.BatchTranslate(options, data, this.srcLangCode, this.trgLangCode,  format: format, routing: routing);
+						resultBatchTranslate.resultTranslate = resultBatchTranslate.resultTranslate.Select(i => PluginHelper.PrepareResult(format, i)).ToList();
+                        intentoTagReplacement = false;
+                    }
+
+					int resultLength = resultBatchTranslate.resultTranslate.Count;
+					if (segs.Length != resultLength)
+                        throw new Exception(string.Format("Invalid result from Intento API: segments count is different {0}/{1}", segs.Length, resultLength));
+                    for (int i = 0; i < resultLength; i++)
+                    {
+						//  if the segment returned null, then an error occurred while translating
+						if (resultBatchTranslate.resultTranslate[i] != null)
+						{
+							results[i] = intentoTagReplacement ?
+								iData[i].GetTranslationResult(resultBatchTranslate.resultTranslate[i])
+								: ConverStringToSegment(resultBatchTranslate.resultTranslate[i], segs[i].ITags, tagged);//iData[i].Decode(res[i])
+							results[i].Info = string.IsNullOrWhiteSpace(resultBatchTranslate.viaProvider) ?
+								null : string.Format("translated using {0}", resultBatchTranslate.viaProvider);
+						}
                     }
                 }
                 catch (Exception e)
                 {
                     ex = e;
-                    Logs.Write(string.Format("IntentoMTSession.TranslateCorrectSegment-2 exception: {0}", e.Message));
+                    Logs.Write2("IntentoMTSession.TranslateCorrectSegment-2 exception", string.Format("{0}\r\n{1}", e.Message, e.StackTrace));
                 }
                 finally
                 {
@@ -174,20 +211,20 @@ namespace IntentoMTPlugin
             }
         }
 
-        private string ConvertSegmentToString(Segment seg, bool tagged)
+        public static string ConvertSegmentToString(Segment seg, bool tagged)
         {
             if (tagged)
-                return SegmentHtmlConverter.ConvertSegment2Html(seg, tagged);
+                return LocalizationHelper.MemoQConvertSegment2Html(seg, tagged);
             return seg.PlainText;
         }
 
-        private TranslationResult ConverStringToSegment(string translation, IList<InlineTag> tags, bool tagged)
+        public static  TranslationResult ConverStringToSegment(string translation, IList<InlineTag> tags, bool tagged)
         {
             TranslationResult result = new TranslationResult();
             if (translation != null)
             {
                 if (tagged)
-                    result.Translation = SegmentHtmlConverter.ConvertHtml2Segment(translation, tags);
+                    result.Translation = LocalizationHelper.MemoQConvertHtml2Segment(translation, tags);
                 else
                     result.Translation = SegmentBuilder.CreateFromTrimmedStringAndITags(translation, tags);
             }

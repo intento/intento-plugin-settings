@@ -1,321 +1,332 @@
 ﻿using Intento.MT.Plugin.PropertiesForm.WinForms;
 using IntentoSDK;
+using Microsoft.Win32;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Resources;
 using System.Windows.Forms;
-using static Intento.MT.Plugin.PropertiesForm.AuthState;
-using static Intento.MT.Plugin.PropertiesForm.GlossaryState;
 using static Intento.MT.Plugin.PropertiesForm.IntentoMTFormOptions;
-using static Intento.MT.Plugin.PropertiesForm.ModelState;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
-    public partial class IntentoTranslationProviderOptionsForm : Form //, IForm
-    {
-        public class LangPair
-        {
-            string _from;
-            string _to;
+	public partial class IntentoTranslationProviderOptionsForm : Form //, IForm
+	{
+		public class LangPair
+		{
+			string _from;
+			string _to;
 
-            public LangPair(string from, string to)
-            {
-                if (from.Contains("-"))
-                    from = from.Substring(0, from.IndexOf('-'));
-                if (to.Contains("-"))
-                    to = to.Substring(0, to.IndexOf('-'));
-                _from = from;
-                _to = to;
-            }
+			public LangPair(string from, string to)
+			{
+				if (from.Contains("-"))
+					from = from.Substring(0, from.IndexOf('-'));
+				if (to.Contains("-"))
+					to = to.Substring(0, to.IndexOf('-'));
+				_from = from;
+				_to = to;
+			}
 
-            public string from { get => _from; set => _from = value; }
-            public string to { get => _to; set => _to = value; }
-        }
+			public string from { get => _from; set => _from = value; }
+			public string to { get => _to; set => _to = value; }
+		}
 
-        #region vars
-        public IntentoMTFormOptions originalOptions;
-        public IntentoMTFormOptions currentOptions;
-        public IntentoAiTextTranslate _translate;
+		#region vars
+		public IntentoMTFormOptions originalOptions;
+		public IntentoMTFormOptions currentOptions;
+		public IntentoAiTextTranslate _translate;
 
-        // Languages filter 
-        public IList<dynamic> languages;
-        private LangPair[] _languagePairs;
+		// Languages filter 
+		public IList<dynamic> languages;
+		private LangPair[] _languagePairs;
 
-        public static DateTime TraceEndTime;
+		public static DateTime TraceEndTime;
 
-        //private int numberOfFlashes;
+		//private int numberOfFlashes;
 
-        public ApiKeyState apiKeyState;
+		public ApiKeyState apiKeyState;
 
-        public List<string> errors;
+		public List<string> errors;
 
-        // Fabric to create intento connection. Parameters: apiKey and UserAgent for Settings Form 
-        public Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric;
+		// Fabric to create intento connection. Parameters: apiKey and UserAgent for Settings Form 
+		public Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric;
 
-        public string version;
+		public string version;
 
-        public IntentoFormOptionsAPI formApi;
-        public IntentoFormOptionsMT formMT;
-        public IntentoFormAdvanced formAdvanced;
-        private int cursorCount = 0;
-        public bool settingsIsSet;
-        public bool insideEnableDisable = false;
-
-
-        // Glossary data was obtained directly, without a request to the Intento service
-        public List<dynamic> testListProvidersData;
-        // Provider data was obtained directly, without a request to the Intento service
-        public dynamic testOneProviderData;
-        // Model data was obtained directly, without a request to the Intento service
-        public IList<dynamic> testModelData;
-        // Credentional data was obtained directly, without a request to the Intento service
-        public List<dynamic> testAuthData;
-        // Glossary data was obtained directly, without a request to the Intento service
-        public IList<dynamic> testGlossaryData;
+		public IntentoFormOptionsAPI formApi;
+		public IntentoFormOptionsMT formMT;
+		public IntentoFormAdvanced formAdvanced;
+		private int cursorCount = 0;
+		public bool settingsIsSet;
+		public bool insideEnableDisable = false;
 
 
-        #endregion vars
+		// Glossary data was obtained directly, without a request to the Intento service
+		public List<dynamic> testListProvidersData;
+		// Provider data was obtained directly, without a request to the Intento service
+		public dynamic testOneProviderData;
+		// Model data was obtained directly, without a request to the Intento service
+		public IList<dynamic> testModelData;
+		// Credentional data was obtained directly, without a request to the Intento service
+		public List<dynamic> testAuthData;
+		// Glossary data was obtained directly, without a request to the Intento service
+		public IList<dynamic> testGlossaryData;
 
-        public IntentoTranslationProviderOptionsForm(
-            IntentoMTFormOptions options,
-            LangPair[] languagePairs,
-            Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric
-            )
-        {
+
+		#endregion vars
+
+		public IntentoTranslationProviderOptionsForm(
+			IntentoMTFormOptions options,
+			LangPair[] languagePairs,
+			Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric
+			)
+		{
+            // Logs.Write2("Test", "test content");
+
             var splashForm = new IntentoFormSplash();
-            splashForm.Show();
-            this.Visible = false;
-            this.fabric = fabric;
+			splashForm.Show();
+			this.Visible = false;
+			this.fabric = fabric;
 
-            InitializeComponent();
-            LocalizeContent();
+			InitializeComponent();
+			LocalizeContent();
 
 
-            buttonHelp.Visible = options.сallHelpAction != null;
-            
-            Assembly currentAssem = typeof(IntentoTranslationProviderOptionsForm).Assembly;
-            version = String.Format("{0}-{1}",
-                IntentoHelpers.GetVersion(currentAssem),
-                IntentoHelpers.GetGitCommitHash(currentAssem));
+			buttonHelp.Visible = options.сallHelpAction != null;
 
-            originalOptions = options;
-            currentOptions = originalOptions.Duplicate();
-            formAdvanced = new IntentoFormAdvanced(this);
-            formApi = new IntentoFormOptionsAPI(this);
-            formMT = new IntentoFormOptionsMT(this);
-            apiKeyState = new ApiKeyState(this, currentOptions);
-            if (apiKeyState.GetValueFromRegistry("ProxyEnabled") != null && apiKeyState.GetValueFromRegistry("ProxyEnabled") == "1")
-            {
-                currentOptions.proxySettings = new ProxySettings()
-                {
-                    ProxyAddress = apiKeyState.GetValueFromRegistry("ProxyAddress"),
-                    ProxyPort = apiKeyState.GetValueFromRegistry("ProxyPort"),
-                    ProxyUserName = apiKeyState.GetValueFromRegistry("ProxyUserName"),
-                    ProxyPassword = apiKeyState.GetValueFromRegistry("ProxyPassw"),
-                    ProxyEnabled = true
-                };
-            }
+			Assembly currentAssem = typeof(IntentoTranslationProviderOptionsForm).Assembly;
+			version = String.Format("{0}-{1}",
+				IntentoHelpers.GetVersion(currentAssem),
+				IntentoHelpers.GetGitCommitHash(currentAssem));
 
-            _languagePairs = languagePairs;
-            DialogResult = DialogResult.None;
-            var arr = originalOptions.Signature.Split('/');
-            formAdvanced.toolStripStatusLabel1.Text = arr.Count() == 3 ? String.Format("{0}/{1}", arr[0], arr[2]) : originalOptions.Signature;
-            groupBoxMTConnect2.Location = groupBoxMTConnect.Location;
+			originalOptions = options;
+			currentOptions = originalOptions.Duplicate();
+			TraceEndTime = originalOptions.TraceEndTime;
+			formAdvanced = new IntentoFormAdvanced(this);
+			formApi = new IntentoFormOptionsAPI(this);
+			formMT = new IntentoFormOptionsMT(this);
+			apiKeyState = new ApiKeyState(this, currentOptions);
+			if (apiKeyState.GetValueFromRegistry("ProxyEnabled") != null && apiKeyState.GetValueFromRegistry("ProxyEnabled") == "1")
+			{
+				currentOptions.proxySettings = new ProxySettings()
+				{
+					ProxyAddress = apiKeyState.GetValueFromRegistry("ProxyAddress"),
+					ProxyPort = apiKeyState.GetValueFromRegistry("ProxyPort"),
+					ProxyUserName = apiKeyState.GetValueFromRegistry("ProxyUserName"),
+					ProxyPassword = apiKeyState.GetValueFromRegistry("ProxyPassw"),
+					ProxyEnabled = true
+				};
+			}
 
-            if (!string.IsNullOrWhiteSpace(apiKeyState.apiKey))
-            {
-                apiKeyState.ReadProviders();
-            }
-            if (apiKeyState.IsOK)
-            {
-                buttonMTSetting.Select();
-                apiKeyState.EnableDisable();
-                FillOptions(currentOptions);
-            }
+			_languagePairs = languagePairs;
+			DialogResult = DialogResult.None;
+			var arr = originalOptions.Signature.Split('/');
+			formAdvanced.toolStripStatusLabel1.Text = arr.Count() == 3 ? String.Format("{0}/{1}", arr[0], arr[2]) : originalOptions.Signature;
+			groupBoxMTConnect2.Location = groupBoxMTConnect.Location;
+
+			if (!string.IsNullOrWhiteSpace(apiKeyState.apiKey))
+			{
+				apiKeyState.ReadProviders();
+			}
+			if (apiKeyState.IsOK)
+			{
+				buttonMTSetting.Select();
+				apiKeyState.EnableDisable();
+				FillOptions(currentOptions);
+			}
+			else
+				buttonSetApi.Select();
+
+			apiKeyState.EnableDisable();
+			RefreshFormInfo();
+			splashForm.Close();
+			this.Visible = true;
+
+		}
+
+		public IntentoTranslationProviderOptionsForm(
+			IntentoMTFormOptions options,
+			LangPair[] languagePairs,
+			Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric,
+			bool testings
+			)
+		{
+			this.fabric = fabric;
+
+			InitializeComponent();
+			LocalizeContent();
+
+			originalOptions = options;
+			currentOptions = originalOptions.Duplicate();
+
+			formAdvanced = new IntentoFormAdvanced(this);
+			formApi = new IntentoFormOptionsAPI(this);
+			formMT = new IntentoFormOptionsMT(this);
+
+			_languagePairs = languagePairs;
+			DialogResult = DialogResult.None;
+
+		}
+
+		public IntentoMTFormOptions GetOptions()
+		{
+			return currentOptions;
+		}
+
+		public LangPair[] LanguagePairs
+		{ get { return _languagePairs; } }
+
+		public static bool IsTrace(string pluginID=null)
+		{
+            RegistryKey key;
+            if (pluginID != null)
+                key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}", pluginID));
             else
-                buttonSetApi.Select();
+                key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento", pluginID));
 
-            apiKeyState.EnableDisable();
-            RefreshFormInfo();
-            splashForm.Close();
-            this.Visible = true;
+            string loggingReg = (string)key.GetValue("Logging", null);
+            if (loggingReg != null)
+            {
+                loggingReg = loggingReg.ToLower();
+                if (loggingReg == "1" || loggingReg == "true")
+                    return true;
+            }
 
-        }
+            string loggingEnv = Environment.GetEnvironmentVariable("intento_plugin_logging");
+            if (loggingEnv != null)
+            {
+                loggingEnv = loggingEnv.ToLower();
+                if (loggingEnv == "1" || loggingEnv == "true")
+                    return true;
+            }
 
-        public IntentoTranslationProviderOptionsForm(
-            IntentoMTFormOptions options,
-            LangPair[] languagePairs,
-            Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric,
-            bool testings
-            )
-        {
-            this.fabric = fabric;
-
-            InitializeComponent();
-            LocalizeContent();
-
-            originalOptions = options;
-            currentOptions = originalOptions.Duplicate();
-
-            formAdvanced = new IntentoFormAdvanced(this);
-            formApi = new IntentoFormOptionsAPI(this);
-            formMT = new IntentoFormOptionsMT(this);
-
-            _languagePairs = languagePairs;
-            DialogResult = DialogResult.None;
-
-        }
-
-        public IntentoMTFormOptions GetOptions()
-        {
-            return currentOptions;
-        }
-
-        public LangPair[] LanguagePairs
-        { get { return _languagePairs; } }
-
-        private void CreateIntentoConnection()
-        {
-            _translate = fabric(apiKeyState.apiKey, String.Format("{1}/{2}", originalOptions.UserAgent, "Intento.PluginSettingsForm", version), currentOptions.proxySettings);
-        }
-
-        public static bool IsTrace()
-        {
             return (TraceEndTime - DateTime.Now).Minutes > 0;
-        }
+		}
 
-        private string customAuthJsonToString(string authJsonString)
-        {
-            string ret = String.Empty;
-            if (IsValidJson(authJsonString) == null)
-            {
-                var js = JToken.Parse(authJsonString);
-                foreach (dynamic val in js)
-                    ret += String.Format("{0}:{1} ", val.Name, val.Value);
-            }
-            return ret;
-        }
+		private string customAuthJsonToString(string authJsonString)
+		{
+			string ret = String.Empty;
+			if (IsValidJson(authJsonString) == null)
+			{
+				var js = JToken.Parse(authJsonString);
+				foreach (dynamic val in js)
+					ret += String.Format("{0}:{1} ", val.Name, val.Value);
+			}
+			return ret;
+		}
 
-        private string IsValidJson(string strInput)
-        {
-            strInput = String.IsNullOrEmpty(strInput) ? String.Empty : strInput.Trim();
-            string result = "Invalid json for own authorization parameters";
-            if ((strInput.StartsWith("{") && strInput.EndsWith("}")) || //For object
-                (strInput.StartsWith("[") && strInput.EndsWith("]"))) //For array
-            {
-                try
-                {
-                    var obj = JToken.Parse(strInput);
-                    if (obj.HasValues)
-                        result = null;
-                }
-                catch { }
-            }
-            return result;
-        }
+		private string IsValidJson(string strInput)
+		{
+			strInput = String.IsNullOrEmpty(strInput) ? String.Empty : strInput.Trim();
+			string result = "Invalid json for own authorization parameters";
+			if ((strInput.StartsWith("{") && strInput.EndsWith("}")) || //For object
+				(strInput.StartsWith("[") && strInput.EndsWith("]"))) //For array
+			{
+				try
+				{
+					var obj = JToken.Parse(strInput);
+					if (obj.HasValues)
+						result = null;
+				}
+				catch { }
+			}
+			return result;
+		}
 
-        private bool filterBy(dynamic x, string lang)
-        {
-            if (x == null) return true;
-            if (x.GetType().Name == "JArray")
-                return ((JArray)x).Any(q => (string)q == lang);
-            if (x.GetType().Name == "JValue")
-                return (string)x == lang;
-            return true;
-        }
+		private bool filterBy(dynamic x, string lang)
+		{
+			if (x == null) return true;
+			if (x.GetType().Name == "JArray")
+				return ((JArray)x).Any(q => (string)q == lang);
+			if (x.GetType().Name == "JValue")
+				return (string)x == lang;
+			return true;
+		}
 
-        #region events
+		#region events
 
-        public void comboBoxProviders_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            using (new CursorFormMT(formMT))
-            {
-                if (apiKeyState != null && apiKeyState.smartRoutingState != null && apiKeyState.smartRoutingState.providerState != null)
-                    // Can happen during loading data from Options - constructor of ProviderState change settings in a list of providers
-                    apiKeyState.smartRoutingState.providerState.SelectedIndexChanged();
-            }
-        }
+		public void comboBoxProviders_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			using (new CursorFormMT(formMT))
+			{
+				if (apiKeyState != null && apiKeyState.smartRoutingState != null && apiKeyState.smartRoutingState.providerState != null)
+					// Can happen during loading data from Options - constructor of ProviderState change settings in a list of providers
+					apiKeyState.smartRoutingState.providerState.SelectedIndexChanged();
+			}
+		}
 
-        public void apiKey_tb_TextChanged(object sender, EventArgs e)
-        {
-            apiKeyState.SetValue(((Control)sender).Text.Trim());
-            apiKeyState.EnableDisable();
-        }
+		public void apiKey_tb_TextChanged(object sender, EventArgs e)
+		{
+			apiKeyState.SetValue(((Control)sender).Text.Trim());
+			apiKeyState.EnableDisable();
+		}
 
-        public void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
-        {
-            using (new CursorFormMT(formMT))
-            {
-                apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.checkBoxUseOwnCred_CheckedChanged();
-                AuthState.internalControlChange = false;
-            }
-        }
+		//public void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
+		//{
+		//    using (new CursorFormMT(formMT))
+		//    {
+		//        apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.checkBoxUseOwnCred_CheckedChanged();
+		//        AuthState.internalControlChange = false;
+		//    }
+		//}
 
-        public void checkBoxUseCustomModel_CheckedChanged(object sender, EventArgs e)
-        {
-            using (new CursorFormMT(formMT))
-            {
-                apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.GetModelState()?.checkBoxUseCustomModel_CheckedChanged();
-                ModelState.internalControlChange = false;
-            }
-        }
+		public void checkBoxUseCustomModel_CheckedChanged(object sender, EventArgs e)
+		{
+			using (new CursorFormMT(formMT))
+			{
+				apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.GetModelState()?.checkBoxUseCustomModel_CheckedChanged();
+				ModelState.internalControlChange = false;
+			}
+		}
 
-        private void buttonContinue_Click(object sender, EventArgs e)
-        {
-            using (new CursorForm(this))
-            {
-                apiKeyState.SaveValueToRegistry("ProxyEnabled", "0");
-                if (currentOptions.proxySettings != null)
-                {
-                    if (currentOptions.proxySettings.ProxyEnabled)
-                    {
-                        apiKeyState.SaveValueToRegistry("ProxyAddress", currentOptions.proxySettings.ProxyAddress);
-                        apiKeyState.SaveValueToRegistry("ProxyPort", currentOptions.proxySettings.ProxyPort);
-                        apiKeyState.SaveValueToRegistry("ProxyUserName", currentOptions.proxySettings.ProxyUserName);
-                        apiKeyState.SaveValueToRegistry("ProxyPassw", currentOptions.proxySettings.ProxyPassword);
-                        apiKeyState.SaveValueToRegistry("ProxyEnabled", "1");
-                    }
-                }
-                originalOptions.Translate = _translate;
-                FillOptions(originalOptions);
+		private void buttonContinue_Click(object sender, EventArgs e)
+		{
+			using (new CursorForm(this))
+			{
+				apiKeyState.SaveValueToRegistry("ProxyEnabled", "0");
+				if (currentOptions.proxySettings != null)
+				{
+					if (currentOptions.proxySettings.ProxyEnabled)
+					{
+						apiKeyState.SaveValueToRegistry("ProxyAddress", currentOptions.proxySettings.ProxyAddress);
+						apiKeyState.SaveValueToRegistry("ProxyPort", currentOptions.proxySettings.ProxyPort);
+						apiKeyState.SaveValueToRegistry("ProxyUserName", currentOptions.proxySettings.ProxyUserName);
+						apiKeyState.SaveValueToRegistry("ProxyPassw", currentOptions.proxySettings.ProxyPassword);
+						apiKeyState.SaveValueToRegistry("ProxyEnabled", "1");
+					}
+				}
+				originalOptions.Translate = _translate;
+				FillOptions(originalOptions);
 
-                if (!currentOptions.ForbidSaveApikey)
-                {
-                    if (!string.IsNullOrEmpty(originalOptions.ApiKey))
-                        apiKeyState.SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
-                    else
-                        apiKeyState.SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
-                }
-                this.DialogResult = DialogResult.OK;
-                Close();
-            }
-        }
+				if (!currentOptions.ForbidSaveApikey)
+				{
+					if (!string.IsNullOrEmpty(originalOptions.ApiKey))
+						apiKeyState.SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
+					else
+						apiKeyState.SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
+				}
+				this.DialogResult = DialogResult.OK;
+				Close();
+			}
+		}
 
-        public void linkLabel_LinkClicked(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(((Control)sender).Tag.ToString());
-        }
+		public void linkLabel_LinkClicked(object sender, EventArgs e)
+		{
+			System.Diagnostics.Process.Start(((Control)sender).Tag.ToString());
+		}
 
-        //private void linkLabel_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
-        //{
-        //    System.Windows.Forms.LinkLabel control = (System.Windows.Forms.LinkLabel)sender;
-        //    SizeF stringSize = e.Graphics.MeasureString(control.Text, control.Font);
-        //    control.Font = new Font(FontFamily.GenericSansSerif, control.Font.Size);
-        //}
+		//private void linkLabel_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+		//{
+		//    System.Windows.Forms.LinkLabel control = (System.Windows.Forms.LinkLabel)sender;
+		//    SizeF stringSize = e.Graphics.MeasureString(control.Text, control.Font);
+		//    control.Font = new Font(FontFamily.GenericSansSerif, control.Font.Size);
+		//}
 
-        private void buttonHelp_Click(object sender, EventArgs e)
+		private void buttonHelp_Click(object sender, EventArgs e)
         {
             GetOptions().сallHelpAction?.Invoke();
-        }
-
-        public void buttonWizard_Click(object sender, EventArgs e)
-        {
-            apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.buttonWizard_Click();
         }
 
         public void modelControls_ValueChanged(object sender, EventArgs e)
@@ -338,10 +349,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                 apiKeyState?.smartRoutingState?.CheckedChanged();
         }
 
-        public void textBoxCredentials_Enter(object sender, EventArgs e)
-        {
-            buttonWizard_Click(null, null);
-        }
 
         public void glossaryControls_ValueChanged(object sender, EventArgs e)
         {
@@ -491,7 +498,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             options.ForbidSaveApikey = currentOptions.ForbidSaveApikey;
             options.HideHiddenTextButton = currentOptions.HideHiddenTextButton;
             options.CustomSettingsName = currentOptions.CustomSettingsName;
-            apiKeyState.FillOptions(options);
+			options.CustomTagParser = currentOptions.CustomTagParser;
+			options.CutTag = currentOptions.CutTag;
+
+			apiKeyState.FillOptions(options);
         }
 
         public void RefreshFormInfo()
@@ -565,6 +575,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         }
 
-    }
+		private void IntentoTranslationProviderOptionsForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			originalOptions.TraceEndTime = TraceEndTime;
+		}
+	}
 
 }

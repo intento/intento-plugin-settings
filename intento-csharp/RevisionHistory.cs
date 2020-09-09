@@ -45,5 +45,10 @@ namespace IntentoSDK
     // 1.4.3: 2020-03-12
     // - Demo
     // - bug in Fulfill parameter
+    // 1.4.4: 2020-04-15
+    // - special_headers parameter in Fulfill
+    // 1.4.5: 2020-08-11
+    // - Extended demo
+    // - -1 as a special value for delay parameter of WaitAsyncJob
 
 }

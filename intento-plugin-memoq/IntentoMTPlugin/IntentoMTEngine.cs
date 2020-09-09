@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using Intento.MT.Plugin.PropertiesForm;
 using MemoQ.MTInterfaces;
 
 namespace IntentoMTPlugin
@@ -31,13 +32,15 @@ namespace IntentoMTPlugin
 
         public IntentoMTEngine(IntentoMTServiceHelper serviceHelper, string srcLangCode, string trgLangCode, IntentoMTOptions options)
         {
-            using (new Logs.Pair("IntentoMTEngine.ctor"))
+            // using (new Logs.Pair("IntentoMTEngine.ctor"))
             {
                 this.srcLangCode = srcLangCode;
                 this.trgLangCode = trgLangCode;
                 this.options = options;
                 this.serviceHelper = serviceHelper;
-            }
+				IntentoTranslationProviderOptionsForm.TraceEndTime = options.GeneralSettings.TraceEndTime;
+
+			}
         }
 
         #region IEngine Members
@@ -47,8 +50,8 @@ namespace IntentoMTPlugin
         /// </summary>
         public override ISession CreateLookupSession()
         {
-            using (new Logs.Pair("IntentoMTEngine.CreateLookupSession"))
-                return new IntentoMTSession(serviceHelper, srcLangCode, trgLangCode, options);
+            // using (new Logs.Pair("IntentoMTEngine.CreateLookupSession"))
+            return new IntentoMTSession(serviceHelper, srcLangCode, trgLangCode, options);
         }
 
         /// <summary>

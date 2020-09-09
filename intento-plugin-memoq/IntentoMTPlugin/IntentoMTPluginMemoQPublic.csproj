@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConverterHtml.cs" />
     <Compile Include="GitHash.cs" />
     <Compile Include="IntentoMTEngine.cs" />
     <Compile Include="IntentoMTOptions.cs" />

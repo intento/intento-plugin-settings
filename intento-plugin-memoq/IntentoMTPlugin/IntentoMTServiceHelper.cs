@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using Microsoft.CSharp;
+using Microsoft.Win32;
 
 using IntentoSDK;
 using System.Reflection;
@@ -20,14 +21,26 @@ namespace IntentoMTPlugin
         public IntentoAiTextTranslate intentoAiTextTranslate;
         public IntentoMTOptions options;
 
-        // static Dictionary<string, string> langConvertionIntento2MemoQ = new Dictionary<string, string>();
-        static Dictionary<string, string> langConvertionMemoQ2Intento = new Dictionary<string, string>();
+		public class ResultBatchTranslate
+		{
+			public List<string> resultTranslate { get; set; }
+			public string viaProvider { get; set; }
+
+			public ResultBatchTranslate(List<string> res, string provider)
+			{
+				resultTranslate = res;
+				viaProvider = provider;
+			}
+		}
+
+		// static Dictionary<string, string> langConvertionIntento2MemoQ = new Dictionary<string, string>();
+		static Dictionary<string, string> langConvertionMemoQ2Intento = new Dictionary<string, string>();
         IList<IList<string>> pairs = null;
 
-        public static string version = GetVersion();
+        public static string pluginVersion = GetPluginVersion();
         public static string memoqVersion = GetMemoQVersion();
         public static string memoqVersion2 = memoqVersion == null ? null : memoqVersion.Substring(0, 3);
-        public static bool isServer = IsServer();
+        public static string locationLetter = LocationLetter();
         public string format;
         string lastApiKey;
         Func<IntentoAiTextTranslate> fabric;
@@ -45,36 +58,61 @@ namespace IntentoMTPlugin
             }
         }
 
+        private static string GetCodebase(Assembly ass)
+        {
+            try
+            {
+                return ass.CodeBase;
+            }
+            catch
+            {
+                return "unknown";
+            }
+        }
+
+        private static void LogAssemblies(Assembly[] domainAssemblies)
+        {
+            IEnumerable<string> res = domainAssemblies.Select(i => string.Format("CodeBase: '{0}', FullName: '{1}'", GetCodebase(i), i.FullName));
+            Logs.Write2("Assemblies", string.Join("\r\n", res));
+        }
+
         private static string GetMemoQVersion()
         { 
             AppDomain domain = AppDomain.CurrentDomain;
             Assembly[] domainAssemblies = domain.GetAssemblies();
+            LogAssemblies(domainAssemblies);
+
+            List<string> names = new List<string>();
             foreach (Assembly ass in domainAssemblies)
             {
-                var manifest = ass.ManifestModule;
+                Module manifest = ass.ManifestModule;
                 if (manifest == null)
                     continue;
                 string name = manifest.Name;
+                names.Add(name);
                 if (name == null)
                     continue;
                 name = name.ToLower();
                 if (name != null && name.ToLower() == "memoq.exe")
                 {
                     string version = string.Format("{0}", ass.GetName().Version);
+                    Logs.Write2(string.Format("memoq version: {0}", version), string.Join("\r\n", names));
                     return version;
                 }
             }
 
+            Logs.Write2("Memoq version not found", string.Join("\r\n", names));
             return null;
         }
 
-        private static string GetVersion()
+        private static string GetPluginVersion()
         {
             try
             {
                 var assembly = Assembly.GetExecutingAssembly();
                 var fvi = assembly.GetName().Version;
                 string version = string.Format("{0}.{1}.{2}", fvi.Major, fvi.Minor, fvi.Build);
+                Logs.Write2(string.Format("plugin version: {0}", version), null);
 
                 return version;
             }
@@ -83,24 +121,35 @@ namespace IntentoMTPlugin
             return "unknown";
         }
 
-        private static bool IsServer()
+        private static string LocationLetter()
         {
             try
             {
                 Assembly currentAssem = typeof(IntentoMTServiceHelper).Assembly;
                 string codebase = string.Format("{0}", currentAssem.GetName().CodeBase);
-                if (!codebase.Contains("MemoQ Server"))
+                codebase = codebase.ToLower();
+                if (codebase.Contains("/memoq server/"))
                 {
-                    Logs.Write(string.Format("Client version, path: {0}", codebase));
-                    return false;
+                    Logs.Write2("Server version", string.Format("path: {0}", codebase));
+                    return "s";
                 }
-                Logs.Write(string.Format("Server version, path: {0}", codebase));
-                return true;
+                if (codebase.Contains("/addins/"))
+                {
+                    Logs.Write2("Client version", string.Format("path: {0}", codebase));
+                    return "c";
+                }
+                if (codebase.Contains("memoq.translationenvironment.gui.dll"))
+                {
+                    Logs.Write2("Server settings version", string.Format("path: {0}", codebase));
+                    return "q";
+                }
+                Logs.Write2("Unknown version", string.Format("path: {0}", codebase));
+                return "u";
             }
             catch { }
 
-            Logs.Write(string.Format("Server version, no path"));
-            return true;
+            Logs.Write2("Unknown version, no path", null);
+            return "x";
         }
 
         public string ApiKey
@@ -127,55 +176,17 @@ namespace IntentoMTPlugin
             return intentoAiTextTranslate.Providers(/*fields: new List<string> { "auth" },*/ filter: new Dictionary<string, string> { { "integrated", "true" }, { "published", "true" } });
         }
 
-        /// <summary>
-        /// Translates a single string with the help of the Intento MT service.
-        /// </summary>
-        /// <param name="tokenCode">The token code.</param>
-        /// <param name="input">The string to translate.</param>
-        /// <param name="srcLangCode">The source language code.</param>
-        /// <param name="trgLangCode">The target language code.</param>
-        /// <returns>The translated string.</returns>
-        public string Translate(IntentoMTOptions options, string input, string srcLangCode, string trgLangCode, string format = null, string routing = null)
+		/// <summary>
+		/// Translates multiple strings with the help of the Intento MT service.
+		/// </summary>
+		/// <param name="tokenCode">The token code.</param>
+		/// <param name="input">The strings to translate.</param>
+		/// <param name="srcLangCode">The source language code.</param>
+		/// <param name="trgLangCode">The target language code.</param>
+		/// <returns>ResultBatchTranslate: The translated strings & translation provider.</returns>
+		public ResultBatchTranslate BatchTranslate(IntentoMTOptions options, IEnumerable<string> input, string srcLangCode, string trgLangCode, string format=null, string routing = null)
         {
-            using (new Logs.Pair("Helper.Translate"))
-            {
-                string auth = null;
-                if (!string.IsNullOrEmpty(options.GeneralSettings.ProviderKey))
-                    auth = string.Format("{{\"{0}\":[{1}]}}", options.GeneralSettings.ProviderId, options.GeneralSettings.ProviderKey);
-                this.options = options;
-                dynamic res = intentoAiTextTranslate.Fulfill(
-                    input,
-                    ConvertLangCodeToIntento(trgLangCode),
-                    from: ConvertLangCodeToIntento(srcLangCode),
-                    async: true, wait_async: true, 
-                    provider: options.GeneralSettings.ProviderId,
-                    format: format,
-                    auth: auth,
-                    routing: routing,
-                    custom_model: !string.IsNullOrEmpty(options.SecureSettings.customModel) ? options.SecureSettings.customModel : options.GeneralSettings.CustomModel,
-                    glossary: options.SecureSettings.glossary,
-                    trace: IntentoTranslationProviderOptionsForm.IsTrace());
-
-                if (res.error != null && ((JContainer)res.error).HasValues)
-                    throw new Exception("The service returned a translation error. Try checking your Intento settings.");
-                List<string> list = new List<string>();
-                foreach (string z in res.response[0].results)
-                    list.Add(z);
-                return list[0];
-            }
-        }
-
-        /// <summary>
-        /// Translates multiple strings with the help of the Intento MT service.
-        /// </summary>
-        /// <param name="tokenCode">The token code.</param>
-        /// <param name="input">The strings to translate.</param>
-        /// <param name="srcLangCode">The source language code.</param>
-        /// <param name="trgLangCode">The target language code.</param>
-        /// <returns>The translated strings.</returns>
-        public List<string> BatchTranslate(IntentoMTOptions options, IEnumerable<string> input, string srcLangCode, string trgLangCode, string format=null, string routing = null)
-        {
-            using (new Logs.Pair("Helper.BatchTranslate"))
+            // using (new Logs.Pair("Helper.BatchTranslate"))
             {
                 string auth = null;
                 if (!string.IsNullOrEmpty(options.GeneralSettings.ProviderKey))
@@ -199,7 +210,8 @@ namespace IntentoMTPlugin
                 List<string> list = new List<string>();
                 foreach (string z in res.response[0].results)
                     list.Add(z);
-                return list;
+				string provider = (string)res.meta?.providers[0]?.name;
+                return new ResultBatchTranslate(list, provider);
             }
         }
 
@@ -268,53 +280,6 @@ namespace IntentoMTPlugin
             return pairs;
         }
 
-        /*
-        public IList<IList<string>> LanguagePairs()
-        {
-            if (pairs != null)
-                return pairs;
-
-            using (new Logs.Pair("Helper.Translate"))
-            {
-                // this.options = options;
-
-                if (string.IsNullOrEmpty(options.GeneralSettings.providerId))
-                {   // smart routing 
-                    IList<dynamic> data = IntentoAiTextTranslate().Languages();
-
-                    List<string>langs = data.Select(i => (string)i.intento_code).ToList();
-                    pairs = new List<IList<string>>();
-                    foreach (string lang1 in langs)
-                        foreach (string lang2 in langs)
-                        {
-                            if (lang1 == lang2)
-                                continue;
-                            pairs.Add(new List<string>() { ConvertLangCodeToMemoQ(lang1), ConvertLangCodeToMemoQ(lang2) });
-                        }
-                    return pairs;
-                }
-
-                IList<IList<string>> p = IntentoAiTextTranslate().ProviderLanguagePairs(options.GeneralSettings.providerId);
-                pairs = p
-                    .Select(i => (IList<string>)new List<string> { ConvertLangCodeToMemoQ(i[0]), ConvertLangCodeToMemoQ(i[1]) })
-                    .Where(i => (i[0] != null && i[1] != null))
-                    .ToList();
-
-                Dictionary<string, IList<string>> d = new Dictionary<string, IList<string>>();
-                foreach (IList<string> pair in p)
-                {
-                    IList<string> val;
-                    if (!d.TryGetValue(pair[0], out val))
-                        d[pair[0]] = new List<string> { pair[1] };
-                    else
-                        d[pair[0]].Add(pair[1]);
-                }
-
-                return pairs;
-            }
-        } */
-
-
         private IntentoAiTextTranslate IntentoAiTextTranslate()
         {
             if (intentoAiTextTranslate != null)
@@ -353,6 +318,65 @@ namespace IntentoMTPlugin
             catch { }
 
             return hash;
+        }
+
+        private static void AddString(List<string> res, string name, Func<string>f)
+        {
+            try
+            {
+                res.Add(string.Format("{0}/{1}", name, f()));
+            }
+            catch(Exception ex)
+            {
+                res.Add(string.Format("{0}: Error {1}", name, ex.Message));
+            }
+        }
+
+        public static string GetEnvDataExtended()
+        {
+            List<string> res = new List<string>();
+            AddString(res, "MachineName", ()=>Environment.MachineName);
+            AddString(res, "CurrentDirectory", () => Environment.CurrentDirectory);
+            AddString(res, "intento_plugin_logging", () => Environment.GetEnvironmentVariable("intento_plugin_logging"));
+            AddString(res, "OSVersion", () => Environment.OSVersion.VersionString);
+            AddString(res, "StackTrace", () => Environment.StackTrace);
+            AddString(res, "UserName", () => Environment.UserName);
+            AddString(res, "Version", () => Environment.Version.ToString());
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}", PluginID));
+            AddString(res, "RegistryLogging", () => (string)key.GetValue("Logging", null));
+
+            return string.Join("\r\n", res);
+        }
+
+        public static string GetEnvData()
+        {
+            List<string> res = new List<string>();
+            AddString(res, "MachineName", () => Environment.MachineName);
+            AddString(res, "UserName", () => Environment.UserName);
+
+            if (res.Count != 0)
+                return string.Join(" ", res);
+            else
+                return "";
+        }
+
+        /// <summary>
+        /// The plugin's non-localized name.
+        /// </summary>
+        public static string PluginID
+        {
+            get
+            {
+#if VARIANT_PUBLIC
+                return "IntentoMT";
+#elif VARIANT_PRIVATE
+                return "IntentoMT_private";
+#else
+				// It is necessary to define the plug-in version (VARIANT_PUBLIC and VARIANT_PRIVATE)
+				// in the project properties
+				return 1;
+#endif
+            }
         }
     }
 }

@@ -166,13 +166,13 @@
     <value>Use custom glossary</value>
   </data>
   <data name="MTcheckBoxUseOwnCred" xml:space="preserve">
-    <value>Use your own MT Provider account</value>
+    <value>Use Connected Account</value>
   </data>
   <data name="MTgroupBoxOptional" xml:space="preserve">
     <value>OPTIONAL</value>
   </data>
   <data name="MTlabelHelpBillingAccount" xml:space="preserve">
-    <value>Most of the MT Providers are available via Intento contracts, but you may also use your own account at MT Provider by providing your credentials below.</value>
+    <value>Most of the MT Providers are available via Intento contracts, but you may also use your own account at MT Provider connected via Intento Console.</value>
   </data>
   <data name="MTlabelHelpGlossary" xml:space="preserve">
     <value>Some of MT Providers enable using your custom terminology or glossary. If you have one, please specify it below.</value>
@@ -312,6 +312,21 @@ If you have selected custom model or glossary, please adjust the language pair:<
     <value>Click to copy error to clipboard</value>
   </data>
   <data name="FAlabelCustomSettingsName" xml:space="preserve">
-    <value>Custom name for plugin settings (set blank for default name)</value>
+    <value>Custom name for plugin settings (leave blank to use default name)</value>
+  </data>
+  <data name="MTLabelCreateOn" xml:space="preserve">
+    <value>Create on</value>
+  </data>
+  <data name="MTbuttonRefreshToolTip" xml:space="preserve">
+    <value>Refresh your account list for this provider</value>
+  </data>
+  <data name="MTLinkConnectAccount" xml:space="preserve">
+    <value>Connect your own account for this provider</value>
+  </data>
+  <data name="FAcheckBoxCustomTagParser" xml:space="preserve">
+    <value>Custom HTML tags parser</value>
+  </data>
+  <data name="FACheckBoxCutTags" xml:space="preserve">
+    <value>Translate as plain text</value>
   </data>
 </root>

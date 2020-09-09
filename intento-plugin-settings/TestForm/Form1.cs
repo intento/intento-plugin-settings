@@ -18,6 +18,7 @@ namespace TestForm
     {
         IntentoMTFormOptions options;
         string REG_PATH = "Software\\Intento\\PluginForm\\TestForm";
+		DateTime TraceEndDT;
 
         public Form1()
         {
@@ -29,7 +30,18 @@ namespace TestForm
         {
             comboBoxTestName.Items.Clear();
             comboBoxTestName.Items.AddRange(GetSettingNames());
-        }
+			Dictionary<int, string> versionDct = new Dictionary<int, string>();
+			versionDct.Add(0, "Default (installed)");
+			versionDct.Add(7, "7");
+			versionDct.Add(8, "8");
+			versionDct.Add(9, "9");
+			versionDct.Add(10, "10");
+			versionDct.Add(11, "11 and above");
+			comboBoxIEVersion.DataSource = new BindingSource(versionDct, null);
+			comboBoxIEVersion.DisplayMember = "Value";
+			comboBoxIEVersion.ValueMember = "Key";
+			comboBoxIEVersion.SelectedValue = 0;
+		}
 
         private bool str2bool(object z)
         {
@@ -141,12 +153,16 @@ namespace TestForm
             options.CustomAuth = textBoxAuth.Text;
             options.UseCustomModel = checkBoxModel.Checked;
             options.CustomModel = textBoxModel.Text;
-            options.UserAgent = "TestForm/1.0.0";
-            options.Signature = "TestForm";
             options.Glossary = checkBoxSmartRouting.Checked ? string.Empty : textBoxGlossary.Text;
-            options.AppName = "PluginForm\\TestForm";
             options.ForbidSaveApikey = checkBoxForbidSaveApikey.Checked;
-            options.proxySettings = new IntentoSDK.ProxySettings()
+            options.FromLanguage = textBoxFrom.Text;
+            options.ToLanguage = textBoxTo.Text;
+			options.UserAgent = "TestForm/1.0.0";
+			options.Signature = "TestForm";
+			options.AppName = checkBoxTradosApp.Checked ? "SdlTradosStudioPlugin" : "PluginForm\\TestForm";
+			options.CustomTagParser = checkBoxCustomTagParser.Checked;
+			options.CutTag = CheckBoxCutTag.Checked;
+			options.proxySettings = new IntentoSDK.ProxySettings()
             {
                 ProxyAddress = textBoxAddress.Text,
                 ProxyPort = textBoxPort.Text,
@@ -158,10 +174,11 @@ namespace TestForm
                 options.ForbidSaveApikey = true;
             if (checkBoxHideHiddenTextButton.Checked)
                 options.HideHiddenTextButton = true;
+			options.TraceEndTime = DateTime.Now.AddMinutes(checkBox1.Checked ? 30 : -40);
 
 
 
-            IntentoTranslationProviderOptionsForm.LangPair[] languagePair = new IntentoTranslationProviderOptionsForm.LangPair[1] 
+			IntentoTranslationProviderOptionsForm.LangPair[] languagePair = new IntentoTranslationProviderOptionsForm.LangPair[1] 
                 { new IntentoTranslationProviderOptionsForm.LangPair("en", "de") };
 
             IntentoTranslationProviderOptionsForm form = new IntentoTranslationProviderOptionsForm(options, languagePair, Fabric);
@@ -192,13 +209,25 @@ namespace TestForm
             checkBoxModel.Checked = options.UseCustomModel;
             textBoxModel.Text = options.CustomModel;
             textBoxGlossary.Text = options.Glossary;
-            var key = GetKey(null);
+            textBoxFrom.Text = options.FromLanguage;
+            textBoxTo.Text = options.ToLanguage;
+			checkBoxCustomTagParser.Checked = options.CustomTagParser;
+			CheckBoxCutTag.Checked = options.CutTag;
+			var key = GetKey(null);
             checkBoxProxy.Checked = (string)key.GetValue("ProxyEnabled", "0") != "0";
             textBoxAddress.Text = (string)key.GetValue("ProxyAddress", null);
             textBoxPort.Text = (string)key.GetValue("ProxyPort", null);
             textBoxUserName.Text = (string)key.GetValue("ProxyUserName", null);
             textBoxPassword.Text = (string)key.GetValue("ProxyPassw", null);
-        }
+			if (options.TraceEndTime > DateTime.Now)
+			{
+				checkBox1.Checked = true;
+				textBoxDTLog.Text = TraceEndDT.ToString("HH:MM:ss yy.mm.yyyy");
+			}
+			else
+				checkBox1.Checked = false;
+
+		}
 
         private void buttonSaveData_Click(object sender, EventArgs e)
         {
@@ -265,5 +294,33 @@ namespace TestForm
             else
                 textBoxExpected.BackColor = Color.White;
         }
-    }
+
+		private void checkBoxTradosApp_CheckedChanged(object sender, EventArgs e)
+		{
+			checkBoxCustomTagParser.Enabled = !checkBoxTradosApp.Checked;
+			CheckBoxCutTag.Enabled = checkBoxTradosApp.Checked;
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			BrowserForm BFrom = new BrowserForm((int)comboBoxIEVersion.SelectedValue);
+			if (!BFrom.IsDisposed)
+				BFrom.ShowDialog();
+		}
+
+		private void checkBox1_CheckedChanged(object sender, EventArgs e)
+		{
+			if (checkBox1.Checked)
+			{
+				TraceEndDT = DateTime.Now.AddMinutes(30);
+				textBoxDTLog.Text = TraceEndDT.ToString("HH:MM:ss yy.mm.yyyy");
+			}
+			else
+			{
+				TraceEndDT = DateTime.Now.AddMinutes(-30);
+				textBoxDTLog.Text = "";
+			}
+
+		}
+	}
 }

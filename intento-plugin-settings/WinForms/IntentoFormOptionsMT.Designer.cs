@@ -1,4 +1,6 @@
-﻿namespace Intento.MT.Plugin.PropertiesForm
+﻿using System.Drawing;
+
+namespace Intento.MT.Plugin.PropertiesForm
 {
     partial class IntentoFormOptionsMT
     {
@@ -29,17 +31,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IntentoFormOptionsMT));
             this.checkBoxSmartRouting = new System.Windows.Forms.CheckBox();
             this.textBoxLabelURL = new System.Windows.Forms.TextBox();
             this.groupBoxProvider = new System.Windows.Forms.GroupBox();
             this.comboBoxProviders = new System.Windows.Forms.ComboBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBoxBillingAccount = new System.Windows.Forms.GroupBox();
+            this.panelConnectAccount = new System.Windows.Forms.Panel();
+            this.textBoxLabelConnectAccount = new System.Windows.Forms.TextBox();
+            this.buttonRefresh = new System.Windows.Forms.Button();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-            this.buttonWizard = new System.Windows.Forms.Button();
-            this.textBoxCredentials = new System.Windows.Forms.TextBox();
             this.labelHelpBillingAccount = new System.Windows.Forms.Label();
-            this.checkBoxUseOwnCred = new System.Windows.Forms.CheckBox();
             this.comboBoxCredentialId = new System.Windows.Forms.ComboBox();
             this.groupBoxModel = new System.Windows.Forms.GroupBox();
             this.textBoxModel = new System.Windows.Forms.TextBox();
@@ -50,7 +53,6 @@
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.textBoxGlossary = new System.Windows.Forms.TextBox();
             this.labelHelpGlossary = new System.Windows.Forms.Label();
-            this.checkBoxUseGlossary = new System.Windows.Forms.CheckBox();
             this.comboBoxGlossaries = new System.Windows.Forms.ComboBox();
             this.groupBoxOptional = new System.Windows.Forms.GroupBox();
             this.labelHelpOptional = new System.Windows.Forms.Label();
@@ -63,6 +65,7 @@
             this.labelTMP = new System.Windows.Forms.Label();
             this.groupBoxProvider.SuspendLayout();
             this.groupBoxBillingAccount.SuspendLayout();
+            this.panelConnectAccount.SuspendLayout();
             this.groupBoxModel.SuspendLayout();
             this.groupBoxGlossary.SuspendLayout();
             this.groupBoxOptional.SuspendLayout();
@@ -70,8 +73,9 @@
             // 
             // checkBoxSmartRouting
             // 
+            this.checkBoxSmartRouting.AutoSize = true;
             this.checkBoxSmartRouting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxSmartRouting.Location = new System.Drawing.Point(23, 12);
+            this.checkBoxSmartRouting.Location = new System.Drawing.Point(12, 12);
             this.checkBoxSmartRouting.Name = "checkBoxSmartRouting";
             this.checkBoxSmartRouting.Size = new System.Drawing.Size(234, 17);
             this.checkBoxSmartRouting.TabIndex = 23;
@@ -84,8 +88,8 @@
             this.textBoxLabelURL.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxLabelURL.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textBoxLabelURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxLabelURL.ForeColor = System.Drawing.Color.Blue;
-            this.textBoxLabelURL.Location = new System.Drawing.Point(249, 13);
+            this.textBoxLabelURL.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.textBoxLabelURL.Location = new System.Drawing.Point(236, 14);
             this.textBoxLabelURL.Name = "textBoxLabelURL";
             this.textBoxLabelURL.Size = new System.Drawing.Size(118, 13);
             this.textBoxLabelURL.TabIndex = 24;
@@ -96,7 +100,7 @@
             // groupBoxProvider
             // 
             this.groupBoxProvider.Controls.Add(this.comboBoxProviders);
-            this.groupBoxProvider.Location = new System.Drawing.Point(12, 50);
+            this.groupBoxProvider.Location = new System.Drawing.Point(12, 42);
             this.groupBoxProvider.Name = "groupBoxProvider";
             this.groupBoxProvider.Size = new System.Drawing.Size(467, 57);
             this.groupBoxProvider.TabIndex = 25;
@@ -118,6 +122,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
+            this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.linkLabel1.Location = new System.Drawing.Point(41, 0);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(13, 13);
@@ -125,27 +130,64 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Tag = "model";
             this.linkLabel1.Text = "?";
-            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.helpLink_Clicked);
             // 
             // groupBoxBillingAccount
             // 
+            this.groupBoxBillingAccount.Controls.Add(this.panelConnectAccount);
+            this.groupBoxBillingAccount.Controls.Add(this.buttonRefresh);
             this.groupBoxBillingAccount.Controls.Add(this.linkLabel3);
-            this.groupBoxBillingAccount.Controls.Add(this.buttonWizard);
-            this.groupBoxBillingAccount.Controls.Add(this.textBoxCredentials);
             this.groupBoxBillingAccount.Controls.Add(this.labelHelpBillingAccount);
-            this.groupBoxBillingAccount.Controls.Add(this.checkBoxUseOwnCred);
             this.groupBoxBillingAccount.Controls.Add(this.comboBoxCredentialId);
-            this.groupBoxBillingAccount.Location = new System.Drawing.Point(12, 110);
+            this.groupBoxBillingAccount.Location = new System.Drawing.Point(12, 102);
             this.groupBoxBillingAccount.Name = "groupBoxBillingAccount";
-            this.groupBoxBillingAccount.Size = new System.Drawing.Size(466, 112);
+            this.groupBoxBillingAccount.Size = new System.Drawing.Size(466, 105);
             this.groupBoxBillingAccount.TabIndex = 26;
             this.groupBoxBillingAccount.TabStop = false;
             this.groupBoxBillingAccount.Text = "1Billing account";
             // 
+            // panelConnectAccount
+            // 
+            this.panelConnectAccount.Controls.Add(this.textBoxLabelConnectAccount);
+            this.panelConnectAccount.Location = new System.Drawing.Point(13, 83);
+            this.panelConnectAccount.Name = "panelConnectAccount";
+            this.panelConnectAccount.Size = new System.Drawing.Size(260, 19);
+            this.panelConnectAccount.TabIndex = 39;
+            this.panelConnectAccount.Tag = "accountControl";
+            this.panelConnectAccount.Visible = false;
+            // 
+            // textBoxLabelConnectAccount
+            // 
+            this.textBoxLabelConnectAccount.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxLabelConnectAccount.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxLabelConnectAccount.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.textBoxLabelConnectAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxLabelConnectAccount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.textBoxLabelConnectAccount.Location = new System.Drawing.Point(0, 3);
+            this.textBoxLabelConnectAccount.Name = "textBoxLabelConnectAccount";
+            this.textBoxLabelConnectAccount.Size = new System.Drawing.Size(234, 13);
+            this.textBoxLabelConnectAccount.TabIndex = 37;
+            this.textBoxLabelConnectAccount.Tag = "https://console.inten.to/accounts";
+            this.textBoxLabelConnectAccount.Text = "1Connect your own account for this provider";
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
+            this.buttonRefresh.Location = new System.Drawing.Point(432, 58);
+            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(23, 23);
+            this.buttonRefresh.TabIndex = 37;
+            this.buttonRefresh.Tag = "accountControl";
+            this.toolTipHelp.SetToolTip(this.buttonRefresh, "refresh list your accounts for this provider");
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Visible = false;
+            // 
             // linkLabel3
             // 
             this.linkLabel3.AutoSize = true;
+            this.linkLabel3.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.linkLabel3.Location = new System.Drawing.Point(84, 0);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(13, 13);
@@ -153,36 +195,8 @@
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Tag = "account";
             this.linkLabel3.Text = "?";
-            this.linkLabel3.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel3.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.helpLink_Clicked);
-            // 
-            // buttonWizard
-            // 
-            this.buttonWizard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonWizard.Location = new System.Drawing.Point(374, 77);
-            this.buttonWizard.Name = "buttonWizard";
-            this.buttonWizard.Size = new System.Drawing.Size(81, 23);
-            this.buttonWizard.TabIndex = 14;
-            this.buttonWizard.Tag = "accountControl";
-            this.buttonWizard.Text = "Fill or edit";
-            this.buttonWizard.UseVisualStyleBackColor = true;
-            this.buttonWizard.Visible = false;
-            // 
-            // textBoxCredentials
-            // 
-            this.textBoxCredentials.BackColor = System.Drawing.SystemColors.Window;
-            this.textBoxCredentials.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxCredentials.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.textBoxCredentials.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxCredentials.Location = new System.Drawing.Point(11, 79);
-            this.textBoxCredentials.Name = "textBoxCredentials";
-            this.textBoxCredentials.ReadOnly = true;
-            this.textBoxCredentials.Size = new System.Drawing.Size(331, 20);
-            this.textBoxCredentials.TabIndex = 13;
-            this.textBoxCredentials.Tag = "accountControl";
-            this.textBoxCredentials.UseSystemPasswordChar = true;
-            this.textBoxCredentials.Visible = false;
-            this.textBoxCredentials.VisibleChanged += new System.EventHandler(this.textBoxCredentials_VisibleChanged);
             // 
             // labelHelpBillingAccount
             // 
@@ -191,21 +205,8 @@
             this.labelHelpBillingAccount.Size = new System.Drawing.Size(427, 32);
             this.labelHelpBillingAccount.TabIndex = 12;
             this.labelHelpBillingAccount.Text = "1Most of the MT Providers are available via Intento contracts, but you may also u" +
-    "se your own account at MT Provider by providing your credentials below.";
+    "se your own account at MT Provider connected via Intento Console.";
             this.labelHelpBillingAccount.Visible = false;
-            // 
-            // checkBoxUseOwnCred
-            // 
-            this.checkBoxUseOwnCred.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxUseOwnCred.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxUseOwnCred.Location = new System.Drawing.Point(11, 56);
-            this.checkBoxUseOwnCred.Name = "checkBoxUseOwnCred";
-            this.checkBoxUseOwnCred.Size = new System.Drawing.Size(444, 17);
-            this.checkBoxUseOwnCred.TabIndex = 11;
-            this.checkBoxUseOwnCred.Tag = "accountControl";
-            this.checkBoxUseOwnCred.Text = "1Use your own MT Provider account";
-            this.checkBoxUseOwnCred.UseVisualStyleBackColor = true;
             // 
             // comboBoxCredentialId
             // 
@@ -214,9 +215,9 @@
             this.comboBoxCredentialId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCredentialId.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxCredentialId.FormattingEnabled = true;
-            this.comboBoxCredentialId.Location = new System.Drawing.Point(11, 79);
+            this.comboBoxCredentialId.Location = new System.Drawing.Point(11, 59);
             this.comboBoxCredentialId.Name = "comboBoxCredentialId";
-            this.comboBoxCredentialId.Size = new System.Drawing.Size(444, 21);
+            this.comboBoxCredentialId.Size = new System.Drawing.Size(415, 21);
             this.comboBoxCredentialId.TabIndex = 10;
             this.comboBoxCredentialId.Tag = "accountControl";
             this.comboBoxCredentialId.Visible = false;
@@ -230,7 +231,7 @@
             this.groupBoxModel.Controls.Add(this.checkBoxUseCustomModel);
             this.groupBoxModel.Controls.Add(this.comboBoxModels);
             this.groupBoxModel.Enabled = false;
-            this.groupBoxModel.Location = new System.Drawing.Point(12, 232);
+            this.groupBoxModel.Location = new System.Drawing.Point(12, 216);
             this.groupBoxModel.Name = "groupBoxModel";
             this.groupBoxModel.Size = new System.Drawing.Size(466, 112);
             this.groupBoxModel.TabIndex = 27;
@@ -262,10 +263,11 @@
             // 
             this.checkBoxUseCustomModel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxUseCustomModel.AutoSize = true;
             this.checkBoxUseCustomModel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxUseCustomModel.Location = new System.Drawing.Point(11, 56);
             this.checkBoxUseCustomModel.Name = "checkBoxUseCustomModel";
-            this.checkBoxUseCustomModel.Size = new System.Drawing.Size(438, 17);
+            this.checkBoxUseCustomModel.Size = new System.Drawing.Size(135, 17);
             this.checkBoxUseCustomModel.TabIndex = 11;
             this.checkBoxUseCustomModel.Tag = "modelControl";
             this.checkBoxUseCustomModel.Text = "1Use custom MT model";
@@ -291,9 +293,8 @@
             this.groupBoxGlossary.Controls.Add(this.linkLabel2);
             this.groupBoxGlossary.Controls.Add(this.textBoxGlossary);
             this.groupBoxGlossary.Controls.Add(this.labelHelpGlossary);
-            this.groupBoxGlossary.Controls.Add(this.checkBoxUseGlossary);
             this.groupBoxGlossary.Controls.Add(this.comboBoxGlossaries);
-            this.groupBoxGlossary.Location = new System.Drawing.Point(12, 354);
+            this.groupBoxGlossary.Location = new System.Drawing.Point(12, 338);
             this.groupBoxGlossary.Name = "groupBoxGlossary";
             this.groupBoxGlossary.Size = new System.Drawing.Size(466, 94);
             this.groupBoxGlossary.TabIndex = 28;
@@ -303,6 +304,7 @@
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
+            this.linkLabel2.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.linkLabel2.Location = new System.Drawing.Point(52, 0);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(13, 13);
@@ -310,7 +312,7 @@
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Tag = "glossary";
             this.linkLabel2.Text = "?";
-            this.linkLabel2.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel2.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.helpLink_Clicked);
             // 
             // textBoxGlossary
@@ -331,22 +333,8 @@
             this.labelHelpGlossary.Size = new System.Drawing.Size(427, 32);
             this.labelHelpGlossary.TabIndex = 13;
             this.labelHelpGlossary.Text = "1Some of MT Providers enable using your custom terminology or glossary. If you ha" +
-    "ve one, please specify it below.";
+    "be one, please specify it below.";
             this.labelHelpGlossary.Visible = false;
-            // 
-            // checkBoxUseGlossary
-            // 
-            this.checkBoxUseGlossary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxUseGlossary.AutoSize = true;
-            this.checkBoxUseGlossary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxUseGlossary.Location = new System.Drawing.Point(441, 19);
-            this.checkBoxUseGlossary.Name = "checkBoxUseGlossary";
-            this.checkBoxUseGlossary.Size = new System.Drawing.Size(126, 17);
-            this.checkBoxUseGlossary.TabIndex = 11;
-            this.checkBoxUseGlossary.Text = "1Use custom glossary";
-            this.checkBoxUseGlossary.UseVisualStyleBackColor = true;
-            this.checkBoxUseGlossary.Visible = false;
             // 
             // comboBoxGlossaries
             // 
@@ -370,8 +358,8 @@
             this.groupBoxOptional.Controls.Add(this.labelDirectionChar);
             this.groupBoxOptional.Controls.Add(this.comboBoxTo);
             this.groupBoxOptional.Controls.Add(this.comboBoxFrom);
-            this.groupBoxOptional.Enabled = false;
-            this.groupBoxOptional.Location = new System.Drawing.Point(12, 461);
+            this.groupBoxOptional.Enabled = true;
+            this.groupBoxOptional.Location = new System.Drawing.Point(12, 445);
             this.groupBoxOptional.Name = "groupBoxOptional";
             this.groupBoxOptional.Size = new System.Drawing.Size(466, 103);
             this.groupBoxOptional.TabIndex = 29;
@@ -428,7 +416,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(398, 593);
+            this.buttonCancel.Location = new System.Drawing.Point(398, 577);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(81, 30);
             this.buttonCancel.TabIndex = 31;
@@ -437,7 +425,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(278, 593);
+            this.buttonSave.Location = new System.Drawing.Point(278, 577);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(114, 30);
             this.buttonSave.TabIndex = 30;
@@ -452,7 +440,7 @@
             // labelTMP
             // 
             this.labelTMP.AutoSize = true;
-            this.labelTMP.Location = new System.Drawing.Point(23, 593);
+            this.labelTMP.Location = new System.Drawing.Point(23, 577);
             this.labelTMP.Name = "labelTMP";
             this.labelTMP.Size = new System.Drawing.Size(52, 13);
             this.labelTMP.TabIndex = 32;
@@ -464,9 +452,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(491, 635);
+            this.ClientSize = new System.Drawing.Size(491, 613);
             this.Controls.Add(this.textBoxLabelURL);
-            this.Controls.Add(this.checkBoxSmartRouting);
             this.Controls.Add(this.labelTMP);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
@@ -475,6 +462,7 @@
             this.Controls.Add(this.groupBoxModel);
             this.Controls.Add(this.groupBoxBillingAccount);
             this.Controls.Add(this.groupBoxProvider);
+            this.Controls.Add(this.checkBoxSmartRouting);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -486,6 +474,8 @@
             this.groupBoxProvider.ResumeLayout(false);
             this.groupBoxBillingAccount.ResumeLayout(false);
             this.groupBoxBillingAccount.PerformLayout();
+            this.panelConnectAccount.ResumeLayout(false);
+            this.panelConnectAccount.PerformLayout();
             this.groupBoxModel.ResumeLayout(false);
             this.groupBoxModel.PerformLayout();
             this.groupBoxGlossary.ResumeLayout(false);
@@ -503,10 +493,8 @@
         private System.Windows.Forms.TextBox textBoxLabelURL;
         public System.Windows.Forms.ComboBox comboBoxProviders;
         public System.Windows.Forms.ComboBox comboBoxCredentialId;
-        public System.Windows.Forms.CheckBox checkBoxUseOwnCred;
         public System.Windows.Forms.CheckBox checkBoxUseCustomModel;
         public System.Windows.Forms.ComboBox comboBoxModels;
-        public System.Windows.Forms.CheckBox checkBoxUseGlossary;
         public System.Windows.Forms.ComboBox comboBoxGlossaries;
         public System.Windows.Forms.ComboBox comboBoxFrom;
         private System.Windows.Forms.Label labelDirectionChar;
@@ -519,17 +507,18 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.ToolTip toolTipHelp;
         public System.Windows.Forms.GroupBox groupBoxBillingAccount;
-        public System.Windows.Forms.TextBox textBoxCredentials;
         public System.Windows.Forms.GroupBox groupBoxModel;
         public System.Windows.Forms.TextBox textBoxModel;
         public System.Windows.Forms.GroupBox groupBoxGlossary;
         public System.Windows.Forms.TextBox textBoxGlossary;
         public System.Windows.Forms.Button buttonSave;
         public System.Windows.Forms.Label labelTMP;
-        public System.Windows.Forms.Button buttonWizard;
-        private System.Windows.Forms.LinkLabel linkLabel3;
         private System.Windows.Forms.LinkLabel linkLabel2;
         public System.Windows.Forms.GroupBox groupBoxProvider;
         public System.Windows.Forms.GroupBox groupBoxOptional;
-    }
+        private System.Windows.Forms.LinkLabel linkLabel3;
+		public System.Windows.Forms.TextBox textBoxLabelConnectAccount;
+		public System.Windows.Forms.Panel panelConnectAccount;
+		public System.Windows.Forms.Button buttonRefresh;
+	}
 }

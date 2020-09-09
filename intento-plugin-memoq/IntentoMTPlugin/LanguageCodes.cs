@@ -49,7 +49,7 @@ namespace IntentoMTPlugin
             new List<String> { "Chinese (Hong Kong S.A.R.)","zho-HK", "zh-hant", "" },
             new List<String> { "Chinese (Macao S.A.R.)","zho-MO", "zh-hant", "" },
             new List<String> { "Chinese (PRC)","zho-CN","zh","" },
-            new List<String> { "Chinese (Singapore)","zho-SG", "zh-hant", "" },
+            new List<String> { "Chinese (Singapore)","zho-SG", "zh", "" },
             new List<String> { "Chinese (Taiwan)","zho-TW", "zh-hant", "" },
             new List<String> { "Croatian","hrv","hr","" },
             new List<String> { "Czech","cze","cs","" },

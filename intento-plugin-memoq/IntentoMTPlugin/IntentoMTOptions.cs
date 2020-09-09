@@ -1,4 +1,6 @@
-﻿namespace IntentoMTPlugin
+﻿using System;
+
+namespace IntentoMTPlugin
 {
     /// <summary>
     /// Class for storing the Intento MT plugin settings.
@@ -34,8 +36,23 @@
         public string providerFormats;
         public string providerKey;      // customAuth
         public string customModel;
+        public string fromLanguage;
+        public string toLanguage;
+		public string intentoTagReplacement;
+		public string traceEndTimeSpan;
 
-        public string[] SupportedLanguages
+		public DateTime TraceEndTime
+        {
+            get {
+				long ticks;
+				long.TryParse(traceEndTimeSpan, out ticks);
+				return new DateTime(ticks);
+			}
+			set { traceEndTimeSpan = value.Ticks.ToString(); }
+        }
+
+
+		public string[] SupportedLanguages
         {
             get { return supportedLanguages; }
             set { supportedLanguages = value; }
@@ -72,13 +89,30 @@
             set { customModel = value; }
         }
 
+        public string FromLanguage
+        {
+            get { return fromLanguage; }
+            set { fromLanguage = value; }
+        }
+
+        public string ToLanguage
+        {
+            get { return toLanguage; }
+            set { toLanguage = value; }
+        }
+
+		public bool IntentoTagReplacement
+		{
+			get { return intentoTagReplacement != "0"; }
+			set { intentoTagReplacement = value ? "1" : "0"; }
+		}
 		public bool ForbidSaveApikey => true;
 	}
 
-    /// <summary>
-    /// Secure settings, content not preserved when settings leave the machine.
-    /// </summary>
-    public class IntentoMTSecureSetting
+	/// <summary>
+	/// Secure settings, content not preserved when settings leave the machine.
+	/// </summary>
+	public class IntentoMTSecureSetting
     {
         public string ApiKey;
         public string glossary;

@@ -123,7 +123,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                         }
 
                     default:
-                        throw new Exception(string.Format("Invalid mode {0}", mode));
+						return null;
+						throw new Exception(string.Format("Invalid mode {0}", mode));
                 }
 
             }
@@ -151,9 +152,30 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-        #endregion Properties
+		public string SelectedGlossaryTo
+		{
+			get
+			{
+				if (!isList || currentGlossary == null)
+					return null;
+				dynamic glossary = glossaries[formMT.comboBoxGlossaries.Text];
+				return (string)glossary.to;
+			}
+		}
+		public string SelectedGlossaryFrom
+		{
+			get
+			{
+				if (!isList || currentGlossary == null)
+					return null;
+				dynamic glossary = glossaries[formMT.comboBoxGlossaries.Text];
+				return (string)glossary.from;
+			}
+		}
 
-        void Clear()
+		#endregion Properties
+
+		void Clear()
         {
             internalControlChange = true;
             formMT.comboBoxGlossaries.Items.Clear();
@@ -238,7 +260,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     authState.UseCustomAuth ? authState.providerDataAuthDict : null);
                 glossaries = new Dictionary<string, dynamic>();
                 if (providerGlossariesRec != null && providerGlossariesRec.Any())
-                    glossaries = providerGlossariesRec.ToDictionary(s => (string)s.name, q => q);
+                    glossaries = ProcessModels(providerState, providerGlossariesRec);
                 isList = true;
 
                 // Temporary! Empty list means that manual entry is possbile
@@ -258,13 +280,14 @@ namespace Intento.MT.Plugin.PropertiesForm
             formMT.groupBoxOptional.Enabled = options.UseCustomModel || currentGlossary != null;
             if (!internalControlChange)
                 GlossaryState.FillOptions(this, options);
-        }
+			EnableDisable();
+		}
 
-        #endregion Events
+		#endregion Events
 
-        #region methods for managing a group of controls
+		#region methods for managing a group of controls
 
-        static void Glossary_GroupBox_Disable(IntentoFormOptionsMT formMT)
+		static void Glossary_GroupBox_Disable(IntentoFormOptionsMT formMT)
         {
             formMT.groupBoxGlossary.Enabled = false;
             formMT.comboBoxGlossaries.Visible = false;

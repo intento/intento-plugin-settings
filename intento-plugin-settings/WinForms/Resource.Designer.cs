@@ -19,7 +19,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resource {
@@ -241,6 +241,24 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom HTML tags parser.
+        /// </summary>
+        internal static string FAcheckBoxCustomTagParser {
+            get {
+                return ResourceManager.GetString("FAcheckBoxCustomTagParser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Translate as plain text.
+        /// </summary>
+        internal static string FACheckBoxCutTags {
+            get {
+                return ResourceManager.GetString("FACheckBoxCutTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable proxy server (Attention! Proxy settings apply to all sets of settings).
         /// </summary>
         internal static string FAcheckBoxProxy {
@@ -277,7 +295,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Custom name for plugin settings (set blank for default name).
+        ///   Looks up a localized string similar to Custom name for plugin settings (leave blank to use default name).
         /// </summary>
         internal static string FAlabelCustomSettingsName {
             get {
@@ -458,6 +476,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refresh your account list for this provider.
+        /// </summary>
+        internal static string MTbuttonRefreshToolTip {
+            get {
+                return ResourceManager.GetString("MTbuttonRefreshToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configure Machine Translation.
         /// </summary>
         internal static string MTcaption {
@@ -494,7 +521,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use your own MT Provider account.
+        ///   Looks up a localized string similar to Use Connected Account.
         /// </summary>
         internal static string MTcheckBoxUseOwnCred {
             get {
@@ -512,7 +539,16 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Most of the MT Providers are available via Intento contracts, but you may also use your own account at MT Provider by providing your credentials below..
+        ///   Looks up a localized string similar to Create on.
+        /// </summary>
+        internal static string MTLabelCreateOn {
+            get {
+                return ResourceManager.GetString("MTLabelCreateOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Most of the MT Providers are available via Intento contracts, but you may also use your own account at MT Provider connected via Intento Console..
         /// </summary>
         internal static string MTlabelHelpBillingAccount {
             get {
@@ -545,6 +581,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         internal static string MTlabelHelpOptional {
             get {
                 return ResourceManager.GetString("MTlabelHelpOptional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect your own account for this provider.
+        /// </summary>
+        internal static string MTLinkConnectAccount {
+            get {
+                return ResourceManager.GetString("MTLinkConnectAccount", resourceCulture);
             }
         }
         

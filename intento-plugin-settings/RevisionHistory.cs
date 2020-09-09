@@ -82,7 +82,27 @@ namespace Intento.MT.Plugin.PropertiesForm
         // - Asynchronous test request
         // 2.1.7: 2020-04-02
         // - Public memoQ version
-
-
+        // 2.2.0: 2020-04-29
+        // - Only delegated credentional
+        // - Saving translation direction if a model is specified
+        // - Ñhange settings for connected accounts
+        // 2.2.1: 2020-05-13
+        // - Setting a language pair for a test request from model/glossary data
+        // 2.2.4: 2020-06-19
+        // - Write logs to AWS
+        // - Bug fix with required & delegated auth mode
+        // - Use en-zh in testing of plugin settings if en-es unavailable
+        // 2.2.5: 2020-07-02
+        // - Added TraceEndTime to parameters of IntentoMTFormOptions
+        // 2.2.6: 2020-07-03
+        // - Test request marker added
+        // - Fix: use of proxy for test translation request
+        // 2.2.8: 2020-07-14
+        // - Improved list of models
+        // 2.2.12: 2020-08-09
+        // - Added the ability to remove tags from the source text - "Translate as plain text" check box
+        // 2.2.13: 2020-08-20
+        // - Ready for public version: More comments, Readme, 
+        //   SmartRoutingPluginFormattingGenerator, Log and AWS removed from the project
     }
 }

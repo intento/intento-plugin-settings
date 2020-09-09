@@ -25,7 +25,7 @@ namespace IntentoMTPlugin
     {
         /// <summary>
         /// Switching the Plugin variant: 
-        /// VARIANT_PRIVATE or VARIANЕ_PUBLIC in "conditional compilation symbolsЭ settings of Visual Studio
+        /// VARIANT_PRIVATE or VARIANЕ_PUBLIC in "conditional compilation symbols" settings of Visual Studio
         /// !!! Also! Need to change field AssemblyTitle in AssemblyInfo !!!
         /// </summary>
 #if VARIANT_PUBLIC
@@ -59,12 +59,14 @@ namespace IntentoMTPlugin
 
             userAgent = string.Format("memoQ/{0} Intento.{1}/{2}{3}-{4}",
                 IntentoMTServiceHelper.memoqVersion ?? "unknown",
-                (IntentoMTServiceHelper.isServer ? "MemoqServerPlugin" : "MemoqPlugin"),
-                IntentoMTServiceHelper.version,
-                IntentoMTServiceHelper.isServer ? "s" : "c",
-                IntentoMTServiceHelper.GetGitCommitHash(Assembly.GetExecutingAssembly()));
-            using (new Logs.Pair("IntentoMTPluginDirector.ctor"))
-                intentoMTServiceHelper = new IntentoMTServiceHelper(() => Fabric(Options.SecureSettings.ApiKey, null, userAgent));
+                (IntentoMTServiceHelper.locationLetter == "s" ? "MemoqServerPlugin" : "MemoqPlugin"),
+                IntentoMTServiceHelper.pluginVersion,
+                IntentoMTServiceHelper.locationLetter,
+                IntentoMTServiceHelper.GetGitCommitHash(Assembly.GetExecutingAssembly())
+                );
+            intentoMTServiceHelper = new IntentoMTServiceHelper(() => Fabric(Options.SecureSettings.ApiKey, null, userAgent));
+
+            Logs.Write2("IntentoMTPluginDirector", IntentoMTServiceHelper.GetEnvDataExtended());
         }
 
         public IntentoSDK.IntentoAiTextTranslate Fabric(string apiKey, string userAgent, string pluginUserAgent)
@@ -131,12 +133,8 @@ namespace IntentoMTPlugin
         {
             get
             {
-#if VARIANT_PUBLIC
-                return "IntentoMT";
-#else
-                return "IntentoMT_private";
-#endif
-            }
+                return IntentoMTServiceHelper.PluginID;
+			}
         }
 
         /// <summary>
@@ -145,7 +143,7 @@ namespace IntentoMTPlugin
         public override string FriendlyName
         {
             get {
-                string a = "a";
+                string marker = "a";
                 try
                 {
                     Assembly currentAssem = typeof(IntentoMTPluginDirector).Assembly;
@@ -158,10 +156,10 @@ namespace IntentoMTPlugin
                     }
                 }
                 catch {
-                    a = "z";
+                    marker = "z";
                 }
 
-                return string.Format("Intento MT Plugin ({0})", a);
+                return string.Format("Intento MT Plugin ({0})", marker);
             }
         }
 
@@ -227,25 +225,32 @@ namespace IntentoMTPlugin
         /// </summary>
         public override bool IsLanguagePairSupported(LanguagePairSupportedParams args)
         {
-            Options = intentoMTServiceHelper.options = GetOptions(args.PluginSettings);
-            IList<IList<string>> pairs = GetIntentoLangPairs();
-
-            string sourceCode = intentoMTServiceHelper.ConvertLangCodeToIntento(args.SourceLangCode);
-            string sourceCode2 = sourceCode;
-            if (sourceCode2.Contains("-"))
-                sourceCode2 = sourceCode2.Substring(0, sourceCode2.IndexOf('-'));
-
-            string targetCode = intentoMTServiceHelper.ConvertLangCodeToIntento(args.TargetLangCode);
-            string targetCode2 = targetCode;
-            if (targetCode2 != null && targetCode2.Contains("-"))
-                targetCode2 = targetCode2.Substring(0, targetCode2.IndexOf('-'));
-
-            foreach (IList<string> pair in pairs)
+            // using (new Logs.Pair("IntentoMTPluginDirector.IsLanguagePairSupported:", "{0}-{1}", args.SourceLangCode, args.TargetLangCode))
             {
-                if ((pair[0] == sourceCode || pair[0] == sourceCode2) && (pair[1] == targetCode || pair[1] == targetCode2))
-                    return true;
+                Options = intentoMTServiceHelper.options = GetOptions(args.PluginSettings);
+                IList<IList<string>> pairs = GetIntentoLangPairs();
+
+                string sourceCode = intentoMTServiceHelper.ConvertLangCodeToIntento(args.SourceLangCode);
+                string sourceCode2 = sourceCode;
+                if (sourceCode2.Contains("-"))
+                    sourceCode2 = sourceCode2.Substring(0, sourceCode2.IndexOf('-'));
+
+                string targetCode = intentoMTServiceHelper.ConvertLangCodeToIntento(args.TargetLangCode);
+                string targetCode2 = targetCode;
+                if (targetCode2 != null && targetCode2.Contains("-"))
+                    targetCode2 = targetCode2.Substring(0, targetCode2.IndexOf('-'));
+
+                foreach (IList<string> pair in pairs)
+                {
+                    if ((pair[0] == sourceCode || pair[0] == sourceCode2) && (pair[1] == targetCode || pair[1] == targetCode2))
+                    {
+                        Logs.Write2("IntentoMTPluginDirector.IsLanguagePairSupported: true", null);
+                        return true;
+                    }
+                }
+                Logs.Write2("IntentoMTPluginDirector.IsLanguagePairSupported: false", null);
+                return false;
             }
-            return false;
         }
 
         /// <summary>
@@ -253,7 +258,7 @@ namespace IntentoMTPlugin
         /// </summary>
         public override IEngine2 CreateEngine(CreateEngineParams args)
         {
-            using (new Logs.Pair("IntentoMTPluginDirector.CreateEngine", "{0}-{1}", args.SourceLangCode, args.TargetLangCode))
+            // using (new Logs.Pair("IntentoMTPluginDirector.CreateEngine", "{0}-{1}", args.SourceLangCode, args.TargetLangCode))
             {
                 return new IntentoMTEngine(intentoMTServiceHelper, args.SourceLangCode, args.TargetLangCode, GetOptions(args.PluginSettings));
             }
@@ -264,30 +269,34 @@ namespace IntentoMTPlugin
         /// </summary>
         public override PluginSettings EditOptions(IWin32Window parentForm, PluginSettings settings)
         {
-            
-            using (new Logs.Pair("IntentoMTPluginDirector.EditOptions"))
+
+            // using (new Logs.Pair("IntentoMTPluginDirector.EditOptions"))
             {
                 Options = intentoMTServiceHelper.options = GetOptions(settings);
                 string customModel = !string.IsNullOrEmpty(Options.SecureSettings.customModel) ? Options.SecureSettings.customModel : Options.GeneralSettings.CustomModel;
-                IntentoMTFormOptions formOptions = new IntentoMTFormOptions()
-                {
-                    ApiKey = Options.SecureSettings.ApiKey,
-                    Signature = string.Format("v{0}{2}{3}",
-                        IntentoMTServiceHelper.version,
-                        IntentoMTServiceHelper.memoqVersion2,
-                        IntentoMTServiceHelper.isServer ? "s" : "c",
-                        IntentoMemoQMTPlugin.Properties.Settings.Default.Variant != null ? ":" + IntentoMemoQMTPlugin.Properties.Settings.Default.Variant : ""),
-                    // If settings == null it is first usage of plugin
-                    SmartRouting = settings != null && string.IsNullOrEmpty(Options.GeneralSettings.ProviderId),
-                    ProviderId = Options.GeneralSettings.ProviderId,
-                    ProviderName = Options.GeneralSettings.ProviderName,
-                    UseCustomAuth = !string.IsNullOrEmpty(Options.GeneralSettings.ProviderKey),
-                    CustomAuth = _ProviderKeyMigration(Options.GeneralSettings.ProviderKey),
-                    UseCustomModel = !string.IsNullOrEmpty(customModel),
+				IntentoMTFormOptions formOptions = new IntentoMTFormOptions()
+				{
+					ApiKey = Options.SecureSettings.ApiKey,
+					Signature = string.Format("v{0}{2}{3}",
+						IntentoMTServiceHelper.pluginVersion,
+						IntentoMTServiceHelper.memoqVersion2,
+						IntentoMTServiceHelper.locationLetter,
+						IntentoMemoQMTPlugin.Properties.Settings.Default.Variant != null ? ":" + IntentoMemoQMTPlugin.Properties.Settings.Default.Variant : ""),
+					// If settings == null it is first usage of plugin
+					SmartRouting = settings != null && string.IsNullOrEmpty(Options.GeneralSettings.ProviderId),
+					ProviderId = Options.GeneralSettings.ProviderId,
+					ProviderName = Options.GeneralSettings.ProviderName,
+					UseCustomAuth = !string.IsNullOrEmpty(Options.GeneralSettings.ProviderKey),
+					CustomAuth = _ProviderKeyMigration(Options.GeneralSettings.ProviderKey),
+					UseCustomModel = !string.IsNullOrEmpty(customModel),
+					CustomTagParser = Options.GeneralSettings.IntentoTagReplacement,
                     CustomModel = customModel,
+                    FromLanguage = Options.GeneralSettings.FromLanguage,
+                    ToLanguage = Options.GeneralSettings.ToLanguage,
                     Glossary = Options.SecureSettings.glossary,
                     Format = "text",
                     AppName = appNameCurrent,
+					TraceEndTime = Options.GeneralSettings.TraceEndTime,
                 };
 
 #if VARIANT_PUBLIC
@@ -319,9 +328,14 @@ namespace IntentoMTPlugin
                         Options.GeneralSettings.ProviderKey = formOptions.CustomAuth;
                         Options.SecureSettings.customModel = formOptions.CustomModel;
                         Options.GeneralSettings.customModel = null;
+                        Options.GeneralSettings.FromLanguage = string.IsNullOrWhiteSpace(formOptions.CustomModel) ? 
+                            null : formOptions.FromLanguage;
+                        Options.GeneralSettings.ToLanguage = string.IsNullOrWhiteSpace(formOptions.CustomModel) ?
+                            null : formOptions.ToLanguage;
                         Options.SecureSettings.glossary = formOptions.Glossary;
                         Options.GeneralSettings.ProviderId = formOptions.ProviderId;
                         Options.GeneralSettings.ProviderName = formOptions.ProviderName;
+						Options.GeneralSettings.IntentoTagReplacement = formOptions.CustomTagParser;
                     }
                     else
                     {   // Settings form was canceled 
@@ -343,6 +357,7 @@ namespace IntentoMTPlugin
                         intentoMTServiceHelper.format = Options.GeneralSettings.ProviderFormats;
                     }
 
+					Options.GeneralSettings.TraceEndTime = formOptions.TraceEndTime;
                     return Options.GetSerializedSettings();
                 }
             }

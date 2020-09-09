@@ -116,7 +116,10 @@ namespace Intento.MT.Plugin.PropertiesForm
                     own_auth = providerData.auth != null && ((JContainer)providerData.auth).HasValues;
                     custom_model = providerData.custom_model != null && (bool)providerData.custom_model;
                     custom_glossary = providerData.custom_glossary != null && (bool)providerData.custom_glossary;
-                    delegated_credentials = providerData.delegated_credentials != null && (bool)providerData.delegated_credentials;
+
+                    // forced installation
+                    //delegated_credentials = providerData.delegated_credentials != null && (bool)providerData.delegated_credentials;
+                    delegated_credentials = true;
 
                     providerAuthList = null;
 
@@ -146,12 +149,21 @@ namespace Intento.MT.Plugin.PropertiesForm
                                 to.Add((string)p.Value);
                             }
                         }
+
+                        // Used in Language_Comboboxes_Fill to select testing pair
+                        // for symmetris ==null
+                        // for pairs it contains all target langs for en->xx
+                        List<string> enPairs = null;
+
                         if (languages.pairs != null)
                         {
+                            enPairs = new List<string>();
                             foreach (dynamic p in languages.pairs)
                             {
                                 from.Add((string)p.from);
                                 to.Add((string)p.to);
+                                if (p.from == "en")
+                                    enPairs.Add((string)p.to);
                             }
                         }
                         from = from.Distinct().ToList();
@@ -159,7 +171,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                         FillLanguageDictionary(ref fromLanguages, from);
                         FillLanguageDictionary(ref toLanguages, to);
 
-                        Language_Comboboxes_Fill(fromLanguages, toLanguages);
+                        Language_Comboboxes_Fill(fromLanguages, toLanguages, enPairs);
                     }
                 }
             }
@@ -184,35 +196,35 @@ namespace Intento.MT.Plugin.PropertiesForm
         public void SelectedIndexChanged()
         {
             string provName = formMT.comboBoxProviders.Text;
-            if (string.IsNullOrWhiteSpace(provName))
-            {
-                // No provider choosed
-                ClearOptions(options);
-                providerData = null;
-                currentProviderId = null;
-                currentProviderName = null;
-                ExtractProviderData();
-            }
-            else if (providersNames != null && currentProviderId != providersNames[provName])
-            {
-                ClearOptions(options);
-                if (!string.IsNullOrEmpty(currentProviderId))
-                {   // Prev provider was not empty - need to clear parameters
-                    GetAuthState()?.ClearOptions(options);
-                    authState = null;
-                }
+			if (string.IsNullOrWhiteSpace(provName))
+			{
+				// No provider choosed
+				ClearOptions(options);
+				providerData = null;
+				currentProviderId = null;
+				currentProviderName = null;
+				ExtractProviderData();
+			}
+			else
+			{
+				// Need to clear parameters
+				GetAuthState()?.ClearOptions(options);
+				authState = null;
+				// another provider choosed
+				if (providersNames != null && currentProviderId != providersNames[provName])
+				{
+					ClearOptions(options);
+					currentProviderId = providersNames[provName];
+					providerData = providersData[currentProviderId];
+					currentProviderName = providerData.name;
+					ExtractProviderData();
+				}
+				else
+				{ // Selected same provider as was selected before. No changes in settings
+				}
+			}
 
-                // another provider choosed
-                currentProviderId = providersNames[provName];
-                providerData = providersData[currentProviderId];
-                currentProviderName = providerData.name;
-                ExtractProviderData();
-            }
-            else
-            { // Selected same provider as was selected before. No changes in settings
-            }
-
-            EnableDisable();
+			EnableDisable();
 
             return;
 
@@ -315,7 +327,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             options.ProviderId = null;
             options.ProviderName = null;
             options.Format = null;
-            Language_Comboboxes_Fill(null, null);
+            Language_Comboboxes_Fill(null, null, null);
 
             if (authState != null)
             {
@@ -347,29 +359,61 @@ namespace Intento.MT.Plugin.PropertiesForm
         }
         #region methods for managing a group of controls
 
-        void Language_Comboboxes_Fill(Dictionary<string, string> from, Dictionary<string, string> to)
+        void Language_Comboboxes_Fill(Dictionary<string, string> from, Dictionary<string, string> to, List<string> enPairs)
         {
             formMT.comboBoxFrom.Items.Clear();
             formMT.comboBoxTo.Items.Clear();
             if (from != null)
-            {
                 formMT.comboBoxFrom.Items.AddRange(from.Select(x => x.Value).ToArray());
-                if (from.ContainsKey("en"))
-                    formMT.comboBoxFrom.SelectedItem = from["en"];
-                else
-                    formMT.comboBoxFrom.SelectedIndex = 1;
-            }
-            if (from != null)
-            {
+            if (to != null)
                 formMT.comboBoxTo.Items.AddRange(to.Select(x => x.Value).ToArray());
-                if (to.ContainsKey("es"))
-                    formMT.comboBoxTo.SelectedItem = to["es"];
-                else
-                    formMT.comboBoxTo.SelectedIndex = 1;
-            }
+			SetLanguageComboBoxes(options.FromLanguage, options.ToLanguage, enPairs);
         }
 
-        static void Providers_ComboBox_BackColor_State(IntentoFormOptionsMT formMT, bool hasErrors)
+		public void SetLanguageComboBoxes(string from, string to, List<string> enPairs)
+		{
+			if (fromLanguages != null)
+			{
+				if (!string.IsNullOrWhiteSpace(from) && fromLanguages.ContainsKey(from))
+					formMT.comboBoxFrom.SelectedItem = fromLanguages[from];
+				else if (!string.IsNullOrWhiteSpace(options.FromLanguage) && fromLanguages.ContainsKey(options.FromLanguage))
+					formMT.comboBoxFrom.SelectedItem = fromLanguages[options.FromLanguage];
+				else if (fromLanguages.ContainsKey("en"))
+					formMT.comboBoxFrom.SelectedItem = fromLanguages["en"];
+				else
+					formMT.comboBoxFrom.SelectedIndex = 1;
+			}
+
+			if (toLanguages != null)
+			{
+                if (!string.IsNullOrWhiteSpace(to) && toLanguages.ContainsKey(to))
+                    formMT.comboBoxTo.SelectedItem = toLanguages[to];
+                else if (!string.IsNullOrWhiteSpace(options.ToLanguage) && fromLanguages.ContainsKey(options.ToLanguage))
+                    formMT.comboBoxTo.SelectedItem = fromLanguages[options.ToLanguage];
+                else
+                {   // en-xx, need to check is provider support en-es or en-zh
+                    if (enPairs == null)
+                    {   // symmetric
+                        if (toLanguages.ContainsKey("es"))
+                            formMT.comboBoxTo.SelectedItem = toLanguages["es"];
+                        else
+                            formMT.comboBoxTo.SelectedIndex = 1;
+                    }
+                    else
+                    {   // pairs. 
+                        if (enPairs.Contains("es"))
+                            formMT.comboBoxTo.SelectedItem = toLanguages["es"];
+                        else if (enPairs.Contains("zh"))
+                            formMT.comboBoxTo.SelectedItem = toLanguages["zh"];
+                        else
+                            formMT.comboBoxTo.SelectedIndex = 1;
+                    }
+                }
+			}
+		}
+
+
+		static void Providers_ComboBox_BackColor_State(IntentoFormOptionsMT formMT, bool hasErrors)
         {
             if (hasErrors)
                 formMT.comboBoxProviders.BackColor = Color.LightPink;

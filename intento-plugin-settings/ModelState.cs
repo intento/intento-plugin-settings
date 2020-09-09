@@ -71,8 +71,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             // set back color 
             Model_Control_BackColor_State(!string.IsNullOrEmpty(errorMessage));
+			if (SelectedModelFrom != null && providerState.fromLanguages != null)
+				formMT.comboBoxFrom.SelectedItem = providerState.fromLanguages[SelectedModelFrom];
+			if (SelectedModelTo != null && providerState.toLanguages != null)
+				formMT.comboBoxTo.SelectedItem = providerState.toLanguages[SelectedModelTo];
 
-            return errorMessage;
+			return errorMessage;
         }
 
         #region Properties
@@ -105,7 +109,47 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-        public bool UseModel
+        public string To
+        {
+            get
+            {
+                return ModelName != null && formMT.comboBoxTo.SelectedIndex != -1 ?
+                authState.providerState.toLanguages.Where(x => x.Value == formMT.comboBoxTo.Text).First().Key : "es";
+            }
+        }
+        public string From
+        {
+            get
+            {
+                return ModelName != null && formMT.comboBoxFrom.SelectedIndex != -1 ?
+                authState.providerState.fromLanguages.Where(x => x.Value == formMT.comboBoxFrom.Text).First().Key : "en";
+            }
+        }
+
+		public string SelectedModelTo
+		{
+			get
+			{
+				if (!UseModel || !isList || ModelName == null)
+					return null;
+				dynamic model =models[formMT.comboBoxModels.Text];
+				return (string)model.to;
+			}
+		}
+		public string SelectedModelFrom
+		{
+			get
+			{
+				if (!UseModel || !isList || ModelName == null)
+					return null;
+				dynamic model = models[formMT.comboBoxModels.Text];
+				return (string)model.from;
+			}
+		}
+
+
+
+		public bool UseModel
         { get { return formMT.checkBoxUseCustomModel.Checked; } }
 
         #endregion Properties
@@ -199,6 +243,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 options.CustomModel = null;
                 options.GlossaryMode = StateModeEnum.unknown;
                 options.CustomModelName = null;
+                options.FromLanguage = null;
+                options.ToLanguage = null;
             }
             else
             {
@@ -209,6 +255,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 if (state.models != null)
                     mData = state.models.Select(x => (dynamic)x.Value).Where(y => (string)y.id == state.ModelName).FirstOrDefault();
                 options.CustomModelName = mData != null ? mData.name : state.ModelName;
+                options.FromLanguage = options.CustomModelName == null || !options.UseCustomModel ? null : state.From;
+                options.ToLanguage = options.CustomModelName == null || !options.UseCustomModel ? null : state.To;
 
             }
         }
@@ -237,7 +285,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     authState.providerState.currentProviderId, 
                     authState.UseCustomAuth ? authState.providerDataAuthDict : null);
                 if (providerModelsRec != null)
-                    models = providerModelsRec.ToDictionary(s => (string)s.name, q => q);
+                    models = ProcessModels(providerState, providerModelsRec);
                 isList = true;
 
                 // Temporary! Empty list means that manual entry is possbile
@@ -266,6 +314,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         public void modelControls_ValueChanged()
         {
             if (!firstTimeDraw && !internalControlChange)
+			if (!firstTimeDraw && !internalControlChange)
                 ModelState.FillOptions(this, options);
             EnableDisable();
         }
@@ -325,7 +374,10 @@ namespace Intento.MT.Plugin.PropertiesForm
         void Optional_Group_Enabled(bool value)
         {
             if (value)
-                formMT.groupBoxOptional.Enabled = value;
+            {
+                // temporary! formMT.groupBoxOptional.Enabled = value;
+                formMT.groupBoxOptional.Enabled = true;
+            }
             else
             {
                 //formMT.groupBoxOptional.Enabled = options.UseCustomModel

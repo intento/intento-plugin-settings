@@ -111,5 +111,59 @@ namespace Intento.MT.Plugin.PropertiesForm
         }
         #endregion custom helper methods
 
+        private string MakeModelName(dynamic model, bool longName = false, bool isGoogle = false)
+        {
+            string name = model.name;
+            string id = model.id;
+            string from_lang = model.from;
+            string to_lang = model.to;
+
+            if (longName)
+            {
+                if (isGoogle)
+                    id = id.Substring(id.LastIndexOf('/') + 1);
+                if (from_lang == null || to_lang == null)
+                    return string.Format("{0} ({1})", name, id);
+                else
+                    return string.Format("{0} [{1}/{2}] ({3})", name, from_lang, to_lang, id);
+            }
+            else
+            {
+                if (from_lang == null || to_lang == null)
+                    return string.Format("{0}", name);
+                else
+                    return string.Format("{0} [{1}/{2}]", name, from_lang, to_lang);
+            }
+        }
+
+        protected Dictionary<string, dynamic> ProcessModels(ProviderState providerState, IList<dynamic> raw)
+        {   // check for name duplicates and provide special naming for duplicates
+            Dictionary<string, List<dynamic>> data = new Dictionary<string, List<dynamic>>();
+            foreach (dynamic item in raw)
+            {
+                string name = item.name;
+                if (data.ContainsKey(name))
+                    data[name].Add(item);
+                else
+                    data[name] = new List<dynamic> { item };
+            }
+
+            Dictionary<string, dynamic> res = new Dictionary<string, dynamic>();
+            foreach (KeyValuePair<string, List<dynamic>> pair in data)
+            {
+                if (pair.Value.Count == 1)
+                    res[MakeModelName(pair.Value[0])] = pair.Value[0];
+                else
+                {
+                    foreach (dynamic item in pair.Value)
+                    {
+                        string name = MakeModelName(item, true, providerState.currentProviderId.Contains("google"));
+                        res[name] = item;
+                    }
+                }
+            }
+            return res;
+        }
+
     }
 }

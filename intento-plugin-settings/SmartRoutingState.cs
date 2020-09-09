@@ -1,14 +1,6 @@
-﻿using Intento.MT.Plugin.PropertiesForm;
-using Intento.MT.Plugin.PropertiesForm.WinForms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Intento.MT.Plugin.PropertiesForm
+﻿namespace Intento.MT.Plugin.PropertiesForm
 {
-    public class SmartRoutingState : BaseState
+	public class SmartRoutingState : BaseState
     {
         private bool smartRouting;
 
@@ -22,7 +14,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             this.apiKeyState = apiKeyState;
             smartRouting = _options.SmartRouting;
-            //form.SmartRouting_CheckBox_Checked = smartRouting;
             formMT.checkBoxSmartRouting.Checked = smartRouting;
 
             CreateChildStates();
@@ -32,7 +23,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             if (state == null)
             {
-                //form.SmartRouting_CheckBox_Enabled = false;
                 form.formMT.checkBoxSmartRouting.Enabled = false;
 
                 ProviderState.Draw(form, null);
@@ -44,14 +34,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public string Draw()
         {
-            //form.SmartRouting_CheckBox_Enabled = true;
             formMT.checkBoxSmartRouting.Enabled = true;
             return ProviderState.Draw(form, providerState);
         }
 
         public void CheckedChanged()
         {
-            //smartRouting = form.SmartRouting_CheckBox_Checked;
             smartRouting = formMT.checkBoxSmartRouting.Checked;
 
             CreateChildStates();
@@ -60,6 +48,10 @@ namespace Intento.MT.Plugin.PropertiesForm
                 options.Format = "[\"text\",\"html\",\"xml\"]";
 
             EnableDisable();
+            if (formMT.checkBoxSmartRouting.Checked)
+            {
+                // temporary! formMT.groupBoxOptional.Enabled = false;
+            }
         }
 
         public bool IsOK
