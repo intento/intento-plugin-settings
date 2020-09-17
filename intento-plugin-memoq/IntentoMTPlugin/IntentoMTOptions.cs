@@ -103,7 +103,11 @@ namespace IntentoMTPlugin
 
 		public bool IntentoTagReplacement
 		{
-			get { return intentoTagReplacement != "0"; }
+			#if VARIANT_PUBLIC
+				get { return intentoTagReplacement == "1"; }
+			#else
+				get { return intentoTagReplacement != "0"; }
+			#endif
 			set { intentoTagReplacement = value ? "1" : "0"; }
 		}
 		public bool ForbidSaveApikey => true;

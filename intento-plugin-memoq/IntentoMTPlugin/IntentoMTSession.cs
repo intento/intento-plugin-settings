@@ -89,7 +89,12 @@ namespace IntentoMTPlugin
             }
         }
 
-        private bool IsTagged(Segment[] segs)
+		private bool IsImplicitTagged(Segment[] segs)
+		{
+			return segs.Any(i => i.PlainText != ConvertSegmentToString(i, true));
+		}
+
+		private bool IsTagged(Segment[] segs)
         {
             bool tagged = segs.Any(i => i.ITags.Length != 0);
     
@@ -133,14 +138,16 @@ namespace IntentoMTPlugin
                 {
                     // Check for necessity to use tagged translation
                     bool tagged = IsTagged(segs);
+					bool implicitTagged = IsImplicitTagged(segs);
 
-                    IList<string> data;
+					IList<string> data = new List<string>();
+					IList<IntentoSegment> iData = new List<IntentoSegment>();
 					IntentoMTServiceHelper.ResultBatchTranslate resultBatchTranslate;
-                    string format = tagged ? GetTaggedFormat() : null;
+
+					string format = tagged || implicitTagged ? GetTaggedFormat() : null;
                     string routing = null; //provider_id available
                     if (string.IsNullOrEmpty(options.GeneralSettings.ProviderId) && tagged)
                         routing = "intento-tagged"; // smart routing. Format is provided by special smart routing table
-                    IList<IntentoSegment> iData = null;
 
                     // if there are structural tags, we do not use intento tag replacement 
                     if (intentoTagReplacement)
@@ -149,15 +156,24 @@ namespace IntentoMTPlugin
                     if (intentoTagReplacement && tagged)
                     {
                         Logs.Write2("1: intentoTagReplacement", "{0}, format: {1}, tagged: {2}", intentoTagReplacement, format, tagged);
-                        iData = segs.Select(i => new IntentoSegment(i)).ToList();
-                        data = iData.Select(i => i.Encode()).ToList();
+						//iData = segs.Select(i => new IntentoSegment(i)).ToList();
+						//data = iData.Select(i => i.Encode()).ToList();
+						for (int i = 0; i < segs.Length; i++)
+						{
+							Segment seg = segs[i];
+							iData.Add(new IntentoSegment(seg) );
+							data.Add(IsTagged(new Segment[] { seg }) ?
+								iData[i].Encode() :
+								PluginHelper.PrepareText(format, ConvertSegmentToString(seg, true))
+							);
+						}
 						resultBatchTranslate = serviceHelper.BatchTranslate(options, data, this.srcLangCode, this.trgLangCode, 
                             format: format, routing: routing);
                     }
                     else
                     {
                         Logs.Write2("2: intentoTagReplacement", "{0}, format: {1}, tagged: {2}", intentoTagReplacement, format, tagged);
-                        data = segs.Select(i => ConvertSegmentToString(i, tagged)).ToList();
+                        data = segs.Select(i => ConvertSegmentToString(i, tagged || implicitTagged)).ToList();
                         data = data.Select(i => PluginHelper.PrepareText(format, i)).ToList();
 						resultBatchTranslate = serviceHelper.BatchTranslate(options, data, this.srcLangCode, this.trgLangCode,  format: format, routing: routing);
 						resultBatchTranslate.resultTranslate = resultBatchTranslate.resultTranslate.Select(i => PluginHelper.PrepareResult(format, i)).ToList();
@@ -174,7 +190,7 @@ namespace IntentoMTPlugin
 						{
 							results[i] = intentoTagReplacement ?
 								iData[i].GetTranslationResult(resultBatchTranslate.resultTranslate[i])
-								: ConverStringToSegment(resultBatchTranslate.resultTranslate[i], segs[i].ITags, tagged);//iData[i].Decode(res[i])
+								: ConverStringToSegment(resultBatchTranslate.resultTranslate[i], segs[i].ITags, tagged || implicitTagged);
 							results[i].Info = string.IsNullOrWhiteSpace(resultBatchTranslate.viaProvider) ?
 								null : string.Format("translated using {0}", resultBatchTranslate.viaProvider);
 						}

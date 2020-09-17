@@ -14,8 +14,8 @@ if not exist MemoQ.IntentoMT mkdir MemoQ.IntentoMT
 del MemoQ.IntentoMT\*.* /Q
 
 echo --- ilmerge ---
-echo ilmerge\ilmerge /targetplatform:v4 /out:Merged\MemoQ.IntentoMT.dll bin\Intento.MemoQMTPlugin.dll bin\IntentoSDK.dll bin\Intento.MT.Plugin.PropertiesForm.dll bin\Newtonsoft.Json.dll
-ilmerge\ilmerge /targetplatform:v4 /out:Merged\MemoQ.IntentoMT.dll bin\Intento.MemoQMTPlugin.dll bin\IntentoSDK.dll bin\Intento.MT.Plugin.PropertiesForm.dll bin\Newtonsoft.Json.dll
+echo ilmerge\ilmerge /targetplatform:v4 /out:Merged\MemoQ.IntentoMT.dll bin\Intento.MemoQMTPlugin.dll bin\IntentoSDK.dll bin\Intento.MT.Plugin.PropertiesForm.dll
+ilmerge\ilmerge /targetplatform:v4 /out:Merged\MemoQ.IntentoMT.dll bin\Intento.MemoQMTPlugin.dll bin\Intento.MT.Plugin.PropertiesForm.dll bin\IntentoSDK.dll 
 
 echo --- signing ---
 copy Merged\MemoQ.IntentoMT.dll Signed

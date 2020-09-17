@@ -138,6 +138,10 @@ namespace IntentoMemoQMTPlugin
 		// 2.2.13
 		// - Changed mapping of Chinese (Singapore) to zh (simplified)
 		// 2.2.14 2020-09-09
-		// - Removed: Write logs to AWS
+		// - (Public version) Removed: Write logs to AWS 
+		// 2.2.15 2020-09-09
+		// - (Public version) Removed newtonsoft.dll from final signed library 
+		// - (Public version) Default value for custom HTML tag parser setting is false 
+		// - Handling hidden, implicit tags
 	}
 }
