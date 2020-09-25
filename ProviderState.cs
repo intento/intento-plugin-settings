@@ -106,7 +106,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 if (form.testOneProviderData != null)
                     providerData = form.testOneProviderData;
                 else
-                    providerData = form._translate.Provider(currentProviderId, "?fields=auth,custom_glossary");
+                    providerData = form._translate.Provider(currentProviderId, 
+                        new Dictionary<string, string> { { "fields", "auth,custom_glossary" } });
 
                 if (providerData != null)
                 {
