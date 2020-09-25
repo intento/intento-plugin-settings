@@ -186,7 +186,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 			{
 				formMT.comboBoxCredentialId.Visible = true;
 				IList<dynamic> credentials = form.testAuthData != null ? form.testAuthData : form._translate.Accounts(providerState.currentProviderId);
-				credentials = credentials.Where(q => q.credential_type == providerState.currentProviderId).ToList();
                 сonnectedAccounts = credentials.Select(q => (string)q.credential_id).ToList();
 				formMT.comboBoxCredentialId.Items.AddRange(сonnectedAccounts.ToArray());
 				if (сonnectedAccounts.Count != 0)
