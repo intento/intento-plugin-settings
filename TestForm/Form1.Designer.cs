@@ -75,9 +75,9 @@
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.textBoxDTLog = new System.Windows.Forms.TextBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.checkBoxTradosApp = new System.Windows.Forms.CheckBox();
 			this.CheckBoxCutTag = new System.Windows.Forms.CheckBox();
 			this.checkBoxCustomTagParser = new System.Windows.Forms.CheckBox();
+			this.checkBoxTradosApp = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
@@ -263,6 +263,7 @@
 			this.textBoxFrom.Name = "textBoxFrom";
 			this.textBoxFrom.Size = new System.Drawing.Size(34, 20);
 			this.textBoxFrom.TabIndex = 23;
+			this.textBoxFrom.Text = "en";
 			// 
 			// textBoxTo
 			// 
@@ -270,6 +271,7 @@
 			this.textBoxTo.Name = "textBoxTo";
 			this.textBoxTo.Size = new System.Drawing.Size(34, 20);
 			this.textBoxTo.TabIndex = 24;
+			this.textBoxTo.Text = "de";
 			// 
 			// textBoxText
 			// 
@@ -513,17 +515,6 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "groupBox2";
 			// 
-			// checkBoxTradosApp
-			// 
-			this.checkBoxTradosApp.AutoSize = true;
-			this.checkBoxTradosApp.Location = new System.Drawing.Point(6, 0);
-			this.checkBoxTradosApp.Name = "checkBoxTradosApp";
-			this.checkBoxTradosApp.Size = new System.Drawing.Size(224, 17);
-			this.checkBoxTradosApp.TabIndex = 39;
-			this.checkBoxTradosApp.Text = "Set AppName to \"SdlTradosStudioPlugin\"";
-			this.checkBoxTradosApp.UseVisualStyleBackColor = true;
-			this.checkBoxTradosApp.CheckedChanged += new System.EventHandler(this.checkBoxTradosApp_CheckedChanged);
-			// 
 			// CheckBoxCutTag
 			// 
 			this.CheckBoxCutTag.AutoSize = true;
@@ -544,6 +535,17 @@
 			this.checkBoxCustomTagParser.TabIndex = 46;
 			this.checkBoxCustomTagParser.Text = "Custom tag parser";
 			this.checkBoxCustomTagParser.UseVisualStyleBackColor = true;
+			// 
+			// checkBoxTradosApp
+			// 
+			this.checkBoxTradosApp.AutoSize = true;
+			this.checkBoxTradosApp.Location = new System.Drawing.Point(6, 0);
+			this.checkBoxTradosApp.Name = "checkBoxTradosApp";
+			this.checkBoxTradosApp.Size = new System.Drawing.Size(224, 17);
+			this.checkBoxTradosApp.TabIndex = 39;
+			this.checkBoxTradosApp.Text = "Set AppName to \"SdlTradosStudioPlugin\"";
+			this.checkBoxTradosApp.UseVisualStyleBackColor = true;
+			this.checkBoxTradosApp.CheckedChanged += new System.EventHandler(this.checkBoxTradosApp_CheckedChanged);
 			// 
 			// Form1
 			// 

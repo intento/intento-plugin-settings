@@ -87,7 +87,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             if ((smartRoutingState == null || !smartRoutingState.SmartRouting) && sender != null)
             {
                 FreezeForm(true);
-                var providerState = parent.apiKeyState.smartRoutingState.providerState;
+                //var providerState = parent.apiKeyState.smartRoutingState.providerState;
                 //string to = comboBoxTo.SelectedIndex != -1 ?
                 //    providerState.toLanguages.Where(x => x.Value == comboBoxTo.Text).First().Key : "es";
                 //string from = comboBoxFrom.SelectedIndex != -1 ?
@@ -95,6 +95,32 @@ namespace Intento.MT.Plugin.PropertiesForm
 
                 IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
                 parent.apiKeyState.FillOptions(testOptions);
+				string to = testOptions.ToLanguage;
+				string from = testOptions.FromLanguage;
+				if (string.IsNullOrWhiteSpace(from) || string.IsNullOrWhiteSpace(to))
+				{
+					var providerState = parent.apiKeyState.smartRoutingState.providerState;
+					if (string.IsNullOrWhiteSpace(from))
+					{
+						Dictionary<string, string> fromLanguages = providerState.fromLanguages.ToDictionary(x => x.Value, x => x.Key);
+						if (comboBoxFrom.SelectedIndex != -1 && fromLanguages.ContainsKey(comboBoxFrom.Text))
+							testOptions.FromLanguage = fromLanguages[comboBoxFrom.Text];
+						else if (fromLanguages.ContainsValue("en"))
+							testOptions.FromLanguage = "en";
+						else
+							testOptions.FromLanguage = fromLanguages.First().Value;
+					}
+					if (string.IsNullOrWhiteSpace(to))
+					{
+						Dictionary<string, string> toLanguages = providerState.toLanguages.ToDictionary(x => x.Value, x => x.Key);
+						if (comboBoxTo.SelectedIndex != -1 && toLanguages.ContainsKey(comboBoxTo.Text))
+							testOptions.ToLanguage = toLanguages[comboBoxTo.Text];
+						else if (toLanguages.ContainsValue("es"))
+							testOptions.ToLanguage = "es";
+						else
+							testOptions.ToLanguage = toLanguages.Where(x => x.Value != from).First().Value;
+					}
+				}
 				testOptions.proxySettings = parent.currentOptions.proxySettings;
                 cts = new CancellationTokenSource();
                 CancellationToken ct = cts.Token;
@@ -143,12 +169,13 @@ namespace Intento.MT.Plugin.PropertiesForm
             IntentoTranslationProviderOptionsForm.Logging("Trados Translate: start");
             try
             {
+
 				var testTranslate = parent.apiKeyState.CreateIntentoConnection(testOptions.proxySettings, "Intento.CheckSettings");
 				// Call test translate intent 
 				dynamic result = testTranslate.Fulfill(
                         testString,
-                        to: string.IsNullOrWhiteSpace(testOptions.ToLanguage) ? "es" : testOptions.ToLanguage,
-                        from: string.IsNullOrWhiteSpace(testOptions.FromLanguage) ? "en" : testOptions.FromLanguage,
+                        to: testOptions.ToLanguage,
+                        from: testOptions.FromLanguage,
                         provider: testOptions.ProviderId,
                         format: null,
                         async: true,

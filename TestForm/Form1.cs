@@ -179,7 +179,10 @@ namespace TestForm
 
 
 			IntentoTranslationProviderOptionsForm.LangPair[] languagePair = new IntentoTranslationProviderOptionsForm.LangPair[1] 
-                { new IntentoTranslationProviderOptionsForm.LangPair("en", "de") };
+                { new IntentoTranslationProviderOptionsForm.LangPair(
+					String.IsNullOrWhiteSpace(textBoxFrom.Text) ? "en" : textBoxFrom.Text,
+					String.IsNullOrWhiteSpace(textBoxTo.Text) ? "de" : textBoxTo.Text
+					) };
 
             IntentoTranslationProviderOptionsForm form = new IntentoTranslationProviderOptionsForm(options, languagePair, Fabric);
             form.FormClosed += Form_Closed;

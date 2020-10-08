@@ -163,17 +163,17 @@ namespace Intento.MT.Plugin.PropertiesForm
 			if (modelSt != null && modelSt.UseModel)
 			{
 				formMT.groupBoxOptional.Enabled = true;
-				providerState.SetLanguageComboBoxes(modelSt.SelectedModelFrom, modelSt.SelectedModelTo, null);
+				providerState.SetLanguageComboBoxes(modelSt.SelectedModelFrom, modelSt.SelectedModelTo);
 			}
 			else if (glossarySt != null && glossarySt.currentGlossary != null)
 			{
 				formMT.groupBoxOptional.Enabled = true;
-				providerState.SetLanguageComboBoxes(glossarySt.SelectedGlossaryFrom, glossarySt.SelectedGlossaryTo, null);
+				providerState.SetLanguageComboBoxes(glossarySt.SelectedGlossaryFrom, glossarySt.SelectedGlossaryTo);
 			}
 			else
 			{   // No model or glossaqry, we do not need to show language selection
                 // temporary! formMT.groupBoxOptional.Enabled = false;
-                providerState.SetLanguageComboBoxes(null, null, null);
+                providerState.SetLanguageComboBoxes(null, null);
 			}
 			return error_message;
         }

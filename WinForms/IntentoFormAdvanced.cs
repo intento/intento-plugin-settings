@@ -41,9 +41,12 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			checkBoxCustomTagParser.Text = Resource.FAcheckBoxCustomTagParser;
 			checkBoxCutTags.Text = Resource.FACheckBoxCutTags;
 
-			if (parent.GetOptions().ForbidSaveApikey)
+			var options = parent.currentOptions;
+			if (options.ForbidSaveApikey)
                 checkBoxSaveApiKeyInRegistry.Visible = false;
-        }
+			checkBoxCustomTagParser.Enabled = options.MemoqAdditional != null && (bool)options.MemoqAdditional["advancedSdk"];
+
+		}
 
         private void checkBoxProxy_CheckedChanged(object sender, EventArgs e)
         {
