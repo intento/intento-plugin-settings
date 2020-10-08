@@ -104,5 +104,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // 2.2.13: 2020-08-20
         // - Ready for public version: More comments, Readme, 
         //   SmartRoutingPluginFormattingGenerator, Log and AWS removed from the project
+        // 2.2.16 2020-09-28
+        // - Some changes in C# SDK (ver 1.5.0)
     }
 }
