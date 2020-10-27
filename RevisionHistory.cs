@@ -109,5 +109,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// 2.2.17 2020-10-08
 		// - Fix the error of choosing a language pair for a test request
 		// - Disabling the setting of using the custom parser for older versions (< 9.5.8) of MemoQ
+		// 2.2.18 2020-10-24
+		// - Change the font on forms to Segoe UI 
 	}
 }
