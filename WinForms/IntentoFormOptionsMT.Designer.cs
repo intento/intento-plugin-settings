@@ -89,7 +89,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.textBoxLabelURL.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.textBoxLabelURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.textBoxLabelURL.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-			this.textBoxLabelURL.Location = new System.Drawing.Point(236, 14);
+			this.textBoxLabelURL.Location = new System.Drawing.Point(248, 14);
 			this.textBoxLabelURL.Name = "textBoxLabelURL";
 			this.textBoxLabelURL.Size = new System.Drawing.Size(118, 13);
 			this.textBoxLabelURL.TabIndex = 24;

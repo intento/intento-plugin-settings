@@ -34,26 +34,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.options = options;
         }
 
-        public string GetValueFromRegistry(string name)
-        {
-            try
-            {
-                RegistryKey key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}", options.AppName));
-                return (string)key.GetValue(name, null);
-            }
-            catch { }
-            return null;
-        }
-        public void SaveValueToRegistry(string name, string value)
-        {
-            try
-            {
-                RegistryKey key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}", options.AppName));
-                key.SetValue(name, value);
-            }
-            catch { }
-        }
-
         #region custom helper methods
         public void EnableDisable()
         {

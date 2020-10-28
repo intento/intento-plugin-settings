@@ -268,6 +268,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save current settings on exit locally.
+        /// </summary>
+        internal static string FAcheckBoxSaveLocally {
+            get {
+                return ResourceManager.GetString("FAcheckBoxSaveLocally", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log translation text for 30 minutes.
         /// </summary>
         internal static string FAcheckBoxTrace {
