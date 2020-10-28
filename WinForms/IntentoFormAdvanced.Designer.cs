@@ -51,6 +51,7 @@
 			this.checkBoxCustomTagParser = new System.Windows.Forms.CheckBox();
 			this.checkBoxCutTags = new System.Windows.Forms.CheckBox();
 			this.labelError = new System.Windows.Forms.Label();
+			this.checkBoxSaveLocally = new System.Windows.Forms.CheckBox();
 			this.groupBoxProxy.SuspendLayout();
 			this.groupBoxAuth.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -300,6 +301,18 @@
 			this.labelError.Text = "Proxy connection error";
 			this.labelError.Visible = false;
 			// 
+			// checkBoxSaveLocally
+			// 
+			this.checkBoxSaveLocally.AutoSize = true;
+			this.checkBoxSaveLocally.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.checkBoxSaveLocally.Location = new System.Drawing.Point(227, 15);
+			this.checkBoxSaveLocally.Name = "checkBoxSaveLocally";
+			this.checkBoxSaveLocally.Size = new System.Drawing.Size(128, 17);
+			this.checkBoxSaveLocally.TabIndex = 40;
+			this.checkBoxSaveLocally.Text = "checkBoxSaveLocally";
+			this.checkBoxSaveLocally.UseVisualStyleBackColor = true;
+			this.checkBoxSaveLocally.Visible = false;
+			// 
 			// IntentoFormAdvanced
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -307,6 +320,7 @@
 			this.AutoSize = true;
 			this.CancelButton = this.buttonCancel;
 			this.ClientSize = new System.Drawing.Size(481, 421);
+			this.Controls.Add(this.checkBoxSaveLocally);
 			this.Controls.Add(this.checkBoxCutTags);
 			this.Controls.Add(this.checkBoxCustomTagParser);
 			this.Controls.Add(this.labelCustomSettingsName);
@@ -365,5 +379,6 @@
 		public System.Windows.Forms.CheckBox checkBoxCustomTagParser;
 		public System.Windows.Forms.CheckBox checkBoxCutTags;
 		private System.Windows.Forms.Label labelError;
+		public System.Windows.Forms.CheckBox checkBoxSaveLocally;
 	}
 }

@@ -329,4 +329,7 @@ If you have selected custom model or glossary, please adjust the language pair:<
   <data name="FACheckBoxCutTags" xml:space="preserve">
     <value>Translate as plain text</value>
   </data>
+  <data name="FAcheckBoxSaveLocally" xml:space="preserve">
+    <value>Save current settings on exit locally</value>
+  </data>
 </root>

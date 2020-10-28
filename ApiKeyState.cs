@@ -43,7 +43,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             if (!options.ForbidSaveApikey)
             {
-                string apiKey2 = GetValueFromRegistry("ApiKey");
+                string apiKey2 = _form.GetValueFromRegistry("ApiKey");
                 if (string.IsNullOrEmpty(apiKey) && !string.IsNullOrEmpty(options.AppName))
                 {   // read ApiKey from registry
                     apiKey = apiKey2;
