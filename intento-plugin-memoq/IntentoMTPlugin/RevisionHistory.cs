@@ -153,6 +153,9 @@ namespace IntentoMemoQMTPlugin
 		// - Removed custom tag parser when used  SDK older than 9.5.8.
 		// - (Private version) Using SegmentXMLConverter instead of SegmentHtmlConverter when using SDK 9.5.8 or higher.
 		// 2.2.18 2020-10-24
+		// 2.2.18 2020-10-16
+		// - Bug in Montenegrin language code
+		// 2.2.19 2020-10-24
 		// - Use wrapper for MemoQ.Addins.Common.dll
 		// - Work with tags only if intentoTagReplacement = true
 	}
