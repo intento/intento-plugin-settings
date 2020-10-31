@@ -96,7 +96,7 @@
 			this.labelRegister1.AutoSize = true;
 			this.labelRegister1.Location = new System.Drawing.Point(183, 40);
 			this.labelRegister1.Name = "labelRegister1";
-			this.labelRegister1.Size = new System.Drawing.Size(65, 13);
+			this.labelRegister1.Size = new System.Drawing.Size(73, 13);
 			this.labelRegister1.TabIndex = 19;
 			this.labelRegister1.Text = "or register at";
 			// 
@@ -142,7 +142,7 @@
 			this.labelApiKeyIsChanged.ForeColor = System.Drawing.Color.Red;
 			this.labelApiKeyIsChanged.Location = new System.Drawing.Point(334, 11);
 			this.labelApiKeyIsChanged.Name = "labelApiKeyIsChanged";
-			this.labelApiKeyIsChanged.Size = new System.Drawing.Size(283, 13);
+			this.labelApiKeyIsChanged.Size = new System.Drawing.Size(299, 13);
 			this.labelApiKeyIsChanged.TabIndex = 29;
 			this.labelApiKeyIsChanged.Text = "You changed ApiKey. We recommend to test MT Settings.";
 			this.labelApiKeyIsChanged.Visible = false;
@@ -165,7 +165,7 @@
 			this.textBoxGlossary.Location = new System.Drawing.Point(13, 19);
 			this.textBoxGlossary.Name = "textBoxGlossary";
 			this.textBoxGlossary.ReadOnly = true;
-			this.textBoxGlossary.Size = new System.Drawing.Size(564, 20);
+			this.textBoxGlossary.Size = new System.Drawing.Size(564, 22);
 			this.textBoxGlossary.TabIndex = 0;
 			this.textBoxGlossary.Text = "N/A";
 			// 
@@ -187,7 +187,7 @@
 			this.textBoxModel.Location = new System.Drawing.Point(13, 19);
 			this.textBoxModel.Name = "textBoxModel";
 			this.textBoxModel.ReadOnly = true;
-			this.textBoxModel.Size = new System.Drawing.Size(564, 20);
+			this.textBoxModel.Size = new System.Drawing.Size(564, 22);
 			this.textBoxModel.TabIndex = 0;
 			this.textBoxModel.Text = "N/A";
 			// 
@@ -209,7 +209,7 @@
 			this.textBoxAccount.Location = new System.Drawing.Point(13, 19);
 			this.textBoxAccount.Name = "textBoxAccount";
 			this.textBoxAccount.ReadOnly = true;
-			this.textBoxAccount.Size = new System.Drawing.Size(564, 20);
+			this.textBoxAccount.Size = new System.Drawing.Size(564, 22);
 			this.textBoxAccount.TabIndex = 0;
 			this.textBoxAccount.Text = "N/A";
 			// 
@@ -241,7 +241,7 @@
 			this.textBoxProviderName.Location = new System.Drawing.Point(13, 19);
 			this.textBoxProviderName.Name = "textBoxProviderName";
 			this.textBoxProviderName.ReadOnly = true;
-			this.textBoxProviderName.Size = new System.Drawing.Size(379, 20);
+			this.textBoxProviderName.Size = new System.Drawing.Size(379, 22);
 			this.textBoxProviderName.TabIndex = 0;
 			this.textBoxProviderName.Text = "N/A";
 			// 
@@ -276,7 +276,7 @@
 			this.labelIAK.AutoSize = true;
 			this.labelIAK.Location = new System.Drawing.Point(18, 40);
 			this.labelIAK.Name = "labelIAK";
-			this.labelIAK.Size = new System.Drawing.Size(45, 13);
+			this.labelIAK.Size = new System.Drawing.Size(43, 13);
 			this.labelIAK.TabIndex = 28;
 			this.labelIAK.Text = "API Key";
 			// 
@@ -288,7 +288,7 @@
 			this.apiKey_tb.Name = "apiKey_tb";
 			this.apiKey_tb.PasswordChar = '*';
 			this.apiKey_tb.ReadOnly = true;
-			this.apiKey_tb.Size = new System.Drawing.Size(369, 20);
+			this.apiKey_tb.Size = new System.Drawing.Size(369, 22);
 			this.apiKey_tb.TabIndex = 26;
 			this.apiKey_tb.UseSystemPasswordChar = true;
 			this.apiKey_tb.WordWrap = false;
@@ -344,6 +344,7 @@
 			this.Controls.Add(this.buttonContinue);
 			this.Controls.Add(this.groupBoxMTSettings);
 			this.Controls.Add(this.groupBoxMTConnect);
+			this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.Name = "IntentoTranslationProviderOptionsForm";

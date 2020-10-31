@@ -32,7 +32,7 @@ using MemoQ.Addins.Common.Framework;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.2.15.0")]
-[assembly: AssemblyFileVersion("2.2.15.0")]
+[assembly: AssemblyVersion("2.2.18.0")]
+[assembly: AssemblyFileVersion("2.2.18.0")]
 [assembly: IntentoSDK.AssemblyGitHash(IntentoMTPlugin.GitHash.hash)]
 [assembly: Module(ModuleName = "Intento MT", ClassName = "IntentoMTPlugin.IntentoMTPluginDirector")]

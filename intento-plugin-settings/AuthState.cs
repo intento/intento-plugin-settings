@@ -21,7 +21,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         private ModelState modelState;
         private GlossaryState glossaryState;
 
-        private List<string> _delegatedCredentials;
+        private List<string> сonnectedAccounts;
         string error_message;
 
         // credentials (in json format) choosen by user, both based on credential_id and on auth. 
@@ -163,17 +163,17 @@ namespace Intento.MT.Plugin.PropertiesForm
 			if (modelSt != null && modelSt.UseModel)
 			{
 				formMT.groupBoxOptional.Enabled = true;
-				providerState.SetLanguageComboBoxes(modelSt.SelectedModelFrom, modelSt.SelectedModelTo, null);
+				providerState.SetLanguageComboBoxes(modelSt.SelectedModelFrom, modelSt.SelectedModelTo);
 			}
 			else if (glossarySt != null && glossarySt.currentGlossary != null)
 			{
 				formMT.groupBoxOptional.Enabled = true;
-				providerState.SetLanguageComboBoxes(glossarySt.SelectedGlossaryFrom, glossarySt.SelectedGlossaryTo, null);
+				providerState.SetLanguageComboBoxes(glossarySt.SelectedGlossaryFrom, glossarySt.SelectedGlossaryTo);
 			}
 			else
 			{   // No model or glossaqry, we do not need to show language selection
                 // temporary! formMT.groupBoxOptional.Enabled = false;
-                providerState.SetLanguageComboBoxes(null, null, null);
+                providerState.SetLanguageComboBoxes(null, null);
 			}
 			return error_message;
         }
@@ -185,21 +185,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 			if (formMT.groupBoxBillingAccount.Enabled)
 			{
 				formMT.comboBoxCredentialId.Visible = true;
-				IList<dynamic> credentials = form.testAuthData != null ? form.testAuthData : form._translate.DelegatedCredentials();
-				if (providerState.currentProviderId.StartsWith("ai.text.translate.google.")
-					&& providerState.currentProviderId != "ai.text.translate.google.translate_api.2-0")
-				{
-					credentials = credentials.Where(q =>
-						q.temporary_credentials != null
-						&& q.temporary_credentials_created_at != null
-						&& q.temporary_credentials_expiry_at != null
-						&& q.credential_type == "google_service_account").ToList();
-				}
-				else
-					credentials = credentials.Where(q => q.credential_type == providerState.currentProviderId).ToList();
-				_delegatedCredentials = credentials.Select(q => (string)q.credential_id).ToList();
-				formMT.comboBoxCredentialId.Items.AddRange(_delegatedCredentials.ToArray());
-				if (_delegatedCredentials.Count != 0)
+				IList<dynamic> credentials = form.testAuthData != null ? form.testAuthData : form._translate.Accounts(providerState.currentProviderId);
+                сonnectedAccounts = credentials.Select(q => (string)q.credential_id).ToList();
+				formMT.comboBoxCredentialId.Items.AddRange(сonnectedAccounts.ToArray());
+				if (сonnectedAccounts.Count != 0)
 				{
 					string credential_id = providerDataAuthDict["credential_id"];
 					if (formMT.comboBoxCredentialId.Items.Contains(credential_id))

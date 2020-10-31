@@ -41,9 +41,12 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			checkBoxCustomTagParser.Text = Resource.FAcheckBoxCustomTagParser;
 			checkBoxCutTags.Text = Resource.FACheckBoxCutTags;
 
-			if (parent.GetOptions().ForbidSaveApikey)
+			var options = parent.currentOptions;
+			if (options.ForbidSaveApikey)
                 checkBoxSaveApiKeyInRegistry.Visible = false;
-        }
+			checkBoxCustomTagParser.Enabled = options.MemoqAdditional != null && (bool)options.MemoqAdditional["advancedSdk"];
+
+		}
 
         private void checkBoxProxy_CheckedChanged(object sender, EventArgs e)
         {
@@ -174,6 +177,10 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			checkBoxCutTags.Visible = isTrados;
 			// Specific setting for Memoq
 			checkBoxCustomTagParser.Visible = !isTrados;
+			checkBoxCustomTagParser.Visible = 
+				!isTrados 
+				&& parent.currentOptions.MemoqAdditional != null 
+				&& !(bool)parent.currentOptions.MemoqAdditional["VARIANT_PUBLIC"];
 
 			if (proxySettings == null)
             {

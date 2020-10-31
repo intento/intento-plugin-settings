@@ -138,10 +138,23 @@ namespace IntentoMemoQMTPlugin
 		// 2.2.13
 		// - Changed mapping of Chinese (Singapore) to zh (simplified)
 		// 2.2.14 2020-09-09
+		// - Removed: Write logs to AWS
 		// - (Public version) Removed: Write logs to AWS 
 		// 2.2.15 2020-09-09
 		// - (Public version) Removed newtonsoft.dll from final signed library 
 		// - (Public version) Default value for custom HTML tag parser setting is false 
 		// - Handling hidden, implicit tags
+		// 2.2.16 2020-09-28
+		// - Corrected Montenegrin language code in PropertiesForm
+		// - Some changes in C# SDK (ver 1.5.0)
+		// 2.2.17 2020-10-11
+		// - Changed rule to decide xml/html format
+		// - MemoQConvertHtml2Segment moved to ServiceHelper
+		// - Removed custom tag parser when used  SDK older than 9.5.8.
+		// - (Private version) Using SegmentXMLConverter instead of SegmentHtmlConverter when using SDK 9.5.8 or higher.
+		// 2.2.18 2020-10-24
+		// - Use wrapper for MemoQ.Addins.Common.dll
+		// - Work with tags only if intentoTagReplacement = true
 	}
+
 }

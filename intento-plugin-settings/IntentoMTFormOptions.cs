@@ -178,9 +178,16 @@ namespace Intento.MT.Plugin.PropertiesForm
         /// </summary>
         public DateTime TraceEndTime { get; set; }
 
-        /// <summary>
-        /// Intento C# SDK
-        /// </summary>
+		/// <summary>
+		/// Additional data from Memoq plugin
+		/// Now used for:
+		/// bool advancedSdk
+		/// </summary>
+		public Dictionary<string, object> MemoqAdditional { get; set; }
+
+		/// <summary>
+		/// Intento C# SDK
+		/// </summary>
 		public IntentoAiTextTranslate Translate { get; set; }
 
         private Dictionary<string, string> _authDict = null;
@@ -248,6 +255,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				FromLanguage = this.FromLanguage,
 				ToLanguage = this.ToLanguage,
 				TraceEndTime = this.TraceEndTime,
+				MemoqAdditional = this.MemoqAdditional,
                 _authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),
             };
             return res;

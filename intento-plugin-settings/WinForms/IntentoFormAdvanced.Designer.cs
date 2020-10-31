@@ -77,7 +77,7 @@
 			this.checkBoxAuth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.checkBoxAuth.Location = new System.Drawing.Point(16, 52);
 			this.checkBoxAuth.Name = "checkBoxAuth";
-			this.checkBoxAuth.Size = new System.Drawing.Size(125, 17);
+			this.checkBoxAuth.Size = new System.Drawing.Size(141, 17);
 			this.checkBoxAuth.TabIndex = 17;
 			this.checkBoxAuth.Text = "Authorization required";
 			this.checkBoxAuth.UseVisualStyleBackColor = true;
@@ -104,7 +104,7 @@
 			this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.textBoxPassword.Location = new System.Drawing.Point(78, 62);
 			this.textBoxPassword.Name = "textBoxPassword";
-			this.textBoxPassword.Size = new System.Drawing.Size(321, 20);
+			this.textBoxPassword.Size = new System.Drawing.Size(321, 22);
 			this.textBoxPassword.TabIndex = 7;
 			this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxAuth_TextChanged);
 			// 
@@ -113,7 +113,7 @@
 			this.labelPassword.AutoSize = true;
 			this.labelPassword.Location = new System.Drawing.Point(11, 65);
 			this.labelPassword.Name = "labelPassword";
-			this.labelPassword.Size = new System.Drawing.Size(56, 13);
+			this.labelPassword.Size = new System.Drawing.Size(59, 13);
 			this.labelPassword.TabIndex = 6;
 			this.labelPassword.Text = "Password:";
 			// 
@@ -124,7 +124,7 @@
 			this.textBoxUserName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.textBoxUserName.Location = new System.Drawing.Point(78, 23);
 			this.textBoxUserName.Name = "textBoxUserName";
-			this.textBoxUserName.Size = new System.Drawing.Size(321, 20);
+			this.textBoxUserName.Size = new System.Drawing.Size(321, 22);
 			this.textBoxUserName.TabIndex = 5;
 			this.textBoxUserName.TextChanged += new System.EventHandler(this.textBoxAuth_TextChanged);
 			// 
@@ -133,7 +133,7 @@
 			this.labelUserName.AutoSize = true;
 			this.labelUserName.Location = new System.Drawing.Point(11, 26);
 			this.labelUserName.Name = "labelUserName";
-			this.labelUserName.Size = new System.Drawing.Size(61, 13);
+			this.labelUserName.Size = new System.Drawing.Size(64, 13);
 			this.labelUserName.TabIndex = 4;
 			this.labelUserName.Text = "User name:";
 			// 
@@ -142,7 +142,7 @@
 			this.textBoxPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.textBoxPort.Location = new System.Drawing.Point(383, 25);
 			this.textBoxPort.Name = "textBoxPort";
-			this.textBoxPort.Size = new System.Drawing.Size(48, 20);
+			this.textBoxPort.Size = new System.Drawing.Size(48, 22);
 			this.textBoxPort.TabIndex = 15;
 			this.textBoxPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPort_KeyPress);
 			// 
@@ -151,16 +151,16 @@
 			this.labelPort.AutoSize = true;
 			this.labelPort.Location = new System.Drawing.Point(353, 28);
 			this.labelPort.Name = "labelPort";
-			this.labelPort.Size = new System.Drawing.Size(29, 13);
+			this.labelPort.Size = new System.Drawing.Size(31, 13);
 			this.labelPort.TabIndex = 14;
 			this.labelPort.Text = "Port:";
 			// 
 			// textBoxAddress
 			// 
 			this.textBoxAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.textBoxAddress.Location = new System.Drawing.Point(181, 25);
+			this.textBoxAddress.Location = new System.Drawing.Point(191, 25);
 			this.textBoxAddress.Name = "textBoxAddress";
-			this.textBoxAddress.Size = new System.Drawing.Size(166, 20);
+			this.textBoxAddress.Size = new System.Drawing.Size(160, 22);
 			this.textBoxAddress.TabIndex = 13;
 			// 
 			// labelAddress
@@ -168,16 +168,17 @@
 			this.labelAddress.AutoSize = true;
 			this.labelAddress.Location = new System.Drawing.Point(14, 28);
 			this.labelAddress.Name = "labelAddress";
-			this.labelAddress.Size = new System.Drawing.Size(169, 13);
+			this.labelAddress.Size = new System.Drawing.Size(180, 13);
 			this.labelAddress.TabIndex = 12;
 			this.labelAddress.Text = "IP address or host name: http(s)://";
 			// 
 			// checkBoxProxy
 			// 
 			this.checkBoxProxy.AutoSize = true;
+			this.checkBoxProxy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.checkBoxProxy.Location = new System.Drawing.Point(16, 49);
 			this.checkBoxProxy.Name = "checkBoxProxy";
-			this.checkBoxProxy.Size = new System.Drawing.Size(100, 17);
+			this.checkBoxProxy.Size = new System.Drawing.Size(98, 17);
 			this.checkBoxProxy.TabIndex = 13;
 			this.checkBoxProxy.Text = "checkBoxProxy";
 			this.checkBoxProxy.UseVisualStyleBackColor = true;
@@ -186,6 +187,7 @@
 			// checkBoxSaveApiKeyInRegistry
 			// 
 			this.checkBoxSaveApiKeyInRegistry.AutoSize = true;
+			this.checkBoxSaveApiKeyInRegistry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.checkBoxSaveApiKeyInRegistry.Location = new System.Drawing.Point(240, 379);
 			this.checkBoxSaveApiKeyInRegistry.Name = "checkBoxSaveApiKeyInRegistry";
 			this.checkBoxSaveApiKeyInRegistry.Size = new System.Drawing.Size(179, 17);
@@ -197,10 +199,10 @@
 			// checkBoxTrace
 			// 
 			this.checkBoxTrace.AutoSize = true;
-			this.checkBoxTrace.Enabled = false;
+			this.checkBoxTrace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.checkBoxTrace.Location = new System.Drawing.Point(16, 15);
 			this.checkBoxTrace.Name = "checkBoxTrace";
-			this.checkBoxTrace.Size = new System.Drawing.Size(102, 17);
+			this.checkBoxTrace.Size = new System.Drawing.Size(97, 17);
 			this.checkBoxTrace.TabIndex = 14;
 			this.checkBoxTrace.Text = "checkBoxTrace";
 			this.checkBoxTrace.UseVisualStyleBackColor = true;
@@ -251,7 +253,7 @@
 			this.textBoxCustomSettingsName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.textBoxCustomSettingsName.Location = new System.Drawing.Point(16, 313);
 			this.textBoxCustomSettingsName.Name = "textBoxCustomSettingsName";
-			this.textBoxCustomSettingsName.Size = new System.Drawing.Size(449, 20);
+			this.textBoxCustomSettingsName.Size = new System.Drawing.Size(449, 22);
 			this.textBoxCustomSettingsName.TabIndex = 36;
 			// 
 			// labelCustomSettingsName
@@ -259,16 +261,17 @@
 			this.labelCustomSettingsName.AutoSize = true;
 			this.labelCustomSettingsName.Location = new System.Drawing.Point(13, 293);
 			this.labelCustomSettingsName.Name = "labelCustomSettingsName";
-			this.labelCustomSettingsName.Size = new System.Drawing.Size(316, 13);
+			this.labelCustomSettingsName.Size = new System.Drawing.Size(349, 13);
 			this.labelCustomSettingsName.TabIndex = 37;
 			this.labelCustomSettingsName.Text = "Custom name for plugin settings (leave blank to use default name)";
 			// 
 			// checkBoxCustomTagParser
 			// 
 			this.checkBoxCustomTagParser.AutoSize = true;
+			this.checkBoxCustomTagParser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.checkBoxCustomTagParser.Location = new System.Drawing.Point(337, 293);
 			this.checkBoxCustomTagParser.Name = "checkBoxCustomTagParser";
-			this.checkBoxCustomTagParser.Size = new System.Drawing.Size(110, 17);
+			this.checkBoxCustomTagParser.Size = new System.Drawing.Size(111, 17);
 			this.checkBoxCustomTagParser.TabIndex = 38;
 			this.checkBoxCustomTagParser.Text = "CustomTagParser";
 			this.checkBoxCustomTagParser.UseVisualStyleBackColor = true;
@@ -277,9 +280,10 @@
 			// checkBoxCutTags
 			// 
 			this.checkBoxCutTags.AutoSize = true;
+			this.checkBoxCutTags.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.checkBoxCutTags.Location = new System.Drawing.Point(16, 270);
 			this.checkBoxCutTags.Name = "checkBoxCutTags";
-			this.checkBoxCutTags.Size = new System.Drawing.Size(114, 17);
+			this.checkBoxCutTags.Size = new System.Drawing.Size(112, 17);
 			this.checkBoxCutTags.TabIndex = 39;
 			this.checkBoxCutTags.Text = "checkBoxCutTags";
 			this.checkBoxCutTags.UseVisualStyleBackColor = true;
@@ -291,7 +295,7 @@
 			this.labelError.ForeColor = System.Drawing.Color.Red;
 			this.labelError.Location = new System.Drawing.Point(13, 363);
 			this.labelError.Name = "labelError";
-			this.labelError.Size = new System.Drawing.Size(113, 13);
+			this.labelError.Size = new System.Drawing.Size(123, 13);
 			this.labelError.TabIndex = 34;
 			this.labelError.Text = "Proxy connection error";
 			this.labelError.Visible = false;
@@ -315,6 +319,7 @@
 			this.Controls.Add(this.checkBoxTrace);
 			this.Controls.Add(this.checkBoxProxy);
 			this.Controls.Add(this.groupBoxProxy);
+			this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;

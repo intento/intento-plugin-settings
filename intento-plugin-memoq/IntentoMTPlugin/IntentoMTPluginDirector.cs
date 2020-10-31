@@ -297,7 +297,16 @@ namespace IntentoMTPlugin
                     Format = "text",
                     AppName = appNameCurrent,
 					TraceEndTime = Options.GeneralSettings.TraceEndTime,
-                };
+					MemoqAdditional = new Dictionary<string, object>()
+					{
+						{ "advancedSdk", IntentoMTSession.WrapperMemoQAddinsCommon.Get().advancedSdk },
+#if VARIANT_PUBLIC
+						{ "VARIANT_PUBLIC", true },
+#else
+						{ "VARIANT_PUBLIC", false },
+#endif
+					},
+				};
 
 #if VARIANT_PUBLIC
                 formOptions.ForbidSaveApikey = true;
@@ -349,7 +358,8 @@ namespace IntentoMTPlugin
                             }
                             else
                             {
-                                dynamic providerData = intentoMTServiceHelper.intentoAiTextTranslate.Provider(Options.GeneralSettings.ProviderId, "?fields=auth,custom_glossary");
+                                dynamic providerData = intentoMTServiceHelper.intentoAiTextTranslate.Provider(Options.GeneralSettings.ProviderId, 
+                                    new Dictionary<string, string> { { "fields", "auth,custom_glossary" } });
                                 Options.GeneralSettings.ProviderFormats = providerData.format != null ? providerData.format.ToString() : "";
 
                             }
