@@ -300,12 +300,7 @@ namespace IntentoMTPlugin
 					MemoqAdditional = new Dictionary<string, object>()
 					{
 						{ "advancedSdk", IntentoMTSession.WrapperMemoQAddinsCommon.Get().advancedSdk },
-#if VARIANT_PUBLIC
-						{ "VARIANT_PUBLIC", true },
-#else
-						{ "VARIANT_PUBLIC", false },
-#endif
-					},
+						{ "VARIANT_PUBLIC", memoQVariant }                 },
 				};
 
 #if VARIANT_PUBLIC
