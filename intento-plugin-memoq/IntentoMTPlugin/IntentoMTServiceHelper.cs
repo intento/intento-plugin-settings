@@ -10,6 +10,8 @@ using System.Reflection;
 using System.Diagnostics;
 using Intento.MT.Plugin.PropertiesForm;
 using Newtonsoft.Json.Linq;
+using MemoQ.Addins.Common.DataStructures;
+using MemoQ.Addins.Common.Utils;
 
 namespace IntentoMTPlugin
 {
@@ -111,8 +113,13 @@ namespace IntentoMTPlugin
             {
                 var assembly = Assembly.GetExecutingAssembly();
                 var fvi = assembly.GetName().Version;
-                string version = string.Format("{0}.{1}.{2}", fvi.Major, fvi.Minor, fvi.Build);
-                Logs.Write2(string.Format("plugin version: {0}", version), null);
+				string version;
+				if (fvi.Revision == -1)
+					version = string.Format("{0}.{1}.{2}", fvi.Major, fvi.Minor, fvi.Build);
+				else
+					version = string.Format("{0}.{1}.{2}.{3}", fvi.Major, fvi.Minor, fvi.Build, fvi.Revision);
+
+				Logs.Write2(string.Format("plugin version: {0}", version), null);
 
                 return version;
             }
@@ -378,5 +385,6 @@ namespace IntentoMTPlugin
 #endif
             }
         }
-    }
+
+	}
 }

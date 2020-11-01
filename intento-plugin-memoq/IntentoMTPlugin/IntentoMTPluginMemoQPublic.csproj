@@ -83,12 +83,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConverterHtml.cs" />
     <Compile Include="GitHash.cs" />
     <Compile Include="IntentoMTEngine.cs" />
     <Compile Include="IntentoMTOptions.cs" />
     <Compile Include="IntentoMTPluginDirector.cs" />
     <Compile Include="IntentoMTServiceHelper.cs" />
+    <Compile Include="IntentoMTTagHelper.cs" />
     <Compile Include="LanguageCodes.cs" />
     <Compile Include="LocalizationHelper.cs" />
     <Compile Include="Logs.cs" />

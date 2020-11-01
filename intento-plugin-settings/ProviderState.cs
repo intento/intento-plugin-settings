@@ -24,8 +24,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         public string currentProviderName;
         public Dictionary<string, string> fromLanguages;
         public Dictionary<string, string> toLanguages;
+		public List<string> enPairs;
 
-        LangPair[] languagePairs;
+		LangPair[] languagePairs;
 
         bool isInitialized = false;
 
@@ -106,7 +107,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 if (form.testOneProviderData != null)
                     providerData = form.testOneProviderData;
                 else
-                    providerData = form._translate.Provider(currentProviderId, "?fields=auth,custom_glossary");
+                    providerData = form._translate.Provider(currentProviderId, 
+                        new Dictionary<string, string> { { "fields", "auth,custom_glossary" } });
 
                 if (providerData != null)
                 {
@@ -141,37 +143,41 @@ namespace Intento.MT.Plugin.PropertiesForm
                     {
                         List<string> from = new List<string>();
                         List<string> to = new List<string>();
-                        if (languages.symmetric != null)
+						enPairs = new List<string>();
+						if (languages.symmetric != null)
                         {
                             foreach (dynamic p in languages.symmetric)
                             {
                                 from.Add((string)p.Value);
                                 to.Add((string)p.Value);
-                            }
+								enPairs.Add((string)p.Value);
+
+							}
+							if (!from.Any(x => x == "en"))
+								enPairs.Clear();
                         }
 
                         // Used in Language_Comboboxes_Fill to select testing pair
                         // for symmetris ==null
                         // for pairs it contains all target langs for en->xx
-                        List<string> enPairs = null;
 
                         if (languages.pairs != null)
                         {
-                            enPairs = new List<string>();
                             foreach (dynamic p in languages.pairs)
                             {
                                 from.Add((string)p.from);
                                 to.Add((string)p.to);
                                 if (p.from == "en")
-                                    enPairs.Add((string)p.to);
+									enPairs.Add((string)p.to);
                             }
                         }
                         from = from.Distinct().ToList();
                         to = to.Distinct().ToList();
-                        FillLanguageDictionary(ref fromLanguages, from);
+						enPairs = enPairs.Distinct().ToList();
+						FillLanguageDictionary(ref fromLanguages, from);
                         FillLanguageDictionary(ref toLanguages, to);
 
-                        Language_Comboboxes_Fill(fromLanguages, toLanguages, enPairs);
+                        Language_Comboboxes_Fill(fromLanguages, toLanguages);
                     }
                 }
             }
@@ -327,7 +333,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             options.ProviderId = null;
             options.ProviderName = null;
             options.Format = null;
-            Language_Comboboxes_Fill(null, null, null);
+            Language_Comboboxes_Fill(null, null);
 
             if (authState != null)
             {
@@ -359,7 +365,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         }
         #region methods for managing a group of controls
 
-        void Language_Comboboxes_Fill(Dictionary<string, string> from, Dictionary<string, string> to, List<string> enPairs)
+        void Language_Comboboxes_Fill(Dictionary<string, string> from, Dictionary<string, string> to)
         {
             formMT.comboBoxFrom.Items.Clear();
             formMT.comboBoxTo.Items.Clear();
@@ -367,10 +373,10 @@ namespace Intento.MT.Plugin.PropertiesForm
                 formMT.comboBoxFrom.Items.AddRange(from.Select(x => x.Value).ToArray());
             if (to != null)
                 formMT.comboBoxTo.Items.AddRange(to.Select(x => x.Value).ToArray());
-			SetLanguageComboBoxes(options.FromLanguage, options.ToLanguage, enPairs);
+			SetLanguageComboBoxes(options.FromLanguage, options.ToLanguage);
         }
 
-		public void SetLanguageComboBoxes(string from, string to, List<string> enPairs)
+		public void SetLanguageComboBoxes(string from, string to)
 		{
 			if (fromLanguages != null)
 			{
@@ -380,35 +386,26 @@ namespace Intento.MT.Plugin.PropertiesForm
 					formMT.comboBoxFrom.SelectedItem = fromLanguages[options.FromLanguage];
 				else if (fromLanguages.ContainsKey("en"))
 					formMT.comboBoxFrom.SelectedItem = fromLanguages["en"];
+				else if (!string.IsNullOrWhiteSpace(form.originalOptions.FromLanguage) || fromLanguages.ContainsKey(form.originalOptions.FromLanguage))
+					formMT.comboBoxFrom.SelectedItem = fromLanguages[form.originalOptions.FromLanguage];
 				else
 					formMT.comboBoxFrom.SelectedIndex = 1;
 			}
 
 			if (toLanguages != null)
 			{
-                if (!string.IsNullOrWhiteSpace(to) && toLanguages.ContainsKey(to))
-                    formMT.comboBoxTo.SelectedItem = toLanguages[to];
-                else if (!string.IsNullOrWhiteSpace(options.ToLanguage) && fromLanguages.ContainsKey(options.ToLanguage))
-                    formMT.comboBoxTo.SelectedItem = fromLanguages[options.ToLanguage];
-                else
-                {   // en-xx, need to check is provider support en-es or en-zh
-                    if (enPairs == null)
-                    {   // symmetric
-                        if (toLanguages.ContainsKey("es"))
-                            formMT.comboBoxTo.SelectedItem = toLanguages["es"];
-                        else
-                            formMT.comboBoxTo.SelectedIndex = 1;
-                    }
-                    else
-                    {   // pairs. 
-                        if (enPairs.Contains("es"))
-                            formMT.comboBoxTo.SelectedItem = toLanguages["es"];
-                        else if (enPairs.Contains("zh"))
-                            formMT.comboBoxTo.SelectedItem = toLanguages["zh"];
-                        else
-                            formMT.comboBoxTo.SelectedIndex = 1;
-                    }
-                }
+				if (!string.IsNullOrWhiteSpace(to) && toLanguages.ContainsKey(to))
+					formMT.comboBoxTo.SelectedItem = toLanguages[to];
+				else if (!string.IsNullOrWhiteSpace(options.ToLanguage) && fromLanguages.ContainsKey(options.ToLanguage))
+					formMT.comboBoxTo.SelectedItem = fromLanguages[options.ToLanguage];
+				else if (enPairs.Contains("es"))   // en-xx, need to check is provider support en-es or en-zh
+					formMT.comboBoxTo.SelectedItem = toLanguages["es"];
+				else if (enPairs.Contains("zh"))
+					formMT.comboBoxTo.SelectedItem = toLanguages["zh"];
+				else if (!string.IsNullOrWhiteSpace(form.originalOptions.ToLanguage) && toLanguages.ContainsKey(form.originalOptions.ToLanguage) && enPairs.Contains(form.originalOptions.ToLanguage))
+					formMT.comboBoxTo.SelectedItem = toLanguages[form.originalOptions.ToLanguage];
+				else
+					formMT.comboBoxTo.SelectedIndex = 1;
 			}
 		}
 

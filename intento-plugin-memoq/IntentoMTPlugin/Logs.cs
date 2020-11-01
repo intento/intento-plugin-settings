@@ -1,31 +1,29 @@
 ﻿using System;
-using System.Threading;
-
 using Intento.MT.Plugin.PropertiesForm;
 
 public class Logs
 {
-    //static Logs2 logs;
+	//static Logs2 logs;
 
-    //private static Logs2 GetLogs()
-    //{
-    //    try
-    //    {
-    //        if (logs == null)
-    //            logs = new Logs2();
-    //    }
-    //    catch { }
+	//private static Logs2 GetLogs()
+	//{
+	//    try
+	//    {
+	//        if (logs == null)
+	//            logs = new Logs2();
+	//    }
+	//    catch { }
 
-    //    return logs;
-    //}
+	//    return logs;
+	//}
 
-    public static void Write2(string info, string text, params object[] parameters)
-    {
+	public static void Write2(string info, string text, params object[] parameters)
+	{
 		return;
-    }
+	}
 
-    public static bool IsLogging()
-    {
+	public static bool IsLogging()
+	{
 		string env = Environment.GetEnvironmentVariable("intento_plugin_logging");
 		if (env != null)
 		{
@@ -34,7 +32,7 @@ public class Logs
 				return true;
 		}
 		return IntentoTranslationProviderOptionsForm.IsTrace();
-    }
+	}
 }
 
 

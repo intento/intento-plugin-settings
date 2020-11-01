@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MemoQ.Addins.Common.DataStructures;
 using MemoQ.Addins.Common.Utils;
+using MemoQ.Addins.Common;
 using MemoQ.MTInterfaces;
 using System.Reflection;
 using System.Linq;
@@ -80,28 +81,5 @@ namespace IntentoMTPlugin
             // return localizedText;
         }
 
-        public static string MemoQConvertSegment2Html(Segment seg, bool tagged)
-        {
-            Assembly ass = Assembly.LoadFrom("MemoQ.Addins.Common.dll");
-            System.Type[] types = ass.GetExportedTypes();
-            System.Type type = types.Where(i => i.Name == "SegmentHtmlConverter").FirstOrDefault();
-            MethodInfo method = type.GetMethod("ConvertSegment2Html");
-            object res;
-            try
-            {
-                res = method.Invoke(null, new object[] { seg, tagged, false });
-            }
-            catch
-            {
-                res = method.Invoke(null, new object[] { seg, tagged });
-            }
-
-            return (string)res;
-        }
-        public static Segment MemoQConvertHtml2Segment(string html, IList<InlineTag> tags)
-        {
-            return SegmentHtmlConverter.ConvertHtml2Segment(html, tags);
-        }
-        
     }
 }
