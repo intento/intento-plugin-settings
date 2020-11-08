@@ -172,16 +172,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			checkBoxCutTags.Checked = parent.currentOptions.CutTag;
 			checkBoxCustomTagParser.Location = checkBoxCutTags.Location;
 			checkBoxSaveLocally.Checked = parent.currentOptions.SaveLocally;
+			checkBoxSaveLocally.Visible = parent.isTrados || !parent.memoqPublic;
 
 			// Specific setting for Trados
-			checkBoxSaveLocally.Visible = parent.isTrados;
 			textBoxCustomSettingsName.Visible = parent.isTrados;
 			labelCustomSettingsName.Visible = parent.isTrados;
 			checkBoxCutTags.Visible = parent.isTrados;
 			
 			// Specific setting for Memoq
 			checkBoxCustomTagParser.Visible = !parent.isTrados;
-			//checkBoxSaveLocally.Visible = parent.isTrados || !parent.memoqPublic;
 
 			if (proxySettings == null)
             {
