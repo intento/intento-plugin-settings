@@ -330,6 +330,6 @@ If you have selected custom model or glossary, please adjust the language pair:<
     <value>Translate as plain text</value>
   </data>
   <data name="FAcheckBoxSaveLocally" xml:space="preserve">
-    <value>Save current settings on exit locally</value>
+    <value>Save settings for the next projects</value>
   </data>
 </root>

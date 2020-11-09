@@ -268,7 +268,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save current settings on exit locally.
+        ///   Looks up a localized string similar to Save settings for the next projects.
         /// </summary>
         internal static string FAcheckBoxSaveLocally {
             get {
