@@ -104,9 +104,9 @@ namespace IntentoMTPlugin
 		public bool IntentoTagReplacement
 		{
 			#if VARIANT_PUBLIC
-					get { return false; }
+				get { return IntentoMTSession.WrapperMemoQAddinsCommon.Get().advancedSdk; }
 			#else
-					get { return intentoTagReplacement != "0" && IntentoMTSession.WrapperMemoQAddinsCommon.Get().advancedSdk; }
+				get { return intentoTagReplacement != "0" && IntentoMTSession.WrapperMemoQAddinsCommon.Get().advancedSdk; }
 			#endif
 			set { intentoTagReplacement = value ? "1" : "0"; }
 		}

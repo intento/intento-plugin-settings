@@ -111,5 +111,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// - Disabling the setting of using the custom parser for older versions (< 9.5.8) of MemoQ
 		// 2.2.18 2020-10-24
 		// - Change the font on forms to Segoe UI 
+		// 2.2.19 2020-10-28
+		// - Trados: the ability to save settings locally
 	}
 }

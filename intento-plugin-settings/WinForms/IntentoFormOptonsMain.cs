@@ -59,6 +59,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public IntentoFormOptionsMT formMT;
 		public IntentoFormAdvanced formAdvanced;
 		private int cursorCount = 0;
+		public IntentoMTFormOptions locallyOptions;
 		public bool settingsIsSet;
 		public bool insideEnableDisable = false;
 
@@ -74,10 +75,19 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// Glossary data was obtained directly, without a request to the Intento service
 		public IList<dynamic> testGlossaryData;
 
+		// flas from app
+		public readonly bool isTrados;
+		public readonly string appName;
+		public readonly bool memoqPublic;
+
+		// Data from registry. For possible logging
+		public string savedApiKey;
+
+
 
 		#endregion vars
 
-		public IntentoTranslationProviderOptionsForm(
+			public IntentoTranslationProviderOptionsForm(
 			IntentoMTFormOptions options,
 			LangPair[] languagePairs,
 			Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric
@@ -101,26 +111,48 @@ namespace Intento.MT.Plugin.PropertiesForm
 				IntentoHelpers.GetVersion(currentAssem),
 				IntentoHelpers.GetGitCommitHash(currentAssem));
 
+			_languagePairs = languagePairs;
+
+			// Determining the parent program that caused the plugin setting
+			appName = options.AppName;
+			isTrados = appName == "SdlTradosStudioPlugin";
+			memoqPublic = !isTrados && !appName.EndsWith("Private");
+
+
+			locallyOptions = GetOptionsSavedLocally();
 			originalOptions = options;
+			if (locallyOptions != null && string.IsNullOrEmpty(options.ApiKey))
+				if (!string.IsNullOrEmpty(locallyOptions.ApiKey))
+				{
+					originalOptions.ApiKey = locallyOptions.ApiKey;
+					originalOptions.SmartRouting = locallyOptions.SmartRouting;
+					originalOptions.ProviderId = locallyOptions.ProviderId;
+					originalOptions.CustomAuth = locallyOptions.CustomAuth;
+					originalOptions.CustomModel = locallyOptions.CustomModel;
+					originalOptions.UseCustomModel = locallyOptions.UseCustomModel;
+					originalOptions.UseCustomAuth = locallyOptions.UseCustomAuth;
+					originalOptions.Glossary = locallyOptions.Glossary;
+					originalOptions.SaveLocally = locallyOptions.SaveLocally;
+				}
+
 			currentOptions = originalOptions.Duplicate();
 			TraceEndTime = originalOptions.TraceEndTime;
 			formAdvanced = new IntentoFormAdvanced(this);
 			formApi = new IntentoFormOptionsAPI(this);
 			formMT = new IntentoFormOptionsMT(this);
 			apiKeyState = new ApiKeyState(this, currentOptions);
-			if (apiKeyState.GetValueFromRegistry("ProxyEnabled") != null && apiKeyState.GetValueFromRegistry("ProxyEnabled") == "1")
+			if (GetValueFromRegistry("ProxyEnabled") != null && GetValueFromRegistry("ProxyEnabled") == "1")
 			{
 				currentOptions.proxySettings = new ProxySettings()
 				{
-					ProxyAddress = apiKeyState.GetValueFromRegistry("ProxyAddress"),
-					ProxyPort = apiKeyState.GetValueFromRegistry("ProxyPort"),
-					ProxyUserName = apiKeyState.GetValueFromRegistry("ProxyUserName"),
-					ProxyPassword = apiKeyState.GetValueFromRegistry("ProxyPassw"),
+					ProxyAddress = GetValueFromRegistry("ProxyAddress"),
+					ProxyPort = GetValueFromRegistry("ProxyPort"),
+					ProxyUserName = GetValueFromRegistry("ProxyUserName"),
+					ProxyPassword = GetValueFromRegistry("ProxyPassw"),
 					ProxyEnabled = true
 				};
 			}
 
-			_languagePairs = languagePairs;
 			DialogResult = DialogResult.None;
 			var arr = originalOptions.Signature.Split('/');
 			formAdvanced.toolStripStatusLabel1.Text = arr.Count() == 3 ? String.Format("{0}/{1}", arr[0], arr[2]) : originalOptions.Signature;
@@ -205,6 +237,91 @@ namespace Intento.MT.Plugin.PropertiesForm
             return (TraceEndTime - DateTime.Now).Minutes > 0;
 		}
 
+		#region Work with local registry
+		public IntentoMTFormOptions GetOptionsSavedLocally()
+		{
+			if (memoqPublic)
+				return null;
+			else
+			{
+				IntentoMTFormOptions ret = new IntentoMTFormOptions();
+				ret = new IntentoMTFormOptions();
+				savedApiKey = GetValueFromRegistry("ApiKey");
+				ret.SaveLocally = GetValueFromRegistry("SaveLocally") != null && GetValueFromRegistry("SaveLocally") == "1";
+				string path = GetRegistryPath();
+				if (ret.SaveLocally)
+				{
+					ret.ApiKey = GetValueFromRegistry("ApiKey", path);
+					if (!string.IsNullOrWhiteSpace(ret.ApiKey))
+					{
+						ret.SmartRouting = GetValueFromRegistry("SmartRouting", path) != null 
+							&& GetValueFromRegistry("SmartRouting", path) == "1";
+						ret.ProviderId = GetValueFromRegistry("ProviderId", path);
+						ret.CustomAuth = GetValueFromRegistry("CustomAuth", path);
+						ret.CustomModel = GetValueFromRegistry("CustomModel", path);
+						ret.Glossary = GetValueFromRegistry("Glossary", path);
+						ret.UseCustomModel = GetValueFromRegistry("UseCustomModel", path) != null 
+							&& GetValueFromRegistry("UseCustomModel", path) == "1";
+						ret.UseCustomAuth = GetValueFromRegistry("UseCustomAuth", path) != null 
+							&& GetValueFromRegistry("UseCustomAuth", path) == "1";
+					}
+				}
+				return ret;
+			}
+		}
+
+		public void SaveOptionsToRegistry(IntentoMTFormOptions options)
+		{
+			string path = GetRegistryPath();
+			SaveValueToRegistry("ApiKey", options.ApiKey); // for logging
+			SaveValueToRegistry("ApiKey", options.ApiKey, path);
+			SaveValueToRegistry("SmartRouting", options.SmartRouting, path);
+			SaveValueToRegistry("ProviderId", options.ProviderId, path);
+			SaveValueToRegistry("CustomAuth", options.CustomAuth, path);
+			SaveValueToRegistry("CustomModel", options.CustomModel, path);
+			SaveValueToRegistry("Glossary", options.Glossary, path);
+			SaveValueToRegistry("UseCustomModel", options.UseCustomModel, path);
+			SaveValueToRegistry("UseCustomAuth", options.UseCustomAuth, path);
+		}
+
+		public string GetRegistryPath()
+		{
+			string path = string.Empty;
+			if (_languagePairs == null || _languagePairs.Count() != 1)
+				path = "all";
+			else
+				path = string.Format("{0}-{1}", _languagePairs[0].from, _languagePairs[0].to);
+			return "\\"+path;
+		}
+
+
+		public string GetValueFromRegistry(string name, string path = "")
+		{
+			try
+			{
+				RegistryKey key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}{1}", appName, path));
+				return (string)key.GetValue(name, null);
+			}
+			catch { }
+			return null;
+		}
+		public void SaveValueToRegistry(string name, bool value, string path = "")
+		{
+			SaveValueToRegistry(name, value ? "1" : "0", path);
+		}
+		public void SaveValueToRegistry(string name, string value, string path = "")
+		{
+			try
+			{
+				if (value == null)
+					value = string.Empty;
+				RegistryKey key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}{1}", appName, path));
+				key.SetValue(name, value);
+			}
+			catch { }
+		}
+		#endregion Work with local registry
+
 		private string customAuthJsonToString(string authJsonString)
 		{
 			string ret = String.Empty;
@@ -285,16 +402,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 		{
 			using (new CursorForm(this))
 			{
-				apiKeyState.SaveValueToRegistry("ProxyEnabled", "0");
+				SaveValueToRegistry("ProxyEnabled", false);
 				if (currentOptions.proxySettings != null)
 				{
 					if (currentOptions.proxySettings.ProxyEnabled)
 					{
-						apiKeyState.SaveValueToRegistry("ProxyAddress", currentOptions.proxySettings.ProxyAddress);
-						apiKeyState.SaveValueToRegistry("ProxyPort", currentOptions.proxySettings.ProxyPort);
-						apiKeyState.SaveValueToRegistry("ProxyUserName", currentOptions.proxySettings.ProxyUserName);
-						apiKeyState.SaveValueToRegistry("ProxyPassw", currentOptions.proxySettings.ProxyPassword);
-						apiKeyState.SaveValueToRegistry("ProxyEnabled", "1");
+						SaveValueToRegistry("ProxyAddress", currentOptions.proxySettings.ProxyAddress);
+						SaveValueToRegistry("ProxyPort", currentOptions.proxySettings.ProxyPort);
+						SaveValueToRegistry("ProxyUserName", currentOptions.proxySettings.ProxyUserName);
+						SaveValueToRegistry("ProxyPassw", currentOptions.proxySettings.ProxyPassword);
+						SaveValueToRegistry("ProxyEnabled", true);
 					}
 				}
 				originalOptions.Translate = _translate;
@@ -303,10 +420,13 @@ namespace Intento.MT.Plugin.PropertiesForm
 				if (!currentOptions.ForbidSaveApikey)
 				{
 					if (!string.IsNullOrEmpty(originalOptions.ApiKey))
-						apiKeyState.SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
-					else
-						apiKeyState.SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
+						SaveValueToRegistry("ApiKey", originalOptions.ApiKey);
 				}
+
+				SaveValueToRegistry("SaveLocally", originalOptions.SaveLocally);
+				if (originalOptions.SaveLocally)
+					SaveOptionsToRegistry(originalOptions);
+
 				this.DialogResult = DialogResult.OK;
 				Close();
 			}
@@ -500,6 +620,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             options.CustomSettingsName = currentOptions.CustomSettingsName;
 			options.CustomTagParser = currentOptions.CustomTagParser;
 			options.CutTag = currentOptions.CutTag;
+			options.SaveLocally = currentOptions.SaveLocally;
 
 			apiKeyState.FillOptions(options);
         }

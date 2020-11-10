@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MemoQ.Addins.Common.DataStructures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,46 +7,100 @@ using System.Threading.Tasks;
 
 namespace IntentoMTPlugin
 {
-	public static class IntentoMTTagHelper
+	public static class IntentoTagHelper
 	{
-		private static IReadOnlyDictionary<string, string> specialCodesCustomIn
+		private static IReadOnlyDictionary<string, string> memoqTagsReplaceList
 		   = new Dictionary<string, string>
 		{
-		   { "<inline_tag id=\""	, "<span intentodata id=\"" },
-		   { "</inline_tag>"		, "</span>" }
+		   { "<inline_tag id=\""    , "<span id=\"intnt" },
+		   { "</inline_tag>"        , "</span>" }
 		};
-		private static IReadOnlyDictionary<string, string> specialCodesCustomOut
+		private static IReadOnlyDictionary<string, string> memoqTagsRevertList
 			= new Dictionary<string, string>
 		{
-		   { "<span intentodata id=\""	, "<inline_tag id=\""},
-		   { "</span>"					, "</inline_tag>"}
+		   { "<span id=\"intnt"  , "<inline_tag id=\""},
+		   { "</span>"           , "</inline_tag>"}
 		};
+		private static IReadOnlyList<string> openTags = new List<string>	{ "<inline_tag id="};
+		private static IReadOnlyList<string> closeTags = new List<string>	{ "</inline_tag>" };
 
-		public static string CustomPrepareText(string data, bool intentoTagReplacement)
+		public class CustomTransformer
 		{
-			if (intentoTagReplacement)
+			string _data;
+			bool _intentoTagReplacement;
+			int skew = 0;
+
+			public CustomTransformer(string data, bool intentoTagReplacement, InlineTag[] tags)
 			{
-				// Replacing some HTML codes with special tags
-				foreach (KeyValuePair<string, string> pair in specialCodesCustomIn)
+				_data = data;
+				_intentoTagReplacement = intentoTagReplacement;
+				if (tags != null)
 				{
-					data = data.Replace(pair.Key, pair.Value);
+					int openCount = tags.Where(i => i.TagType == InlineTagTypes.Open).Count();
+					int closeCount = tags.Where(i => i.TagType == InlineTagTypes.Close).Count();
+					skew = openCount - closeCount;
 				}
 			}
-			return data;
-		}
 
-		public static string CustomPrepareResult(string text, bool intentoTagReplacement)
-		{
-			if (intentoTagReplacement)
+			public string PreparedText
 			{
-				foreach (KeyValuePair<string, string> pair in specialCodesCustomOut)
+				get
 				{
-					text = text.Replace(pair.Key, pair.Value);
+					string data = _data;
+					if (_intentoTagReplacement)
+					{
+						// Replacing some HTML codes with special tags
+						foreach (KeyValuePair<string, string> pair in memoqTagsReplaceList)
+						{
+							data = data.Replace(pair.Key, pair.Value);
+						}
+
+						string tag;
+						if (skew > 0)
+						{ // add close tags
+							tag = "</span>";
+							for (int i = 0; i < skew; i++)
+								data = data + tag;
+						}
+						else if (skew < 0)
+						{ // add open tags
+							for (int i = 0; i > skew; i--)
+								data = string.Format("<span id=\"balancing_intento_tag{0}\">{1}", Math.Abs(i), data);
+						}
+					}
+					return data;
 				}
 			}
-			return text;
-		}
 
+			public string PrepareResult(string text)
+			{
+				if (_intentoTagReplacement)
+				{
+					string tag;
+					if (skew > 0)
+					{ // add close tags
+						tag = "</span>";
+						for (int i = 0; i < skew; i++)
+							text = text.Substring(0, text.LastIndexOf(tag)) + text.Substring(text.LastIndexOf(tag)+tag.Length);
+					}
+					else if (skew < 0)
+					{ // add open tags
+						for (int i = 0; i > skew; i--)
+						{
+							tag = string.Format("<span id=\"balancing_intento_tag{0}\">", Math.Abs(i)) ;
+							text = text.Substring(0, text.IndexOf(tag)) + text.Substring(text.IndexOf(tag) + tag.Length);
+						}
+					}
+
+					foreach (KeyValuePair<string, string> pair in memoqTagsRevertList)
+					{
+						text = text.Replace(pair.Key, pair.Value);
+					}
+					text = text.Replace("\" />", "\"/>");
+				}
+				return text;
+			}
+		}
 
 	}
 }

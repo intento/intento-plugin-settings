@@ -37,7 +37,6 @@ namespace IntentoMTPlugin
 
 		// static Dictionary<string, string> langConvertionIntento2MemoQ = new Dictionary<string, string>();
 		static Dictionary<string, string> langConvertionMemoQ2Intento = new Dictionary<string, string>();
-        IList<IList<string>> pairs = null;
 
         public static string pluginVersion = GetPluginVersion();
         public static string memoqVersion = GetMemoQVersion();
@@ -249,9 +248,10 @@ namespace IntentoMTPlugin
             throw new Exception("Intento plugin do not support BatchStoreTranslation");
         }
 
-        public IList<IList<string>> IntentoLanguagePairs()
+        public IList<IList<string>> IntentoLanguagePairs(string providerId)
         {
-            if (string.IsNullOrEmpty(options.GeneralSettings.providerId))
+			IList<IList<string>> pairs = null;
+			if (string.IsNullOrEmpty(providerId))
             {   // smart routing 
                 IList<dynamic> data = IntentoAiTextTranslate().Languages();
 
@@ -268,7 +268,7 @@ namespace IntentoMTPlugin
             }
 
             // direct routing 
-            IList<IList<string>> p = IntentoAiTextTranslate().ProviderLanguagePairs(options.GeneralSettings.providerId);
+            IList<IList<string>> p = IntentoAiTextTranslate().ProviderLanguagePairs(providerId);
             pairs = p
                 .Select(i => (IList<string>)new List<string> { i[0], i[1] })
                 .Where(i => (i[0] != null && i[1] != null))
@@ -304,10 +304,6 @@ namespace IntentoMTPlugin
             {
                 this.options = options;
                 lastApiKey = options.SecureSettings.ApiKey;
-            }
-            else if (options.GeneralSettings.ProviderId != this.options.GeneralSettings.ProviderId)
-            {
-                pairs = null;
             }
 
             return options;
