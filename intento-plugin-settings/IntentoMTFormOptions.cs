@@ -152,10 +152,15 @@ namespace Intento.MT.Plugin.PropertiesForm
         /// </summary>
         public ProxySettings proxySettings { get; set; }
 
-        // --------------------------- SDL Trados Studio and memoQ only ---------------------------
+		/// <summary>
+		/// Sign of saving settings in the registry
+		/// </summary>
+		public bool SaveLocally { get; set; }
 
-        // Custom settings name. Using  in trados plugin
-        public string CustomSettingsName { get; set; }
+		// --------------------------- SDL Trados Studio and memoQ only ---------------------------
+
+		// Custom settings name. Using  in trados plugin
+		public string CustomSettingsName { get; set; }
 
         // Custom html tags parser. Using  in MemoQ plugin
         public bool CustomTagParser { get; set; }
@@ -166,8 +171,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// Special options for public memoQ plugin special requirements
 		// Forbit to save ApiKey in registry 
 		public bool ForbidSaveApikey { get; set; }
+
         // Hide "Show hidden text" button
         public bool HideHiddenTextButton { get; set; }
+
         // Action on pressing Help button. In case it is not empty Help button is shown
         public Action сallHelpAction;
 
@@ -180,8 +187,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 		/// <summary>
 		/// Additional data from Memoq plugin
-		/// Now used for:
-		/// bool advancedSdk
+		/// not used now, preparation for the future
 		/// </summary>
 		public Dictionary<string, object> MemoqAdditional { get; set; }
 
@@ -256,6 +262,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				ToLanguage = this.ToLanguage,
 				TraceEndTime = this.TraceEndTime,
 				MemoqAdditional = this.MemoqAdditional,
+				SaveLocally = this.SaveLocally,
                 _authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),
             };
             return res;

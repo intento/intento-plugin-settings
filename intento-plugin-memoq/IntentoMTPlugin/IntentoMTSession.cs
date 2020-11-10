@@ -122,34 +122,45 @@ namespace IntentoMTPlugin
 				try
 				{
 					// Check for necessity to use tagged translation
-					bool tagged = IsTagged(segs);
+					bool tagged = IsTagged(segs) || IsImplicitTagged(segs);
 
 					IList<string> data = new List<string>();
 					IntentoMTServiceHelper.ResultBatchTranslate resultBatchTranslate;
 					string format = tagged ? GetTaggedFormat() : null;
+					//  ConvertSegment2Xml or ConvertSegment2Html
+					bool advancedSdk = WrapperMemoQAddinsCommon.Get().advancedSdk;
 					string routing = null; //provider_id available
 					if (string.IsNullOrEmpty(options.GeneralSettings.ProviderId) && tagged)
 						routing = "intento-tagged"; // smart routing. Format is provided by special smart routing table
 
 
 					Logs.Write2("2: intentoTagReplacement", "{0}, format: {1}, tagged: {2}", intentoTagReplacement, format, tagged);
+					List<IntentoTagHelper.CustomTransformer> transformerItems = new List<IntentoTagHelper.CustomTransformer>();
 					data = segs.Select(i => ConvertSegmentToString(i, tagged)).ToList();
-					data = data.Select(i => PluginHelper.PrepareText(format, i)).ToList();
-					data = data.Select(i => IntentoMTTagHelper.CustomPrepareText(i, intentoTagReplacement)).ToList();
+					if (advancedSdk)
+					{
+						transformerItems = segs.Select(i => new IntentoTagHelper.CustomTransformer(ConvertSegmentToString(i, tagged), intentoTagReplacement, i.ITags)).ToList()  ;
+						//transformerItems = data.Select(i => new IntentoTagHelper.CustomTransformer(i, intentoTagReplacement)).ToList();
+						data = transformerItems.Select(i => i.PreparedText).ToList();
+					}
+					else
+						data = data.Select(i => PluginHelper.PrepareText(format, i)).ToList();
 					resultBatchTranslate = serviceHelper.BatchTranslate(options, data, this.srcLangCode, this.trgLangCode, format: format, routing: routing);
-					resultBatchTranslate.resultTranslate = resultBatchTranslate.resultTranslate
-						.Select(i => IntentoMTTagHelper.CustomPrepareResult(i, intentoTagReplacement))
-						.Select(i => PluginHelper.PrepareResult(format, i)).ToList();
 
 					int resultLength = resultBatchTranslate.resultTranslate.Count;
 					if (segs.Length != resultLength)
 						throw new Exception(string.Format("Invalid result from Intento API: segments count is different {0}/{1}", segs.Length, resultLength));
 					for (int i = 0; i < resultLength; i++)
 					{
+						string res = resultBatchTranslate.resultTranslate[i];
 						//  if the segment returned null, then an error occurred while translating
-						if (resultBatchTranslate.resultTranslate[i] != null)
+						if (res != null)
 						{
-							results[i] = ConverStringToSegment(resultBatchTranslate.resultTranslate[i], segs[i].ITags, tagged);
+							if (advancedSdk)
+								res = transformerItems[i].PrepareResult(res);
+							else
+								res = PluginHelper.PrepareResult(format, res);
+							results[i] = ConverStringToSegment(res, segs[i].ITags, tagged);
 							results[i].Info = string.IsNullOrWhiteSpace(resultBatchTranslate.viaProvider) ?
 								null : string.Format("translated using {0}", resultBatchTranslate.viaProvider);
 						}
@@ -208,9 +219,9 @@ namespace IntentoMTPlugin
 			return result;
 		}
 
-#endregion
+		#endregion
 
-#region ISessionForStoringTranslations
+		#region ISessionForStoringTranslations
 
 		public void StoreTranslation(TranslationUnit transunit)
 		{
@@ -241,16 +252,16 @@ namespace IntentoMTPlugin
 			}
 		}
 
-#endregion
+		#endregion
 
-#region IDisposable Members
+		#region IDisposable Members
 
 		public void Dispose()
 		{
 			// dispose your resources if needed
 		}
 
-#endregion
+		#endregion
 
 
 		public class WrapperMemoQAddinsCommon
@@ -269,7 +280,6 @@ namespace IntentoMTPlugin
 
 				System.Type[] types = assembly.GetExportedTypes();
 				System.Type typedll;
-#if !VARIANT_PUBLIC
 				typedll = types.Where(i => i.Name == "SegmentXMLConverter").FirstOrDefault();
 				if (typedll != null)
 				{
@@ -278,7 +288,6 @@ namespace IntentoMTPlugin
 					methodConvertHtml2Segment = typedll.GetMethod("ConvertXML2Segment");
 				}
 				else
-#endif
 				{
 					typedll = types.Where(i => i.Name == "SegmentHtmlConverter").FirstOrDefault();
 					methodConvertSegment2Html = typedll.GetMethod("ConvertSegment2Html");

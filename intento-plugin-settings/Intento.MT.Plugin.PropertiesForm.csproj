@@ -151,7 +151,6 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="githashForm.bat" />
-    <None Include="packages.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>

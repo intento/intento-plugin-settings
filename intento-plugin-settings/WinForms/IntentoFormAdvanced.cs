@@ -40,6 +40,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             labelCustomSettingsName.Text = Resource.FAlabelCustomSettingsName;
 			checkBoxCustomTagParser.Text = Resource.FAcheckBoxCustomTagParser;
 			checkBoxCutTags.Text = Resource.FACheckBoxCutTags;
+			checkBoxSaveLocally.Text = Resource.FAcheckBoxSaveLocally;
 
 			var options = parent.currentOptions;
 			if (options.ForbidSaveApikey)
@@ -59,6 +60,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             parent.currentOptions.CustomSettingsName = string.IsNullOrWhiteSpace(textBoxCustomSettingsName.Text) ? null : textBoxCustomSettingsName.Text;
 			parent.currentOptions.CustomTagParser = checkBoxCustomTagParser.Checked;
 			parent.currentOptions.CutTag = checkBoxCutTags.Checked;
+			parent.currentOptions.SaveLocally = checkBoxSaveLocally.Checked;
 
 			if (!checkBoxProxy.Checked)
             {
@@ -106,8 +108,8 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             groupBoxAuth.Enabled = checkBoxAuth.Checked;
             if (checkBoxAuth.Checked)
             {
-                textBoxUserName.Text = parent.apiKeyState.GetValueFromRegistry("ProxyUserName");
-                textBoxPassword.Text = parent.apiKeyState.GetValueFromRegistry("ProxyPassw");
+                textBoxUserName.Text = parent.GetValueFromRegistry("ProxyUserName");
+                textBoxPassword.Text = parent.GetValueFromRegistry("ProxyPassw");
             }
             else
             {
@@ -168,27 +170,29 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			textBoxCustomSettingsName.Text = parent.currentOptions.CustomSettingsName;
 			checkBoxCustomTagParser.Checked = parent.currentOptions.CustomTagParser;
 			checkBoxCutTags.Checked = parent.currentOptions.CutTag;
-			checkBoxCustomTagParser.Location = labelCustomSettingsName.Location;
+			checkBoxCustomTagParser.Location = checkBoxCutTags.Location;
+			checkBoxSaveLocally.Checked = parent.currentOptions.SaveLocally;
+			checkBoxSaveLocally.Visible = parent.isTrados || !parent.memoqPublic;
 
-			bool isTrados = (parent.currentOptions.AppName == "SdlTradosStudioPlugin");
 			// Specific setting for Trados
-			textBoxCustomSettingsName.Visible = isTrados;
-			labelCustomSettingsName.Visible = isTrados;
-			checkBoxCutTags.Visible = isTrados;
+			textBoxCustomSettingsName.Visible = parent.isTrados;
+			labelCustomSettingsName.Visible = parent.isTrados;
+			checkBoxCutTags.Visible = parent.isTrados;
+			
 			// Specific setting for Memoq
-			checkBoxCustomTagParser.Visible = !isTrados;
-			checkBoxCustomTagParser.Visible = 
-				!isTrados 
-				&& parent.currentOptions.MemoqAdditional != null 
-				&& !(bool)parent.currentOptions.MemoqAdditional["VARIANT_PUBLIC"];
+			checkBoxCustomTagParser.Visible = !parent.isTrados;
+			checkBoxCustomTagParser.Enabled =
+							!parent.isTrados
+							&& parent.currentOptions.MemoqAdditional != null
+							&& !(bool)parent.currentOptions.MemoqAdditional["VARIANT_PUBLIC"];
 
 			if (proxySettings == null)
             {
-                textBoxAddress.Text = parent.apiKeyState.GetValueFromRegistry("ProxyAddress");
-                textBoxPort.Text = parent.apiKeyState.GetValueFromRegistry("ProxyPort");
-                textBoxUserName.Text = parent.apiKeyState.GetValueFromRegistry("ProxyUserName");
+                textBoxAddress.Text = parent.GetValueFromRegistry("ProxyAddress");
+                textBoxPort.Text = parent.GetValueFromRegistry("ProxyPort");
+                textBoxUserName.Text = parent.GetValueFromRegistry("ProxyUserName");
                 checkBoxAuth.Checked = !string.IsNullOrWhiteSpace(textBoxUserName.Text);
-                textBoxPassword.Text = parent.apiKeyState.GetValueFromRegistry("ProxyPassw");
+                textBoxPassword.Text = parent.GetValueFromRegistry("ProxyPassw");
                 checkBoxProxy.Checked = false;
             }
             else
