@@ -219,17 +219,19 @@ namespace IntentoMTPlugin
 		private IList<IList<string>> GetIntentoLangPairs(string providerId)
 		{
 			IList<IList<string>> langPairs = null;
+			string key = string.IsNullOrEmpty(providerId) ? "smartrouting" : providerId;
 			if (ProviderPairsDct == null)
 				ProviderPairsDct = new Dictionary<string, object>();
-			if (ProviderPairsDct.ContainsKey(providerId) && ProviderPairsDct[providerId] != null)
-				langPairs =  (IList<IList<string>>)ProviderPairsDct[providerId];
+			if (ProviderPairsDct.ContainsKey(key) && ProviderPairsDct[key] != null)
+				langPairs = (IList<IList<string>>)ProviderPairsDct[key];
 			else
 			{
-				langPairs = intentoMTServiceHelper.IntentoLanguagePairs();
-				ProviderPairsDct[providerId] = langPairs;
+				langPairs = intentoMTServiceHelper.IntentoLanguagePairs(providerId);
+				ProviderPairsDct[key] = langPairs;
 			}
 			return langPairs;
 		}
+
 
 		/// <summary>
 		/// Tells memoQ if the plugin supports the provided language combination. The strings provided are memoQ language codes.
