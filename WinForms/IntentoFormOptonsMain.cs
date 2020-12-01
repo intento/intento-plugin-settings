@@ -513,6 +513,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 		#endregion events
 
+		public static void Logging(string subject, string comment = null, Exception ex = null)
+		{
+			Logs.Logging(subject, comment, ex);
+		}
+
 		private void LocalizeContent()
 		{
 			groupBoxBillingAccount.Text = Resource.BillingAccount;

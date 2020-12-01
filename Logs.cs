@@ -132,10 +132,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 			{
 				conn.DefaultRequestHeaders.Add("apikey", ApiKey);
 				jsonResult = await conn.PostAsync(url, content);
+				//string s = await jsonResult.Content.ReadAsStringAsync();
 			}
-
-			//intnt.Logging.WriteWithOutResult("тестовая строка", Logs.PluginName, Logs.SessionId);
-
 		}
 
 	}
