@@ -70,7 +70,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Intento API Key:.
+        ///   Looks up a localized string similar to Intento API key:.
         /// </summary>
         internal static string APIFlabelAPI {
             get {
@@ -115,7 +115,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Billing Account.
+        ///   Looks up a localized string similar to Billing account.
         /// </summary>
         internal static string BillingAccount {
             get {
@@ -395,7 +395,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change MT Settings.
+        ///   Looks up a localized string similar to Change MT settings.
         /// </summary>
         internal static string MFbuttonMTSetting {
             get {
@@ -413,7 +413,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Machine Translation Settings.
+        ///   Looks up a localized string similar to Machine translation settings.
         /// </summary>
         internal static string MFgroupBoxMTSettings {
             get {
@@ -422,7 +422,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You changed ApiKey. We recommend to test MT Settings..
+        ///   Looks up a localized string similar to You changed ApiKey. We recommend to test MT settings..
         /// </summary>
         internal static string MFlabelApiKeyIsChanged {
             get {
@@ -494,7 +494,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configure Machine Translation.
+        ///   Looks up a localized string similar to Configure machine translation.
         /// </summary>
         internal static string MTcaption {
             get {
@@ -530,7 +530,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Connected Account.
+        ///   Looks up a localized string similar to Use connected account.
         /// </summary>
         internal static string MTcheckBoxUseOwnCred {
             get {
@@ -584,7 +584,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We will send one-character translation request to test this configuration.
+        ///   Looks up a localized string similar to We will send a one-character translation request to test this configuration.
         ///If you have selected custom model or glossary, please adjust the language pair:.
         /// </summary>
         internal static string MTlabelHelpOptional {
@@ -612,7 +612,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to need a choice....
+        ///   Looks up a localized string similar to Click the button to select a provider.
         /// </summary>
         internal static string NeedAChoise {
             get {

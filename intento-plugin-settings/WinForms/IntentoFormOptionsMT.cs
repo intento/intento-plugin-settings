@@ -319,5 +319,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
+		private void labelHelpGlossary_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

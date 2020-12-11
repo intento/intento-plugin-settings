@@ -45,7 +45,7 @@
 			this.labelAPI.Name = "labelAPI";
 			this.labelAPI.Size = new System.Drawing.Size(87, 13);
 			this.labelAPI.TabIndex = 21;
-			this.labelAPI.Text = "Intento API Key:";
+			this.labelAPI.Text = "Intento API key:";
 			// 
 			// apiKey_tb
 			// 
@@ -74,11 +74,11 @@
 			this.labelError.AutoSize = true;
 			this.labelError.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.labelError.ForeColor = System.Drawing.Color.Red;
-			this.labelError.Location = new System.Drawing.Point(12, 78);
+			this.labelError.Location = new System.Drawing.Point(25, 74);
 			this.labelError.Name = "labelError";
-			this.labelError.Size = new System.Drawing.Size(39, 13);
+			this.labelError.Size = new System.Drawing.Size(32, 13);
 			this.labelError.TabIndex = 23;
-			this.labelError.Text = "EMPTY";
+			this.labelError.Text = "Error";
 			this.toolTip1.SetToolTip(this.labelError, "1Click to copy error to clipboard");
 			this.labelError.Visible = false;
 			this.labelError.Click += new System.EventHandler(this.labelError_Click);
@@ -87,7 +87,7 @@
 			// 
 			this.buttonSave.Location = new System.Drawing.Point(307, 69);
 			this.buttonSave.Name = "buttonSave";
-			this.buttonSave.Size = new System.Drawing.Size(114, 30);
+			this.buttonSave.Size = new System.Drawing.Size(114, 22);
 			this.buttonSave.TabIndex = 24;
 			this.buttonSave.Text = "Test and save";
 			this.buttonSave.UseVisualStyleBackColor = true;
@@ -98,7 +98,7 @@
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonCancel.Location = new System.Drawing.Point(427, 69);
 			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.Size = new System.Drawing.Size(81, 30);
+			this.buttonCancel.Size = new System.Drawing.Size(81, 22);
 			this.buttonCancel.TabIndex = 25;
 			this.buttonCancel.Text = "Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
