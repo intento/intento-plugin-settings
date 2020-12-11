@@ -213,7 +213,7 @@
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonCancel.Location = new System.Drawing.Point(384, 352);
 			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.Size = new System.Drawing.Size(81, 30);
+			this.buttonCancel.Size = new System.Drawing.Size(81, 22);
 			this.buttonCancel.TabIndex = 33;
 			this.buttonCancel.Text = "1Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
@@ -222,7 +222,7 @@
 			// 
 			this.buttonSave.Location = new System.Drawing.Point(293, 352);
 			this.buttonSave.Name = "buttonSave";
-			this.buttonSave.Size = new System.Drawing.Size(81, 30);
+			this.buttonSave.Size = new System.Drawing.Size(81, 22);
 			this.buttonSave.TabIndex = 32;
 			this.buttonSave.Text = "1Save";
 			this.buttonSave.UseVisualStyleBackColor = true;
@@ -294,7 +294,7 @@
 			// 
 			this.labelError.AutoSize = true;
 			this.labelError.ForeColor = System.Drawing.Color.Red;
-			this.labelError.Location = new System.Drawing.Point(13, 363);
+			this.labelError.Location = new System.Drawing.Point(13, 357);
 			this.labelError.Name = "labelError";
 			this.labelError.Size = new System.Drawing.Size(123, 13);
 			this.labelError.TabIndex = 34;

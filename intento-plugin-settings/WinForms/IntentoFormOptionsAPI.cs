@@ -46,8 +46,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             var nl = Environment.NewLine;
             if (!string.IsNullOrWhiteSpace(err))
             {
-                labelError.Text = string.Format("ERROR: {0}", err);
-                labelError.Visible = true;
+                //labelError.Text = string.Format("ERROR: {0}", err);
+				toolTip1.ToolTipTitle = Resource.APIToolTipMessage;
+
+				labelError.Visible = true;
                 if (errDetail != null)
                 {
                     errorInfo = (
@@ -57,7 +59,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                         string.Join(nl, errDetail.ToArray()) 
                         ));
 
-                    toolTip1.SetToolTip(labelError, Resource.APIToolTipMessage);
+                    toolTip1.SetToolTip(labelError, err );
                 }
             }
             else

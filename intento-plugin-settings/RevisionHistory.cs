@@ -113,5 +113,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// - Change the font on forms to Segoe UI 
 		// 2.2.19 2020-10-28
 		// - Trados: the ability to save settings locally
+		// 2.2.19.1 2020-12-11
+		// - Changes after memoq review
 	}
 }

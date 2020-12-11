@@ -123,7 +123,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			this.linkLabel1.AutoSize = true;
 			this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-			this.linkLabel1.Location = new System.Drawing.Point(41, 0);
+			this.linkLabel1.Location = new System.Drawing.Point(43, 0);
 			this.linkLabel1.Name = "linkLabel1";
 			this.linkLabel1.Size = new System.Drawing.Size(12, 13);
 			this.linkLabel1.TabIndex = 7;
@@ -188,7 +188,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			this.linkLabel3.AutoSize = true;
 			this.linkLabel3.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-			this.linkLabel3.Location = new System.Drawing.Point(84, 0);
+			this.linkLabel3.Location = new System.Drawing.Point(86, 0);
 			this.linkLabel3.Name = "linkLabel3";
 			this.linkLabel3.Size = new System.Drawing.Size(12, 13);
 			this.linkLabel3.TabIndex = 33;
@@ -305,7 +305,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			this.linkLabel2.AutoSize = true;
 			this.linkLabel2.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-			this.linkLabel2.Location = new System.Drawing.Point(52, 0);
+			this.linkLabel2.Location = new System.Drawing.Point(55, 0);
 			this.linkLabel2.Name = "linkLabel2";
 			this.linkLabel2.Size = new System.Drawing.Size(12, 13);
 			this.linkLabel2.TabIndex = 33;
@@ -335,6 +335,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.labelHelpGlossary.Text = "1Some of MT Providers enable using your custom terminology or glossary. If you ha" +
     "be one, please specify it below.";
 			this.labelHelpGlossary.Visible = false;
+			this.labelHelpGlossary.Click += new System.EventHandler(this.labelHelpGlossary_Click);
 			// 
 			// comboBoxGlossaries
 			// 
@@ -417,7 +418,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonCancel.Location = new System.Drawing.Point(398, 577);
 			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.Size = new System.Drawing.Size(81, 30);
+			this.buttonCancel.Size = new System.Drawing.Size(81, 22);
 			this.buttonCancel.TabIndex = 31;
 			this.buttonCancel.Text = "1Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
@@ -426,7 +427,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			this.buttonSave.Location = new System.Drawing.Point(278, 577);
 			this.buttonSave.Name = "buttonSave";
-			this.buttonSave.Size = new System.Drawing.Size(114, 30);
+			this.buttonSave.Size = new System.Drawing.Size(114, 22);
 			this.buttonSave.TabIndex = 30;
 			this.buttonSave.Text = "1Test and save";
 			this.buttonSave.UseVisualStyleBackColor = true;

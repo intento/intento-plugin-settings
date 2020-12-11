@@ -281,6 +281,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (!internalControlChange)
                 GlossaryState.FillOptions(this, options);
 			EnableDisable();
+			formMT.textBoxGlossary.SelectionStart = formMT.textBoxGlossary.Text.Length;
+			formMT.textBoxGlossary.SelectionLength = 0;
 		}
 
 		#endregion Events

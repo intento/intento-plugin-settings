@@ -313,13 +313,14 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         public void modelControls_ValueChanged()
         {
-            if (!firstTimeDraw && !internalControlChange)
 			if (!firstTimeDraw && !internalControlChange)
                 ModelState.FillOptions(this, options);
             EnableDisable();
-        }
+			formMT.textBoxModel.SelectionStart = formMT.textBoxModel.Text.Length;
+			formMT.textBoxModel.SelectionLength = 0;
+		}
 
-        static void Internal_Change_checkBoxUseCustomModel_Checked(IntentoFormOptionsMT formMT, bool value)
+		static void Internal_Change_checkBoxUseCustomModel_Checked(IntentoFormOptionsMT formMT, bool value)
         {
             internalControlChange = formMT.checkBoxUseCustomModel.Checked != value;
             formMT.checkBoxUseCustomModel.Checked = value;
