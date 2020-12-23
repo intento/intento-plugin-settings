@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+			this.components = new System.ComponentModel.Container();
 			this.buttonContinueEdit = new System.Windows.Forms.Button();
 			this.buttonIgnoreAndSave = new System.Windows.Forms.Button();
 			this.labelError = new System.Windows.Forms.Label();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.SuspendLayout();
 			// 
 			// buttonContinueEdit
@@ -61,6 +63,15 @@
 			this.labelError.Size = new System.Drawing.Size(39, 13);
 			this.labelError.TabIndex = 34;
 			this.labelError.Text = "EMPTY";
+			this.labelError.Click += new System.EventHandler(this.labelError_Click);
+			// 
+			// toolTip1
+			// 
+			this.toolTip1.Active = false;
+			this.toolTip1.AutomaticDelay = 300;
+			this.toolTip1.AutoPopDelay = 7000;
+			this.toolTip1.InitialDelay = 300;
+			this.toolTip1.ReshowDelay = 60;
 			// 
 			// IntentoFormIgnoreError
 			// 
@@ -92,5 +103,6 @@
         private System.Windows.Forms.Button buttonContinueEdit;
         public System.Windows.Forms.Button buttonIgnoreAndSave;
         public System.Windows.Forms.Label labelError;
-    }
+		private System.Windows.Forms.ToolTip toolTip1;
+	}
 }

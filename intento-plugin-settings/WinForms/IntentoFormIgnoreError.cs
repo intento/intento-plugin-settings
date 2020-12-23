@@ -12,11 +12,35 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 {
     public partial class IntentoFormIgnoreError : Form
     {
-        public IntentoFormIgnoreError()
+		string errorInfo;
+
+		public IntentoFormIgnoreError()
         {
             InitializeComponent();
             buttonContinueEdit.Text = Resource.ButtonContinueEdit;
             buttonIgnoreAndSave.DialogResult = DialogResult.OK;
-        }
-    }
+			toolTip1.SetToolTip(labelError, Resource.APIToolTipMessage);
+		}
+
+		public void setAdditionalErrorInfo(string msg)
+		{
+			if (!string.IsNullOrWhiteSpace(msg))
+			{
+				labelError.Cursor = Cursors.Hand;
+				this.labelError.Click += this.labelError_Click;
+				toolTip1.Active = true;
+				errorInfo = msg;
+			}
+		}
+
+		private void labelError_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				Clipboard.ContainsText();
+				Clipboard.SetDataObject(errorInfo, true, 10, 150);
+			}
+			catch (Exception) { }
+		}
+	}
 }

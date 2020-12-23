@@ -55,10 +55,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.labelHelpGlossary = new System.Windows.Forms.Label();
 			this.comboBoxGlossaries = new System.Windows.Forms.ComboBox();
 			this.groupBoxOptional = new System.Windows.Forms.GroupBox();
-			this.labelHelpOptional = new System.Windows.Forms.Label();
 			this.labelDirectionChar = new System.Windows.Forms.Label();
 			this.comboBoxTo = new System.Windows.Forms.ComboBox();
 			this.comboBoxFrom = new System.Windows.Forms.ComboBox();
+			this.labelHelpOptional = new System.Windows.Forms.Label();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.toolTipHelp = new System.Windows.Forms.ToolTip(this.components);
@@ -135,11 +135,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			// groupBoxBillingAccount
 			// 
-			this.groupBoxBillingAccount.Controls.Add(this.panelConnectAccount);
 			this.groupBoxBillingAccount.Controls.Add(this.buttonRefresh);
+			this.groupBoxBillingAccount.Controls.Add(this.comboBoxCredentialId);
+			this.groupBoxBillingAccount.Controls.Add(this.panelConnectAccount);
 			this.groupBoxBillingAccount.Controls.Add(this.linkLabel3);
 			this.groupBoxBillingAccount.Controls.Add(this.labelHelpBillingAccount);
-			this.groupBoxBillingAccount.Controls.Add(this.comboBoxCredentialId);
 			this.groupBoxBillingAccount.Location = new System.Drawing.Point(12, 102);
 			this.groupBoxBillingAccount.Name = "groupBoxBillingAccount";
 			this.groupBoxBillingAccount.Size = new System.Drawing.Size(466, 105);
@@ -200,6 +200,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			// labelHelpBillingAccount
 			// 
+			this.labelHelpBillingAccount.BackColor = System.Drawing.SystemColors.Control;
 			this.labelHelpBillingAccount.Location = new System.Drawing.Point(8, 21);
 			this.labelHelpBillingAccount.Name = "labelHelpBillingAccount";
 			this.labelHelpBillingAccount.Size = new System.Drawing.Size(427, 32);
@@ -225,11 +226,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			// groupBoxModel
 			// 
-			this.groupBoxModel.Controls.Add(this.linkLabel1);
 			this.groupBoxModel.Controls.Add(this.textBoxModel);
-			this.groupBoxModel.Controls.Add(this.labelHelpModel);
 			this.groupBoxModel.Controls.Add(this.checkBoxUseCustomModel);
 			this.groupBoxModel.Controls.Add(this.comboBoxModels);
+			this.groupBoxModel.Controls.Add(this.linkLabel1);
+			this.groupBoxModel.Controls.Add(this.labelHelpModel);
 			this.groupBoxModel.Enabled = false;
 			this.groupBoxModel.Location = new System.Drawing.Point(12, 216);
 			this.groupBoxModel.Name = "groupBoxModel";
@@ -290,10 +291,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			// groupBoxGlossary
 			// 
-			this.groupBoxGlossary.Controls.Add(this.linkLabel2);
 			this.groupBoxGlossary.Controls.Add(this.textBoxGlossary);
-			this.groupBoxGlossary.Controls.Add(this.labelHelpGlossary);
 			this.groupBoxGlossary.Controls.Add(this.comboBoxGlossaries);
+			this.groupBoxGlossary.Controls.Add(this.linkLabel2);
+			this.groupBoxGlossary.Controls.Add(this.labelHelpGlossary);
 			this.groupBoxGlossary.Location = new System.Drawing.Point(12, 338);
 			this.groupBoxGlossary.Name = "groupBoxGlossary";
 			this.groupBoxGlossary.Size = new System.Drawing.Size(466, 94);
@@ -335,7 +336,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.labelHelpGlossary.Text = "1Some of MT Providers enable using your custom terminology or glossary. If you ha" +
     "be one, please specify it below.";
 			this.labelHelpGlossary.Visible = false;
-			this.labelHelpGlossary.Click += new System.EventHandler(this.labelHelpGlossary_Click);
 			// 
 			// comboBoxGlossaries
 			// 
@@ -355,25 +355,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			// groupBoxOptional
 			// 
-			this.groupBoxOptional.Controls.Add(this.labelHelpOptional);
 			this.groupBoxOptional.Controls.Add(this.labelDirectionChar);
 			this.groupBoxOptional.Controls.Add(this.comboBoxTo);
 			this.groupBoxOptional.Controls.Add(this.comboBoxFrom);
+			this.groupBoxOptional.Controls.Add(this.labelHelpOptional);
 			this.groupBoxOptional.Location = new System.Drawing.Point(12, 445);
 			this.groupBoxOptional.Name = "groupBoxOptional";
 			this.groupBoxOptional.Size = new System.Drawing.Size(466, 103);
 			this.groupBoxOptional.TabIndex = 29;
 			this.groupBoxOptional.TabStop = false;
 			this.groupBoxOptional.Text = "1OPTIONAL";
-			// 
-			// labelHelpOptional
-			// 
-			this.labelHelpOptional.Location = new System.Drawing.Point(8, 21);
-			this.labelHelpOptional.Name = "labelHelpOptional";
-			this.labelHelpOptional.Size = new System.Drawing.Size(427, 32);
-			this.labelHelpOptional.TabIndex = 33;
-			this.labelHelpOptional.Text = "1We will send one-character translation request to test this configuration.\r\nIf y" +
-    "ou have selected custom model or glossary, please adjust the language pair:";
 			// 
 			// labelDirectionChar
 			// 
@@ -385,11 +376,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.labelDirectionChar.Name = "labelDirectionChar";
 			this.labelDirectionChar.Size = new System.Drawing.Size(36, 32);
 			this.labelDirectionChar.TabIndex = 14;
+			this.labelDirectionChar.Tag = "fix_high_dpi";
 			this.labelDirectionChar.Text = "→";
 			// 
 			// comboBoxTo
 			// 
-			this.comboBoxTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.comboBoxTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.comboBoxTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -398,10 +390,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.comboBoxTo.Name = "comboBoxTo";
 			this.comboBoxTo.Size = new System.Drawing.Size(119, 21);
 			this.comboBoxTo.TabIndex = 13;
+			this.comboBoxTo.Tag = "fix_high_dpi";
 			// 
 			// comboBoxFrom
 			// 
-			this.comboBoxFrom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.comboBoxFrom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.comboBoxFrom.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
 			this.comboBoxFrom.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
@@ -412,6 +405,17 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.comboBoxFrom.Name = "comboBoxFrom";
 			this.comboBoxFrom.Size = new System.Drawing.Size(119, 21);
 			this.comboBoxFrom.TabIndex = 10;
+			this.comboBoxFrom.Tag = "fix_high_dpi";
+			// 
+			// labelHelpOptional
+			// 
+			this.labelHelpOptional.BackColor = System.Drawing.SystemColors.Control;
+			this.labelHelpOptional.Location = new System.Drawing.Point(8, 21);
+			this.labelHelpOptional.Name = "labelHelpOptional";
+			this.labelHelpOptional.Size = new System.Drawing.Size(427, 28);
+			this.labelHelpOptional.TabIndex = 33;
+			this.labelHelpOptional.Text = "1We will send one-character translation request to test this configuration.\r\nIf y" +
+    "ou have selected custom model or glossary, please adjust the language pair:";
 			// 
 			// buttonCancel
 			// 
@@ -504,7 +508,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         private System.Windows.Forms.Label labelHelpBillingAccount;
         private System.Windows.Forms.Label labelHelpModel;
         private System.Windows.Forms.Label labelHelpGlossary;
-        private System.Windows.Forms.Label labelHelpOptional;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.ToolTip toolTipHelp;
         public System.Windows.Forms.GroupBox groupBoxBillingAccount;
@@ -521,5 +524,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public System.Windows.Forms.TextBox textBoxLabelConnectAccount;
 		public System.Windows.Forms.Panel panelConnectAccount;
 		public System.Windows.Forms.Button buttonRefresh;
+		private System.Windows.Forms.Label labelHelpOptional;
 	}
 }

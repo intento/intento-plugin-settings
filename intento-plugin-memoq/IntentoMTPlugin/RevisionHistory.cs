@@ -167,6 +167,12 @@ namespace IntentoMemoQMTPlugin
 		// - Bug: list of available lang pairs inherited from previous settings
 		// 3.0.3 2020-11-10
 		// - Public version
+		// 3.0.4 2020-11-10
+		// - The format is always html, regardless of tagged text or not
+		// 3.0.5 2020-12-21
+		// - Bug: invalid processing of tags in case no tag in translation results
+		// 3.0.6 2020-12-23
+		// - Public version
 
 	}
 }

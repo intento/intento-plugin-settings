@@ -77,18 +77,30 @@ namespace IntentoMTPlugin
 				if (_intentoTagReplacement)
 				{
 					string tag;
+					bool mismatch = false;
 					if (skew > 0)
 					{ // add close tags
 						tag = "</span>";
 						for (int i = 0; i < skew; i++)
-							text = text.Substring(0, text.LastIndexOf(tag)) + text.Substring(text.LastIndexOf(tag)+tag.Length);
+						{
+							mismatch = text.LastIndexOf(tag) == -1;
+							if (mismatch)
+								break;
+
+							text = text.Substring(0, text.LastIndexOf(tag)) + text.Substring(text.LastIndexOf(tag) + tag.Length);
+						}
 					}
 					else if (skew < 0)
 					{ // add open tags
 						for (int i = 0; i > skew; i--)
 						{
-							tag = string.Format("<span id=\"balancing_intento_tag{0}\">", Math.Abs(i)) ;
+							tag = string.Format("<span id=\"balancing_intento_tag{0}\">", Math.Abs(i));
 							text = text.Substring(0, text.IndexOf(tag)) + text.Substring(text.IndexOf(tag) + tag.Length);
+							var pos = text.IndexOf(tag);
+							mismatch = pos == -1;
+							if (mismatch)
+								break;
+							text = text.Substring(0, pos) + text.Substring(pos + tag.Length);
 						}
 					}
 

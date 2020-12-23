@@ -115,5 +115,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// - Trados: the ability to save settings locally
 		// 2.2.19.1 2020-12-11
 		// - Changes after memoq review
+		// 2.2.19.2 2020-12-21
+		// - Size adjustment for high dpi
+		// - Changes in error display and copy to clipboard
 	}
 }

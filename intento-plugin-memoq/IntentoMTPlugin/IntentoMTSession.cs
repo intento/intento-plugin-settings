@@ -126,7 +126,8 @@ namespace IntentoMTPlugin
 
 					IList<string> data = new List<string>();
 					IntentoMTServiceHelper.ResultBatchTranslate resultBatchTranslate;
-					string format = tagged ? GetTaggedFormat() : null;
+					//string format = tagged ? GetTaggedFormat() : null;
+					string format = GetTaggedFormat();
 					//  ConvertSegment2Xml or ConvertSegment2Html
 					bool advancedSdk = WrapperMemoQAddinsCommon.Get().advancedSdk;
 					string routing = null; //provider_id available

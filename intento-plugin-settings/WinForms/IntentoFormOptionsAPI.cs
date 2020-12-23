@@ -36,6 +36,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             checkBoxShowHidden.Text = Resource.APIFcheckBoxShowHidden;
             buttonCancel.Text = Resource.Cancel;
             buttonSave.Text = Resource.TestAndSave;
+			toolTip1.SetToolTip(labelError, Resource.APIToolTipMessage);
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -88,7 +89,13 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private void labelError_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(errorInfo);
+			try
+			{
+				Clipboard.ContainsText();
+				Clipboard.SetDataObject(errorInfo, true, 10, 150);
+			}
+			catch (Exception){}
+
         }
     }
 }
