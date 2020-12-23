@@ -95,7 +95,6 @@ namespace IntentoMTPlugin
 						for (int i = 0; i > skew; i--)
 						{
 							tag = string.Format("<span id=\"balancing_intento_tag{0}\">", Math.Abs(i));
-							text = text.Substring(0, text.IndexOf(tag)) + text.Substring(text.IndexOf(tag) + tag.Length);
 							var pos = text.IndexOf(tag);
 							mismatch = pos == -1;
 							if (mismatch)
