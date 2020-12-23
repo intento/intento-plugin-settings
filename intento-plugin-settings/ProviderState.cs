@@ -378,7 +378,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 		public void SetLanguageComboBoxes(string from, string to)
 		{
-			if (fromLanguages != null)
+			if (fromLanguages != null && formMT.comboBoxFrom.Items.Count>0)
 			{
 				if (!string.IsNullOrWhiteSpace(from) && fromLanguages.ContainsKey(from))
 					formMT.comboBoxFrom.SelectedItem = fromLanguages[from];
@@ -386,13 +386,13 @@ namespace Intento.MT.Plugin.PropertiesForm
 					formMT.comboBoxFrom.SelectedItem = fromLanguages[options.FromLanguage];
 				else if (fromLanguages.ContainsKey("en"))
 					formMT.comboBoxFrom.SelectedItem = fromLanguages["en"];
-				else if (!string.IsNullOrWhiteSpace(form.originalOptions.FromLanguage) || fromLanguages.ContainsKey(form.originalOptions.FromLanguage))
+				else if (!string.IsNullOrWhiteSpace(form.originalOptions.FromLanguage) && fromLanguages.ContainsKey(form.originalOptions.FromLanguage))
 					formMT.comboBoxFrom.SelectedItem = fromLanguages[form.originalOptions.FromLanguage];
 				else
 					formMT.comboBoxFrom.SelectedIndex = 1;
 			}
 
-			if (toLanguages != null)
+			if (toLanguages != null && formMT.comboBoxTo.Items.Count > 0)
 			{
 				if (!string.IsNullOrWhiteSpace(to) && toLanguages.ContainsKey(to))
 					formMT.comboBoxTo.SelectedItem = toLanguages[to];

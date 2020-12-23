@@ -37,6 +37,9 @@
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="IntentoSDK">
       <HintPath>..\intento-csharp\bin\IntentoSDK.dll</HintPath>
@@ -150,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="app.manifest" />
     <None Include="githashForm.bat" />
     <None Include="README.md" />
   </ItemGroup>

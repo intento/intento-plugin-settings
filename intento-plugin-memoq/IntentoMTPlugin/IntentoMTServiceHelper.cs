@@ -216,8 +216,16 @@ namespace IntentoMTPlugin
                 List<string> list = new List<string>();
                 foreach (string z in res.response[0].results)
                     list.Add(z);
-				string provider = (string)res.meta?.providers[0]?.name;
-                return new ResultBatchTranslate(list, provider);
+				string provider = null;
+				try
+				{
+					if (res.meta?.providers != null && ((JArray)res.meta?.providers).Any())
+						provider = (string)res.meta?.providers[0]?.name;
+					else
+						provider = res.response[0].service?.provider?.name;
+				}
+				catch { }
+				return new ResultBatchTranslate(list, provider);
             }
         }
 
