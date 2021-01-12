@@ -118,7 +118,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// 2.2.19.2 2020-12-21
 		// - Size adjustment for high dpi
 		// - Changes in error display and copy to clipboard
-		// 2.2.19.3 2020-12-21
+		// 2.2.19.3 2021-01-12
 		// - Don't show custom parser checkbox for public version
 		// - Copyright for 2021
 	}
