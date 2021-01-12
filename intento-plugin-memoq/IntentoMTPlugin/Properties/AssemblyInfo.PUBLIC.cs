@@ -10,7 +10,7 @@ using MemoQ.Addins.Common.Framework;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Intento")]
 [assembly: AssemblyProduct("IntentoMemoQMTPlugin")]
-[assembly: AssemblyCopyright("Copyright © Intento 2018-2020")]
+[assembly: AssemblyCopyright("Copyright © Intento 2018-2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
