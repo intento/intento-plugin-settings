@@ -47,7 +47,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             var nl = Environment.NewLine;
             if (!string.IsNullOrWhiteSpace(err))
             {
-                //labelError.Text = string.Format("ERROR: {0}", err);
+				string errorMsg = err == Resource.InvalidApiKeyMessage ? err : Resource.APIFlabelErrorSeePopup;
+				labelError.Text = string.Format("ERROR: {0}", errorMsg);
+
 				toolTip1.ToolTipTitle = Resource.APIToolTipMessage;
 
 				labelError.Visible = true;
