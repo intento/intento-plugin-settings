@@ -122,5 +122,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// - Fix: Only a single character can be typed into the Glossary field in between other characters
 		// - Fix: The Enter your Intento API key button is misaligned by 1 px to the top compare to the label next to it.
 		// - Changes in error display
+		// - Don't show custom parser checkbox for public version
+		// - Copyright for 2021		
 	}
 }
