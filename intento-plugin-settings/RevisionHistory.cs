@@ -118,5 +118,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// 2.2.19.2 2020-12-21
 		// - Size adjustment for high dpi
 		// - Changes in error display and copy to clipboard
+		// 2.2.19.3 2020-01-14
+		// - Fix: Only a single character can be typed into the Glossary field in between other characters
+		// - Fix: The Enter your Intento API key button is misaligned by 1 px to the top compare to the label next to it.
+		// - Changes in error display
+		// - Don't show custom parser checkbox for public version
+		// - Copyright for 2021		
 	}
 }

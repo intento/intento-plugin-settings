@@ -175,11 +175,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 		#endregion Properties
 
-		void Clear()
+		void Clear(bool clearTextBox = true, bool clearComboBox = true )
         {
             internalControlChange = true;
-            formMT.comboBoxGlossaries.Items.Clear();
-            formMT.textBoxGlossary.Text = string.Empty;
+            if (clearComboBox) formMT.comboBoxGlossaries.Items.Clear();
+			if (clearTextBox) formMT.textBoxGlossary.Text = string.Empty;
             internalControlChange = false;
         }
 
@@ -188,12 +188,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (!authState.IsOK)
                 return;
 
-            Clear();
-
             if (!providerState.custom_glossary)
             {   // glossaries are not supported by provider
                 mode = StateModeEnum.prohibited;
                 formMT.groupBoxGlossary.Enabled = false;
+				Clear();
                 return;
             }
 
@@ -204,6 +203,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             if (isList)
             {
+				Clear();
                 // Fill Glossary and choose SelectedIndex
                 formMT.comboBoxGlossaries.Items.Insert(0, "");
                 foreach (string x in glossaries.Select(x => (string)x.Key).OrderBy(x => x))
@@ -216,7 +216,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
             else
             {
-                formMT.textBoxGlossary.Text = options.Glossary;
+				Clear(clearTextBox: false);
+				formMT.textBoxGlossary.Text = options.Glossary;
                 formMT.textBoxGlossary.Visible = true;
             }
         }
@@ -281,8 +282,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (!internalControlChange)
                 GlossaryState.FillOptions(this, options);
 			EnableDisable();
-			formMT.textBoxGlossary.SelectionStart = formMT.textBoxGlossary.Text.Length;
-			formMT.textBoxGlossary.SelectionLength = 0;
+			//formMT.textBoxGlossary.SelectionStart = formMT.textBoxGlossary.Text.Length;
+			//formMT.textBoxGlossary.SelectionLength = 0;
 		}
 
 		#endregion Events

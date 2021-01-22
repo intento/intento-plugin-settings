@@ -79,6 +79,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to See the popup for details.
+        /// </summary>
+        internal static string APIFlabelErrorSeePopup {
+            get {
+                return ResourceManager.GetString("APIFlabelErrorSeePopup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter your API key and press &quot;Check&quot; button..
         /// </summary>
         internal static string ApiKeyNeededErrorMessage {

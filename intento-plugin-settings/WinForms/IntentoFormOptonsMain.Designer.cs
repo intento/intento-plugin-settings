@@ -101,7 +101,7 @@
 			// 
 			// buttonSetApi
 			// 
-			this.buttonSetApi.Location = new System.Drawing.Point(17, 35);
+			this.buttonSetApi.Location = new System.Drawing.Point(17, 36);
 			this.buttonSetApi.Name = "buttonSetApi";
 			this.buttonSetApi.Size = new System.Drawing.Size(150, 22);
 			this.buttonSetApi.TabIndex = 0;

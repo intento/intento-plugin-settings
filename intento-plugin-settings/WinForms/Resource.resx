@@ -332,4 +332,7 @@ If you have selected custom model or glossary, please adjust the language pair:<
   <data name="FAcheckBoxSaveLocally" xml:space="preserve">
     <value>Save settings for the next projects</value>
   </data>
+  <data name="APIFlabelErrorSeePopup" xml:space="preserve">
+    <value>See the popup for details</value>
+  </data>
 </root>
