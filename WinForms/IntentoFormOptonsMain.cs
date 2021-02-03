@@ -175,7 +175,44 @@ namespace Intento.MT.Plugin.PropertiesForm
 			RefreshFormInfo();
 			splashForm.Close();
 			this.Visible = true;
-
+			string txt = string.Format(
+				@"IntentoTranslationProviderOptionsForm ctor
+				ProviderName:{0}
+				ProviderId:{1}
+				FromLanguage:{2}
+				ToLanguage:{3}
+				SmartRouting:{4}
+				UseCustomAuth:{5}
+				CustomAuth:{6}
+				AuthDelegatedCredentialId:{7}
+				UseCustomModel:{8}
+				CustomModel:{9}
+				CustomModelName:{10}
+				Glossary:{11}
+				GlossaryName:{12}
+				CustomTagParser:{13}
+				SaveLocally:{14}
+				Version:{15}
+				UserAgent:{16}",
+				currentOptions.ProviderId,
+				currentOptions.ProviderName,
+				currentOptions.FromLanguage,
+				currentOptions.ToLanguage,
+				currentOptions.SmartRouting,
+				currentOptions.UseCustomAuth,
+				currentOptions.CustomAuth,
+				currentOptions.AuthDelegatedCredentialId,
+				currentOptions.UseCustomModel,
+				currentOptions.CustomModel,
+				currentOptions.CustomModelName,
+				currentOptions.Glossary,
+				currentOptions.GlossaryName,
+				currentOptions.CustomTagParser,
+				currentOptions.SaveLocally,
+				currentOptions.UserAgent,
+				version
+				);
+			Logs.Write('F', txt);
 		}
 
 		public IntentoTranslationProviderOptionsForm(

@@ -13,21 +13,26 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 	public static class Logs
 	{
+		static string _consumer_id;
 		static string _session_id;
 		public static string ApiKey { get; set; }
 		public static string PluginName { get; set; }
 
+		public static string ConsumerId
+		{
+			get
+			{
+				if (_consumer_id == null)
+					_consumer_id = DateTime.UtcNow.ToString("yyyy-MM-dd_HH");
+				return _consumer_id;
+			}
+		}
 		public static string SessionId
 		{
 			get
 			{
-				try
-				{
-					if (_session_id == null)
-						_session_id = Guid.NewGuid().ToString();
-				}
-				catch { }
-
+				if (_session_id == null)
+					_session_id = Guid.NewGuid().ToString();
 				return _session_id;
 			}
 		}
@@ -44,26 +49,46 @@ namespace Intento.MT.Plugin.PropertiesForm
 			return IntentoTranslationProviderOptionsForm.IsTrace();
 		}
 
-		public static void Write(string text, Exception ex = null)
+		//public static void Write(char identificator, string text, Exception ex = null)
+		//{
+		//	try
+		//	{
+		//		if (string.IsNullOrEmpty(PluginName))
+		//			PluginName = "undefined";
+		//		if (!string.IsNullOrEmpty(ApiKey))
+		//		{
+		//			if (ex != null)
+		//			{
+		//				var exArr = Logs.LoggingEx(identificator, ex).ToArray();
+		//				text += "\n" + string.Join("\n", exArr);
+
+		//			}
+		//			WriteRemoteLog(identificator, text);
+		//		}
+		//	}
+		//	catch { }
+		//}
+		public static void Write(char identificator, string subject, string comment = null, Exception ex = null)
 		{
+			if (!IntentoTranslationProviderOptionsForm.IsTrace())
+				return;
+
 			try
 			{
-				if (string.IsNullOrEmpty(PluginName))
-					PluginName = "undefined";
-				if (!string.IsNullOrEmpty(ApiKey))
-				{
-					if (ex != null)
-					{
-						var exArr = Logs.LoggingEx(ex).ToArray();
-						text += "\n" + string.Join("\n", exArr);
+				DateTime now = DateTime.UtcNow;
+				List<string> content = new List<string>();
+				content.Add(string.Format("{0} {1}", now.ToString("yyyy-MM-dd HH:mm:ss.fffff"), subject));
+				if (comment != null)
+					content.Add(comment);
+				if (ex != null)
+					content.AddRange(Logs.LoggingEx(identificator, ex));
 
-					}
-					WriteRemoteLog(text);
-				}
+				WriteRemoteLog(identificator, string.Join("\n", content.ToArray()));
 			}
 			catch { }
 		}
 
+		[Obsolete("Logging is deprecated, please use Write instead.")]
 		public static void Logging(string subject, string comment = null, Exception ex = null)
 		{
 			if (!IntentoTranslationProviderOptionsForm.IsTrace())
@@ -78,12 +103,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 				if (comment != null)
 					content.Add(comment);
 				if (ex != null)
-					content.AddRange(Logs.LoggingEx(ex));
+					content.AddRange(Logs.LoggingEx('U', ex));
 
 				string flag = Environment.GetEnvironmentVariable("file_logging");
 				if (string.IsNullOrEmpty(flag))
 				{
-					Logs.Write(string.Join("\n", content.ToArray()));
+					Logs.Write('U', string.Join("\n", content.ToArray()));
 				}
 				else
 				{
@@ -98,7 +123,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 			}
 			catch { }
 		}
-		public static IEnumerable<string> LoggingEx(Exception ex)
+
+		public static IEnumerable<string> LoggingEx(char identificator, Exception ex)
 		{
 			List<string> items = new List<string>();
 			items.Add(string.Format("Exception {0}", ex.Message));
@@ -108,11 +134,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 				items.Add(ex.StackTrace);
 			}
 			if (ex.InnerException != null)
-				items.AddRange(LoggingEx(ex.InnerException));
+				items.AddRange(LoggingEx(identificator, ex.InnerException));
 			return items;
 		}
 
-		private static async void WriteRemoteLog(string text)
+		private static async void WriteRemoteLog(char identificator, string text)
 		{
 			if (!IsLogging())
 				return;
@@ -120,10 +146,13 @@ namespace Intento.MT.Plugin.PropertiesForm
 			if (text == null)
 				text = "";
 
+			if (string.IsNullOrWhiteSpace(ApiKey))
+				return;
+
 			dynamic jsonResult;
 			string url = "https://api.inten.to/telemetry/upload_json";
 			JObject data = new JObject();
-			data["plugin_name"] = PluginName;
+			data["plugin_name"] = string.Format("{0}-{1}", PluginName, identificator);
 			data["session_id"] = SessionId;
 			data["logs"] = text;
 			var content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
@@ -131,11 +160,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 			using (var conn = new HttpClient())
 			{
 				conn.DefaultRequestHeaders.Add("apikey", ApiKey);
+				conn.DefaultRequestHeaders.Add("x-consumer-id", ConsumerId);
 				jsonResult = await conn.PostAsync(url, content);
 			}
-
-			//intnt.Logging.WriteWithOutResult("тестовая строка", Logs.PluginName, Logs.SessionId);
-
 		}
 
 	}

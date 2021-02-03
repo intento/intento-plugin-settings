@@ -191,7 +191,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
                     // SmartRoutingState not created inside because status is not ok
                     ChangeStatus(EApiKeyStatus.error);
-                    error_detail = Logs.LoggingEx(ex2);
+                    error_detail = Logs.LoggingEx('M', ex2);
                 }
                 finally
                 {

@@ -113,5 +113,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// - Change the font on forms to Segoe UI 
 		// 2.2.19 2020-10-28
 		// - Trados: the ability to save settings locally
+		// 2.2.20 2020-12-03
+		// - Bug fix in provider filter for multiple language pairs	
+		// 2.2.21 2021-01-24
+		// - Logging using the Intento API
+
 	}
 }
