@@ -124,5 +124,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// - Changes in error display
 		// - Don't show custom parser checkbox for public version
 		// - Copyright for 2021		
+		// 2.2.19.4 2021-02-04
+		// - Bug fix in provider filter for multiple language pairs	
+		// - Fixed a bug with configuring a provider with one language pair	
 	}
 }
