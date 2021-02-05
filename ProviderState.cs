@@ -431,7 +431,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				else if (!string.IsNullOrWhiteSpace(form.originalOptions.ToLanguage) && toLanguages.ContainsKey(form.originalOptions.ToLanguage) && enPairs.Contains(form.originalOptions.ToLanguage))
 					formMT.comboBoxTo.SelectedItem = toLanguages[form.originalOptions.ToLanguage];
 				else
-					formMT.comboBoxTo.SelectedIndex = 1;
+					formMT.comboBoxTo.SelectedIndex = 0;
 			}
 		}
 

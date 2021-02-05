@@ -115,7 +115,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// - Trados: the ability to save settings locally
 		// 2.2.20 2020-12-03
 		// - Bug fix in provider filter for multiple language pairs	
-
+		// 2.2.21 2021-02-04
+		// - Fixed a bug with configuring a provider with one language pair	
 
 	}
 }
