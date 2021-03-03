@@ -12,6 +12,7 @@ using static Intento.MT.Plugin.PropertiesForm.IntentoMTFormOptions;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
+
 	public partial class IntentoTranslationProviderOptionsForm : Form //, IForm
 	{
 		public class LangPair
@@ -103,7 +104,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 			InitializeComponent();
 			LocalizeContent();
 
-
+			if (options.ConsoleUrl.Length > 0)
+			{
+				textBoxLabel1.Tag = options.ConsoleUrl;
+				textBoxLabel1.Text = options.ConsoleUrl;
+			}
 			buttonHelp.Visible = options.сallHelpAction != null;
 
 			Assembly currentAssem = typeof(IntentoTranslationProviderOptionsForm).Assembly;

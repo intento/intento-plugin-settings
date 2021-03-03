@@ -180,6 +180,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         // --------------------------- Internal (not serialized by application) ---------------------------
 
+        public string ConsoleUrl { get; set; }
         /// <summary>
         /// Log text (30 min) end time
         /// </summary>
