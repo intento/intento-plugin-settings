@@ -217,8 +217,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
             catch (AggregateException ex2)
             {
-				Logs.Write('F', "Trados Translate: error", ex: ex2);
-				Logs.Logging("Trados Translate: error", ex: ex2);
+				Logs.Write('F', "Test Translate error", ex: ex2);
                 return new KeyValuePair<bool, string>(false, ex2.Message);
             }
         }

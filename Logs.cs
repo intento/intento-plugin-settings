@@ -81,7 +81,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				if (comment != null)
 					content.Add(comment);
 				if (ex != null)
-					content.AddRange(Logs.LoggingEx(identificator, ex));
+					content.AddRange(LoggingEx(identificator, ex));
 
 				WriteRemoteLog(identificator, string.Join("\n", content.ToArray()));
 			}
@@ -103,12 +103,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 				if (comment != null)
 					content.Add(comment);
 				if (ex != null)
-					content.AddRange(Logs.LoggingEx('U', ex));
+					content.AddRange(LoggingEx('U', ex));
 
 				string flag = Environment.GetEnvironmentVariable("file_logging");
 				if (string.IsNullOrEmpty(flag))
 				{
-					Logs.Write('U', string.Join("\n", content.ToArray()));
+					Write('U', string.Join("\n", content.ToArray()));
 				}
 				else
 				{
