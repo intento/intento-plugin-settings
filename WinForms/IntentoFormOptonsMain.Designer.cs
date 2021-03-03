@@ -83,9 +83,9 @@
 			this.textBoxLabel1.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.textBoxLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.textBoxLabel1.ForeColor = System.Drawing.Color.Blue;
-			this.textBoxLabel1.Location = new System.Drawing.Point(249, 40);
+			this.textBoxLabel1.Location = new System.Drawing.Point(260, 40);
 			this.textBoxLabel1.Name = "textBoxLabel1";
-			this.textBoxLabel1.Size = new System.Drawing.Size(118, 13);
+			this.textBoxLabel1.Size = new System.Drawing.Size(345, 13);
 			this.textBoxLabel1.TabIndex = 20;
 			this.textBoxLabel1.Tag = "https://console.inten.to";
 			this.textBoxLabel1.Text = "https://console.inten.to";
