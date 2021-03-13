@@ -87,16 +87,19 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 		#endregion vars
 
-			public IntentoTranslationProviderOptionsForm(
+		public IntentoTranslationProviderOptionsForm(
 			IntentoMTFormOptions options,
 			LangPair[] languagePairs,
 			Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric
 			)
 		{
-            // Logs.Write2("Test", "test content");
+			// Logs.Write2("Test", "test content");
+			bool hidden = options.Hidden;
 
-            var splashForm = new IntentoFormSplash();
-			splashForm.Show();
+			var splashForm = new IntentoFormSplash();
+			if (!hidden) 
+				splashForm.Show();
+
 			this.Visible = false;
 			this.fabric = fabric;
 
@@ -116,7 +119,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// Determining the parent program that caused the plugin setting
 			appName = options.AppName;
 			isTrados = appName == "SdlTradosStudioPlugin";
-			memoqPublic = !isTrados && !appName.EndsWith("Private");
+			memoqPublic =!isTrados && !appName.EndsWith("Private");
 
 
 			locallyOptions = GetOptionsSavedLocally();
@@ -173,8 +176,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 			apiKeyState.EnableDisable();
 			RefreshFormInfo();
-			splashForm.Close();
-			this.Visible = true;
+			if (!hidden)
+			{
+				splashForm.Close();
+				this.Visible = true;
+			}
 
 		}
 
@@ -373,21 +379,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 					apiKeyState.smartRoutingState.providerState.SelectedIndexChanged();
 			}
 		}
-
-		public void apiKey_tb_TextChanged(object sender, EventArgs e)
-		{
-			apiKeyState.SetValue(((Control)sender).Text.Trim());
-			apiKeyState.EnableDisable();
-		}
-
-		//public void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
-		//{
-		//    using (new CursorFormMT(formMT))
-		//    {
-		//        apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.checkBoxUseOwnCred_CheckedChanged();
-		//        AuthState.internalControlChange = false;
-		//    }
-		//}
 
 		public void checkBoxUseCustomModel_CheckedChanged(object sender, EventArgs e)
 		{

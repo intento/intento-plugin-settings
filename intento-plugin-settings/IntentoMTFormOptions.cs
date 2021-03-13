@@ -196,7 +196,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 		/// </summary>
 		public IntentoAiTextTranslate Translate { get; set; }
 
-        private Dictionary<string, string> _authDict = null;
+		/// <summary>
+		/// Parameter to launch the form in hidden view
+		/// </summary>
+		public bool Hidden { get; set; }
+
+		private Dictionary<string, string> _authDict = null;
 
         public void SetAuthDict(Dictionary<string, string> _authDict)
         {
@@ -268,6 +273,12 @@ namespace Intento.MT.Plugin.PropertiesForm
             return res;
         }
 
-    }
+		public IntentoMTFormOptions()
+		{
+			AppName = string.Empty;
+			Signature = string.Empty;
+		}
+
+	}
 
 }

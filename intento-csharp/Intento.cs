@@ -87,7 +87,7 @@ namespace IntentoSDK
 
             var assembly = Assembly.GetExecutingAssembly();
             var fvi = assembly.GetName().Version;
-            this.version = string.Format("{0}.{1}.{2}.{3}", fvi.Major, fvi.Minor, fvi.Build, IntentoHelpers.GetGitCommitHash(assembly));
+            this.version = string.Format("{0}.{1}.{2}-{3}", fvi.Major, fvi.Minor, fvi.Build, IntentoHelpers.GetGitCommitHash(assembly));
             
             this.loggingCallback = loggingCallback;
             if (loggingCallback != null)
