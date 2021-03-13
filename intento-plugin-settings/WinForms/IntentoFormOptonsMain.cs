@@ -415,7 +415,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 					}
 				}
 				originalOptions.Translate = _translate;
-				FillOptions(originalOptions);
+				currentOptions.Fill(originalOptions);
 
 				if (!currentOptions.ForbidSaveApikey)
 				{
@@ -489,7 +489,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-        private void buttonAdvanced_Click(object sender, EventArgs e)
+		private void buttonAdvanced_Click(object sender, EventArgs e)
         {
             formAdvanced.ShowDialog();
         }
@@ -497,23 +497,27 @@ namespace Intento.MT.Plugin.PropertiesForm
         private void buttonMTSetting_Click(object sender, EventArgs e)
         {
             var smartRoutingState = apiKeyState.smartRoutingState;
+			var bufferOptions = currentOptions.Duplicate();
             formMT.ShowDialog();
             using (new CursorForm(this))
             {
-                if (formMT.DialogResult == DialogResult.OK)
-                {
-                    FillOptions(currentOptions);
-                    settingsIsSet = false;
-                    RefreshFormInfo();
-                }
-                else
-                    apiKeyState.smartRoutingState = smartRoutingState;
+				if (formMT.DialogResult == DialogResult.OK)
+				{
+					FillOptions(currentOptions);
+					settingsIsSet = false;
+					RefreshFormInfo();
+				}
+				else
+				{
+					apiKeyState.smartRoutingState = smartRoutingState;
+					currentOptions = bufferOptions;
+				}
             }
-        }
+		}
 
-        #endregion events
+		#endregion events
 
-        public static void Logging(string subject, string comment = null, Exception ex = null)
+		public static void Logging(string subject, string comment = null, Exception ex = null)
         {
             if (!IntentoTranslationProviderOptionsForm.IsTrace())
                 return;
@@ -659,7 +663,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 else
                     textBoxProviderName.Text = Resource.MFNa;
 
-                if (currentOptions.AuthMode == StateModeEnum.prohibited || currentOptions.AuthMode == StateModeEnum.unknown)
+                if (tmpOptions.AuthMode == StateModeEnum.prohibited || tmpOptions.AuthMode == StateModeEnum.unknown)
                 {
                     textBoxAccount.UseSystemPasswordChar = false;
                     textBoxAccount.Text = Resource.MFNa;

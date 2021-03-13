@@ -127,5 +127,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// 2.2.19.4 2021-02-04
 		// - Bug fix in provider filter for multiple language pairs	
 		// - Fixed a bug with configuring a provider with one language pair	
+		// 2.2.19.5 2021-03-13
+		// - Fix: "cancel" saves avery changes in MT provider settings	
+		// 
 	}
 }
