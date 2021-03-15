@@ -87,19 +87,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 		#endregion vars
 
-		public IntentoTranslationProviderOptionsForm(
+			public IntentoTranslationProviderOptionsForm(
 			IntentoMTFormOptions options,
 			LangPair[] languagePairs,
 			Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric
 			)
 		{
-			// Logs.Write2("Test", "test content");
-			bool hidden = options.Hidden;
+            // Logs.Write2("Test", "test content");
 
-			var splashForm = new IntentoFormSplash();
-			if (!hidden) 
-				splashForm.Show();
-
+            var splashForm = new IntentoFormSplash();
+			splashForm.Show();
 			this.Visible = false;
 			this.fabric = fabric;
 
@@ -119,7 +116,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// Determining the parent program that caused the plugin setting
 			appName = options.AppName;
 			isTrados = appName == "SdlTradosStudioPlugin";
-			memoqPublic =!isTrados && !appName.EndsWith("Private");
+			memoqPublic = !isTrados && !appName.EndsWith("Private");
 
 
 			locallyOptions = GetOptionsSavedLocally();
@@ -176,11 +173,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 			apiKeyState.EnableDisable();
 			RefreshFormInfo();
-			if (!hidden)
-			{
-				splashForm.Close();
-				this.Visible = true;
-			}
+			splashForm.Close();
+			this.Visible = true;
 
 		}
 
@@ -380,6 +374,21 @@ namespace Intento.MT.Plugin.PropertiesForm
 			}
 		}
 
+		public void apiKey_tb_TextChanged(object sender, EventArgs e)
+		{
+			apiKeyState.SetValue(((Control)sender).Text.Trim());
+			apiKeyState.EnableDisable();
+		}
+
+		//public void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
+		//{
+		//    using (new CursorFormMT(formMT))
+		//    {
+		//        apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.checkBoxUseOwnCred_CheckedChanged();
+		//        AuthState.internalControlChange = false;
+		//    }
+		//}
+
 		public void checkBoxUseCustomModel_CheckedChanged(object sender, EventArgs e)
 		{
 			using (new CursorFormMT(formMT))
@@ -406,7 +415,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 					}
 				}
 				originalOptions.Translate = _translate;
-				FillOptions(originalOptions);
+				currentOptions.Fill(originalOptions);
 
 				if (!currentOptions.ForbidSaveApikey)
 				{
@@ -480,7 +489,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-        private void buttonAdvanced_Click(object sender, EventArgs e)
+		private void buttonAdvanced_Click(object sender, EventArgs e)
         {
             formAdvanced.ShowDialog();
         }
@@ -488,23 +497,27 @@ namespace Intento.MT.Plugin.PropertiesForm
         private void buttonMTSetting_Click(object sender, EventArgs e)
         {
             var smartRoutingState = apiKeyState.smartRoutingState;
+			var bufferOptions = currentOptions.Duplicate();
             formMT.ShowDialog();
             using (new CursorForm(this))
             {
-                if (formMT.DialogResult == DialogResult.OK)
-                {
-                    FillOptions(currentOptions);
-                    settingsIsSet = false;
-                    RefreshFormInfo();
-                }
-                else
-                    apiKeyState.smartRoutingState = smartRoutingState;
+				if (formMT.DialogResult == DialogResult.OK)
+				{
+					FillOptions(currentOptions);
+					settingsIsSet = false;
+					RefreshFormInfo();
+				}
+				else
+				{
+					apiKeyState.smartRoutingState = smartRoutingState;
+					currentOptions = bufferOptions;
+				}
             }
-        }
+		}
 
-        #endregion events
+		#endregion events
 
-        public static void Logging(string subject, string comment = null, Exception ex = null)
+		public static void Logging(string subject, string comment = null, Exception ex = null)
         {
             if (!IntentoTranslationProviderOptionsForm.IsTrace())
                 return;
@@ -650,7 +663,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 else
                     textBoxProviderName.Text = Resource.MFNa;
 
-                if (currentOptions.AuthMode == StateModeEnum.prohibited || currentOptions.AuthMode == StateModeEnum.unknown)
+                if (tmpOptions.AuthMode == StateModeEnum.prohibited || tmpOptions.AuthMode == StateModeEnum.unknown)
                 {
                     textBoxAccount.UseSystemPasswordChar = false;
                     textBoxAccount.Text = Resource.MFNa;
