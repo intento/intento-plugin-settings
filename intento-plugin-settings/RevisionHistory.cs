@@ -130,6 +130,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// 2.2.19.5 2021-03-13
 		// - Fix: "cancel" saves avery changes in MT provider settings	
 		// - Fix: "Cancel" erases existing API key	
-		// 
+		// 2.2.19.6 2021-03-15
+		// - Changing the link in "the Intento Benchmark"
 	}
 }
