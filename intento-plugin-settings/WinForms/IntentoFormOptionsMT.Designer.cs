@@ -38,22 +38,22 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.comboBoxProviders = new System.Windows.Forms.ComboBox();
 			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
 			this.groupBoxBillingAccount = new System.Windows.Forms.GroupBox();
+			this.buttonRefresh = new System.Windows.Forms.Button();
+			this.comboBoxCredentialId = new System.Windows.Forms.ComboBox();
 			this.panelConnectAccount = new System.Windows.Forms.Panel();
 			this.textBoxLabelConnectAccount = new System.Windows.Forms.TextBox();
-			this.buttonRefresh = new System.Windows.Forms.Button();
 			this.linkLabel3 = new System.Windows.Forms.LinkLabel();
 			this.labelHelpBillingAccount = new System.Windows.Forms.Label();
-			this.comboBoxCredentialId = new System.Windows.Forms.ComboBox();
 			this.groupBoxModel = new System.Windows.Forms.GroupBox();
 			this.textBoxModel = new System.Windows.Forms.TextBox();
-			this.labelHelpModel = new System.Windows.Forms.Label();
 			this.checkBoxUseCustomModel = new System.Windows.Forms.CheckBox();
 			this.comboBoxModels = new System.Windows.Forms.ComboBox();
+			this.labelHelpModel = new System.Windows.Forms.Label();
 			this.groupBoxGlossary = new System.Windows.Forms.GroupBox();
-			this.linkLabel2 = new System.Windows.Forms.LinkLabel();
 			this.textBoxGlossary = new System.Windows.Forms.TextBox();
-			this.labelHelpGlossary = new System.Windows.Forms.Label();
 			this.comboBoxGlossaries = new System.Windows.Forms.ComboBox();
+			this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+			this.labelHelpGlossary = new System.Windows.Forms.Label();
 			this.groupBoxOptional = new System.Windows.Forms.GroupBox();
 			this.labelDirectionChar = new System.Windows.Forms.Label();
 			this.comboBoxTo = new System.Windows.Forms.ComboBox();
@@ -93,8 +93,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.textBoxLabelURL.Name = "textBoxLabelURL";
 			this.textBoxLabelURL.Size = new System.Drawing.Size(118, 13);
 			this.textBoxLabelURL.TabIndex = 24;
-			this.textBoxLabelURL.Tag = "https://www.slideshare.net/KonstantinSavenkov/state-of-the-machine-translation-by" +
-    "-intento-stock-engines-jun-2019";
+			this.textBoxLabelURL.Tag = "https://try.inten.to/mt_report_2020";
 			this.textBoxLabelURL.Text = "1the Intento Benchmarks.";
 			// 
 			// groupBoxProvider
@@ -147,6 +146,34 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.groupBoxBillingAccount.TabStop = false;
 			this.groupBoxBillingAccount.Text = "1Billing account";
 			// 
+			// buttonRefresh
+			// 
+			this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
+			this.buttonRefresh.Location = new System.Drawing.Point(432, 58);
+			this.buttonRefresh.Margin = new System.Windows.Forms.Padding(0);
+			this.buttonRefresh.Name = "buttonRefresh";
+			this.buttonRefresh.Size = new System.Drawing.Size(23, 23);
+			this.buttonRefresh.TabIndex = 37;
+			this.buttonRefresh.Tag = "accountControl";
+			this.toolTipHelp.SetToolTip(this.buttonRefresh, "refresh list your accounts for this provider");
+			this.buttonRefresh.UseVisualStyleBackColor = true;
+			this.buttonRefresh.Visible = false;
+			// 
+			// comboBoxCredentialId
+			// 
+			this.comboBoxCredentialId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.comboBoxCredentialId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxCredentialId.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.comboBoxCredentialId.FormattingEnabled = true;
+			this.comboBoxCredentialId.Location = new System.Drawing.Point(11, 59);
+			this.comboBoxCredentialId.Name = "comboBoxCredentialId";
+			this.comboBoxCredentialId.Size = new System.Drawing.Size(415, 21);
+			this.comboBoxCredentialId.TabIndex = 10;
+			this.comboBoxCredentialId.Tag = "accountControl";
+			this.comboBoxCredentialId.Visible = false;
+			this.comboBoxCredentialId.VisibleChanged += new System.EventHandler(this.comboBoxCredentialId_VisibleChanged);
+			// 
 			// panelConnectAccount
 			// 
 			this.panelConnectAccount.Controls.Add(this.textBoxLabelConnectAccount);
@@ -170,19 +197,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.textBoxLabelConnectAccount.TabIndex = 37;
 			this.textBoxLabelConnectAccount.Tag = "https://console.inten.to/accounts";
 			this.textBoxLabelConnectAccount.Text = "1Connect your own account for this provider";
-			// 
-			// buttonRefresh
-			// 
-			this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
-			this.buttonRefresh.Location = new System.Drawing.Point(432, 58);
-			this.buttonRefresh.Margin = new System.Windows.Forms.Padding(0);
-			this.buttonRefresh.Name = "buttonRefresh";
-			this.buttonRefresh.Size = new System.Drawing.Size(23, 23);
-			this.buttonRefresh.TabIndex = 37;
-			this.buttonRefresh.Tag = "accountControl";
-			this.toolTipHelp.SetToolTip(this.buttonRefresh, "refresh list your accounts for this provider");
-			this.buttonRefresh.UseVisualStyleBackColor = true;
-			this.buttonRefresh.Visible = false;
 			// 
 			// linkLabel3
 			// 
@@ -209,21 +223,6 @@ namespace Intento.MT.Plugin.PropertiesForm
     "se your own account at MT Provider connected via Intento Console.";
 			this.labelHelpBillingAccount.Visible = false;
 			// 
-			// comboBoxCredentialId
-			// 
-			this.comboBoxCredentialId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.comboBoxCredentialId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBoxCredentialId.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.comboBoxCredentialId.FormattingEnabled = true;
-			this.comboBoxCredentialId.Location = new System.Drawing.Point(11, 59);
-			this.comboBoxCredentialId.Name = "comboBoxCredentialId";
-			this.comboBoxCredentialId.Size = new System.Drawing.Size(415, 21);
-			this.comboBoxCredentialId.TabIndex = 10;
-			this.comboBoxCredentialId.Tag = "accountControl";
-			this.comboBoxCredentialId.Visible = false;
-			this.comboBoxCredentialId.VisibleChanged += new System.EventHandler(this.comboBoxCredentialId_VisibleChanged);
-			// 
 			// groupBoxModel
 			// 
 			this.groupBoxModel.Controls.Add(this.textBoxModel);
@@ -249,16 +248,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.textBoxModel.TabIndex = 14;
 			this.textBoxModel.Tag = "modelControl";
 			this.textBoxModel.Visible = false;
-			// 
-			// labelHelpModel
-			// 
-			this.labelHelpModel.Location = new System.Drawing.Point(8, 21);
-			this.labelHelpModel.Name = "labelHelpModel";
-			this.labelHelpModel.Size = new System.Drawing.Size(427, 32);
-			this.labelHelpModel.TabIndex = 13;
-			this.labelHelpModel.Text = "1By default, the pre-trained general-purpose MT model is used. If it\'s not availa" +
-    "ble or you want to use your custom-trained model, please specify it below.";
-			this.labelHelpModel.Visible = false;
 			// 
 			// checkBoxUseCustomModel
 			// 
@@ -289,6 +278,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.comboBoxModels.Tag = "modelControl";
 			this.comboBoxModels.Visible = false;
 			// 
+			// labelHelpModel
+			// 
+			this.labelHelpModel.Location = new System.Drawing.Point(8, 21);
+			this.labelHelpModel.Name = "labelHelpModel";
+			this.labelHelpModel.Size = new System.Drawing.Size(427, 32);
+			this.labelHelpModel.TabIndex = 13;
+			this.labelHelpModel.Text = "1By default, the pre-trained general-purpose MT model is used. If it\'s not availa" +
+    "ble or you want to use your custom-trained model, please specify it below.";
+			this.labelHelpModel.Visible = false;
+			// 
 			// groupBoxGlossary
 			// 
 			this.groupBoxGlossary.Controls.Add(this.textBoxGlossary);
@@ -302,20 +301,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.groupBoxGlossary.TabStop = false;
 			this.groupBoxGlossary.Text = "1Glossary";
 			// 
-			// linkLabel2
-			// 
-			this.linkLabel2.AutoSize = true;
-			this.linkLabel2.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-			this.linkLabel2.Location = new System.Drawing.Point(55, 0);
-			this.linkLabel2.Name = "linkLabel2";
-			this.linkLabel2.Size = new System.Drawing.Size(12, 13);
-			this.linkLabel2.TabIndex = 33;
-			this.linkLabel2.TabStop = true;
-			this.linkLabel2.Tag = "glossary";
-			this.linkLabel2.Text = "?";
-			this.linkLabel2.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-			this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.helpLink_Clicked);
-			// 
 			// textBoxGlossary
 			// 
 			this.textBoxGlossary.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -326,16 +311,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.textBoxGlossary.TabIndex = 14;
 			this.textBoxGlossary.Tag = "glossaryControl";
 			this.textBoxGlossary.Visible = false;
-			// 
-			// labelHelpGlossary
-			// 
-			this.labelHelpGlossary.Location = new System.Drawing.Point(8, 21);
-			this.labelHelpGlossary.Name = "labelHelpGlossary";
-			this.labelHelpGlossary.Size = new System.Drawing.Size(427, 32);
-			this.labelHelpGlossary.TabIndex = 13;
-			this.labelHelpGlossary.Text = "1Some of MT Providers enable using your custom terminology or glossary. If you ha" +
-    "be one, please specify it below.";
-			this.labelHelpGlossary.Visible = false;
 			// 
 			// comboBoxGlossaries
 			// 
@@ -352,6 +327,30 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.comboBoxGlossaries.TabIndex = 10;
 			this.comboBoxGlossaries.Tag = "glossaryControl";
 			this.comboBoxGlossaries.Visible = false;
+			// 
+			// linkLabel2
+			// 
+			this.linkLabel2.AutoSize = true;
+			this.linkLabel2.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+			this.linkLabel2.Location = new System.Drawing.Point(55, 0);
+			this.linkLabel2.Name = "linkLabel2";
+			this.linkLabel2.Size = new System.Drawing.Size(12, 13);
+			this.linkLabel2.TabIndex = 33;
+			this.linkLabel2.TabStop = true;
+			this.linkLabel2.Tag = "glossary";
+			this.linkLabel2.Text = "?";
+			this.linkLabel2.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+			this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.helpLink_Clicked);
+			// 
+			// labelHelpGlossary
+			// 
+			this.labelHelpGlossary.Location = new System.Drawing.Point(8, 21);
+			this.labelHelpGlossary.Name = "labelHelpGlossary";
+			this.labelHelpGlossary.Size = new System.Drawing.Size(427, 32);
+			this.labelHelpGlossary.TabIndex = 13;
+			this.labelHelpGlossary.Text = "1Some of MT Providers enable using your custom terminology or glossary. If you ha" +
+    "be one, please specify it below.";
+			this.labelHelpGlossary.Visible = false;
 			// 
 			// groupBoxOptional
 			// 
