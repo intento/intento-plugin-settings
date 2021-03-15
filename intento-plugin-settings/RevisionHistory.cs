@@ -129,6 +129,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// - Fixed a bug with configuring a provider with one language pair	
 		// 2.2.19.5 2021-03-13
 		// - Fix: "cancel" saves avery changes in MT provider settings	
+		// - Fix: "Cancel" erases existing API key	
 		// 
 	}
 }
