@@ -173,6 +173,8 @@ namespace IntentoMemoQMTPlugin
 		// - Bug: invalid processing of tags in case no tag in translation results
 		// 3.0.6 2020-12-23
 		// - Public version
+		// 3.0.6.7 2020-12-23
+		// - Public version RC7
 
 	}
 }
