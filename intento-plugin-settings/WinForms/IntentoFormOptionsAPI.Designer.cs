@@ -56,6 +56,7 @@
 			this.apiKey_tb.TabIndex = 20;
 			this.apiKey_tb.UseSystemPasswordChar = true;
 			this.apiKey_tb.WordWrap = false;
+			this.apiKey_tb.TextChanged += new System.EventHandler(this.apiKey_tb_TextChanged);
 			// 
 			// checkBoxShowHidden
 			// 
@@ -123,6 +124,7 @@
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "ApiForm";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.IntentoFormOptionsAPI_FormClosed);
 			this.Shown += new System.EventHandler(this.IntentoFormOptionsAPI_Shown);
 			this.ResumeLayout(false);
 			this.PerformLayout();
