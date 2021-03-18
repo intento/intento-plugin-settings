@@ -175,6 +175,7 @@ namespace IntentoMemoQMTPlugin
 		// - Public version
 		// 3.0.6.7 2020-12-23
 		// - Public version RC7
-
+		// 3.0.6.8 2020-12-23
+		// - Public version RC8
 	}
 }
