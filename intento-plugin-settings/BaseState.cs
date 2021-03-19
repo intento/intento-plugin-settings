@@ -62,7 +62,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             form.errors = form.errors.Where(i => i != null).ToList();
             if ((form.errors == null || form.errors.Count == 0))
             {
-                form.buttonContinue.Enabled = true;
+                //form.buttonContinue.Enabled = true;
                 form.formMT.buttonSave.Enabled = true;
                 SetErrorMessage();
                 return true;
@@ -70,7 +70,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             else
             {
                 SetErrorMessage(string.Join(", ", form.errors.Where(i => i != null)));
-                form.buttonContinue.Enabled = false;
+                //form.buttonContinue.Enabled = false;
                 form.formMT.buttonSave.Enabled = false;
                 return false;
             }
