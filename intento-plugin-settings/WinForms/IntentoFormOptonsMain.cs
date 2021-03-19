@@ -138,6 +138,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 				}
 
 			currentOptions = originalOptions.Duplicate();
+
+			//smart routing by default
+			if (currentOptions.ApiKey == null && currentOptions.ProviderId == null)
+				currentOptions.SmartRouting = true;
+
 			TraceEndTime = originalOptions.TraceEndTime;
 			formAdvanced = new IntentoFormAdvanced(this);
 			formApi = new IntentoFormOptionsAPI(this);
@@ -475,6 +480,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (formApi.DialogResult == DialogResult.OK && apiKeyState.IsOK && apiKeyState.apiKey != apiKey)
             {
                 settingsIsSet = true;
+				currentOptions.ApiKey = apiKeyState.apiKey;
                 RefreshFormInfo();
             }
         }
