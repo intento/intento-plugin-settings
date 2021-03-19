@@ -134,8 +134,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// - Changing the link in "the Intento Benchmark"
 		// 2.2.19.7 2021-03-18
 		// - Fixed incorrect merge
-		// 2.2.19.7 2021-03-19
+		// 2.2.19.8 2021-03-19
 		// Fix: not saving api key until check and uncheck smart routing
 		// Add: smart default routing when setting up for the first time
+		// Fix: Missing intento instance in case of saving settings without testing
 	}
 }
