@@ -409,8 +409,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 						SaveValueToRegistry("ProxyEnabled", true);
 					}
 				}
-				originalOptions.Translate = _translate;
 				currentOptions.Fill(originalOptions);
+				originalOptions.Translate = _translate;
 
 				if (!currentOptions.ForbidSaveApikey)
 				{
