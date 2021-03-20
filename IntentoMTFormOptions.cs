@@ -37,6 +37,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public bool SmartRouting { get; set; }
 
 		/// <summary>
+		/// Selected type of smart routing
+		/// </summary>
+		public string Routing { get; set; }
+
+		/// <summary>
 		/// Selected provider id (in case of !SmartRouting)
 		/// </summary>
 		public string ProviderId { get; set; }
@@ -281,6 +286,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				TraceEndTime = this.TraceEndTime,
 				MemoqAdditional = this.MemoqAdditional,
 				SaveLocally = this.SaveLocally,
+				Routing = this.Routing,
 				_authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),
 			};
 			return res;

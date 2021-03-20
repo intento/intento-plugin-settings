@@ -40,7 +40,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            parent.apiKeyState.ReadProviders();
+            parent.apiKeyState.ReadProvidersAndRouting();
             string err = parent.apiKeyState.Error();
             IEnumerable <string> errDetail = parent.apiKeyState.ErrorDetail();
             var nl = Environment.NewLine;

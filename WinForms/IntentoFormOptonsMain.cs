@@ -126,6 +126,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				{
 					originalOptions.ApiKey = locallyOptions.ApiKey;
 					originalOptions.SmartRouting = locallyOptions.SmartRouting;
+					originalOptions.Routing = locallyOptions.Routing;
 					originalOptions.ProviderId = locallyOptions.ProviderId;
 					originalOptions.CustomAuth = locallyOptions.CustomAuth;
 					originalOptions.CustomModel = locallyOptions.CustomModel;
@@ -160,7 +161,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 			if (!string.IsNullOrWhiteSpace(apiKeyState.apiKey))
 			{
-				apiKeyState.ReadProviders();
+				apiKeyState.ReadProvidersAndRouting();
 			}
 			if (apiKeyState.IsOK)
 			{
@@ -293,6 +294,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 					{
 						ret.SmartRouting = GetValueFromRegistry("SmartRouting", path) != null
 							&& GetValueFromRegistry("SmartRouting", path) == "1";
+						ret.Routing = GetValueFromRegistry("Routing", path);
 						ret.ProviderId = GetValueFromRegistry("ProviderId", path);
 						ret.CustomAuth = GetValueFromRegistry("CustomAuth", path);
 						ret.CustomModel = GetValueFromRegistry("CustomModel", path);
@@ -313,6 +315,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			SaveValueToRegistry("ApiKey", options.ApiKey); // for logging
 			SaveValueToRegistry("ApiKey", options.ApiKey, path);
 			SaveValueToRegistry("SmartRouting", options.SmartRouting, path);
+			SaveValueToRegistry("Routing", options.Routing, path);
 			SaveValueToRegistry("ProviderId", options.ProviderId, path);
 			SaveValueToRegistry("CustomAuth", options.CustomAuth, path);
 			SaveValueToRegistry("CustomModel", options.CustomModel, path);
@@ -503,7 +506,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public void checkBoxSmartRouting_CheckedChanged(object sender, EventArgs e)
 		{
 			using (new CursorFormMT(formMT))
-				apiKeyState?.smartRoutingState?.CheckedChanged();
+				if (apiKeyState != null)
+					apiKeyState?.smartRoutingState?.CheckedChanged();
 		}
 
 
@@ -629,7 +633,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			if (smartRoutingState != null && smartRoutingState.SmartRouting)
 			{
 				textBoxAccount.UseSystemPasswordChar = false;
-				textBoxProviderName.Text = Resource.MFSmartRoutingText;
+				textBoxProviderName.Text = String.Format(Resource.MFSmartRoutingText, smartRoutingState.routingDescription);
 				textBoxAccount.Text = Resource.MFNa;
 				textBoxModel.Text = Resource.MFNa;
 				textBoxGlossary.Text = Resource.MFNa;

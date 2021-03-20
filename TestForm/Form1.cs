@@ -70,8 +70,9 @@ namespace TestForm
             textBoxApiKey.Text = (string)key.GetValue("ApiKey", null);
 
             checkBoxSmartRouting.Checked = str2bool(key.GetValue("SmartRouting", null));
+			textBoxRouting.Text = (string)key.GetValue("Routing", null);
 
-            textBoxProviderId.Text = (string)key.GetValue("ProviderId", null);
+			textBoxProviderId.Text = (string)key.GetValue("ProviderId", null);
             textBoxFormat.Text = (string)key.GetValue("Format", null);
 
             checkBoxAuth.Checked = str2bool(key.GetValue("AuthUse", false));
@@ -104,8 +105,9 @@ namespace TestForm
             key.SetValue("ApiKey", textBoxApiKey.Text);
 
             key.SetValue("SmartRouting", checkBoxSmartRouting.Checked);
+			key.SetValue("Routing", textBoxRouting.Text);
 
-            key.SetValue("ProviderId", textBoxProviderId.Text);
+			key.SetValue("ProviderId", textBoxProviderId.Text);
             key.SetValue("Format", textBoxFormat.Text);
 
             key.SetValue("AuthUse", checkBoxAuth.Checked);
@@ -147,6 +149,7 @@ namespace TestForm
             options = new IntentoMTFormOptions();
             options.ApiKey = textBoxApiKey.Text;
             options.SmartRouting = checkBoxSmartRouting.Checked;
+			options.Routing = textBoxRouting.Text;
             options.ProviderId = textBoxProviderId.Text;
             options.Format = textBoxFormat.Text;
             options.UseCustomAuth = checkBoxAuth.Checked;
@@ -205,6 +208,7 @@ namespace TestForm
         {
             textBoxApiKey.Text = options.ApiKey;
             checkBoxSmartRouting.Checked = options.SmartRouting;
+			textBoxRouting.Text = options.Routing;
             textBoxProviderId.Text = options.ProviderId;
             textBoxFormat.Text = options.Format;
             checkBoxAuth.Checked = options.UseCustomAuth;
@@ -324,6 +328,11 @@ namespace TestForm
 				textBoxDTLog.Text = "";
 			}
 
+		}
+
+		private void checkBoxSmartRouting_CheckedChanged(object sender, EventArgs e)
+		{
+			textBoxRouting.Text = checkBoxSmartRouting.Checked ? "best" : "";
 		}
 	}
 }

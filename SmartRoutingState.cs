@@ -1,101 +1,146 @@
-﻿namespace Intento.MT.Plugin.PropertiesForm
+﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
+
+namespace Intento.MT.Plugin.PropertiesForm
 {
 	public class SmartRoutingState : BaseState
-    {
-        private bool smartRouting;
+	{
+		// Parent state
+		public ApiKeyState apiKeyState;
 
-        // Parent state
-        public ApiKeyState apiKeyState;
+		// Controlled components
+		public ProviderState providerState;
 
-        // Controlled components
-        public ProviderState providerState;
+		public string routing;
+		public string routingDescription;
 
-        public SmartRoutingState(ApiKeyState apiKeyState, IntentoMTFormOptions _options) : base(apiKeyState, _options)
-        {
-            this.apiKeyState = apiKeyState;
-            smartRouting = _options.SmartRouting;
-            formMT.checkBoxSmartRouting.Checked = smartRouting;
+		Dictionary<string, string> routingTable;
+		static Dictionary<string, string> defaultRoutingTable = new Dictionary<string, string>() { { "", "Disabled" }, { "best", "General routing based on Intento benchmarks" } };
 
-            CreateChildStates();
-        }
 
-        public static string Draw(IntentoTranslationProviderOptionsForm form, SmartRoutingState state)
-        {
-            if (state == null)
-            {
-                form.formMT.checkBoxSmartRouting.Enabled = false;
+		public SmartRoutingState(ApiKeyState apiKeyState, IntentoMTFormOptions _options) : base(apiKeyState, _options)
+		{
+			this.apiKeyState = apiKeyState;
+			routingTable = new Dictionary<string, string>(defaultRoutingTable);
+			routing = _options.Routing;
+			List<dynamic> routingList = FilterByLanguagePairs(apiKeyState.routings, form.LanguagePairs);
+			foreach (dynamic p in routingList)
+			{
+				string name = (string)p.name;
+				if (routingTable.ContainsKey(name))
+					routingTable[name] = (string)p.description;
+				else
+					routingTable.Add(name, (string)p.description);
+			}
 
-                ProviderState.Draw(form, null);
-                return null;
-            }
+			CreateChildStates();
+		}
 
-            return state.Draw();
-        }
+		public static string Draw(IntentoTranslationProviderOptionsForm form, SmartRoutingState state)
+		{
+			if (state == null)
+			{
+				form.formMT.RoutingTable = new Dictionary<string, string>(defaultRoutingTable);
+				form.formMT.comboBoxRouting.SelectedIndex = 0;
+				ProviderState.Draw(form, null);
+				return null;
+			}
 
-        public string Draw()
-        {
-            formMT.checkBoxSmartRouting.Enabled = true;
-            return ProviderState.Draw(form, providerState);
-        }
+			return state.Draw();
+		}
 
-        public void CheckedChanged()
-        {
-            smartRouting = formMT.checkBoxSmartRouting.Checked;
+		public string Draw()
+		{
+			form.formMT.RoutingTable = routingTable;
+			form.formMT.comboBoxRouting.SelectedValue = routing == null ? "best" : routing;
 
-            CreateChildStates();
+			return ProviderState.Draw(form, providerState);
+		}
 
-            if (smartRouting)
-                options.Format = "[\"text\",\"html\",\"xml\"]";
+		public void CheckedChanged()
+		{
+			routing = ((KeyValuePair<string, string>)formMT.comboBoxRouting.SelectedItem).Key;
+			routingDescription = ((KeyValuePair<string, string>)formMT.comboBoxRouting.SelectedItem).Value;
 
-            EnableDisable();
-            if (formMT.checkBoxSmartRouting.Checked)
-            {
-                // temporary! formMT.groupBoxOptional.Enabled = false;
-            }
-        }
 
-        public bool IsOK
-        {
-            get
-            {
-                return true;
-            }
-        }
+			CreateChildStates();
 
-        public bool SmartRouting
-        { get { return smartRouting; } }
+			if (SmartRouting)
+				options.Format = "[\"text\",\"html\",\"xml\"]";
 
-        public static void FillOptions(SmartRoutingState state, IntentoMTFormOptions options)
-        {
+			EnableDisable();
+		}
 
-            if (state == null)
-            {
-                options.SmartRouting = true;
-                ProviderState.FillOptions(null, options);
-            }
-            else
-            {
-                options.SmartRouting = state.SmartRouting;
-                ProviderState.FillOptions(state.providerState, options);
-            }
-            if (options.SmartRouting)
-                options.Format = "[\"text\",\"html\",\"xml\"]";
-        }
+		public bool IsOK
+		{
+			get { return true; }
+		}
 
-        private void CreateChildStates()
-        {
-            if (IsOK)
-            {
-                providerState = new ProviderState(this, options);
-                if (SmartRouting)
-                {
-                    providerState.ClearOptions(options);
-                    providerState = null;
-                }
-            }
-            else
-                providerState = null;
-        }
+		public bool SmartRouting
+		{ get { return routing != ""; } }
 
-    }
+		public string Routing
+		{ get { return routing; } }
+
+		public static void FillOptions(SmartRoutingState state, IntentoMTFormOptions options)
+		{
+
+			if (state == null)
+			{
+				options.Routing = "best";
+				options.SmartRouting = true;
+				ProviderState.FillOptions(null, options);
+			}
+			else
+			{
+				options.SmartRouting = state.SmartRouting;
+				options.Routing = state.Routing;
+				ProviderState.FillOptions(state.providerState, options);
+			}
+			if (options.SmartRouting)
+				options.Format = "[\"text\",\"html\",\"xml\"]";
+		}
+
+		private void CreateChildStates()
+		{
+			if (IsOK)
+			{
+				providerState = new ProviderState(this, options);
+				if (SmartRouting)
+				{
+					providerState.ClearOptions(options);
+					providerState = null;
+				}
+			}
+			else
+				providerState = null;
+		}
+
+		private List<dynamic> FilterByLanguagePairs(List<dynamic> recRouting, LangPair[] languagePairs)
+		{
+			if (languagePairs == null)
+				return recRouting;
+
+			// copy the list to keep original recRouting intact
+			List<dynamic> ret = new List<dynamic>(recRouting);
+			foreach (LangPair pair in languagePairs)
+			{
+				ret.RemoveAll(item => !RoutingSupportsPair(item, pair));
+			}
+			return ret;
+		}
+
+		private static bool RoutingSupportsPair(dynamic routing, LangPair pair)
+		{
+			foreach (dynamic p in routing.pairs)
+			{
+				if (p.from == "" || p.from == pair.from)
+					if (p.to == "" || p.to == pair.to)
+						return true;
+			}
+			return false;
+		}
+
+	}
 }

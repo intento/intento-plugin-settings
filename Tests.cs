@@ -439,12 +439,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 				form.testGlossaryData = new List<dynamic>(); // testGlossaryData;
 
 				ApiKeyState apiKeyState = form.apiKeyState = new ApiKeyState(form, options);
-				apiKeyState.ReadProviders();
+				apiKeyState.ReadProvidersAndRouting();
 				apiKeyState.EnableDisable();
 				var qqq = (IntentoFormOptionsMT)InitializeForm(form.formMT);
 
 				Assert.AreEqual(false, string.IsNullOrWhiteSpace(qqq.comboBoxProviders.Text), "Empty provider");
-				Assert.AreEqual(false, qqq.checkBoxSmartRouting.Checked, "SmartRouting.Checked");
+				Assert.AreEqual("", qqq.comboBoxRouting.SelectedValue, "comboBoxRouting.SelectedValue");
 
 				Assert.AreEqual(true, qqq.groupBoxProvider.Enabled, "groupBoxProvider.Enabled");
 				Assert.AreEqual(true, qqq.groupBoxBillingAccount.Enabled, "groupBoxBillingAccount.Enabled");
@@ -531,12 +531,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 				form.testModelData = null;
 				form.testGlossaryData = null;
 				ApiKeyState apiKeyState = form.apiKeyState = new ApiKeyState(form, options);
-				apiKeyState.ReadProviders();
+				apiKeyState.ReadProvidersAndRouting();
 				apiKeyState.EnableDisable();
 				var qqq = (IntentoFormOptionsMT)InitializeForm(form.formMT);
 
 				Assert.AreEqual(false, string.IsNullOrWhiteSpace(qqq.comboBoxProviders.Text), "Empty provider");
-				Assert.AreEqual(false, qqq.checkBoxSmartRouting.Checked, "SmartRouting.Checked");
+				Assert.AreEqual("", qqq.comboBoxRouting.SelectedValue, "comboBoxRouting.SelectedValue");
 
 				Assert.AreEqual(true, qqq.groupBoxProvider.Enabled, "groupBoxProvider.Enabled");
 				Assert.AreEqual(true, qqq.groupBoxBillingAccount.Enabled, "groupBoxBillingAccount.Enabled");
@@ -740,7 +740,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			form.testGlossaryData = testGlossaryData;
 
 			ApiKeyState apiKeyState = form.apiKeyState = new ApiKeyState(form, options);
-			apiKeyState.ReadProviders();
+			apiKeyState.ReadProvidersAndRouting();
 			apiKeyState.EnableDisable();
 
 			var qqq = (IntentoFormOptionsMT)InitializeForm(form.formMT);
@@ -799,7 +799,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			form.testModelData = testModelData;
 			form.testGlossaryData = new List<dynamic>(); //testGlossaryData;
 			ApiKeyState apiKeyState = form.apiKeyState = new ApiKeyState(form, options);
-			apiKeyState.ReadProviders();
+			apiKeyState.ReadProvidersAndRouting();
 			apiKeyState.EnableDisable();
 
 			var qqq = (IntentoFormOptionsMT)InitializeForm(form.formMT);
@@ -885,12 +885,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 				form.testModelData = testModelData;
 				form.testGlossaryData = testGlossaryData;
 				ApiKeyState apiKeyState = form.apiKeyState = new ApiKeyState(form, options);
-				apiKeyState.ReadProviders();
+				apiKeyState.ReadProvidersAndRouting();
 				apiKeyState.EnableDisable();
 				var qqq = (IntentoFormOptionsMT)InitializeForm(form.formMT);
 
 				Assert.AreEqual(false, string.IsNullOrWhiteSpace(qqq.comboBoxProviders.Text), "Empty provider");
-				Assert.AreEqual(false, qqq.checkBoxSmartRouting.Checked, "SmartRouting.Checked");
+				Assert.AreEqual("", qqq.comboBoxRouting.SelectedValue, "comboBoxRouting.SelectedValue");
 
 				Assert.AreEqual(true, qqq.groupBoxProvider.Enabled, "groupBoxProvider.Enabled");
 				Assert.AreEqual(true, qqq.groupBoxBillingAccount.Enabled, "groupBoxBillingAccount.Enabled");

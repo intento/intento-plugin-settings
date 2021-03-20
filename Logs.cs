@@ -88,7 +88,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			catch { }
 		}
 
-		[Obsolete("Logging is deprecated, please use Write instead.")]
+		//[Obsolete("Logging is deprecated, please use Write instead.")]
 		public static void Logging(string subject, string comment = null, Exception ex = null)
 		{
 			if (!IntentoTranslationProviderOptionsForm.IsTrace())
