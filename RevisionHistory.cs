@@ -117,6 +117,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// - Bug fix in provider filter for multiple language pairs	
 		// 2.2.21 2021-02-04
 		// - Fixed a bug with configuring a provider with one language pair	
+		// 2.2.22 2021-03-24
+		// - Logging using the Intento API
 
 	}
 }

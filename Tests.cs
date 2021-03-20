@@ -23,7 +23,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			var _intento = IntentoSDK.Intento.Create(apiKey, null,
 				path: "https://api.inten.to/",
 				userAgent: String.Format("{0} {1}", userAgent, "TestForm"),
-				loggingCallback: IntentoTranslationProviderOptionsForm.Logging,
+				loggingCallback: Logs.Logging,
 				proxySet: proxySettings
 			);
 			var _translate = _intento.Ai.Text.Translate;

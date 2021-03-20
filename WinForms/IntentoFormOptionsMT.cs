@@ -166,7 +166,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private KeyValuePair<bool, string> TestTranslationTask(IntentoMTFormOptions testOptions)
         {
-            IntentoTranslationProviderOptionsForm.Logging("Trados Translate: start");
+			Logs.Write('F', "Test Translate start");
             try
             {
 
@@ -211,13 +211,13 @@ namespace Intento.MT.Plugin.PropertiesForm
                         return new KeyValuePair<bool, string>(true, Resource.ErrorTestTranslation);
                     }
 
-                    IntentoTranslationProviderOptionsForm.Logging("Trados Translate: finish");
-                }
-                return new KeyValuePair<bool, string>(true, null);
+				}
+				Logs.Write('F', "Test Translate finish");
+				return new KeyValuePair<bool, string>(true, null);
             }
             catch (AggregateException ex2)
             {
-                IntentoTranslationProviderOptionsForm.Logging("Trados Translate: error", ex: ex2);
+				Logs.Write('F', "Test Translate error", ex: ex2);
                 return new KeyValuePair<bool, string>(false, ex2.Message);
             }
         }

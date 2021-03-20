@@ -159,7 +159,7 @@ namespace TestForm
             options.ToLanguage = textBoxTo.Text;
 			options.UserAgent = "TestForm/1.0.0";
 			options.Signature = "TestForm";
-			options.AppName = checkBoxTradosApp.Checked ? "SdlTradosStudioPlugin" : "PluginForm\\TestForm";
+			options.AppName = checkBoxTradosApp.Checked ? "SdlTradosStudioPlugin" : "TestForm";
 			options.CustomTagParser = checkBoxCustomTagParser.Checked;
 			options.CutTag = CheckBoxCutTag.Checked;
 			options.proxySettings = new IntentoSDK.ProxySettings()
@@ -194,7 +194,7 @@ namespace TestForm
             var _intento = IntentoSDK.Intento.Create(apiKey, null,
                 path: checkBoxStage.Checked ? "https://api2.inten.to/" : "https://api.inten.to/", 
                 userAgent: String.Format("{0} {1}", userAgent, "TestForm"),
-                loggingCallback: IntentoTranslationProviderOptionsForm.Logging,
+                loggingCallback: Logs.Logging,
                 proxySet: proxySettings
             );
             var _translate = _intento.Ai.Text.Translate;

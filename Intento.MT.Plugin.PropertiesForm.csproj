@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logs.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="WinForms\IntentoFormIgnoreError.cs">
       <SubType>Form</SubType>
