@@ -412,7 +412,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 					formMT.comboBoxFrom.SelectedItem = fromLanguages[options.FromLanguage];
 				else if (fromLanguages.ContainsKey("en"))
 					formMT.comboBoxFrom.SelectedItem = fromLanguages["en"];
-				else if (!string.IsNullOrWhiteSpace(form.originalOptions.FromLanguage) || fromLanguages.ContainsKey(form.originalOptions.FromLanguage))
+				else if (!string.IsNullOrWhiteSpace(form.originalOptions.FromLanguage) && fromLanguages.ContainsKey(form.originalOptions.FromLanguage))
 					formMT.comboBoxFrom.SelectedItem = fromLanguages[form.originalOptions.FromLanguage];
 				else if (formMT.comboBoxFrom.Items.Count > 0)
 					formMT.comboBoxFrom.SelectedIndex = 0;
