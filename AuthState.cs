@@ -33,7 +33,10 @@ namespace Intento.MT.Plugin.PropertiesForm
         // in this case no change event call is required
         public static bool internalControlChange = false;
 
-        public StateModeEnum mode;
+		private static string defaultAccountName = "via Intento";
+
+
+		public StateModeEnum mode;
 
         // current credentials StateModeEnum
         public Dictionary<string, string> providerDataAuthDict;
@@ -124,11 +127,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 formMT.comboBoxCredentialId.Visible = true;
 				if (mode == StateModeEnum.required)
-					formMT.comboBoxCredentialId.Items.Remove("via Intento");
+					formMT.comboBoxCredentialId.Items.Remove(defaultAccountName);
 				else if (formMT.comboBoxCredentialId.SelectedIndex < 0)
 				{
 					formMT.comboBoxCredentialId.SelectedIndexChanged -= providerState.form.comboBoxCredentialId_SelectedIndexChanged;
-					formMT.comboBoxCredentialId.SelectedItem = "via Intento";
+					formMT.comboBoxCredentialId.SelectedItem = defaultAccountName;
 					formMT.comboBoxCredentialId.SelectedIndexChanged += providerState.form.comboBoxCredentialId_SelectedIndexChanged;
 				}
 				if (mode == StateModeEnum.required && formMT.comboBoxCredentialId.SelectedIndex==-1)
@@ -187,6 +190,13 @@ namespace Intento.MT.Plugin.PropertiesForm
 				formMT.comboBoxCredentialId.Visible = true;
 				IList<dynamic> credentials = form.testAuthData != null ? form.testAuthData : form._translate.Accounts(providerState.currentProviderId);
                 сonnectedAccounts = credentials.Select(q => (string)q.credential_id).ToList();
+				string defaultName = credentials.Where(x => (bool)x["default"]).Select(q => (string)q.credential_id).FirstOrDefault();
+				if (defaultName != null)
+				{
+					defaultAccountName = "Default (" + defaultName + ")";
+					formMT.comboBoxCredentialId.Items.Clear();
+					formMT.comboBoxCredentialId.Items.Add(defaultAccountName);
+				}
 				formMT.comboBoxCredentialId.Items.AddRange(сonnectedAccounts.ToArray());
 				if (сonnectedAccounts.Count != 0)
 				{
@@ -202,7 +212,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         public void Clear()
         {
             formMT.comboBoxCredentialId.Items.Clear();
-			formMT.comboBoxCredentialId.Items.Add("via Intento");
+			defaultAccountName = "via Intento";
+			formMT.comboBoxCredentialId.Items.Add(defaultAccountName);
         }
 
         // Something changed in auth settings on form. Need to clear model and glossary settings. 
@@ -374,8 +385,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 formMT.groupBoxBillingAccount.Enabled = false;
                 formMT.comboBoxCredentialId.Visible = false;
-                formMT.comboBoxCredentialId.Items.Clear();
-				formMT.comboBoxCredentialId.Items.Add("via Intento");
+				defaultAccountName = "via Intento";
+				formMT.comboBoxCredentialId.Items.Clear();
+				formMT.comboBoxCredentialId.Items.Add(defaultAccountName);
             }
         }
 

@@ -412,10 +412,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 					formMT.comboBoxFrom.SelectedItem = fromLanguages[options.FromLanguage];
 				else if (fromLanguages.ContainsKey("en"))
 					formMT.comboBoxFrom.SelectedItem = fromLanguages["en"];
-				else if (!string.IsNullOrWhiteSpace(form.originalOptions.FromLanguage) || fromLanguages.ContainsKey(form.originalOptions.FromLanguage))
+				else if (!string.IsNullOrWhiteSpace(form.originalOptions.FromLanguage) && fromLanguages.ContainsKey(form.originalOptions.FromLanguage))
 					formMT.comboBoxFrom.SelectedItem = fromLanguages[form.originalOptions.FromLanguage];
-				else
-					formMT.comboBoxFrom.SelectedIndex = 1;
+				else if (formMT.comboBoxFrom.Items.Count > 0)
+					formMT.comboBoxFrom.SelectedIndex = 0;
 			}
 
 			if (toLanguages != null)
@@ -430,7 +430,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 					formMT.comboBoxTo.SelectedItem = toLanguages["zh"];
 				else if (!string.IsNullOrWhiteSpace(form.originalOptions.ToLanguage) && toLanguages.ContainsKey(form.originalOptions.ToLanguage) && enPairs.Contains(form.originalOptions.ToLanguage))
 					formMT.comboBoxTo.SelectedItem = toLanguages[form.originalOptions.ToLanguage];
-				else
+				else if (formMT.comboBoxTo.Items.Count > 0)
 					formMT.comboBoxTo.SelectedIndex = 0;
 			}
 		}
