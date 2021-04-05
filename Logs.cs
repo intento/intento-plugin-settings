@@ -49,25 +49,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 			return IntentoTranslationProviderOptionsForm.IsTrace();
 		}
 
-		//public static void Write(char identificator, string text, Exception ex = null)
-		//{
-		//	try
-		//	{
-		//		if (string.IsNullOrEmpty(PluginName))
-		//			PluginName = "undefined";
-		//		if (!string.IsNullOrEmpty(ApiKey))
-		//		{
-		//			if (ex != null)
-		//			{
-		//				var exArr = Logs.LoggingEx(identificator, ex).ToArray();
-		//				text += "\n" + string.Join("\n", exArr);
-
-		//			}
-		//			WriteRemoteLog(identificator, text);
-		//		}
-		//	}
-		//	catch { }
-		//}
 		public static void Write(char identificator, string subject, string comment = null, Exception ex = null)
 		{
 			if (!IntentoTranslationProviderOptionsForm.IsTrace())
