@@ -24,7 +24,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 					_routingTable = value;
 					comboBoxRouting.DataSource = new BindingSource(value, null);
 					comboBoxRouting.ValueMember = "Key";
-					comboBoxRouting.DisplayMember = "Value";
+					comboBoxRouting.DisplayMember = "Key";
 				}
 			}
 		}
