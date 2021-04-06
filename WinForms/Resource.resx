@@ -236,9 +236,9 @@ If you have selected custom model or glossary, please adjust the language pair:<
     <value>N/A</value>
   </data>
   <data name="MFSmartRoutingText" xml:space="preserve">
-    <value>Smart Routing (default)</value>
+    <value>Smart Routing ({0})</value>
   </data>
-  <data name="MTcheckBoxSmartRouting" xml:space="preserve">
+  <data name="MTlabelSmartRouting" xml:space="preserve">
     <value>Select MT Provider automatically based on</value>
   </data>
   <data name="NeedAChoise" xml:space="preserve">
@@ -314,7 +314,7 @@ If you have selected custom model or glossary, please adjust the language pair:<
   <data name="FAlabelCustomSettingsName" xml:space="preserve">
     <value>Custom name for plugin settings (leave blank to use default name)</value>
   </data>
-  <data name="MTLabelCreateOn" xml:space="preserve">
+  <data name="MTlabelCreateOn" xml:space="preserve">
     <value>Create on</value>
   </data>
   <data name="MTbuttonRefreshToolTip" xml:space="preserve">

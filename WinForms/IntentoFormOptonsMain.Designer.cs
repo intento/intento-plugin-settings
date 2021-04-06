@@ -94,7 +94,7 @@
 			// labelRegister1
 			// 
 			this.labelRegister1.AutoSize = true;
-			this.labelRegister1.Location = new System.Drawing.Point(183, 40);
+			this.labelRegister1.Location = new System.Drawing.Point(177, 40);
 			this.labelRegister1.Name = "labelRegister1";
 			this.labelRegister1.Size = new System.Drawing.Size(73, 13);
 			this.labelRegister1.TabIndex = 19;
@@ -140,7 +140,7 @@
 			// 
 			this.labelApiKeyIsChanged.AutoSize = true;
 			this.labelApiKeyIsChanged.ForeColor = System.Drawing.Color.Red;
-			this.labelApiKeyIsChanged.Location = new System.Drawing.Point(334, 11);
+			this.labelApiKeyIsChanged.Location = new System.Drawing.Point(317, 13);
 			this.labelApiKeyIsChanged.Name = "labelApiKeyIsChanged";
 			this.labelApiKeyIsChanged.Size = new System.Drawing.Size(299, 13);
 			this.labelApiKeyIsChanged.TabIndex = 29;

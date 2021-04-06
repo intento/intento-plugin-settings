@@ -32,8 +32,6 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IntentoFormOptionsMT));
-			this.checkBoxSmartRouting = new System.Windows.Forms.CheckBox();
-			this.textBoxLabelURL = new System.Windows.Forms.TextBox();
 			this.groupBoxProvider = new System.Windows.Forms.GroupBox();
 			this.comboBoxProviders = new System.Windows.Forms.ComboBox();
 			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -63,44 +61,23 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.buttonSave = new System.Windows.Forms.Button();
 			this.toolTipHelp = new System.Windows.Forms.ToolTip(this.components);
 			this.labelTMP = new System.Windows.Forms.Label();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.comboBoxRouting = new System.Windows.Forms.ComboBox();
+			this.textBoxLabelURL = new System.Windows.Forms.TextBox();
+			this.labelSmartRouting = new System.Windows.Forms.Label();
 			this.groupBoxProvider.SuspendLayout();
 			this.groupBoxBillingAccount.SuspendLayout();
 			this.panelConnectAccount.SuspendLayout();
 			this.groupBoxModel.SuspendLayout();
 			this.groupBoxGlossary.SuspendLayout();
 			this.groupBoxOptional.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
-			// 
-			// checkBoxSmartRouting
-			// 
-			this.checkBoxSmartRouting.AutoSize = true;
-			this.checkBoxSmartRouting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.checkBoxSmartRouting.Location = new System.Drawing.Point(12, 12);
-			this.checkBoxSmartRouting.Name = "checkBoxSmartRouting";
-			this.checkBoxSmartRouting.Size = new System.Drawing.Size(247, 17);
-			this.checkBoxSmartRouting.TabIndex = 23;
-			this.checkBoxSmartRouting.Text = "1Select MT Provider automatically based on ";
-			this.checkBoxSmartRouting.UseVisualStyleBackColor = true;
-			// 
-			// textBoxLabelURL
-			// 
-			this.textBoxLabelURL.BackColor = System.Drawing.SystemColors.Control;
-			this.textBoxLabelURL.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.textBoxLabelURL.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.textBoxLabelURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.textBoxLabelURL.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-			this.textBoxLabelURL.Location = new System.Drawing.Point(248, 14);
-			this.textBoxLabelURL.Name = "textBoxLabelURL";
-			this.textBoxLabelURL.Size = new System.Drawing.Size(118, 13);
-			this.textBoxLabelURL.TabIndex = 24;
-			this.textBoxLabelURL.Tag = "https://www.slideshare.net/KonstantinSavenkov/state-of-the-machine-translation-by" +
-    "-intento-stock-engines-jun-2019";
-			this.textBoxLabelURL.Text = "1the Intento Benchmarks.";
 			// 
 			// groupBoxProvider
 			// 
 			this.groupBoxProvider.Controls.Add(this.comboBoxProviders);
-			this.groupBoxProvider.Location = new System.Drawing.Point(12, 42);
+			this.groupBoxProvider.Location = new System.Drawing.Point(12, 89);
 			this.groupBoxProvider.Name = "groupBoxProvider";
 			this.groupBoxProvider.Size = new System.Drawing.Size(467, 57);
 			this.groupBoxProvider.TabIndex = 25;
@@ -140,7 +117,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.groupBoxBillingAccount.Controls.Add(this.linkLabel3);
 			this.groupBoxBillingAccount.Controls.Add(this.labelHelpBillingAccount);
 			this.groupBoxBillingAccount.Controls.Add(this.comboBoxCredentialId);
-			this.groupBoxBillingAccount.Location = new System.Drawing.Point(12, 102);
+			this.groupBoxBillingAccount.Location = new System.Drawing.Point(12, 149);
 			this.groupBoxBillingAccount.Name = "groupBoxBillingAccount";
 			this.groupBoxBillingAccount.Size = new System.Drawing.Size(466, 105);
 			this.groupBoxBillingAccount.TabIndex = 26;
@@ -231,7 +208,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.groupBoxModel.Controls.Add(this.checkBoxUseCustomModel);
 			this.groupBoxModel.Controls.Add(this.comboBoxModels);
 			this.groupBoxModel.Enabled = false;
-			this.groupBoxModel.Location = new System.Drawing.Point(12, 216);
+			this.groupBoxModel.Location = new System.Drawing.Point(12, 263);
 			this.groupBoxModel.Name = "groupBoxModel";
 			this.groupBoxModel.Size = new System.Drawing.Size(466, 112);
 			this.groupBoxModel.TabIndex = 27;
@@ -294,7 +271,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.groupBoxGlossary.Controls.Add(this.textBoxGlossary);
 			this.groupBoxGlossary.Controls.Add(this.labelHelpGlossary);
 			this.groupBoxGlossary.Controls.Add(this.comboBoxGlossaries);
-			this.groupBoxGlossary.Location = new System.Drawing.Point(12, 338);
+			this.groupBoxGlossary.Location = new System.Drawing.Point(12, 385);
 			this.groupBoxGlossary.Name = "groupBoxGlossary";
 			this.groupBoxGlossary.Size = new System.Drawing.Size(466, 94);
 			this.groupBoxGlossary.TabIndex = 28;
@@ -358,7 +335,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.groupBoxOptional.Controls.Add(this.labelDirectionChar);
 			this.groupBoxOptional.Controls.Add(this.comboBoxTo);
 			this.groupBoxOptional.Controls.Add(this.comboBoxFrom);
-			this.groupBoxOptional.Location = new System.Drawing.Point(12, 445);
+			this.groupBoxOptional.Location = new System.Drawing.Point(12, 492);
 			this.groupBoxOptional.Name = "groupBoxOptional";
 			this.groupBoxOptional.Size = new System.Drawing.Size(466, 103);
 			this.groupBoxOptional.TabIndex = 29;
@@ -415,7 +392,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// buttonCancel
 			// 
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.buttonCancel.Location = new System.Drawing.Point(398, 577);
+			this.buttonCancel.Location = new System.Drawing.Point(398, 607);
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.Size = new System.Drawing.Size(81, 30);
 			this.buttonCancel.TabIndex = 31;
@@ -424,7 +401,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			// buttonSave
 			// 
-			this.buttonSave.Location = new System.Drawing.Point(278, 577);
+			this.buttonSave.Location = new System.Drawing.Point(278, 607);
 			this.buttonSave.Name = "buttonSave";
 			this.buttonSave.Size = new System.Drawing.Size(114, 30);
 			this.buttonSave.TabIndex = 30;
@@ -439,20 +416,73 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// labelTMP
 			// 
 			this.labelTMP.AutoSize = true;
-			this.labelTMP.Location = new System.Drawing.Point(23, 577);
+			this.labelTMP.Location = new System.Drawing.Point(23, 607);
 			this.labelTMP.Name = "labelTMP";
 			this.labelTMP.Size = new System.Drawing.Size(53, 13);
 			this.labelTMP.TabIndex = 32;
 			this.labelTMP.Text = "labelTMP";
 			this.labelTMP.Visible = false;
 			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.textBoxLabelURL);
+			this.groupBox1.Controls.Add(this.labelSmartRouting);
+			this.groupBox1.Controls.Add(this.comboBoxRouting);
+			this.groupBox1.Location = new System.Drawing.Point(12, 13);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(466, 70);
+			this.groupBox1.TabIndex = 34;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Automatic provider selection";
+			// 
+			// comboBoxRouting
+			// 
+			this.comboBoxRouting.DisplayMember = "(none)";
+			this.comboBoxRouting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxRouting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.comboBoxRouting.FormattingEnabled = true;
+			this.comboBoxRouting.Items.AddRange(new object[] {
+            "Disabled",
+            "General routing based on Intento benchmarks",
+            "Industry-specific routing based on Intento benchmarks",
+            "Industry-specific routing based on Intento benchmarks 1",
+            "Industry-specific routing based on Intento benchmarks 2"});
+			this.comboBoxRouting.Location = new System.Drawing.Point(14, 40);
+			this.comboBoxRouting.Name = "comboBoxRouting";
+			this.comboBoxRouting.Size = new System.Drawing.Size(441, 21);
+			this.comboBoxRouting.TabIndex = 36;
+			// 
+			// textBoxLabelURL
+			// 
+			this.textBoxLabelURL.BackColor = System.Drawing.SystemColors.Control;
+			this.textBoxLabelURL.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.textBoxLabelURL.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.textBoxLabelURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.textBoxLabelURL.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+			this.textBoxLabelURL.Location = new System.Drawing.Point(233, 19);
+			this.textBoxLabelURL.Name = "textBoxLabelURL";
+			this.textBoxLabelURL.Size = new System.Drawing.Size(118, 13);
+			this.textBoxLabelURL.TabIndex = 35;
+			this.textBoxLabelURL.Tag = "https://www.slideshare.net/KonstantinSavenkov/state-of-the-machine-translation-by" +
+    "-intento-stock-engines-jun-2019";
+			this.textBoxLabelURL.Text = "1the Intento Benchmarks.";
+			// 
+			// labelSmartRouting
+			// 
+			this.labelSmartRouting.AutoSize = true;
+			this.labelSmartRouting.Location = new System.Drawing.Point(11, 19);
+			this.labelSmartRouting.Name = "labelSmartRouting";
+			this.labelSmartRouting.Size = new System.Drawing.Size(225, 13);
+			this.labelSmartRouting.TabIndex = 37;
+			this.labelSmartRouting.Text = "Select MT Provider automatically based on ";
+			// 
 			// IntentoFormOptionsMT
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.CancelButton = this.buttonCancel;
-			this.ClientSize = new System.Drawing.Size(491, 613);
-			this.Controls.Add(this.textBoxLabelURL);
+			this.ClientSize = new System.Drawing.Size(491, 644);
+			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.labelTMP);
 			this.Controls.Add(this.buttonCancel);
 			this.Controls.Add(this.buttonSave);
@@ -461,7 +491,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.Controls.Add(this.groupBoxModel);
 			this.Controls.Add(this.groupBoxBillingAccount);
 			this.Controls.Add(this.groupBoxProvider);
-			this.Controls.Add(this.checkBoxSmartRouting);
 			this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.MaximizeBox = false;
@@ -482,15 +511,14 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.groupBoxGlossary.PerformLayout();
 			this.groupBoxOptional.ResumeLayout(false);
 			this.groupBoxOptional.PerformLayout();
+			this.groupBox1.ResumeLayout(false);
+			this.groupBox1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
         }
 
         #endregion
-
-        public System.Windows.Forms.CheckBox checkBoxSmartRouting;
-        private System.Windows.Forms.TextBox textBoxLabelURL;
         public System.Windows.Forms.ComboBox comboBoxProviders;
         public System.Windows.Forms.ComboBox comboBoxCredentialId;
         public System.Windows.Forms.CheckBox checkBoxUseCustomModel;
@@ -520,5 +548,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public System.Windows.Forms.TextBox textBoxLabelConnectAccount;
 		public System.Windows.Forms.Panel panelConnectAccount;
 		public System.Windows.Forms.Button buttonRefresh;
+		private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.TextBox textBoxLabelURL;
+		public System.Windows.Forms.ComboBox comboBoxRouting;
+		private System.Windows.Forms.Label labelSmartRouting;
 	}
 }
