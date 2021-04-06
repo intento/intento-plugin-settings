@@ -79,7 +79,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                 var _intento = IntentoSDK.Intento.Create(parent.currentOptions.ApiKey, null,
                     path: "https://api.inten.to/",
                     userAgent: "ProxyForm",
-                    loggingCallback: IntentoTranslationProviderOptionsForm.Logging,
+                    loggingCallback: Logs.Logging,
                     proxySet: parent.currentOptions.proxySettings
                 );
                 var _translate = _intento.Ai.Text.Translate;

@@ -78,6 +78,7 @@
 			this.CheckBoxCutTag = new System.Windows.Forms.CheckBox();
 			this.checkBoxCustomTagParser = new System.Windows.Forms.CheckBox();
 			this.checkBoxTradosApp = new System.Windows.Forms.CheckBox();
+			this.textBoxRouting = new System.Windows.Forms.TextBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.SuspendLayout();
@@ -110,21 +111,21 @@
 			// 
 			// textBoxProviderId
 			// 
-			this.textBoxProviderId.Location = new System.Drawing.Point(75, 66);
+			this.textBoxProviderId.Location = new System.Drawing.Point(75, 73);
 			this.textBoxProviderId.Name = "textBoxProviderId";
 			this.textBoxProviderId.Size = new System.Drawing.Size(305, 20);
 			this.textBoxProviderId.TabIndex = 3;
 			// 
 			// textBoxModel
 			// 
-			this.textBoxModel.Location = new System.Drawing.Point(75, 192);
+			this.textBoxModel.Location = new System.Drawing.Point(75, 199);
 			this.textBoxModel.Name = "textBoxModel";
 			this.textBoxModel.Size = new System.Drawing.Size(305, 20);
 			this.textBoxModel.TabIndex = 4;
 			// 
 			// textBoxAuth
 			// 
-			this.textBoxAuth.Location = new System.Drawing.Point(75, 142);
+			this.textBoxAuth.Location = new System.Drawing.Point(75, 149);
 			this.textBoxAuth.Name = "textBoxAuth";
 			this.textBoxAuth.Size = new System.Drawing.Size(305, 20);
 			this.textBoxAuth.TabIndex = 5;
@@ -132,7 +133,7 @@
 			// checkBoxAuth
 			// 
 			this.checkBoxAuth.AutoSize = true;
-			this.checkBoxAuth.Location = new System.Drawing.Point(75, 119);
+			this.checkBoxAuth.Location = new System.Drawing.Point(75, 126);
 			this.checkBoxAuth.Name = "checkBoxAuth";
 			this.checkBoxAuth.Size = new System.Drawing.Size(48, 17);
 			this.checkBoxAuth.TabIndex = 7;
@@ -142,7 +143,7 @@
 			// checkBoxModel
 			// 
 			this.checkBoxModel.AutoSize = true;
-			this.checkBoxModel.Location = new System.Drawing.Point(75, 169);
+			this.checkBoxModel.Location = new System.Drawing.Point(75, 176);
 			this.checkBoxModel.Name = "checkBoxModel";
 			this.checkBoxModel.Size = new System.Drawing.Size(55, 17);
 			this.checkBoxModel.TabIndex = 8;
@@ -152,7 +153,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(17, 66);
+			this.label2.Location = new System.Drawing.Point(17, 73);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(58, 13);
 			this.label2.TabIndex = 9;
@@ -161,7 +162,7 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(20, 148);
+			this.label4.Location = new System.Drawing.Point(20, 155);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(29, 13);
 			this.label4.TabIndex = 11;
@@ -170,7 +171,7 @@
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(20, 192);
+			this.label5.Location = new System.Drawing.Point(20, 199);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(36, 13);
 			this.label5.TabIndex = 12;
@@ -179,7 +180,7 @@
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(20, 245);
+			this.label6.Location = new System.Drawing.Point(20, 252);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(46, 13);
 			this.label6.TabIndex = 15;
@@ -187,7 +188,7 @@
 			// 
 			// textBoxGlossary
 			// 
-			this.textBoxGlossary.Location = new System.Drawing.Point(75, 245);
+			this.textBoxGlossary.Location = new System.Drawing.Point(75, 252);
 			this.textBoxGlossary.Name = "textBoxGlossary";
 			this.textBoxGlossary.Size = new System.Drawing.Size(305, 20);
 			this.textBoxGlossary.TabIndex = 14;
@@ -195,12 +196,13 @@
 			// checkBoxSmartRouting
 			// 
 			this.checkBoxSmartRouting.AutoSize = true;
-			this.checkBoxSmartRouting.Location = new System.Drawing.Point(75, 43);
+			this.checkBoxSmartRouting.Location = new System.Drawing.Point(75, 44);
 			this.checkBoxSmartRouting.Name = "checkBoxSmartRouting";
 			this.checkBoxSmartRouting.Size = new System.Drawing.Size(88, 17);
 			this.checkBoxSmartRouting.TabIndex = 16;
 			this.checkBoxSmartRouting.Text = "Smart routing";
 			this.checkBoxSmartRouting.UseVisualStyleBackColor = true;
+			this.checkBoxSmartRouting.CheckedChanged += new System.EventHandler(this.checkBoxSmartRouting_CheckedChanged);
 			// 
 			// buttonSaveData
 			// 
@@ -223,7 +225,7 @@
 			// 
 			// textBoxFormat
 			// 
-			this.textBoxFormat.Location = new System.Drawing.Point(75, 92);
+			this.textBoxFormat.Location = new System.Drawing.Point(75, 99);
 			this.textBoxFormat.Name = "textBoxFormat";
 			this.textBoxFormat.Size = new System.Drawing.Size(305, 20);
 			this.textBoxFormat.TabIndex = 6;
@@ -231,7 +233,7 @@
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(17, 92);
+			this.label3.Location = new System.Drawing.Point(17, 99);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(39, 13);
 			this.label3.TabIndex = 10;
@@ -259,7 +261,7 @@
 			// 
 			// textBoxFrom
 			// 
-			this.textBoxFrom.Location = new System.Drawing.Point(114, 218);
+			this.textBoxFrom.Location = new System.Drawing.Point(114, 225);
 			this.textBoxFrom.Name = "textBoxFrom";
 			this.textBoxFrom.Size = new System.Drawing.Size(34, 20);
 			this.textBoxFrom.TabIndex = 23;
@@ -267,7 +269,7 @@
 			// 
 			// textBoxTo
 			// 
-			this.textBoxTo.Location = new System.Drawing.Point(216, 218);
+			this.textBoxTo.Location = new System.Drawing.Point(216, 225);
 			this.textBoxTo.Name = "textBoxTo";
 			this.textBoxTo.Size = new System.Drawing.Size(34, 20);
 			this.textBoxTo.TabIndex = 24;
@@ -322,7 +324,7 @@
 			this.checkBoxForbidSaveApikey.AutoSize = true;
 			this.checkBoxForbidSaveApikey.Checked = true;
 			this.checkBoxForbidSaveApikey.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.checkBoxForbidSaveApikey.Location = new System.Drawing.Point(23, 338);
+			this.checkBoxForbidSaveApikey.Location = new System.Drawing.Point(23, 345);
 			this.checkBoxForbidSaveApikey.Name = "checkBoxForbidSaveApikey";
 			this.checkBoxForbidSaveApikey.Size = new System.Drawing.Size(112, 17);
 			this.checkBoxForbidSaveApikey.TabIndex = 29;
@@ -431,7 +433,7 @@
 			// checkBoxHideHiddenTextButton
 			// 
 			this.checkBoxHideHiddenTextButton.AutoSize = true;
-			this.checkBoxHideHiddenTextButton.Location = new System.Drawing.Point(178, 338);
+			this.checkBoxHideHiddenTextButton.Location = new System.Drawing.Point(178, 345);
 			this.checkBoxHideHiddenTextButton.Name = "checkBoxHideHiddenTextButton";
 			this.checkBoxHideHiddenTextButton.Size = new System.Drawing.Size(134, 17);
 			this.checkBoxHideHiddenTextButton.TabIndex = 31;
@@ -441,7 +443,7 @@
 			// label11
 			// 
 			this.label11.AutoSize = true;
-			this.label11.Location = new System.Drawing.Point(81, 221);
+			this.label11.Location = new System.Drawing.Point(81, 228);
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(27, 13);
 			this.label11.TabIndex = 34;
@@ -450,7 +452,7 @@
 			// label12
 			// 
 			this.label12.AutoSize = true;
-			this.label12.Location = new System.Drawing.Point(194, 221);
+			this.label12.Location = new System.Drawing.Point(194, 228);
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(16, 13);
 			this.label12.TabIndex = 36;
@@ -508,7 +510,7 @@
 			this.groupBox2.Controls.Add(this.CheckBoxCutTag);
 			this.groupBox2.Controls.Add(this.checkBoxCustomTagParser);
 			this.groupBox2.Controls.Add(this.checkBoxTradosApp);
-			this.groupBox2.Location = new System.Drawing.Point(23, 275);
+			this.groupBox2.Location = new System.Drawing.Point(23, 282);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(360, 52);
 			this.groupBox2.TabIndex = 46;
@@ -547,11 +549,19 @@
 			this.checkBoxTradosApp.UseVisualStyleBackColor = true;
 			this.checkBoxTradosApp.CheckedChanged += new System.EventHandler(this.checkBoxTradosApp_CheckedChanged);
 			// 
+			// textBoxRouting
+			// 
+			this.textBoxRouting.Location = new System.Drawing.Point(169, 44);
+			this.textBoxRouting.Name = "textBoxRouting";
+			this.textBoxRouting.Size = new System.Drawing.Size(211, 20);
+			this.textBoxRouting.TabIndex = 47;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(787, 439);
+			this.Controls.Add(this.textBoxRouting);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.textBoxDTLog);
 			this.Controls.Add(this.checkBox1);
@@ -654,6 +664,7 @@
 		private System.Windows.Forms.CheckBox CheckBoxCutTag;
 		private System.Windows.Forms.CheckBox checkBoxCustomTagParser;
 		private System.Windows.Forms.CheckBox checkBoxTradosApp;
+		private System.Windows.Forms.TextBox textBoxRouting;
 	}
 }
 

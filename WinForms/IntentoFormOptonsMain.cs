@@ -87,15 +87,15 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 		#endregion vars
 
-			public IntentoTranslationProviderOptionsForm(
-			IntentoMTFormOptions options,
-			LangPair[] languagePairs,
-			Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric
-			)
+		public IntentoTranslationProviderOptionsForm(
+		IntentoMTFormOptions options,
+		LangPair[] languagePairs,
+		Func<string, string, ProxySettings, IntentoAiTextTranslate> fabric
+		)
 		{
-            // Logs.Write2("Test", "test content");
+			// Logs.Write2("Test", "test content");
 
-            var splashForm = new IntentoFormSplash();
+			var splashForm = new IntentoFormSplash();
 			splashForm.Show();
 			this.Visible = false;
 			this.fabric = fabric;
@@ -126,6 +126,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				{
 					originalOptions.ApiKey = locallyOptions.ApiKey;
 					originalOptions.SmartRouting = locallyOptions.SmartRouting;
+					originalOptions.Routing = locallyOptions.Routing;
 					originalOptions.ProviderId = locallyOptions.ProviderId;
 					originalOptions.CustomAuth = locallyOptions.CustomAuth;
 					originalOptions.CustomModel = locallyOptions.CustomModel;
@@ -160,7 +161,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 			if (!string.IsNullOrWhiteSpace(apiKeyState.apiKey))
 			{
-				apiKeyState.ReadProviders();
+				apiKeyState.ReadProvidersAndRouting();
 			}
 			if (apiKeyState.IsOK)
 			{
@@ -175,7 +176,44 @@ namespace Intento.MT.Plugin.PropertiesForm
 			RefreshFormInfo();
 			splashForm.Close();
 			this.Visible = true;
-
+			string txt = string.Format(
+				@"IntentoTranslationProviderOptionsForm ctor
+				ProviderName:{0}
+				ProviderId:{1}
+				FromLanguage:{2}
+				ToLanguage:{3}
+				SmartRouting:{4}
+				UseCustomAuth:{5}
+				CustomAuth:{6}
+				AuthDelegatedCredentialId:{7}
+				UseCustomModel:{8}
+				CustomModel:{9}
+				CustomModelName:{10}
+				Glossary:{11}
+				GlossaryName:{12}
+				CustomTagParser:{13}
+				SaveLocally:{14}
+				Version:{15}
+				UserAgent:{16}",
+				currentOptions.ProviderId,
+				currentOptions.ProviderName,
+				currentOptions.FromLanguage,
+				currentOptions.ToLanguage,
+				currentOptions.SmartRouting,
+				currentOptions.UseCustomAuth,
+				currentOptions.CustomAuth,
+				currentOptions.AuthDelegatedCredentialId,
+				currentOptions.UseCustomModel,
+				currentOptions.CustomModel,
+				currentOptions.CustomModelName,
+				currentOptions.Glossary,
+				currentOptions.GlossaryName,
+				currentOptions.CustomTagParser,
+				currentOptions.SaveLocally,
+				currentOptions.UserAgent,
+				version
+				);
+			Logs.Write('F', txt);
 		}
 
 		public IntentoTranslationProviderOptionsForm(
@@ -210,31 +248,31 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public LangPair[] LanguagePairs
 		{ get { return _languagePairs; } }
 
-		public static bool IsTrace(string pluginID=null)
+		public static bool IsTrace(string pluginID = null)
 		{
-            RegistryKey key;
-            if (pluginID != null)
-                key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}", pluginID));
-            else
-                key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento", pluginID));
+			RegistryKey key;
+			if (pluginID != null)
+				key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento\\{0}", pluginID));
+			else
+				key = Registry.CurrentUser.CreateSubKey(string.Format("Software\\Intento", pluginID));
 
-            string loggingReg = (string)key.GetValue("Logging", null);
-            if (loggingReg != null)
-            {
-                loggingReg = loggingReg.ToLower();
-                if (loggingReg == "1" || loggingReg == "true")
-                    return true;
-            }
+			string loggingReg = (string)key.GetValue("Logging", null);
+			if (loggingReg != null)
+			{
+				loggingReg = loggingReg.ToLower();
+				if (loggingReg == "1" || loggingReg == "true")
+					return true;
+			}
 
-            string loggingEnv = Environment.GetEnvironmentVariable("intento_plugin_logging");
-            if (loggingEnv != null)
-            {
-                loggingEnv = loggingEnv.ToLower();
-                if (loggingEnv == "1" || loggingEnv == "true")
-                    return true;
-            }
+			string loggingEnv = Environment.GetEnvironmentVariable("intento_plugin_logging");
+			if (loggingEnv != null)
+			{
+				loggingEnv = loggingEnv.ToLower();
+				if (loggingEnv == "1" || loggingEnv == "true")
+					return true;
+			}
 
-            return (TraceEndTime - DateTime.Now).Minutes > 0;
+			return (TraceEndTime - DateTime.Now).Minutes > 0;
 		}
 
 		#region Work with local registry
@@ -254,15 +292,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 					ret.ApiKey = GetValueFromRegistry("ApiKey", path);
 					if (!string.IsNullOrWhiteSpace(ret.ApiKey))
 					{
-						ret.SmartRouting = GetValueFromRegistry("SmartRouting", path) != null 
+						ret.SmartRouting = GetValueFromRegistry("SmartRouting", path) != null
 							&& GetValueFromRegistry("SmartRouting", path) == "1";
+						ret.Routing = GetValueFromRegistry("Routing", path);
 						ret.ProviderId = GetValueFromRegistry("ProviderId", path);
 						ret.CustomAuth = GetValueFromRegistry("CustomAuth", path);
 						ret.CustomModel = GetValueFromRegistry("CustomModel", path);
 						ret.Glossary = GetValueFromRegistry("Glossary", path);
-						ret.UseCustomModel = GetValueFromRegistry("UseCustomModel", path) != null 
+						ret.UseCustomModel = GetValueFromRegistry("UseCustomModel", path) != null
 							&& GetValueFromRegistry("UseCustomModel", path) == "1";
-						ret.UseCustomAuth = GetValueFromRegistry("UseCustomAuth", path) != null 
+						ret.UseCustomAuth = GetValueFromRegistry("UseCustomAuth", path) != null
 							&& GetValueFromRegistry("UseCustomAuth", path) == "1";
 					}
 				}
@@ -276,6 +315,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			SaveValueToRegistry("ApiKey", options.ApiKey); // for logging
 			SaveValueToRegistry("ApiKey", options.ApiKey, path);
 			SaveValueToRegistry("SmartRouting", options.SmartRouting, path);
+			SaveValueToRegistry("Routing", options.Routing, path);
 			SaveValueToRegistry("ProviderId", options.ProviderId, path);
 			SaveValueToRegistry("CustomAuth", options.CustomAuth, path);
 			SaveValueToRegistry("CustomModel", options.CustomModel, path);
@@ -291,7 +331,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				path = "all";
 			else
 				path = string.Format("{0}-{1}", _languagePairs[0].from, _languagePairs[0].to);
-			return "\\"+path;
+			return "\\" + path;
 		}
 
 
@@ -445,256 +485,214 @@ namespace Intento.MT.Plugin.PropertiesForm
 		//}
 
 		private void buttonHelp_Click(object sender, EventArgs e)
-        {
-            GetOptions().сallHelpAction?.Invoke();
-        }
+		{
+			GetOptions().сallHelpAction?.Invoke();
+		}
 
-        public void modelControls_ValueChanged(object sender, EventArgs e)
-        {
-            using (new CursorFormMT(formMT))
-            {
-                apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.GetModelState()?.modelControls_ValueChanged();
-            }
-        }
+		public void modelControls_ValueChanged(object sender, EventArgs e)
+		{
+			using (new CursorFormMT(formMT))
+			{
+				apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.GetModelState()?.modelControls_ValueChanged();
+			}
+		}
 
-        public void comboBoxCredentialId_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            using (new CursorFormMT(formMT))
-                apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.comboBoxCredentialId_SelectedIndexChanged();
-        }
+		public void comboBoxCredentialId_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			using (new CursorFormMT(formMT))
+				apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.comboBoxCredentialId_SelectedIndexChanged();
+		}
 
-        public void checkBoxSmartRouting_CheckedChanged(object sender, EventArgs e)
-        {
-            using (new CursorFormMT(formMT))
-                apiKeyState?.smartRoutingState?.CheckedChanged();
-        }
+		public void checkBoxSmartRouting_CheckedChanged(object sender, EventArgs e)
+		{
+			using (new CursorFormMT(formMT))
+				if (apiKeyState != null)
+					apiKeyState?.smartRoutingState?.CheckedChanged();
+		}
 
 
-        public void glossaryControls_ValueChanged(object sender, EventArgs e)
-        {
-            using (new CursorFormMT(formMT))
-                apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.GetGlossaryState()?.glossaryControls_ValueChanged();
-        }
+		public void glossaryControls_ValueChanged(object sender, EventArgs e)
+		{
+			using (new CursorFormMT(formMT))
+				apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.GetGlossaryState()?.glossaryControls_ValueChanged();
+		}
 
-        private void buttonSetApi_Click(object sender, EventArgs e)
-        {
-            settingsIsSet = false;
-            string apiKey = apiKeyState?.apiKey;
-            formApi.currentOptions = currentOptions;
-            formApi.ShowDialog();
-            if (formApi.DialogResult == DialogResult.OK && apiKeyState.IsOK && apiKeyState.apiKey != apiKey)
-            {
-                settingsIsSet = true;
-                RefreshFormInfo();
-            }
-        }
+		private void buttonSetApi_Click(object sender, EventArgs e)
+		{
+			settingsIsSet = false;
+			string apiKey = apiKeyState?.apiKey;
+			formApi.currentOptions = currentOptions;
+			formApi.ShowDialog();
+			if (formApi.DialogResult == DialogResult.OK && apiKeyState.IsOK && apiKeyState.apiKey != apiKey)
+			{
+				settingsIsSet = true;
+				RefreshFormInfo();
+			}
+		}
 
-        private void buttonAdvanced_Click(object sender, EventArgs e)
-        {
-            formAdvanced.ShowDialog();
-        }
+		private void buttonAdvanced_Click(object sender, EventArgs e)
+		{
+			formAdvanced.ShowDialog();
+		}
 
-        private void buttonMTSetting_Click(object sender, EventArgs e)
-        {
-            var smartRoutingState = apiKeyState.smartRoutingState;
-            formMT.ShowDialog();
-            using (new CursorForm(this))
-            {
-                if (formMT.DialogResult == DialogResult.OK)
-                {
-                    FillOptions(currentOptions);
-                    settingsIsSet = false;
-                    RefreshFormInfo();
-                }
-                else
-                    apiKeyState.smartRoutingState = smartRoutingState;
-            }
-        }
+		private void buttonMTSetting_Click(object sender, EventArgs e)
+		{
+			var smartRoutingState = apiKeyState.smartRoutingState;
+			formMT.ShowDialog();
+			using (new CursorForm(this))
+			{
+				if (formMT.DialogResult == DialogResult.OK)
+				{
+					FillOptions(currentOptions);
+					settingsIsSet = false;
+					RefreshFormInfo();
+				}
+				else
+					apiKeyState.smartRoutingState = smartRoutingState;
+			}
+		}
 
-        #endregion events
+		#endregion events
 
-        public static void Logging(string subject, string comment = null, Exception ex = null)
-        {
-            if (!IntentoTranslationProviderOptionsForm.IsTrace())
-                return;
+		private void LocalizeContent()
+		{
+			groupBoxBillingAccount.Text = Resource.BillingAccount;
+			groupBoxModel.Text = Resource.Model;
+			groupBoxGlossary.Text = Resource.Glossary;
+			buttonContinue.Text = Resource.MFbuttonClose;
+			buttonMTSetting.Text = Resource.MFbuttonMTSetting;
+			buttonSetApi.Text = Resource.EnterIntentoAPIKey;
+			Text = Resource.MFcaption;
+			groupBoxMTSettings.Text = Resource.MFgroupBoxMTSettings;
+			labelRegister1.Text = Resource.MFlabelRegister1;
+			labelRegister2.Text = Resource.MFlabelRegister2;
+			buttonCheck.Text = Resource.MFbuttonCheck;
+			labelIAK.Text = Resource.APIFlabelAPI;
+			buttonAdvanced.Text = Resource.MFbuttonAdvanced;
+			Icon = Resource.intento;
+			labelApiKeyIsChanged.Text = Resource.MFlabelApiKeyIsChanged;
+		}
 
-            try
-            {
+		public class CursorForm : IDisposable
+		{
+			IntentoTranslationProviderOptionsForm form;
+			public CursorForm(IntentoTranslationProviderOptionsForm form)
+			{
+				this.form = form;
+				if (form.cursorCount == 0)
+					form.Cursor = Cursors.WaitCursor;
+				form.cursorCount++;
+			}
 
-                string path = Environment.GetEnvironmentVariable("temp");
-                if (string.IsNullOrEmpty(path))
-                    path = Environment.GetEnvironmentVariable("tmp");
-                if (string.IsNullOrEmpty(path))
-                    return;
+			public void Dispose()
+			{
+				form.cursorCount--;
+				if (form.cursorCount == 0)
+					form.Cursor = Cursors.Default;
+			}
+		}
 
-                DateTime now = DateTime.UtcNow;
-                List<string> content = new List<string>();
-                content.Add("------------------------");
-                content.Add(string.Format("{0} {1}", now.ToString("yyyy-MM-dd HH:mm:ss.fffff"), subject));
-                if (comment != null)
-                    content.Add(comment);
-                if (ex != null)
-                    content.AddRange(LoggingEx(ex));
+		public class CursorFormMT : IDisposable
+		{
+			IntentoFormOptionsMT form;
+			public CursorFormMT(IntentoFormOptionsMT form)
+			{
+				this.form = form;
+				if (form.cursorCountMT == 0)
+					form.Cursor = Cursors.WaitCursor;
+				form.cursorCountMT++;
+			}
 
-                string filename = string.Format("{0}\\Intento_Logs_{1}", path, now.ToString("yyyy-MM-dd-HH"));
-                File.AppendAllLines(filename, content);
-            }
-            catch { }
-        }
+			public void Dispose()
+			{
+				form.cursorCountMT--;
+				if (form.cursorCountMT == 0)
+					form.Cursor = Cursors.Default;
+			}
+		}
 
-        public static IEnumerable<string> LoggingEx(Exception ex)
-        {
-            List<string> items = new List<string>();
-            items.Add(string.Format("Exception {0}", ex.Message));
-            if (ex.StackTrace != null)
-            {
-                items.Add("Stack Trace:");
-                items.Add(ex.StackTrace);
-            }
-            if (ex.InnerException != null)
-                items.AddRange(LoggingEx(ex.InnerException));
-            return items;
-        }
-
-        private void LocalizeContent()
-        {
-            groupBoxBillingAccount.Text = Resource.BillingAccount;
-            groupBoxModel.Text = Resource.Model;
-            groupBoxGlossary.Text = Resource.Glossary;
-            buttonContinue.Text = Resource.MFbuttonClose;
-            buttonMTSetting.Text = Resource.MFbuttonMTSetting;
-            buttonSetApi.Text = Resource.EnterIntentoAPIKey;
-            Text = Resource.MFcaption;
-            groupBoxMTSettings.Text = Resource.MFgroupBoxMTSettings;
-            labelRegister1.Text = Resource.MFlabelRegister1;
-            labelRegister2.Text = Resource.MFlabelRegister2;
-            buttonCheck.Text = Resource.MFbuttonCheck;
-            labelIAK.Text = Resource.APIFlabelAPI;
-            buttonAdvanced.Text = Resource.MFbuttonAdvanced;
-            Icon = Resource.intento;
-            labelApiKeyIsChanged.Text = Resource.MFlabelApiKeyIsChanged;
-        }
-
-        public class CursorForm : IDisposable
-        {
-            IntentoTranslationProviderOptionsForm form;
-            public CursorForm(IntentoTranslationProviderOptionsForm form)
-            {
-                this.form = form;
-                if (form.cursorCount == 0)
-                    form.Cursor = Cursors.WaitCursor;
-                form.cursorCount++;
-            }
-
-            public void Dispose()
-            {
-                form.cursorCount--;
-                if (form.cursorCount == 0)
-                    form.Cursor = Cursors.Default;
-            }
-        }
-
-        public class CursorFormMT : IDisposable
-        {
-            IntentoFormOptionsMT form;
-            public CursorFormMT(IntentoFormOptionsMT form)
-            {
-                this.form = form;
-                if (form.cursorCountMT == 0)
-                    form.Cursor = Cursors.WaitCursor;
-                form.cursorCountMT++;
-            }
-
-            public void Dispose()
-            {
-                form.cursorCountMT--;
-                if (form.cursorCountMT == 0)
-                    form.Cursor = Cursors.Default;
-            }
-        }
-
-        public void FillOptions(IntentoMTFormOptions options)
-        {
-            options.ForbidSaveApikey = currentOptions.ForbidSaveApikey;
-            options.HideHiddenTextButton = currentOptions.HideHiddenTextButton;
-            options.CustomSettingsName = currentOptions.CustomSettingsName;
+		public void FillOptions(IntentoMTFormOptions options)
+		{
+			options.ForbidSaveApikey = currentOptions.ForbidSaveApikey;
+			options.HideHiddenTextButton = currentOptions.HideHiddenTextButton;
+			options.CustomSettingsName = currentOptions.CustomSettingsName;
 			options.CustomTagParser = currentOptions.CustomTagParser;
 			options.CutTag = currentOptions.CutTag;
 			options.SaveLocally = currentOptions.SaveLocally;
 
 			apiKeyState.FillOptions(options);
-        }
+		}
 
-        public void RefreshFormInfo()
-        {
-            SmartRoutingState smartRoutingState = apiKeyState?.smartRoutingState;
-            buttonContinue.Enabled = false;
-            labelApiKeyIsChanged.Visible = false;
-            IntentoMTFormOptions tmpOptions = new IntentoMTFormOptions();
-            apiKeyState.FillOptions(tmpOptions);
-            if (smartRoutingState != null && smartRoutingState.SmartRouting)
-            {
-                textBoxAccount.UseSystemPasswordChar = false;
-                textBoxProviderName.Text = Resource.MFSmartRoutingText;
-                textBoxAccount.Text = Resource.MFNa;
-                textBoxModel.Text = Resource.MFNa;
-                textBoxGlossary.Text = Resource.MFNa;
-                buttonContinue.Enabled = true;
-                if (apiKeyState.IsOK)
-                    apiKey_tb.Text = apiKeyState.apiKey;
-            }
-            else
-            {
-                if (apiKeyState.IsOK)
-                {
-                    apiKey_tb.Text = apiKeyState.apiKey;
-                    if (String.IsNullOrEmpty(tmpOptions.ProviderId))
-                        textBoxProviderName.Text = Resource.NeedAChoise;
-                    else
-                    {
-                        textBoxProviderName.Text = tmpOptions.ProviderName;
-                        buttonContinue.Enabled = true;
-                    }
-                }
-                else
-                    textBoxProviderName.Text = Resource.MFNa;
+		public void RefreshFormInfo()
+		{
+			SmartRoutingState smartRoutingState = apiKeyState?.smartRoutingState;
+			buttonContinue.Enabled = false;
+			labelApiKeyIsChanged.Visible = false;
+			IntentoMTFormOptions tmpOptions = new IntentoMTFormOptions();
+			apiKeyState.FillOptions(tmpOptions);
+			if (smartRoutingState != null && smartRoutingState.SmartRouting)
+			{
+				textBoxAccount.UseSystemPasswordChar = false;
+				textBoxProviderName.Text = String.Format(Resource.MFSmartRoutingText, smartRoutingState.routingDescription);
+				textBoxAccount.Text = Resource.MFNa;
+				textBoxModel.Text = Resource.MFNa;
+				textBoxGlossary.Text = Resource.MFNa;
+				buttonContinue.Enabled = true;
+				if (apiKeyState.IsOK)
+					apiKey_tb.Text = apiKeyState.apiKey;
+			}
+			else
+			{
+				if (apiKeyState.IsOK)
+				{
+					apiKey_tb.Text = apiKeyState.apiKey;
+					if (String.IsNullOrEmpty(tmpOptions.ProviderId))
+						textBoxProviderName.Text = Resource.NeedAChoise;
+					else
+					{
+						textBoxProviderName.Text = tmpOptions.ProviderName;
+						buttonContinue.Enabled = true;
+					}
+				}
+				else
+					textBoxProviderName.Text = Resource.MFNa;
 
-                if (currentOptions.AuthMode == StateModeEnum.prohibited || currentOptions.AuthMode == StateModeEnum.unknown)
-                {
-                    textBoxAccount.UseSystemPasswordChar = false;
-                    textBoxAccount.Text = Resource.MFNa;
-                }
-                else if (String.IsNullOrEmpty(tmpOptions.CustomAuth))
-                {
-                    textBoxAccount.UseSystemPasswordChar = false;
-                    textBoxAccount.Text = Resource.Empty;
-                }
-                else
-                {
-                    textBoxAccount.UseSystemPasswordChar = !tmpOptions.IsAuthDelegated;
-                    textBoxAccount.Text = tmpOptions.IsAuthDelegated ? tmpOptions.AuthDelegatedCredentialId : tmpOptions.CustomAuth;
-                    labelApiKeyIsChanged.Visible = settingsIsSet;
-                }
+				if (currentOptions.AuthMode == StateModeEnum.prohibited || currentOptions.AuthMode == StateModeEnum.unknown)
+				{
+					textBoxAccount.UseSystemPasswordChar = false;
+					textBoxAccount.Text = Resource.MFNa;
+				}
+				else if (String.IsNullOrEmpty(tmpOptions.CustomAuth))
+				{
+					textBoxAccount.UseSystemPasswordChar = false;
+					textBoxAccount.Text = Resource.Empty;
+				}
+				else
+				{
+					textBoxAccount.UseSystemPasswordChar = !tmpOptions.IsAuthDelegated;
+					textBoxAccount.Text = tmpOptions.IsAuthDelegated ? tmpOptions.AuthDelegatedCredentialId : tmpOptions.CustomAuth;
+					labelApiKeyIsChanged.Visible = settingsIsSet;
+				}
 
-                if (tmpOptions.CustomModelMode == StateModeEnum.prohibited || tmpOptions.CustomModelMode == StateModeEnum.unknown)
-                    textBoxModel.Text = Resource.MFNa;
-                else if (tmpOptions.CustomModelMode == StateModeEnum.optional && !tmpOptions.UseCustomModel)
-                    textBoxModel.Text = Resource.Empty;
-                else
-                {
-                    textBoxModel.Text = tmpOptions.CustomModelName;
-                    labelApiKeyIsChanged.Visible = settingsIsSet;
-                }
-                if (tmpOptions.GlossaryMode == StateModeEnum.prohibited || tmpOptions.GlossaryMode == StateModeEnum.unknown)
-                    textBoxGlossary.Text = Resource.MFNa;
-                else
-                {
-                    textBoxGlossary.Text = String.IsNullOrEmpty(tmpOptions.GlossaryName) ? Resource.Empty : tmpOptions.GlossaryName;
-                    labelApiKeyIsChanged.Visible = settingsIsSet;
-                }
-            }
+				if (tmpOptions.CustomModelMode == StateModeEnum.prohibited || tmpOptions.CustomModelMode == StateModeEnum.unknown)
+					textBoxModel.Text = Resource.MFNa;
+				else if (tmpOptions.CustomModelMode == StateModeEnum.optional && !tmpOptions.UseCustomModel)
+					textBoxModel.Text = Resource.Empty;
+				else
+				{
+					textBoxModel.Text = tmpOptions.CustomModelName;
+					labelApiKeyIsChanged.Visible = settingsIsSet;
+				}
+				if (tmpOptions.GlossaryMode == StateModeEnum.prohibited || tmpOptions.GlossaryMode == StateModeEnum.unknown)
+					textBoxGlossary.Text = Resource.MFNa;
+				else
+				{
+					textBoxGlossary.Text = String.IsNullOrEmpty(tmpOptions.GlossaryName) ? Resource.Empty : tmpOptions.GlossaryName;
+					labelApiKeyIsChanged.Visible = settingsIsSet;
+				}
+			}
 
-        }
+		}
 
 		private void IntentoTranslationProviderOptionsForm_FormClosing(object sender, FormClosingEventArgs e)
 		{

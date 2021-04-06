@@ -32,7 +32,10 @@ namespace Intento.MT.Plugin.PropertiesForm
         // Result of request to read a list of providers
         public List<dynamic> providers;
 
-        string error_reason = null;
+		// Routing table query result
+		public List<dynamic> routings;
+
+		string error_reason = null;
         IEnumerable<string> error_detail;
 
         public delegate void ApiKeyChanged(bool isOK);
@@ -138,69 +141,71 @@ namespace Intento.MT.Plugin.PropertiesForm
             return error_detail;
         }
 
-        public void ReadProviders()
+        public void ReadProvidersAndRouting()
         {
-            using (new IntentoTranslationProviderOptionsForm.CursorFormMT(form.formMT))
-            {
-                if (string.IsNullOrEmpty(apiKey))
-                {
-                    ChangeStatus(EApiKeyStatus.changed);
-                    EnableDisable();
-                    return;
-                }
+			using (new IntentoTranslationProviderOptionsForm.CursorFormMT(form.formMT))
+			{
+				if (string.IsNullOrEmpty(apiKey))
+				{
+					ChangeStatus(EApiKeyStatus.changed);
+					EnableDisable();
+					return;
+				}
 
-                try
-                {
-                    providers = null;
-                    error_reason = null;
+				try
+				{
+					providers = null;
+					error_reason = null;
 
-                    ChangeStatus(EApiKeyStatus.download);
+					ChangeStatus(EApiKeyStatus.download);
 
-                    //providers = form.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
-                    providers = form.testListProvidersData != null ? form.testListProvidersData : form._translate.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
+					//providers = form.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
+					providers = form.testListProvidersData != null ? form.testListProvidersData : form._translate.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
+					Dictionary<string, string> additionalParams = new Dictionary<string, string>();
+					additionalParams.Add("pairs", "true");
+					routings = form._translate.Routing(additionalParams).ToList();
+					// SmartRoutingState created inside
+					ChangeStatus(EApiKeyStatus.ok);
+				}
+				catch (AggregateException ex2)
+				{
+					Exception ex = ex2.InnerExceptions[0];
+					if (ex is IntentoInvalidApiKeyException)
+					{
+						// Invalid API key
+						error_reason = Resource.InvalidApiKeyMessage;
+					}
+					else
+					{
+						if (ex is IntentoInvalidApiKeyException)
+							error_reason = string.Format("[F] {0}", ((IntentoSDK.IntentoApiException)ex).Content);
+						else if (ex is IntentoApiException)
+							error_reason = string.Format("[Api] {2}: {0}: {1}", ex.Message, ((IntentoApiException)ex).Content, ex.GetType().Name);
+						else if (ex is IntentoSdkException)
+							error_reason = string.Format("[Sdk] {1}: {0}", ex.Message, ex.GetType().Name);
+						else if (ex is HttpRequestException)
+						{
+							if (ex.InnerException != null)
+								error_reason = string.Format("[R] {0}: {1}", ex.InnerException.GetType().Name, ex.InnerException.Message);
+							else
+								error_reason = string.Format("[R] {0}: {1}", ex.GetType().Name, ex.Message);
+						}
+						else
+							error_reason = string.Format("[U] {0}: {1}", ex.GetType().Name, ex.Message);
+					}
 
-                    // SmartRoutingState created inside
-                    ChangeStatus(EApiKeyStatus.ok);
-                }
-                catch (AggregateException ex2)
-                {
-                    Exception ex = ex2.InnerExceptions[0];
-                    if (ex is IntentoInvalidApiKeyException)
-                    {
-                        // Invalid API key
-                        error_reason = Resource.InvalidApiKeyMessage;
-                    }
-                    else
-                    {
-                        if (ex is IntentoInvalidApiKeyException)
-                            error_reason = string.Format("[F] {0}", ((IntentoSDK.IntentoApiException)ex).Content);
-                        else if (ex is IntentoApiException)
-                            error_reason = string.Format("[Api] {2}: {0}: {1}", ex.Message, ((IntentoApiException)ex).Content, ex.GetType().Name);
-                        else if (ex is IntentoSdkException)
-                            error_reason = string.Format("[Sdk] {1}: {0}", ex.Message, ex.GetType().Name);
-                        else if (ex is HttpRequestException)
-                        {
-                            if (ex.InnerException != null)
-                                error_reason = string.Format("[R] {0}: {1}", ex.InnerException.GetType().Name, ex.InnerException.Message);
-                            else
-                                error_reason = string.Format("[R] {0}: {1}", ex.GetType().Name, ex.Message);
-                        }
-                        else
-                            error_reason = string.Format("[U] {0}: {1}", ex.GetType().Name, ex.Message);
-                    }
+					// SmartRoutingState not created inside because status is not ok
+					ChangeStatus(EApiKeyStatus.error);
+					error_detail = Logs.LoggingEx('M', ex2);
+				}
+				finally
+				{
+					EnableDisable();
+				}
+			}
+		}
 
-                    // SmartRoutingState not created inside because status is not ok
-                    ChangeStatus(EApiKeyStatus.error);
-                    error_detail = IntentoTranslationProviderOptionsForm.LoggingEx(ex2);
-                }
-                finally
-                {
-                    EnableDisable();
-                }
-            }
-        }
-
-        private void CreateChildStates()
+		private void CreateChildStates()
         {
             if (IsOK)
                 smartRoutingState = new SmartRoutingState(this, options);

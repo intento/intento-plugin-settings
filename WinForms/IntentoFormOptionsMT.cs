@@ -13,6 +13,21 @@ namespace Intento.MT.Plugin.PropertiesForm
 {
 	public partial class IntentoFormOptionsMT : Form
     {
+		private Dictionary<string, string> _routingTable;
+		public Dictionary<string, string> RoutingTable
+		{
+			get => _routingTable;
+			set
+			{
+				if (_routingTable != value)
+				{
+					_routingTable = value;
+					comboBoxRouting.DataSource = new BindingSource(value, null);
+					comboBoxRouting.ValueMember = "Key";
+					comboBoxRouting.DisplayMember = "Key";
+				}
+			}
+		}
         IntentoTranslationProviderOptionsForm parent;
         //const string testString = "1";
         //readonly IList<string> testResultString = new ReadOnlyCollection<string> 
@@ -41,15 +56,16 @@ namespace Intento.MT.Plugin.PropertiesForm
             comboBoxModels.SelectedIndexChanged += parent.modelControls_ValueChanged;
             comboBoxCredentialId.SelectedIndexChanged += parent.comboBoxCredentialId_SelectedIndexChanged;
             textBoxModel.TextChanged += parent.modelControls_ValueChanged;
-            checkBoxSmartRouting.CheckedChanged += parent.checkBoxSmartRouting_CheckedChanged;
-            //textBoxCredentials.Enter += parent.textBoxCredentials_Enter;
-            textBoxGlossary.TextChanged += parent.glossaryControls_ValueChanged;
+            //checkBoxSmartRouting.CheckedChanged += parent.checkBoxSmartRouting_CheckedChanged;
+			comboBoxRouting.SelectedIndexChanged += parent.checkBoxSmartRouting_CheckedChanged;
+			//textBoxCredentials.Enter += parent.textBoxCredentials_Enter;
+			textBoxGlossary.TextChanged += parent.glossaryControls_ValueChanged;
             comboBoxGlossaries.TextChanged += parent.glossaryControls_ValueChanged;
             textBoxLabelURL.Click += parent.linkLabel_LinkClicked;
 			textBoxLabelConnectAccount.Click += parent.linkLabel_LinkClicked;
 //			buttonRefresh.Click += parent.buttonRefresh_Click;
 			buttonRefresh.Click += parent.comboBoxProviders_SelectedIndexChanged;
-			checkBoxSmartRouting.Select();
+			comboBoxRouting.Select();
 
             textBoxModel.Location = comboBoxModels.Location;
             textBoxGlossary.Location = comboBoxGlossaries.Location;
@@ -75,7 +91,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             groupBoxBillingAccount.Text = Resource.BillingAccount;
             groupBoxModel.Text = Resource.Model;
             groupBoxGlossary.Text = Resource.Glossary;
-            checkBoxSmartRouting.Text = Resource.MTcheckBoxSmartRouting;
+            labelSmartRouting.Text = Resource.MTlabelSmartRouting;
             groupBoxProvider.Text = Resource.Provider;
 			textBoxLabelConnectAccount.Text = Resource.MTLinkConnectAccount;
 			toolTipHelp.SetToolTip(buttonRefresh, Resource.MTbuttonRefreshToolTip);
@@ -133,12 +149,12 @@ namespace Intento.MT.Plugin.PropertiesForm
                 this.DialogResult = DialogResult.OK;
         }
 
-        /// <summary>
-        /// callback for test asynchronous request
-        /// </summary>
-        /// <param name="res">true if there were no errors in the answer, else false</param>
-        /// <param name="msg">message for user</param>
-        private void TestResults(bool res, string msg)
+		/// <summary>
+		/// callback for test asynchronous request
+		/// </summary>
+		/// <param name="res">true if there were no errors in the answer, else false</param>
+		/// <param name="msg">message for user</param>
+		private void TestResults(bool res, string msg)
         {
             if (msg != null)
             {
@@ -166,7 +182,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private KeyValuePair<bool, string> TestTranslationTask(IntentoMTFormOptions testOptions)
         {
-            IntentoTranslationProviderOptionsForm.Logging("Trados Translate: start");
+			Logs.Write('F', "Test Translate start");
             try
             {
 
@@ -211,13 +227,13 @@ namespace Intento.MT.Plugin.PropertiesForm
                         return new KeyValuePair<bool, string>(true, Resource.ErrorTestTranslation);
                     }
 
-                    IntentoTranslationProviderOptionsForm.Logging("Trados Translate: finish");
-                }
-                return new KeyValuePair<bool, string>(true, null);
+				}
+				Logs.Write('F', "Test Translate finish");
+				return new KeyValuePair<bool, string>(true, null);
             }
             catch (AggregateException ex2)
             {
-                IntentoTranslationProviderOptionsForm.Logging("Trados Translate: error", ex: ex2);
+				Logs.Write('F', "Test Translate error", ex: ex2);
                 return new KeyValuePair<bool, string>(false, ex2.Message);
             }
         }

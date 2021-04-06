@@ -458,7 +458,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Smart Routing (default).
+        ///   Looks up a localized string similar to Smart Routing ({0}).
         /// </summary>
         internal static string MFSmartRoutingText {
             get {
@@ -503,15 +503,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select MT Provider automatically based on.
-        /// </summary>
-        internal static string MTcheckBoxSmartRouting {
-            get {
-                return ResourceManager.GetString("MTcheckBoxSmartRouting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Use custom MT model.
         /// </summary>
         internal static string MTcheckBoxUseCustomModel {
@@ -550,9 +541,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         /// <summary>
         ///   Looks up a localized string similar to Create on.
         /// </summary>
-        internal static string MTLabelCreateOn {
+        internal static string MTlabelCreateOn {
             get {
-                return ResourceManager.GetString("MTLabelCreateOn", resourceCulture);
+                return ResourceManager.GetString("MTlabelCreateOn", resourceCulture);
             }
         }
         
@@ -590,6 +581,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         internal static string MTlabelHelpOptional {
             get {
                 return ResourceManager.GetString("MTlabelHelpOptional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select MT Provider automatically based on.
+        /// </summary>
+        internal static string MTlabelSmartRouting {
+            get {
+                return ResourceManager.GetString("MTlabelSmartRouting", resourceCulture);
             }
         }
         
