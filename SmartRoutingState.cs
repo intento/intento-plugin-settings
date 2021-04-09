@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Intento.MT.Plugin.PropertiesForm.WinForms;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
 
@@ -83,12 +84,21 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public string Routing
 		{ get { return routing; } }
 
+		public string RoutingDescription
+		{
+			get
+			{
+				return routingDescription;
+			}
+	    }
+
 		public static void FillOptions(SmartRoutingState state, IntentoMTFormOptions options)
 		{
 
 			if (state == null)
 			{
 				options.Routing = "best";
+				options.RoutingDisplayName = Resource.BestSmartRouteDescription;
 				options.SmartRouting = true;
 				ProviderState.FillOptions(null, options);
 			}
@@ -96,6 +106,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			{
 				options.SmartRouting = state.SmartRouting;
 				options.Routing = state.Routing;
+				options.RoutingDisplayName = state.RoutingDescription;
 				ProviderState.FillOptions(state.providerState, options);
 			}
 			if (options.SmartRouting)
