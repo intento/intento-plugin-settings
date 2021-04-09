@@ -40,6 +40,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 		/// Selected type of smart routing
 		/// </summary>
 		public string Routing { get; set; }
+		
+		/// <summary>
+		/// Display name for routing
+		/// </summary>
+		public string RoutingDisplayName { get; set; }
 
 		/// <summary>
 		/// Selected provider id (in case of !SmartRouting)
