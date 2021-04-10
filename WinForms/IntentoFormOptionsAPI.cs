@@ -24,7 +24,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             InitializeComponent();
             LocalizeContent();
             parent = form;
-            apiKey_tb.TextChanged += parent.apiKey_tb_TextChanged;
             if (form.GetOptions().HideHiddenTextButton)
                 checkBoxShowHidden.Visible = false;
         }
@@ -40,28 +39,41 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            parent.apiKeyState.ReadProvidersAndRouting();
-            string err = parent.apiKeyState.Error();
-            IEnumerable <string> errDetail = parent.apiKeyState.ErrorDetail();
-            var nl = Environment.NewLine;
-            if (!string.IsNullOrWhiteSpace(err))
-            {
+			this.Cursor = Cursors.WaitCursor;
+			var testOptions = new IntentoMTFormOptions();
+			testOptions.Hidden = true;
+			var _apiKeyState = new ApiKeyState(new IntentoTranslationProviderOptionsForm(testOptions, parent.LanguagePairs, parent.fabric), _options);
+			_apiKeyState.SetValue(apiKey_tb.Text.Trim());
+			_apiKeyState.ReadProvidersAndRouting();
+			string err = _apiKeyState.Error();
+			IEnumerable<string> errDetail = _apiKeyState.ErrorDetail();
+			this.Cursor = Cursors.Default;
+			var nl = Environment.NewLine;
+			if (!string.IsNullOrWhiteSpace(err))
+			{
 				string errorMsg = err == Resource.InvalidApiKeyMessage ? err : Resource.APIFlabelErrorSeePopup;
 				labelError.Text = string.Format("ERROR: {0}", errorMsg); labelError.Visible = true;
-                if (errDetail != null)
-                {
-                    errorInfo = (
-                        string.Format("{0}{1}---------------------------{1}{2}", 
-                        DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"), 
-                        nl, 
-                        string.Join(nl, errDetail.ToArray()) 
-                        ));
+				if (errDetail != null)
+				{
+					errorInfo = (
+						string.Format("{0}{1}---------------------------{1}{2}",
+						DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"),
+						nl,
+						string.Join(nl, errDetail.ToArray())
+						));
 
-                    toolTip1.SetToolTip(labelError, Resource.APIToolTipMessage);
-                }
-            }
-            else
-                this.DialogResult = DialogResult.OK;
+					toolTip1.SetToolTip(labelError, Resource.APIToolTipMessage);
+				}
+			}
+			else
+			{
+				this.Cursor = Cursors.WaitCursor;
+				parent.apiKeyState.SetValue(apiKey_tb.Text.Trim());
+				parent.apiKeyState.ReadProvidersAndRouting();
+				parent.apiKeyState.EnableDisable();
+				this.Cursor = Cursors.Default;
+				this.DialogResult = DialogResult.OK;
+			}
         }
 
         private void checkBoxShowHidden_CheckedChanged(object sender, EventArgs e)
@@ -71,8 +83,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            apiKey_tb.Text = _options.ApiKey;
-            parent.currentOptions = _options;
             Close();
         }
 
@@ -82,11 +92,26 @@ namespace Intento.MT.Plugin.PropertiesForm
             labelError.Visible = false;
             buttonSave.Enabled = !string.IsNullOrWhiteSpace(apiKey_tb.Text);
             checkBoxShowHidden.Checked = false;
-        }
+			apiKey_tb.Text = parent.apiKeyState.apiKey;
+			apiKey_tb.BackColor = parent.apiKeyState.apiKeyStatus == ApiKeyState.EApiKeyStatus.ok ?
+				SystemColors.Window : Color.LightPink;
+			apiKey_tb.TextChanged += apiKey_tb_TextChanged;
+		}
 
         private void labelError_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(errorInfo);
         }
-    }
+
+		private void apiKey_tb_TextChanged(object sender, EventArgs e)
+		{
+			buttonSave.Enabled = !string.IsNullOrWhiteSpace(apiKey_tb.Text);
+			apiKey_tb.BackColor = Color.LightPink;
+		}
+
+		private void IntentoFormOptionsAPI_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			apiKey_tb.TextChanged -= apiKey_tb_TextChanged;
+		}
+	}
 }

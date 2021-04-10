@@ -94,9 +94,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 		)
 		{
 			// Logs.Write2("Test", "test content");
-
+			bool hidden = options.Hidden;
 			var splashForm = new IntentoFormSplash();
-			splashForm.Show();
+			if (!hidden)
+				splashForm.Show();
+
 			this.Visible = false;
 			this.fabric = fabric;
 
@@ -174,8 +176,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 			apiKeyState.EnableDisable();
 			RefreshFormInfo();
-			splashForm.Close();
-			this.Visible = true;
+			if (!hidden)
+			{
+				splashForm.Close();
+				this.Visible = true;
+			}
 			string txt = string.Format(
 				@"IntentoTranslationProviderOptionsForm ctor
 				ProviderName:{0}
@@ -194,7 +199,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 				CustomTagParser:{13}
 				SaveLocally:{14}
 				Version:{15}
-				UserAgent:{16}",
+				UserAgent:{16}
+				Hidden:{17}",
 				currentOptions.ProviderId,
 				currentOptions.ProviderName,
 				currentOptions.FromLanguage,
@@ -211,7 +217,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 				currentOptions.CustomTagParser,
 				currentOptions.SaveLocally,
 				currentOptions.UserAgent,
-				version
+				version,
+				hidden
 				);
 			Logs.Write('F', txt);
 		}
@@ -413,21 +420,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 					apiKeyState.smartRoutingState.providerState.SelectedIndexChanged();
 			}
 		}
-
-		public void apiKey_tb_TextChanged(object sender, EventArgs e)
-		{
-			apiKeyState.SetValue(((Control)sender).Text.Trim());
-			apiKeyState.EnableDisable();
-		}
-
-		//public void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
-		//{
-		//    using (new CursorFormMT(formMT))
-		//    {
-		//        apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.checkBoxUseOwnCred_CheckedChanged();
-		//        AuthState.internalControlChange = false;
-		//    }
-		//}
 
 		public void checkBoxUseCustomModel_CheckedChanged(object sender, EventArgs e)
 		{
