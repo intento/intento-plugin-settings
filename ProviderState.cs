@@ -248,60 +248,36 @@ namespace Intento.MT.Plugin.PropertiesForm
             return authState;
         }
 
-        private static bool ProviderSupportsPair(dynamic provider, LangPair pair)
-        {
-            foreach (dynamic p in provider.pairs)
-            {
-                if (p.from == pair.from && p.to == pair.to)
-                {
-                    return true;
-                }
-            }
+		private static bool ProviderSupportsPair(dynamic provider, LangPair pair)
+		{
+			foreach (dynamic p in provider.pairs)
+			{
+				if (p.from == pair.from && p.to == pair.to)
+				{
+					return true;
+				}
+			}
+			List<string> symmetric = ((JArray)provider.symmetric).Select(x => (string)x).ToList();
+			return symmetric.Any(x => x == pair.from) && symmetric.Any(x => x == pair.to);
+		}
 
-            List<string> symmetric = ((JArray)provider.symmetric).Select(x => (string)x).ToList();
-            return symmetric.Any(x => x == pair.from) && symmetric.Any(x => x == pair.to);
-        }
+		private List<dynamic> FilterByLanguagePairs(List<dynamic> recProviders)
+		{
+			if (languagePairs == null)
+				return recProviders;
 
-        private List<dynamic> FilterByLanguagePairs(List<dynamic> recProviders)
-        {
-            if (languagePairs == null)
-                return recProviders;
+			// TODO this is very slow algorithm, but will do for now
 
+			// copy the list to keep original recProviders intact
+			List<dynamic> ret = new List<dynamic>(recProviders);
+			foreach (LangPair pair in languagePairs)
+			{
+				ret.RemoveAll(provider => !ProviderSupportsPair(provider, pair));
+			}
+			return ret;
+		}
 
-            // TODO this is very slow algorithm, but will do for now
-            
-            // copy the list to keep original recProviders intact
-            List<dynamic> ret = new List<dynamic>(recProviders);
-            foreach (LangPair pair in languagePairs)
-            {
-                ret.RemoveAll(provider => !ProviderSupportsPair(provider,pair));
-            }
-            return ret;
-
-            //List<dynamic> ret = new List<dynamic>();
-
-            //foreach (dynamic prov in recProviders)
-            //{
-            //    bool f = false;
-            //    foreach (LangPair lp in languagePairs)
-            //    {
-            //        foreach (dynamic p in prov.pairs)
-            //        {
-            //            f = (p.from == lp.from && p.to == lp.to);
-            //            if (f) break;
-            //        }
-            //        if (f) continue;
-            //        List<string> symmetric = ((JArray)prov.symmetric).Select(x => (string)x).ToList();
-            //        f = symmetric.Any(x => x == lp.from) && symmetric.Any(x => x == lp.to);
-            //        if (!f) break;
-            //    }
-            //    if (f) ret.Add(prov);
-            //}
-
-            //return ret;
-        }
-
-        public static string Draw(IntentoTranslationProviderOptionsForm form, ProviderState state)
+		public static string Draw(IntentoTranslationProviderOptionsForm form, ProviderState state)
         {
             if (state == null)
             {
