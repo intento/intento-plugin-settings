@@ -447,7 +447,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 					}
 				}
 				originalOptions.Translate = _translate;
-				FillOptions(originalOptions);
+				currentOptions.Fill(originalOptions);
 
 				if (!currentOptions.ForbidSaveApikey)
 				{
@@ -530,6 +530,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		private void buttonMTSetting_Click(object sender, EventArgs e)
 		{
 			var smartRoutingState = apiKeyState.smartRoutingState;
+			var bufferOptions = currentOptions.Duplicate();
 			formMT.ShowDialog();
 			using (new CursorForm(this))
 			{
@@ -540,7 +541,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 					RefreshFormInfo();
 				}
 				else
+				{
 					apiKeyState.smartRoutingState = smartRoutingState;
+					currentOptions = bufferOptions;
+				}
 			}
 		}
 
@@ -649,7 +653,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				else
 					textBoxProviderName.Text = Resource.MFNa;
 
-				if (currentOptions.AuthMode == StateModeEnum.prohibited || currentOptions.AuthMode == StateModeEnum.unknown)
+				if (tmpOptions.AuthMode == StateModeEnum.prohibited || tmpOptions.AuthMode == StateModeEnum.unknown)
 				{
 					textBoxAccount.UseSystemPasswordChar = false;
 					textBoxAccount.Text = Resource.MFNa;
