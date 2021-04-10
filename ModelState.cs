@@ -160,8 +160,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (!authState.IsOK)
                 return;
 
-            Clear();
-
             if (authState.providerState.smartRoutingState.SmartRouting)
                 modelMode = StateModeEnum.prohibited;
             else if (!authState.providerState.stock_model && authState.providerState.custom_model)
@@ -174,7 +172,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (modelMode == StateModeEnum.prohibited)
             {
                 Model_Group_Enabled(formMT, false);
-                return;
+				Clear();
+				return;
             }
 
             ReadModels();
@@ -185,7 +184,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             if (isList)
             {
-                if (modelMode == StateModeEnum.required)
+				Clear();
+				if (modelMode == StateModeEnum.required)
                 {
                     Internal_Change_checkBoxUseCustomModel_Checked(formMT, true);
                     formMT.checkBoxUseCustomModel.Enabled = false;
@@ -229,10 +229,12 @@ namespace Intento.MT.Plugin.PropertiesForm
                     formMT.checkBoxUseCustomModel.Enabled = false;
                     Internal_Change_checkBoxUseCustomModel_Checked(formMT, true);
                 }
-                if (options.UseCustomModel)
-                    formMT.textBoxModel.Text = options.CustomModel;
+				if (options.UseCustomModel)
+					formMT.textBoxModel.Text = options.CustomModel;
+				else
+					Clear(clearTextBox: false);
 
-            }
+			}
         }
 
         public static void FillOptions(ModelState state, IntentoMTFormOptions options)
@@ -329,11 +331,13 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         #region methods for managing a group of controls
 
-        void Clear()
+        void Clear(bool clearTextBox = true, bool clearComboBox = true)
         {
             internalControlChange = true;
-            formMT.comboBoxModels.Items.Clear();
-            formMT.textBoxModel.Text = string.Empty;
+			if (clearComboBox)
+				formMT.comboBoxModels.Items.Clear();
+			if (clearTextBox)
+				formMT.textBoxModel.Text = string.Empty;
             internalControlChange = false;
         }
 
