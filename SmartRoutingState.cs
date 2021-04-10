@@ -25,7 +25,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.apiKeyState = apiKeyState;
 			routingTable = new Dictionary<string, string>(defaultRoutingTable);
 			routing = _options.Routing;
-			List<dynamic> routingList = FilterByLanguagePairs(apiKeyState.routings, form.LanguagePairs);
+			List <dynamic> routingList = FilterByLanguagePairs(apiKeyState.routings, form.LanguagePairs);
 			foreach (dynamic p in routingList)
 			{
 				string name = (string)p.name;
@@ -54,7 +54,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public string Draw()
 		{
 			form.formMT.RoutingTable = routingTable;
-			form.formMT.comboBoxRouting.SelectedValue = routing == null ? "best" : routing;
+			if (routing != null)
+				form.formMT.comboBoxRouting.SelectedValue = routing;
 
 			return ProviderState.Draw(form, providerState);
 		}
