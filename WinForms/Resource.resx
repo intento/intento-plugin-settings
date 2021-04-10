@@ -335,4 +335,7 @@ If you have selected custom model or glossary, please adjust the language pair:<
   <data name="BestSmartRouteDescription" xml:space="preserve">
     <value>General routing based on Intento benchmarks</value>
   </data>
+  <data name="APIFlabelErrorSeePopup" xml:space="preserve">
+    <value>See the popup for details</value>
+  </data>
 </root>

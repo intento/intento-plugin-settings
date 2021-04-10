@@ -175,26 +175,27 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 		#endregion Properties
 
-		void Clear()
-        {
-            internalControlChange = true;
-            formMT.comboBoxGlossaries.Items.Clear();
-            formMT.textBoxGlossary.Text = string.Empty;
-            internalControlChange = false;
-        }
+		void Clear(bool clearTextBox = true, bool clearComboBox = true)
+		{
+			internalControlChange = true;
+			if (clearComboBox) formMT.comboBoxGlossaries.Items.Clear();
+			if (clearTextBox) formMT.textBoxGlossary.Text = string.Empty;
+			internalControlChange = false;
+		}
 
-        private void FillGlossaryControls()
+
+		private void FillGlossaryControls()
         {
             if (!authState.IsOK)
                 return;
 
-            Clear();
 
             if (!providerState.custom_glossary)
             {   // glossaries are not supported by provider
                 mode = StateModeEnum.prohibited;
                 formMT.groupBoxGlossary.Enabled = false;
-                return;
+				Clear();
+				return;
             }
 
             mode = StateModeEnum.optional;
@@ -204,8 +205,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             if (isList)
             {
-                // Fill Glossary and choose SelectedIndex
-                formMT.comboBoxGlossaries.Items.Insert(0, "");
+				Clear();
+				// Fill Glossary and choose SelectedIndex
+				formMT.comboBoxGlossaries.Items.Insert(0, "");
                 foreach (string x in glossaries.Select(x => (string)x.Key).OrderBy(x => x))
                 {
                     int n = formMT.comboBoxGlossaries.Items.Add(x);
@@ -216,7 +218,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
             else
             {
-                formMT.textBoxGlossary.Text = options.Glossary;
+				Clear(clearTextBox: false);
+				formMT.textBoxGlossary.Text = options.Glossary;
                 formMT.textBoxGlossary.Visible = true;
             }
         }

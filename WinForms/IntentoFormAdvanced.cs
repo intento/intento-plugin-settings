@@ -178,9 +178,10 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			textBoxCustomSettingsName.Visible = parent.isTrados;
 			labelCustomSettingsName.Visible = parent.isTrados;
 			checkBoxCutTags.Visible = parent.isTrados;
-			
+
 			// Specific setting for Memoq
-			checkBoxCustomTagParser.Visible = !parent.isTrados;
+			checkBoxCustomTagParser.Visible = !parent.isTrados && !parent.memoqPublic;
+			checkBoxCustomTagParser.Enabled = !parent.isTrados && parent.memoqPublic;
 
 			if (proxySettings == null)
             {

@@ -224,6 +224,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 		/// </summary>
 		public IntentoAiTextTranslate Translate { get; set; }
 
+		/// <summary>
+		/// Parameter to launch the form in hidden view
+		/// </summary>
+		public bool Hidden { get; set; }
+
 		private Dictionary<string, string> _authDict = null;
 
 		public void SetAuthDict(Dictionary<string, string> _authDict)
@@ -264,39 +269,45 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 		public IntentoMTFormOptions Duplicate()
 		{
-			IntentoMTFormOptions res = new IntentoMTFormOptions()
-			{
-				ApiKey = this.ApiKey,
-				SmartRouting = this.SmartRouting,
-				ProviderId = this.ProviderId,
-				ProviderName = this.ProviderName,
-				UseCustomAuth = this.UseCustomAuth,
-				CustomAuth = this.CustomAuth,
-				UseCustomModel = this.UseCustomModel,
-				Glossary = this.Glossary,
-				CustomModel = this.CustomModel,
-				Format = this.Format,
-				UserAgent = this.UserAgent,
-				Signature = this.Signature,
-				AppName = this.AppName,
-				Translate = this.Translate,
-				ForbidSaveApikey = this.ForbidSaveApikey,
-				HideHiddenTextButton = this.HideHiddenTextButton,
-				CustomSettingsName = this.CustomSettingsName,
-				CustomTagParser = this.CustomTagParser,
-				CutTag = this.CutTag,
-				сallHelpAction = this.сallHelpAction,
-				FromLanguage = this.FromLanguage,
-				ToLanguage = this.ToLanguage,
-				TraceEndTime = this.TraceEndTime,
-				MemoqAdditional = this.MemoqAdditional,
-				SaveLocally = this.SaveLocally,
-				Routing = this.Routing,
-				_authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict),
-			};
+			IntentoMTFormOptions res = new IntentoMTFormOptions();
+			Fill(res);
 			return res;
 		}
 
-	}
+		public void Fill(IntentoMTFormOptions res)
+		{
+			res.ApiKey = this.ApiKey;
+			res.SmartRouting = this.SmartRouting;
+			res.ProviderId = this.ProviderId;
+			res.ProviderName = this.ProviderName;
+			res.UseCustomAuth = this.UseCustomAuth;
+			res.CustomAuth = this.CustomAuth;
+			res.UseCustomModel = this.UseCustomModel;
+			res.Glossary = this.Glossary;
+			res.CustomModel = this.CustomModel;
+			res.Format = this.Format;
+			res.UserAgent = this.UserAgent;
+			res.Signature = this.Signature;
+			res.AppName = this.AppName;
+			res.Translate = this.Translate;
+			res.ForbidSaveApikey = this.ForbidSaveApikey;
+			res.HideHiddenTextButton = this.HideHiddenTextButton;
+			res.CustomSettingsName = this.CustomSettingsName;
+			res.CustomTagParser = this.CustomTagParser;
+			res.CutTag = this.CutTag;
+			res.сallHelpAction = this.сallHelpAction;
+			res.FromLanguage = this.FromLanguage;
+			res.ToLanguage = this.ToLanguage;
+			res.TraceEndTime = this.TraceEndTime;
+			res.MemoqAdditional = this.MemoqAdditional;
+			res.SaveLocally = this.SaveLocally;
+			res._authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict);
+		}
 
+		public IntentoMTFormOptions()
+		{
+			AppName = string.Empty;
+			Signature = string.Empty;
+		}
+	}
 }

@@ -94,9 +94,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 		)
 		{
 			// Logs.Write2("Test", "test content");
-
+			bool hidden = options.Hidden;
 			var splashForm = new IntentoFormSplash();
-			splashForm.Show();
+			if (!hidden)
+				splashForm.Show();
+
 			this.Visible = false;
 			this.fabric = fabric;
 
@@ -137,6 +139,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 				}
 
 			currentOptions = originalOptions.Duplicate();
+
+			//smart routing by default
+			if (currentOptions.ApiKey == null && currentOptions.ProviderId == null)
+				currentOptions.SmartRouting = true;
+
 			TraceEndTime = originalOptions.TraceEndTime;
 			formAdvanced = new IntentoFormAdvanced(this);
 			formApi = new IntentoFormOptionsAPI(this);
@@ -174,8 +181,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 			apiKeyState.EnableDisable();
 			RefreshFormInfo();
-			splashForm.Close();
-			this.Visible = true;
+			if (!hidden)
+			{
+				splashForm.Close();
+				this.Visible = true;
+			}
 			string txt = string.Format(
 				@"IntentoTranslationProviderOptionsForm ctor
 				ProviderName:{0}
@@ -194,7 +204,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 				CustomTagParser:{13}
 				SaveLocally:{14}
 				Version:{15}
-				UserAgent:{16}",
+				UserAgent:{16}
+				Hidden:{17}",
 				currentOptions.ProviderId,
 				currentOptions.ProviderName,
 				currentOptions.FromLanguage,
@@ -211,7 +222,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 				currentOptions.CustomTagParser,
 				currentOptions.SaveLocally,
 				currentOptions.UserAgent,
-				version
+				version,
+				hidden
 				);
 			Logs.Write('F', txt);
 		}
@@ -414,21 +426,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 			}
 		}
 
-		public void apiKey_tb_TextChanged(object sender, EventArgs e)
-		{
-			apiKeyState.SetValue(((Control)sender).Text.Trim());
-			apiKeyState.EnableDisable();
-		}
-
-		//public void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
-		//{
-		//    using (new CursorFormMT(formMT))
-		//    {
-		//        apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.checkBoxUseOwnCred_CheckedChanged();
-		//        AuthState.internalControlChange = false;
-		//    }
-		//}
-
 		public void checkBoxUseCustomModel_CheckedChanged(object sender, EventArgs e)
 		{
 			using (new CursorFormMT(formMT))
@@ -454,8 +451,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 						SaveValueToRegistry("ProxyEnabled", true);
 					}
 				}
+				currentOptions.Fill(originalOptions);
 				originalOptions.Translate = _translate;
-				FillOptions(originalOptions);
 
 				if (!currentOptions.ForbidSaveApikey)
 				{
@@ -526,6 +523,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			if (formApi.DialogResult == DialogResult.OK && apiKeyState.IsOK && apiKeyState.apiKey != apiKey)
 			{
 				settingsIsSet = true;
+				currentOptions.ApiKey = apiKeyState.apiKey;
 				RefreshFormInfo();
 			}
 		}
@@ -538,6 +536,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		private void buttonMTSetting_Click(object sender, EventArgs e)
 		{
 			var smartRoutingState = apiKeyState.smartRoutingState;
+			var bufferOptions = currentOptions.Duplicate();
 			formMT.ShowDialog();
 			using (new CursorForm(this))
 			{
@@ -548,7 +547,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 					RefreshFormInfo();
 				}
 				else
+				{
 					apiKeyState.smartRoutingState = smartRoutingState;
+					currentOptions = bufferOptions;
+				}
 			}
 		}
 
@@ -657,7 +659,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				else
 					textBoxProviderName.Text = Resource.MFNa;
 
-				if (currentOptions.AuthMode == StateModeEnum.prohibited || currentOptions.AuthMode == StateModeEnum.unknown)
+				if (tmpOptions.AuthMode == StateModeEnum.prohibited || tmpOptions.AuthMode == StateModeEnum.unknown)
 				{
 					textBoxAccount.UseSystemPasswordChar = false;
 					textBoxAccount.Text = Resource.MFNa;
