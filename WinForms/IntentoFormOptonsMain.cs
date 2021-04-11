@@ -141,8 +141,15 @@ namespace Intento.MT.Plugin.PropertiesForm
 			currentOptions = originalOptions.Duplicate();
 
 			//smart routing by default
-			if (currentOptions.ApiKey == null && currentOptions.ProviderId == null)
+			if (string.IsNullOrEmpty(currentOptions.ProviderId))
+			{
 				currentOptions.SmartRouting = true;
+				if (string.IsNullOrEmpty(currentOptions.Routing))
+				{
+					currentOptions.Routing = "best";
+					currentOptions.RoutingDisplayName = Resource.BestSmartRouteDescription;
+				}
+			}
 
 			TraceEndTime = originalOptions.TraceEndTime;
 			formAdvanced = new IntentoFormAdvanced(this);
