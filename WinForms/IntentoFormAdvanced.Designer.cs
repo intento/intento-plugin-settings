@@ -189,7 +189,7 @@
 			// 
 			this.checkBoxSaveApiKeyInRegistry.AutoSize = true;
 			this.checkBoxSaveApiKeyInRegistry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.checkBoxSaveApiKeyInRegistry.Location = new System.Drawing.Point(240, 379);
+			this.checkBoxSaveApiKeyInRegistry.Location = new System.Drawing.Point(240, 373);
 			this.checkBoxSaveApiKeyInRegistry.Name = "checkBoxSaveApiKeyInRegistry";
 			this.checkBoxSaveApiKeyInRegistry.Size = new System.Drawing.Size(179, 17);
 			this.checkBoxSaveApiKeyInRegistry.TabIndex = 15;
@@ -213,7 +213,7 @@
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonCancel.Location = new System.Drawing.Point(384, 352);
 			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.Size = new System.Drawing.Size(81, 30);
+			this.buttonCancel.Size = new System.Drawing.Size(81, 22);
 			this.buttonCancel.TabIndex = 33;
 			this.buttonCancel.Text = "1Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
@@ -222,7 +222,7 @@
 			// 
 			this.buttonSave.Location = new System.Drawing.Point(293, 352);
 			this.buttonSave.Name = "buttonSave";
-			this.buttonSave.Size = new System.Drawing.Size(81, 30);
+			this.buttonSave.Size = new System.Drawing.Size(81, 22);
 			this.buttonSave.TabIndex = 32;
 			this.buttonSave.Text = "1Save";
 			this.buttonSave.UseVisualStyleBackColor = true;
@@ -232,7 +232,7 @@
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 399);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 388);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.statusStrip1.Size = new System.Drawing.Size(481, 22);
@@ -319,7 +319,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.AutoSize = true;
 			this.CancelButton = this.buttonCancel;
-			this.ClientSize = new System.Drawing.Size(481, 421);
+			this.ClientSize = new System.Drawing.Size(481, 410);
 			this.Controls.Add(this.checkBoxSaveLocally);
 			this.Controls.Add(this.checkBoxCutTags);
 			this.Controls.Add(this.checkBoxCustomTagParser);

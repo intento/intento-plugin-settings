@@ -38,7 +38,7 @@
 			this.buttonContinueEdit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonContinueEdit.Location = new System.Drawing.Point(237, 66);
 			this.buttonContinueEdit.Name = "buttonContinueEdit";
-			this.buttonContinueEdit.Size = new System.Drawing.Size(155, 30);
+			this.buttonContinueEdit.Size = new System.Drawing.Size(155, 22);
 			this.buttonContinueEdit.TabIndex = 33;
 			this.buttonContinueEdit.Text = "1Continue edit";
 			this.buttonContinueEdit.UseVisualStyleBackColor = true;
@@ -47,7 +47,7 @@
 			// 
 			this.buttonIgnoreAndSave.Location = new System.Drawing.Point(30, 66);
 			this.buttonIgnoreAndSave.Name = "buttonIgnoreAndSave";
-			this.buttonIgnoreAndSave.Size = new System.Drawing.Size(188, 30);
+			this.buttonIgnoreAndSave.Size = new System.Drawing.Size(188, 22);
 			this.buttonIgnoreAndSave.TabIndex = 32;
 			this.buttonIgnoreAndSave.Text = "1Ignore error and save";
 			this.buttonIgnoreAndSave.UseVisualStyleBackColor = true;

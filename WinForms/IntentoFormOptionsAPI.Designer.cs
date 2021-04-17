@@ -87,7 +87,7 @@
 			// 
 			this.buttonSave.Location = new System.Drawing.Point(307, 69);
 			this.buttonSave.Name = "buttonSave";
-			this.buttonSave.Size = new System.Drawing.Size(114, 30);
+			this.buttonSave.Size = new System.Drawing.Size(114, 22);
 			this.buttonSave.TabIndex = 24;
 			this.buttonSave.Text = "Test and save";
 			this.buttonSave.UseVisualStyleBackColor = true;
@@ -98,7 +98,7 @@
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonCancel.Location = new System.Drawing.Point(427, 69);
 			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.Size = new System.Drawing.Size(81, 30);
+			this.buttonCancel.Size = new System.Drawing.Size(81, 22);
 			this.buttonCancel.TabIndex = 25;
 			this.buttonCancel.Text = "Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;

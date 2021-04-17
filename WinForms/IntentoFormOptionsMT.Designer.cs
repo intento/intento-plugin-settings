@@ -62,9 +62,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.toolTipHelp = new System.Windows.Forms.ToolTip(this.components);
 			this.labelTMP = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.comboBoxRouting = new System.Windows.Forms.ComboBox();
 			this.textBoxLabelURL = new System.Windows.Forms.TextBox();
 			this.labelSmartRouting = new System.Windows.Forms.Label();
+			this.comboBoxRouting = new System.Windows.Forms.ComboBox();
 			this.groupBoxProvider.SuspendLayout();
 			this.groupBoxBillingAccount.SuspendLayout();
 			this.panelConnectAccount.SuspendLayout();
@@ -100,7 +100,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			this.linkLabel1.AutoSize = true;
 			this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-			this.linkLabel1.Location = new System.Drawing.Point(41, 0);
+			this.linkLabel1.Location = new System.Drawing.Point(43, 0);
 			this.linkLabel1.Name = "linkLabel1";
 			this.linkLabel1.Size = new System.Drawing.Size(12, 13);
 			this.linkLabel1.TabIndex = 7;
@@ -165,7 +165,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			this.linkLabel3.AutoSize = true;
 			this.linkLabel3.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-			this.linkLabel3.Location = new System.Drawing.Point(84, 0);
+			this.linkLabel3.Location = new System.Drawing.Point(88, 0);
 			this.linkLabel3.Name = "linkLabel3";
 			this.linkLabel3.Size = new System.Drawing.Size(12, 13);
 			this.linkLabel3.TabIndex = 33;
@@ -282,7 +282,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			this.linkLabel2.AutoSize = true;
 			this.linkLabel2.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-			this.linkLabel2.Location = new System.Drawing.Point(52, 0);
+			this.linkLabel2.Location = new System.Drawing.Point(54, 0);
 			this.linkLabel2.Name = "linkLabel2";
 			this.linkLabel2.Size = new System.Drawing.Size(12, 13);
 			this.linkLabel2.TabIndex = 33;
@@ -394,7 +394,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonCancel.Location = new System.Drawing.Point(398, 607);
 			this.buttonCancel.Name = "buttonCancel";
-			this.buttonCancel.Size = new System.Drawing.Size(81, 30);
+			this.buttonCancel.Size = new System.Drawing.Size(81, 22);
 			this.buttonCancel.TabIndex = 31;
 			this.buttonCancel.Text = "1Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
@@ -403,7 +403,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			this.buttonSave.Location = new System.Drawing.Point(278, 607);
 			this.buttonSave.Name = "buttonSave";
-			this.buttonSave.Size = new System.Drawing.Size(114, 30);
+			this.buttonSave.Size = new System.Drawing.Size(114, 22);
 			this.buttonSave.TabIndex = 30;
 			this.buttonSave.Text = "1Test and save";
 			this.buttonSave.UseVisualStyleBackColor = true;
@@ -433,24 +433,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.groupBox1.Size = new System.Drawing.Size(466, 70);
 			this.groupBox1.TabIndex = 34;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Automatic provider selection";
-			// 
-			// comboBoxRouting
-			// 
-			this.comboBoxRouting.DisplayMember = "(none)";
-			this.comboBoxRouting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBoxRouting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.comboBoxRouting.FormattingEnabled = true;
-			this.comboBoxRouting.Items.AddRange(new object[] {
-            "Disabled",
-            "General routing based on Intento benchmarks",
-            "Industry-specific routing based on Intento benchmarks",
-            "Industry-specific routing based on Intento benchmarks 1",
-            "Industry-specific routing based on Intento benchmarks 2"});
-			this.comboBoxRouting.Location = new System.Drawing.Point(14, 40);
-			this.comboBoxRouting.Name = "comboBoxRouting";
-			this.comboBoxRouting.Size = new System.Drawing.Size(441, 21);
-			this.comboBoxRouting.TabIndex = 36;
+			this.groupBox1.Text = "1Automatic provider selection";
 			// 
 			// textBoxLabelURL
 			// 
@@ -471,9 +454,26 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.labelSmartRouting.AutoSize = true;
 			this.labelSmartRouting.Location = new System.Drawing.Point(11, 19);
 			this.labelSmartRouting.Name = "labelSmartRouting";
-			this.labelSmartRouting.Size = new System.Drawing.Size(225, 13);
+			this.labelSmartRouting.Size = new System.Drawing.Size(232, 13);
 			this.labelSmartRouting.TabIndex = 37;
-			this.labelSmartRouting.Text = "Select MT Provider automatically based on ";
+			this.labelSmartRouting.Text = "1Select MT provider automatically based on ";
+			// 
+			// comboBoxRouting
+			// 
+			this.comboBoxRouting.DisplayMember = "(none)";
+			this.comboBoxRouting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxRouting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.comboBoxRouting.FormattingEnabled = true;
+			this.comboBoxRouting.Items.AddRange(new object[] {
+            "Disabled",
+            "General routing based on Intento benchmarks",
+            "Industry-specific routing based on Intento benchmarks",
+            "Industry-specific routing based on Intento benchmarks 1",
+            "Industry-specific routing based on Intento benchmarks 2"});
+			this.comboBoxRouting.Location = new System.Drawing.Point(14, 40);
+			this.comboBoxRouting.Name = "comboBoxRouting";
+			this.comboBoxRouting.Size = new System.Drawing.Size(441, 21);
+			this.comboBoxRouting.TabIndex = 36;
 			// 
 			// IntentoFormOptionsMT
 			// 
