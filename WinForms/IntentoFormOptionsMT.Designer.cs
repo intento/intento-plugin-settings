@@ -177,6 +177,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			// labelHelpBillingAccount
 			// 
+			this.labelHelpBillingAccount.BackColor = System.Drawing.SystemColors.Control;
 			this.labelHelpBillingAccount.Location = new System.Drawing.Point(8, 21);
 			this.labelHelpBillingAccount.Name = "labelHelpBillingAccount";
 			this.labelHelpBillingAccount.Size = new System.Drawing.Size(427, 32);
@@ -344,6 +345,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			// 
 			// labelHelpOptional
 			// 
+			this.labelHelpOptional.BackColor = System.Drawing.SystemColors.Control;
 			this.labelHelpOptional.Location = new System.Drawing.Point(8, 21);
 			this.labelHelpOptional.Name = "labelHelpOptional";
 			this.labelHelpOptional.Size = new System.Drawing.Size(427, 32);
@@ -362,10 +364,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.labelDirectionChar.Size = new System.Drawing.Size(36, 32);
 			this.labelDirectionChar.TabIndex = 14;
 			this.labelDirectionChar.Text = "→";
+			this.labelDirectionChar.Tag = "fix_high_dpi";
 			// 
 			// comboBoxTo
 			// 
-			this.comboBoxTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.comboBoxTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.comboBoxTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBoxTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -374,10 +377,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.comboBoxTo.Name = "comboBoxTo";
 			this.comboBoxTo.Size = new System.Drawing.Size(119, 21);
 			this.comboBoxTo.TabIndex = 13;
+			this.comboBoxTo.Tag = "fix_high_dpi";
 			// 
 			// comboBoxFrom
 			// 
-			this.comboBoxFrom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.comboBoxFrom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.comboBoxFrom.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
 			this.comboBoxFrom.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
@@ -388,6 +392,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			this.comboBoxFrom.Name = "comboBoxFrom";
 			this.comboBoxFrom.Size = new System.Drawing.Size(119, 21);
 			this.comboBoxFrom.TabIndex = 10;
+			this.comboBoxFrom.Tag = "fix_high_dpi";
 			// 
 			// buttonCancel
 			// 
