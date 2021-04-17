@@ -54,7 +54,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public string Draw()
 		{
 			form.formMT.RoutingTable = routingTable;
-			form.formMT.comboBoxRouting.SelectedValue = routing == null ? "best" : routing;
+			if (routing != null)
+				form.formMT.comboBoxRouting.SelectedValue = routing;
 
 			return ProviderState.Draw(form, providerState);
 		}
