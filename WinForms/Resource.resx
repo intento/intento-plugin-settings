@@ -121,10 +121,10 @@
     <value>Unmask</value>
   </data>
   <data name="APIFlabelAPI" xml:space="preserve">
-    <value>Intento API Key:</value>
+    <value>Intento API key:</value>
   </data>
   <data name="BillingAccount" xml:space="preserve">
-    <value>Billing Account</value>
+    <value>Billing account</value>
   </data>
   <data name="EnterIntentoAPIKey" xml:space="preserve">
     <value>Enter your Intento API key</value>
@@ -136,13 +136,13 @@
     <value>Close</value>
   </data>
   <data name="MFbuttonMTSetting" xml:space="preserve">
-    <value>Change MT Settings</value>
+    <value>Change MT settings</value>
   </data>
   <data name="MFcaption" xml:space="preserve">
     <value>Intento plugin settings</value>
   </data>
   <data name="MFgroupBoxMTSettings" xml:space="preserve">
-    <value>Machine Translation Settings</value>
+    <value>Machine translation settings</value>
   </data>
   <data name="MFlabelRegister1" xml:space="preserve">
     <value>or register at</value>
@@ -157,7 +157,7 @@
     <value>Cancel</value>
   </data>
   <data name="MTcaption" xml:space="preserve">
-    <value>Configure Machine Translation</value>
+    <value>Configure machine translation</value>
   </data>
   <data name="MTcheckBoxUseCustomModel" xml:space="preserve">
     <value>Use custom MT model</value>
@@ -181,7 +181,7 @@
     <value>By default, the pre-trained general-purpose MT model is used. If it's not available or you want to use your custom-trained model, please specify it below.</value>
   </data>
   <data name="MTlabelHelpOptional" xml:space="preserve">
-    <value>We will send one-character translation request to test this configuration.
+    <value>We will send a one-character translation request to test this configuration.
 If you have selected custom model or glossary, please adjust the language pair:</value>
   </data>
   <data name="MTtextBoxLabelURL" xml:space="preserve">
@@ -239,10 +239,10 @@ If you have selected custom model or glossary, please adjust the language pair:<
     <value>Smart Routing ({0})</value>
   </data>
   <data name="MTlabelSmartRouting" xml:space="preserve">
-    <value>Select MT Provider automatically based on</value>
+    <value>Select MT provider automatically based on</value>
   </data>
   <data name="NeedAChoise" xml:space="preserve">
-    <value>need a choice...</value>
+    <value>Click the button to select a provider</value>
   </data>
   <data name="ProxyConnectionError" xml:space="preserve">
     <value>Proxy connection error</value>

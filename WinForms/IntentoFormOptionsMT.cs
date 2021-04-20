@@ -36,9 +36,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         readonly IList<string> testResultString = new ReadOnlyCollection<string>
             (new List<string> { "14", "14.", "Catorce" });
         public int cursorCountMT = 0;
-        private delegate void TestResultsDelegate(bool res, string msg);
-        //cursor while the asynchronous request is running
-        private CursorFormMT testAndSaveCursor;
+		private delegate void TestResultsDelegate(PluginHelper.ErrorInfo errorInfo);
+		//cursor while the asynchronous request is running
+		private CursorFormMT testAndSaveCursor;
         // frozen controls while the asynchronous request is running
         private List<Control> disabledControls = new List<Control>();
         private CancellationTokenSource cts;
@@ -140,9 +140,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 				testOptions.proxySettings = parent.currentOptions.proxySettings;
                 cts = new CancellationTokenSource();
                 CancellationToken ct = cts.Token;
-                Task<KeyValuePair<bool, string>> testTask = new Task<KeyValuePair<bool, string>>(() => TestTranslationTask(testOptions));
-                testTask.ContinueWith((x) => DoInvokeTestResult(x.Result.Key, x.Result.Value, ct));
-                testTask.Start();
+				Task<PluginHelper.ErrorInfo> testTask = new Task<PluginHelper.ErrorInfo>(() => TestTranslationTask(testOptions));
+				testTask.ContinueWith((x) => DoInvokeTestResult(x.Result, ct));
+				testTask.Start();
 
             }
             else
@@ -154,9 +154,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 		/// </summary>
 		/// <param name="res">true if there were no errors in the answer, else false</param>
 		/// <param name="msg">message for user</param>
-		private void TestResults(bool res, string msg)
-        {
-            if (msg != null)
+		private void TestResults(PluginHelper.ErrorInfo errorInfo)
+		{
+			var msg = errorInfo.visibleErrorText;
+			var res = errorInfo.isError;
+			if (msg != null)
             {
                 var errorForm = new IntentoFormIgnoreError();
                 errorForm.labelError.Text = msg;
@@ -170,7 +172,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                     errorForm.labelError.ForeColor = Color.Red;
                     errorForm.buttonIgnoreAndSave.Text = Resource.ButtonIgnoreAndSave_Ignore;
                 }
-                errorForm.ShowDialog(parent);
+				errorForm.setAdditionalErrorInfo(errorInfo.clipBoardContent);
+				errorForm.ShowDialog(parent);
                 if (errorForm.DialogResult == DialogResult.OK)
                     msg = null;
             }
@@ -180,8 +183,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                 this.DialogResult = DialogResult.OK;
         }
 
-        private KeyValuePair<bool, string> TestTranslationTask(IntentoMTFormOptions testOptions)
-        {
+		private PluginHelper.ErrorInfo TestTranslationTask(IntentoMTFormOptions testOptions)
+		{
 			Logs.Write('F', "Test Translate start");
             try
             {
@@ -206,8 +209,8 @@ namespace Intento.MT.Plugin.PropertiesForm
                         );
                 if (result.error != null)
                 {
-                    return new KeyValuePair<bool, string>(false, Resource.ErrorTestTranslation);
-                }
+					return new PluginHelper.ErrorInfo(false, Resource.ErrorTestTranslation, result.ToString());
+				}
                 else
                 {
                     dynamic response = result.response;
@@ -218,33 +221,33 @@ namespace Intento.MT.Plugin.PropertiesForm
                             string res = (string)str;
                             if (str == null || !testResultString.Any(x => x == res))
                             {
-                                return new KeyValuePair<bool, string>(true, string.Format(Resource.TestTranslationWarning, testString, res));
-                            }
+								return new PluginHelper.ErrorInfo(true, string.Format(Resource.TestTranslationWarning, testString, res), null);
+							}
                         }
                     }
                     else
                     {
-                        return new KeyValuePair<bool, string>(true, Resource.ErrorTestTranslation);
-                    }
+						return new PluginHelper.ErrorInfo(true, Resource.ErrorTestTranslation, result.ToString());
+					}
 
 				}
 				Logs.Write('F', "Test Translate finish");
-				return new KeyValuePair<bool, string>(true, null);
-            }
+				return new PluginHelper.ErrorInfo(true, null, null);
+			}
             catch (AggregateException ex2)
             {
 				Logs.Write('F', "Test Translate error", ex: ex2);
-                return new KeyValuePair<bool, string>(false, ex2.Message);
-            }
+				return new PluginHelper.ErrorInfo(false, Resource.ErrorTestTranslation, ex2.Message);
+			}
         }
 
-        private void DoInvokeTestResult(bool res, string msg, CancellationToken ct)
-        {
+		private void DoInvokeTestResult(PluginHelper.ErrorInfo errorInfo, CancellationToken ct)
+		{
             try
             {
                 if (!ct.IsCancellationRequested)
-                    BeginInvoke(new TestResultsDelegate(TestResults), res, msg);
-            }
+					BeginInvoke(new TestResultsDelegate(TestResults), errorInfo);
+			}
             catch { }
         }
 
@@ -289,7 +292,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                                 ctrl.Top = ctrl.Top + val;
                     }
             }
-
         }
 
         private void comboBoxCredentialId_VisibleChanged(object sender, EventArgs e)

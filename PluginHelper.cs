@@ -93,6 +93,18 @@ namespace Intento.MT.Plugin.PropertiesForm
             return text;
         }
 
+		public class ErrorInfo
+		{
+			public bool isError;
+			public string visibleErrorText;
+			public string clipBoardContent;
 
-    }
+			public ErrorInfo(bool isError, string visibleErrorText, string clipBoardContent)
+			{
+				this.isError = isError;
+				this.visibleErrorText = visibleErrorText;
+				this.clipBoardContent = clipBoardContent;
+			}
+		}
+	}
 }

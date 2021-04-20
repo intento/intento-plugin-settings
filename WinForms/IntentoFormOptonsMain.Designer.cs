@@ -102,9 +102,9 @@
 			// 
 			// buttonSetApi
 			// 
-			this.buttonSetApi.Location = new System.Drawing.Point(17, 31);
+			this.buttonSetApi.Location = new System.Drawing.Point(17, 35);
 			this.buttonSetApi.Name = "buttonSetApi";
-			this.buttonSetApi.Size = new System.Drawing.Size(150, 30);
+			this.buttonSetApi.Size = new System.Drawing.Size(150, 22);
 			this.buttonSetApi.TabIndex = 0;
 			this.buttonSetApi.Text = "Enter your Intento API key";
 			this.buttonSetApi.UseVisualStyleBackColor = true;
@@ -215,9 +215,9 @@
 			// 
 			// buttonMTSetting
 			// 
-			this.buttonMTSetting.Location = new System.Drawing.Point(440, 33);
+			this.buttonMTSetting.Location = new System.Drawing.Point(445, 46);
 			this.buttonMTSetting.Name = "buttonMTSetting";
-			this.buttonMTSetting.Size = new System.Drawing.Size(150, 40);
+			this.buttonMTSetting.Size = new System.Drawing.Size(150, 22);
 			this.buttonMTSetting.TabIndex = 1;
 			this.buttonMTSetting.Text = "Change MT Settings";
 			this.buttonMTSetting.UseVisualStyleBackColor = true;
@@ -250,7 +250,7 @@
 			this.buttonContinue.Enabled = false;
 			this.buttonContinue.Location = new System.Drawing.Point(485, 413);
 			this.buttonContinue.Name = "buttonContinue";
-			this.buttonContinue.Size = new System.Drawing.Size(150, 30);
+			this.buttonContinue.Size = new System.Drawing.Size(150, 22);
 			this.buttonContinue.TabIndex = 19;
 			this.buttonContinue.Text = "Close";
 			this.buttonContinue.UseVisualStyleBackColor = true;
@@ -264,7 +264,7 @@
 			this.groupBoxMTConnect2.Controls.Add(this.apiKey_tb);
 			this.groupBoxMTConnect2.Controls.Add(this.buttonCheck);
 			this.groupBoxMTConnect2.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.groupBoxMTConnect2.Location = new System.Drawing.Point(264, 0);
+			this.groupBoxMTConnect2.Location = new System.Drawing.Point(412, 9);
 			this.groupBoxMTConnect2.Name = "groupBoxMTConnect2";
 			this.groupBoxMTConnect2.Size = new System.Drawing.Size(623, 85);
 			this.groupBoxMTConnect2.TabIndex = 21;
@@ -295,9 +295,10 @@
 			// 
 			// buttonCheck
 			// 
-			this.buttonCheck.Location = new System.Drawing.Point(510, 35);
+			this.buttonCheck.Location = new System.Drawing.Point(515, 37);
 			this.buttonCheck.Name = "buttonCheck";
-			this.buttonCheck.Size = new System.Drawing.Size(81, 23);
+			this.buttonCheck.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.buttonCheck.Size = new System.Drawing.Size(81, 22);
 			this.buttonCheck.TabIndex = 27;
 			this.buttonCheck.Text = "Check";
 			this.buttonCheck.UseVisualStyleBackColor = true;
@@ -307,7 +308,7 @@
 			// 
 			this.buttonAdvanced.Location = new System.Drawing.Point(29, 413);
 			this.buttonAdvanced.Name = "buttonAdvanced";
-			this.buttonAdvanced.Size = new System.Drawing.Size(150, 30);
+			this.buttonAdvanced.Size = new System.Drawing.Size(150, 22);
 			this.buttonAdvanced.TabIndex = 22;
 			this.buttonAdvanced.Text = "1Adnanced";
 			this.buttonAdvanced.UseVisualStyleBackColor = true;
@@ -317,7 +318,7 @@
 			// 
 			this.buttonHelp.Location = new System.Drawing.Point(198, 413);
 			this.buttonHelp.Name = "buttonHelp";
-			this.buttonHelp.Size = new System.Drawing.Size(101, 30);
+			this.buttonHelp.Size = new System.Drawing.Size(101, 22);
 			this.buttonHelp.TabIndex = 23;
 			this.buttonHelp.Text = "Help";
 			this.buttonHelp.UseVisualStyleBackColor = true;
@@ -336,7 +337,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-			this.ClientSize = new System.Drawing.Size(647, 456);
+			this.ClientSize = new System.Drawing.Size(647, 449);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.buttonHelp);
 			this.Controls.Add(this.buttonAdvanced);

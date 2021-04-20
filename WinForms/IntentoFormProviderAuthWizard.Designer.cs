@@ -40,10 +40,9 @@
 			// 
 			this.buttonOK.AutoSize = true;
 			this.buttonOK.Enabled = false;
-			this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.buttonOK.Location = new System.Drawing.Point(322, 58);
+			this.buttonOK.Location = new System.Drawing.Point(322, 63);
 			this.buttonOK.Name = "buttonOK";
-			this.buttonOK.Size = new System.Drawing.Size(75, 25);
+			this.buttonOK.Size = new System.Drawing.Size(75, 20);
 			this.buttonOK.TabIndex = 8;
 			this.buttonOK.Text = "OK";
 			this.buttonOK.UseVisualStyleBackColor = true;
@@ -89,7 +88,7 @@
 			this.tlpMain.RowCount = 3;
 			this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
 			this.tlpMain.Size = new System.Drawing.Size(400, 86);
 			this.tlpMain.TabIndex = 18;
 			// 

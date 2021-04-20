@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+			this.components = new System.ComponentModel.Container();
 			this.buttonContinueEdit = new System.Windows.Forms.Button();
 			this.buttonIgnoreAndSave = new System.Windows.Forms.Button();
 			this.labelError = new System.Windows.Forms.Label();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.SuspendLayout();
 			// 
 			// buttonContinueEdit
@@ -38,7 +40,7 @@
 			this.buttonContinueEdit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.buttonContinueEdit.Location = new System.Drawing.Point(237, 66);
 			this.buttonContinueEdit.Name = "buttonContinueEdit";
-			this.buttonContinueEdit.Size = new System.Drawing.Size(155, 30);
+			this.buttonContinueEdit.Size = new System.Drawing.Size(155, 22);
 			this.buttonContinueEdit.TabIndex = 33;
 			this.buttonContinueEdit.Text = "1Continue edit";
 			this.buttonContinueEdit.UseVisualStyleBackColor = true;
@@ -47,7 +49,7 @@
 			// 
 			this.buttonIgnoreAndSave.Location = new System.Drawing.Point(30, 66);
 			this.buttonIgnoreAndSave.Name = "buttonIgnoreAndSave";
-			this.buttonIgnoreAndSave.Size = new System.Drawing.Size(188, 30);
+			this.buttonIgnoreAndSave.Size = new System.Drawing.Size(188, 22);
 			this.buttonIgnoreAndSave.TabIndex = 32;
 			this.buttonIgnoreAndSave.Text = "1Ignore error and save";
 			this.buttonIgnoreAndSave.UseVisualStyleBackColor = true;
@@ -61,6 +63,15 @@
 			this.labelError.Size = new System.Drawing.Size(39, 13);
 			this.labelError.TabIndex = 34;
 			this.labelError.Text = "EMPTY";
+			this.labelError.Click += new System.EventHandler(this.labelError_Click);
+			// 
+			// toolTip1
+			// 
+			this.toolTip1.Active = false;
+			this.toolTip1.AutomaticDelay = 300;
+			this.toolTip1.AutoPopDelay = 7000;
+			this.toolTip1.InitialDelay = 300;
+			this.toolTip1.ReshowDelay = 60;
 			// 
 			// IntentoFormIgnoreError
 			// 
@@ -92,5 +103,6 @@
         private System.Windows.Forms.Button buttonContinueEdit;
         public System.Windows.Forms.Button buttonIgnoreAndSave;
         public System.Windows.Forms.Label labelError;
-    }
+		private System.Windows.Forms.ToolTip toolTip1;
+	}
 }
