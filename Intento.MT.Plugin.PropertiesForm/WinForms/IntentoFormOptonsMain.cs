@@ -129,6 +129,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 					originalOptions.ApiKey = locallyOptions.ApiKey;
 					originalOptions.SmartRouting = locallyOptions.SmartRouting;
 					originalOptions.Routing = locallyOptions.Routing;
+					originalOptions.RoutingDisplayName = locallyOptions.RoutingDisplayName;
 					originalOptions.ProviderId = locallyOptions.ProviderId;
 					originalOptions.CustomAuth = locallyOptions.CustomAuth;
 					originalOptions.CustomModel = locallyOptions.CustomModel;
@@ -314,6 +315,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 						ret.SmartRouting = GetValueFromRegistry("SmartRouting", path) != null
 							&& GetValueFromRegistry("SmartRouting", path) == "1";
 						ret.Routing = GetValueFromRegistry("Routing", path);
+						ret.RoutingDisplayName = GetValueFromRegistry("RoutingDisplayName", path);
 						ret.ProviderId = GetValueFromRegistry("ProviderId", path);
 						ret.CustomAuth = GetValueFromRegistry("CustomAuth", path);
 						ret.CustomModel = GetValueFromRegistry("CustomModel", path);
@@ -335,6 +337,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			SaveValueToRegistry("ApiKey", options.ApiKey, path);
 			SaveValueToRegistry("SmartRouting", options.SmartRouting, path);
 			SaveValueToRegistry("Routing", options.Routing, path);
+			SaveValueToRegistry("RoutingDisplayName", options.RoutingDisplayName, path);
 			SaveValueToRegistry("ProviderId", options.ProviderId, path);
 			SaveValueToRegistry("CustomAuth", options.CustomAuth, path);
 			SaveValueToRegistry("CustomModel", options.CustomModel, path);
