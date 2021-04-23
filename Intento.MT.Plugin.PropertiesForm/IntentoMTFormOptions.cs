@@ -302,6 +302,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			res.MemoqAdditional = this.MemoqAdditional;
 			res.SaveLocally = this.SaveLocally;
 			res.Routing = this.Routing;
+			res.RoutingDisplayName = this.RoutingDisplayName;
 			res._authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict);
 		}
 
