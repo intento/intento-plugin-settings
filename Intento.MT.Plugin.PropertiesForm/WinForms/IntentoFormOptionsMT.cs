@@ -1,4 +1,5 @@
 ﻿using Intento.MT.Plugin.PropertiesForm.WinForms;
+using IntentoSDK.API;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -73,6 +74,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 			move_Controls("account", false);
             move_Controls("model", false);
             move_Controls("glossary", false);
+
+            comboClientAPI.DataSource = new BindingSource(APIClientFactory.Current.ClientApis, null);
         }
 
         private void LocalizeContent()

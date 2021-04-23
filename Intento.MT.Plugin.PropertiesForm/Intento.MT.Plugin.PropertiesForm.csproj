@@ -58,6 +58,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logs.cs" />
+    <Compile Include="WinForms\API\BaseClientApiSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\API\BaseClientApiSettings.Designer.cs">
+      <DependentUpon>BaseClientApiSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\API\DisplayClientAPILocalSettings.cs" />
+    <Compile Include="WinForms\API\IDisplayClientAPISettings.cs" />
+    <Compile Include="WinForms\API\LocalClientAPISettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\API\LocalClientAPISettingsControl.Designer.cs">
+      <DependentUpon>LocalClientAPISettingsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\IntentoFormIgnoreError.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +133,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="WinForms\API\LocalClientAPISettingsControl.resx">
+      <DependentUpon>LocalClientAPISettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinForms\IntentoFormIgnoreError.resx">
       <DependentUpon>IntentoFormIgnoreError.cs</DependentUpon>
     </EmbeddedResource>

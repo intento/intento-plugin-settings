@@ -77,6 +77,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 		/// </summary>
 		public string AuthDelegatedCredentialId { get; set; }
 
+		/// <summary>
+		/// Client API implementation
+		/// </summary>
+		public Guid ClientAPIProvider { get; set; }
+
 		public enum StateModeEnum
 		{
 			unknown = 0,
