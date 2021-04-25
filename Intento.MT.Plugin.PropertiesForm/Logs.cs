@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Intento.MT.Plugin.PropertiesForm
@@ -17,6 +19,24 @@ namespace Intento.MT.Plugin.PropertiesForm
 		static string _session_id;
 		public static string ApiKey { get; set; }
 		public static string PluginName { get; set; }
+		static object locker = new object();
+
+		/// <summary>
+		/// A stream instance that checks the data queue and sends it to the cloud
+		/// </summary>
+		static Task writer;
+
+		/// <summary>
+		/// Data queue
+		/// </summary>
+		static Dictionary<char, string> queue = new Dictionary<char, string>();
+
+		const string url = "https://api.inten.to/telemetry/upload_json";
+
+		/// <summary>
+		/// Limiting the request rate, ms
+		/// </summary>
+		const int sleepTime = 5000;
 
 		public static string ConsumerId
 		{
@@ -130,21 +150,65 @@ namespace Intento.MT.Plugin.PropertiesForm
 			if (string.IsNullOrWhiteSpace(ApiKey))
 				return;
 
-			dynamic jsonResult;
-			string url = "https://api.inten.to/telemetry/upload_json";
-			JObject data = new JObject();
-			data["plugin_name"] = string.Format("{0}-{1}", PluginName, identificator);
-			data["session_id"] = SessionId;
-			data["logs"] = text;
-			var content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
-			// Call to Intento API 
-			using (var conn = new HttpClient())
+			lock (locker)
 			{
-				conn.DefaultRequestHeaders.Add("apikey", ApiKey);
-				conn.DefaultRequestHeaders.Add("x-consumer-id", ConsumerId);
-				jsonResult = await conn.PostAsync(url, content);
+				if (queue.ContainsKey(identificator))
+					queue[identificator] += "\n" + text;
+				else
+					queue.Add(identificator, text);
 			}
+			if (writer == null || writer.IsCompleted)
+			{
+				writer = new Task(sender);
+				writer.Start();
+			}
+
 		}
+
+		public static async void sender()
+		{
+			try
+			{
+				Dictionary<char, string> inprogress = new Dictionary<char, string>();
+				JObject data = new JObject();
+				data["session_id"] = SessionId;
+				ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+				dynamic jsonResult;
+
+				while (true)
+				{
+					inprogress.Clear();
+					lock (locker)
+					{
+						if (queue.Any())
+						{
+							inprogress = new Dictionary<char, string>(queue);
+							queue.Clear();
+						}
+					}
+					inprogress = null;
+					if (inprogress.Any())
+					{
+						foreach (KeyValuePair<char, string> kp in inprogress)
+						{
+							data["plugin_name"] = string.Format("{0}-{1}", PluginName, kp.Key);
+							data["logs"] = kp.Value;
+							var content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
+							// Call to Intento API 
+							using (var conn = new HttpClient())
+							{
+								conn.DefaultRequestHeaders.Add("apikey", ApiKey);
+								conn.DefaultRequestHeaders.Add("x-consumer-id", ConsumerId);
+								jsonResult = await conn.PostAsync(url, content);
+							}
+						}
+					}
+					Thread.Sleep(sleepTime);
+				}
+			}
+			catch { }
+		}
+
 
 	}
 
