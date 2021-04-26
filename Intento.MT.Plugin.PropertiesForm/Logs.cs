@@ -1,14 +1,12 @@
-﻿using Intento.MT.Plugin.PropertiesForm;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Timers;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
@@ -19,17 +17,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 		static string _session_id;
 		public static string ApiKey { get; set; }
 		public static string PluginName { get; set; }
-		static object locker = new object();
 
 		/// <summary>
 		/// A stream instance that checks the data queue and sends it to the cloud
 		/// </summary>
-		static Task writer;
+		static Timer sender;
 
 		/// <summary>
 		/// Data queue
 		/// </summary>
-		static Dictionary<char, string> queue = new Dictionary<char, string>();
+		static ConcurrentQueue<KeyValuePair<char, string>> queue = new ConcurrentQueue<KeyValuePair<char, string>>();
 
 		const string url = "https://api.inten.to/telemetry/upload_json";
 
@@ -139,7 +136,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			return items;
 		}
 
-		private static async void WriteRemoteLog(char identificator, string text)
+		private static void WriteRemoteLog(char identificator, string text)
 		{
 			if (!IsLogging())
 				return;
@@ -150,66 +147,49 @@ namespace Intento.MT.Plugin.PropertiesForm
 			if (string.IsNullOrWhiteSpace(ApiKey))
 				return;
 
-			lock (locker)
+			queue.Enqueue(new KeyValuePair<char, string>(identificator, text));
+			if (sender == null)
 			{
-				if (queue.ContainsKey(identificator))
-					queue[identificator] += "\n" + text;
-				else
-					queue.Add(identificator, text);
+				sender = new Timer();
+				sender.Interval = sleepTime;
+				sender.Elapsed += OnTimedEvent;
+				sender.Start();
 			}
-			if (writer == null || writer.IsCompleted)
-			{
-				writer = new Task(sender);
-				writer.Start();
-			}
-
 		}
-
-		public static async void sender()
+		private static async void OnTimedEvent(Object source, ElapsedEventArgs e)
 		{
 			try
 			{
 				Dictionary<char, string> inprogress = new Dictionary<char, string>();
+				KeyValuePair<char, string> item;
 				JObject data = new JObject();
 				data["session_id"] = SessionId;
 				ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 				dynamic jsonResult;
-
-				while (true)
+				while (queue.TryDequeue(out item))
 				{
-					inprogress.Clear();
-					lock (locker)
+					if (inprogress.ContainsKey(item.Key))
+						inprogress[item.Key] += "\n" + item.Value;
+					else
+						inprogress.Add(item.Key, item.Value);
+				}
+
+				foreach (KeyValuePair<char, string> kp in inprogress)
+				{
+					data["plugin_name"] = string.Format("{0}-{1}", PluginName, kp.Key);
+					data["logs"] = kp.Value;
+					var content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
+					// Call to Intento API 
+					using (var conn = new HttpClient())
 					{
-						if (queue.Any())
-						{
-							inprogress = new Dictionary<char, string>(queue);
-							queue.Clear();
-						}
+						conn.DefaultRequestHeaders.Add("apikey", ApiKey);
+						conn.DefaultRequestHeaders.Add("x-consumer-id", ConsumerId);
+						jsonResult = await conn.PostAsync(url, content);
 					}
-					inprogress = null;
-					if (inprogress.Any())
-					{
-						foreach (KeyValuePair<char, string> kp in inprogress)
-						{
-							data["plugin_name"] = string.Format("{0}-{1}", PluginName, kp.Key);
-							data["logs"] = kp.Value;
-							var content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
-							// Call to Intento API 
-							using (var conn = new HttpClient())
-							{
-								conn.DefaultRequestHeaders.Add("apikey", ApiKey);
-								conn.DefaultRequestHeaders.Add("x-consumer-id", ConsumerId);
-								jsonResult = await conn.PostAsync(url, content);
-							}
-						}
-					}
-					Thread.Sleep(sleepTime);
 				}
 			}
 			catch { }
 		}
-
-
 	}
 
 }
