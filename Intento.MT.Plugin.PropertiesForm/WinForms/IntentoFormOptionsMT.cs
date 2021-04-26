@@ -80,7 +80,12 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (form.currentOptions != null && !string.IsNullOrEmpty(form.currentOptions.ClientApiId))
             {
                 var key = new Guid(form.currentOptions.ClientApiId);
-                comboClientAPI.SelectedValue = comboClientAPI.Items.Cast<BaseAPIClient>().FirstOrDefault(c => c.ClientUid == key);
+                var client = comboClientAPI.Items.Cast<BaseAPIClient>().FirstOrDefault(c => c.ClientUid == key);
+                if (client != null)
+                {
+                    var index = comboClientAPI.Items.IndexOf(client);    
+                    comboClientAPI.SelectedIndex = index;
+                }
             }
         }
 
