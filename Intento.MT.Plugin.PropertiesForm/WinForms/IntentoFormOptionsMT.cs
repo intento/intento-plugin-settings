@@ -83,8 +83,11 @@ namespace Intento.MT.Plugin.PropertiesForm
                 var client = comboClientAPI.Items.Cast<BaseAPIClient>().FirstOrDefault(c => c.ClientUid == key);
                 if (client != null)
                 {
-                    var index = comboClientAPI.Items.IndexOf(client);    
-                    comboClientAPI.SelectedIndex = index;
+                    var index = comboClientAPI.Items.IndexOf(client);
+                    if (index >= 0) 
+                    {
+                        comboClientAPI.SelectedIndex = index;
+                    }                    
                 }
             }
         }
