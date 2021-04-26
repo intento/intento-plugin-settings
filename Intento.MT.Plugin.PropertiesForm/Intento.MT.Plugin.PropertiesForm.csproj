@@ -65,6 +65,7 @@
       <DependentUpon>BaseClientApiSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\API\DisplayClientAPILocalSettings.cs" />
+    <Compile Include="WinForms\API\DisplayClientAPISettingsFactory.cs" />
     <Compile Include="WinForms\API\IDisplayClientAPISettings.cs" />
     <Compile Include="WinForms\API\LocalClientAPISettingsControl.cs">
       <SubType>UserControl</SubType>
@@ -72,6 +73,8 @@
     <Compile Include="WinForms\API\LocalClientAPISettingsControl.Designer.cs">
       <DependentUpon>LocalClientAPISettingsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinForms\API\Settings\BaseSettings.cs" />
+    <Compile Include="WinForms\API\Settings\LocalFileSettings.cs" />
     <Compile Include="WinForms\IntentoFormIgnoreError.cs">
       <SubType>Form</SubType>
     </Compile>

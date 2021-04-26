@@ -10,7 +10,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms.API
     /// <summary>
     /// Extension point for control of settings of Client API
     /// </summary>
-    internal interface IDisplayClientAPISettings
+    public interface IDisplayClientAPISettings
     {
         /// <summary>
         /// Uid of provider

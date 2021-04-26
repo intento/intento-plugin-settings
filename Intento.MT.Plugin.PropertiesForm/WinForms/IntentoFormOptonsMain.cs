@@ -137,6 +137,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 					originalOptions.UseCustomAuth = locallyOptions.UseCustomAuth;
 					originalOptions.Glossary = locallyOptions.Glossary;
 					originalOptions.SaveLocally = locallyOptions.SaveLocally;
+					originalOptions.FilePath = locallyOptions.FilePath;
+					originalOptions.ClientApiId = locallyOptions.ClientApiId;
 				}
 
 			currentOptions = originalOptions.Duplicate();
@@ -324,6 +326,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 							&& GetValueFromRegistry("UseCustomModel", path) == "1";
 						ret.UseCustomAuth = GetValueFromRegistry("UseCustomAuth", path) != null
 							&& GetValueFromRegistry("UseCustomAuth", path) == "1";
+						ret.FilePath = GetValueFromRegistry("FilePath", path);
+						ret.ClientApiId = GetValueFromRegistry("ClientApiId", path);
 					}
 				}
 				return ret;
@@ -344,6 +348,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 			SaveValueToRegistry("Glossary", options.Glossary, path);
 			SaveValueToRegistry("UseCustomModel", options.UseCustomModel, path);
 			SaveValueToRegistry("UseCustomAuth", options.UseCustomAuth, path);
+			SaveValueToRegistry("FilePath", options.FilePath, path);
+			SaveValueToRegistry("ClientApiId", options.ClientApiId, path);
 		}
 
 		public string GetRegistryPath()
@@ -371,6 +377,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 		{
 			SaveValueToRegistry(name, value ? "1" : "0", path);
 		}
+		public void SaveValueToRegistry(string name, Dictionary<string, object> value, string path = "")
+		{
+
+        }
+
 		public void SaveValueToRegistry(string name, string value, string path = "")
 		{
 			try

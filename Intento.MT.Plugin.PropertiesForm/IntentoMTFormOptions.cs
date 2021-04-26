@@ -223,6 +223,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 		/// not used now, preparation for the future
 		/// </summary>
 		public Dictionary<string, object> MemoqAdditional { get; set; }
+		
+		public string FilePath { get; set; }
+
+		public string ClientApiId { get; set; }
 
 		/// <summary>
 		/// Intento C# SDK
@@ -308,6 +312,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 			res.SaveLocally = this.SaveLocally;
 			res.Routing = this.Routing;
 			res.RoutingDisplayName = this.RoutingDisplayName;
+			res.FilePath = this.FilePath;
+			res.ClientApiId = this.ClientApiId;
 			res._authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict);
 		}
 

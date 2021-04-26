@@ -1,4 +1,5 @@
 ﻿using Intento.MT.Plugin.PropertiesForm.WinForms;
+using Intento.MT.Plugin.PropertiesForm.WinForms.API;
 using IntentoSDK.API;
 using System;
 using System.Collections.Generic;
@@ -76,6 +77,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             move_Controls("glossary", false);
 
             comboClientAPI.DataSource = new BindingSource(APIClientFactory.Current.ClientApis, null);
+            if (form.currentOptions != null && !string.IsNullOrEmpty(form.currentOptions.ClientApiId))
+            {
+                var key = new Guid(form.currentOptions.ClientApiId);
+                comboClientAPI.SelectedValue = comboClientAPI.Items.Cast<BaseAPIClient>().FirstOrDefault(c => c.ClientUid == key);
+            }
         }
 
         private void LocalizeContent()
@@ -141,6 +147,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 					}
 				}
 				testOptions.proxySettings = parent.currentOptions.proxySettings;
+                testOptions.FilePath = parent.currentOptions.FilePath;
                 cts = new CancellationTokenSource();
                 CancellationToken ct = cts.Token;
 				Task<PluginHelper.ErrorInfo> testTask = new Task<PluginHelper.ErrorInfo>(() => TestTranslationTask(testOptions));
@@ -193,8 +200,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
 
 				var testTranslate = parent.apiKeyState.CreateIntentoConnection(testOptions.proxySettings, "Intento.CheckSettings");
-				// Call test translate intent 
-				dynamic result = testTranslate.Fulfill(
+                var clientId = (Guid?)comboClientAPI.SelectedValue;
+                
+                // Call test translate intent 
+                dynamic result = testTranslate.Fulfill(
                         testString,
                         to: testOptions.ToLanguage,
                         from: testOptions.FromLanguage,
@@ -208,7 +217,9 @@ namespace Intento.MT.Plugin.PropertiesForm
                         custom_model: testOptions.UseCustomModel ? testOptions.CustomModel : null,
                         glossary: testOptions.Glossary,
                         wait_async: true,
-                        trace: IntentoTranslationProviderOptionsForm.IsTrace()
+                        trace: IntentoTranslationProviderOptionsForm.IsTrace(),
+                        clientAPIProvider: clientId,
+                        filePath: testOptions.FilePath
                         );
                 if (result.error != null)
                 {
@@ -340,5 +351,37 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-	}
+        private Dictionary<Guid, BaseClientApiSettings> settingsControl = new Dictionary<Guid, BaseClientApiSettings>();
+
+        private void comboClientAPI_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var clientId = (Guid?)comboClientAPI.SelectedValue;
+            if (clientId != null)
+            {
+                BaseClientApiSettings control = null;
+                if (!settingsControl.TryGetValue(clientId.Value, out control))
+                {
+                    control = DisplayClientAPISettingsFactory.Current.Get(clientId.Value)?.GetSettingsControl();
+                    if (control != null)
+                    {                       
+                        settingsControl.Add(clientId.Value, control);
+                    }
+                }
+                panelExtSettings.Controls.Clear();
+                if (control != null)
+                {
+                    control.SetSettings(parent.currentOptions);
+                    control.ChangeSettings -= Control_ChangeSettings;
+                    control.ChangeSettings += Control_ChangeSettings;
+                    control.Dock = DockStyle.Fill;
+                    panelExtSettings.Controls.Add(control);
+                }
+            }
+        }
+
+        private void Control_ChangeSettings(object sender, EventArgs e)
+        {            
+            parent.currentOptions.ClientApiId = ((Guid?)comboClientAPI.SelectedValue)?.ToString();
+        }
+    }
 }
