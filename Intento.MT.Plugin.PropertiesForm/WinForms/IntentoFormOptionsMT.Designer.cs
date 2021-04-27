@@ -81,11 +81,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             // groupBoxProvider
             // 
             this.groupBoxProvider.Controls.Add(this.comboBoxProviders);
-            this.groupBoxProvider.Location = new System.Drawing.Point(24, 178);
-            this.groupBoxProvider.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBoxProvider.Location = new System.Drawing.Point(12, 89);
             this.groupBoxProvider.Name = "groupBoxProvider";
-            this.groupBoxProvider.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.groupBoxProvider.Size = new System.Drawing.Size(934, 114);
+            this.groupBoxProvider.Size = new System.Drawing.Size(467, 57);
             this.groupBoxProvider.TabIndex = 25;
             this.groupBoxProvider.TabStop = false;
             this.groupBoxProvider.Text = "Provider";
@@ -97,20 +95,18 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboBoxProviders.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxProviders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxProviders.FormattingEnabled = true;
-            this.comboBoxProviders.Location = new System.Drawing.Point(22, 48);
-            this.comboBoxProviders.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.comboBoxProviders.Location = new System.Drawing.Point(11, 24);
             this.comboBoxProviders.Name = "comboBoxProviders";
-            this.comboBoxProviders.Size = new System.Drawing.Size(884, 38);
+            this.comboBoxProviders.Size = new System.Drawing.Size(444, 21);
             this.comboBoxProviders.TabIndex = 6;
             // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.linkLabel1.Location = new System.Drawing.Point(86, 0);
-            this.linkLabel1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.linkLabel1.Location = new System.Drawing.Point(43, 0);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(23, 30);
+            this.linkLabel1.Size = new System.Drawing.Size(12, 13);
             this.linkLabel1.TabIndex = 7;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Tag = "model";
@@ -125,11 +121,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.groupBoxBillingAccount.Controls.Add(this.linkLabel3);
             this.groupBoxBillingAccount.Controls.Add(this.labelHelpBillingAccount);
             this.groupBoxBillingAccount.Controls.Add(this.comboBoxCredentialId);
-            this.groupBoxBillingAccount.Location = new System.Drawing.Point(24, 298);
-            this.groupBoxBillingAccount.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBoxBillingAccount.Location = new System.Drawing.Point(12, 149);
             this.groupBoxBillingAccount.Name = "groupBoxBillingAccount";
-            this.groupBoxBillingAccount.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.groupBoxBillingAccount.Size = new System.Drawing.Size(931, 210);
+            this.groupBoxBillingAccount.Size = new System.Drawing.Size(466, 105);
             this.groupBoxBillingAccount.TabIndex = 26;
             this.groupBoxBillingAccount.TabStop = false;
             this.groupBoxBillingAccount.Text = "Billing account";
@@ -137,10 +131,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             // panelConnectAccount
             // 
             this.panelConnectAccount.Controls.Add(this.textBoxLabelConnectAccount);
-            this.panelConnectAccount.Location = new System.Drawing.Point(26, 166);
-            this.panelConnectAccount.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.panelConnectAccount.Location = new System.Drawing.Point(13, 83);
             this.panelConnectAccount.Name = "panelConnectAccount";
-            this.panelConnectAccount.Size = new System.Drawing.Size(520, 38);
+            this.panelConnectAccount.Size = new System.Drawing.Size(260, 19);
             this.panelConnectAccount.TabIndex = 39;
             this.panelConnectAccount.Tag = "accountControl";
             this.panelConnectAccount.Visible = false;
@@ -152,10 +145,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.textBoxLabelConnectAccount.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textBoxLabelConnectAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxLabelConnectAccount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.textBoxLabelConnectAccount.Location = new System.Drawing.Point(0, 6);
-            this.textBoxLabelConnectAccount.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBoxLabelConnectAccount.Location = new System.Drawing.Point(0, 3);
             this.textBoxLabelConnectAccount.Name = "textBoxLabelConnectAccount";
-            this.textBoxLabelConnectAccount.Size = new System.Drawing.Size(467, 25);
+            this.textBoxLabelConnectAccount.Size = new System.Drawing.Size(234, 13);
             this.textBoxLabelConnectAccount.TabIndex = 37;
             this.textBoxLabelConnectAccount.Tag = "https://console.inten.to/accounts";
             this.textBoxLabelConnectAccount.Text = "Connect your own account for this provider";
@@ -163,10 +155,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             // buttonRefresh
             // 
             this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
-            this.buttonRefresh.Location = new System.Drawing.Point(864, 115);
+            this.buttonRefresh.Location = new System.Drawing.Point(432, 58);
             this.buttonRefresh.Margin = new System.Windows.Forms.Padding(0);
             this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(46, 46);
+            this.buttonRefresh.Size = new System.Drawing.Size(23, 23);
             this.buttonRefresh.TabIndex = 37;
             this.buttonRefresh.Tag = "accountControl";
             this.toolTipHelp.SetToolTip(this.buttonRefresh, "refresh list your accounts for this provider");
@@ -177,10 +169,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             // 
             this.linkLabel3.AutoSize = true;
             this.linkLabel3.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.linkLabel3.Location = new System.Drawing.Point(176, 0);
-            this.linkLabel3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.linkLabel3.Location = new System.Drawing.Point(88, 0);
             this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(23, 30);
+            this.linkLabel3.Size = new System.Drawing.Size(12, 13);
             this.linkLabel3.TabIndex = 33;
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Tag = "account";
@@ -191,10 +182,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             // labelHelpBillingAccount
             // 
             this.labelHelpBillingAccount.BackColor = System.Drawing.SystemColors.Control;
-            this.labelHelpBillingAccount.Location = new System.Drawing.Point(16, 42);
-            this.labelHelpBillingAccount.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelHelpBillingAccount.Location = new System.Drawing.Point(8, 21);
             this.labelHelpBillingAccount.Name = "labelHelpBillingAccount";
-            this.labelHelpBillingAccount.Size = new System.Drawing.Size(854, 64);
+            this.labelHelpBillingAccount.Size = new System.Drawing.Size(427, 32);
             this.labelHelpBillingAccount.TabIndex = 12;
             this.labelHelpBillingAccount.Text = "Most of the MT Providers are available via Intento contracts, but you may also us" +
     "e your own account at MT Provider connected via Intento Console.";
@@ -207,10 +197,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboBoxCredentialId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCredentialId.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxCredentialId.FormattingEnabled = true;
-            this.comboBoxCredentialId.Location = new System.Drawing.Point(22, 118);
-            this.comboBoxCredentialId.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.comboBoxCredentialId.Location = new System.Drawing.Point(11, 59);
             this.comboBoxCredentialId.Name = "comboBoxCredentialId";
-            this.comboBoxCredentialId.Size = new System.Drawing.Size(826, 38);
+            this.comboBoxCredentialId.Size = new System.Drawing.Size(415, 21);
             this.comboBoxCredentialId.TabIndex = 10;
             this.comboBoxCredentialId.Tag = "accountControl";
             this.comboBoxCredentialId.Visible = false;
@@ -224,11 +213,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.groupBoxModel.Controls.Add(this.checkBoxUseCustomModel);
             this.groupBoxModel.Controls.Add(this.comboBoxModels);
             this.groupBoxModel.Enabled = false;
-            this.groupBoxModel.Location = new System.Drawing.Point(24, 526);
-            this.groupBoxModel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBoxModel.Location = new System.Drawing.Point(12, 263);
             this.groupBoxModel.Name = "groupBoxModel";
-            this.groupBoxModel.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.groupBoxModel.Size = new System.Drawing.Size(931, 224);
+            this.groupBoxModel.Size = new System.Drawing.Size(466, 112);
             this.groupBoxModel.TabIndex = 27;
             this.groupBoxModel.TabStop = false;
             this.groupBoxModel.Text = "Model";
@@ -237,20 +224,18 @@ namespace Intento.MT.Plugin.PropertiesForm
             // 
             this.textBoxModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxModel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxModel.Location = new System.Drawing.Point(22, 184);
-            this.textBoxModel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBoxModel.Location = new System.Drawing.Point(11, 92);
             this.textBoxModel.Name = "textBoxModel";
-            this.textBoxModel.Size = new System.Drawing.Size(874, 37);
+            this.textBoxModel.Size = new System.Drawing.Size(438, 22);
             this.textBoxModel.TabIndex = 14;
             this.textBoxModel.Tag = "modelControl";
             this.textBoxModel.Visible = false;
             // 
             // labelHelpModel
             // 
-            this.labelHelpModel.Location = new System.Drawing.Point(16, 42);
-            this.labelHelpModel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelHelpModel.Location = new System.Drawing.Point(8, 21);
             this.labelHelpModel.Name = "labelHelpModel";
-            this.labelHelpModel.Size = new System.Drawing.Size(854, 64);
+            this.labelHelpModel.Size = new System.Drawing.Size(427, 32);
             this.labelHelpModel.TabIndex = 13;
             this.labelHelpModel.Text = "By default, the pre-trained general-purpose MT model is used. If it\'s not availab" +
     "le or you want to use your custom-trained model, please specify it below.";
@@ -262,10 +247,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxUseCustomModel.AutoSize = true;
             this.checkBoxUseCustomModel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxUseCustomModel.Location = new System.Drawing.Point(22, 112);
-            this.checkBoxUseCustomModel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.checkBoxUseCustomModel.Location = new System.Drawing.Point(11, 56);
             this.checkBoxUseCustomModel.Name = "checkBoxUseCustomModel";
-            this.checkBoxUseCustomModel.Size = new System.Drawing.Size(258, 34);
+            this.checkBoxUseCustomModel.Size = new System.Drawing.Size(136, 17);
             this.checkBoxUseCustomModel.TabIndex = 11;
             this.checkBoxUseCustomModel.Tag = "modelControl";
             this.checkBoxUseCustomModel.Text = "Use custom MT model";
@@ -278,11 +262,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboBoxModels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxModels.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxModels.FormattingEnabled = true;
-            this.comboBoxModels.ItemHeight = 30;
-            this.comboBoxModels.Location = new System.Drawing.Point(22, 158);
-            this.comboBoxModels.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.comboBoxModels.ItemHeight = 13;
+            this.comboBoxModels.Location = new System.Drawing.Point(11, 79);
             this.comboBoxModels.Name = "comboBoxModels";
-            this.comboBoxModels.Size = new System.Drawing.Size(871, 38);
+            this.comboBoxModels.Size = new System.Drawing.Size(438, 21);
             this.comboBoxModels.TabIndex = 10;
             this.comboBoxModels.Tag = "modelControl";
             this.comboBoxModels.Visible = false;
@@ -293,11 +276,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.groupBoxGlossary.Controls.Add(this.textBoxGlossary);
             this.groupBoxGlossary.Controls.Add(this.labelHelpGlossary);
             this.groupBoxGlossary.Controls.Add(this.comboBoxGlossaries);
-            this.groupBoxGlossary.Location = new System.Drawing.Point(24, 770);
-            this.groupBoxGlossary.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBoxGlossary.Location = new System.Drawing.Point(12, 385);
             this.groupBoxGlossary.Name = "groupBoxGlossary";
-            this.groupBoxGlossary.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.groupBoxGlossary.Size = new System.Drawing.Size(931, 189);
+            this.groupBoxGlossary.Size = new System.Drawing.Size(466, 94);
             this.groupBoxGlossary.TabIndex = 28;
             this.groupBoxGlossary.TabStop = false;
             this.groupBoxGlossary.Text = "Glossary";
@@ -306,10 +287,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             // 
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.linkLabel2.Location = new System.Drawing.Point(109, 0);
-            this.linkLabel2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.linkLabel2.Location = new System.Drawing.Point(54, 0);
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(23, 30);
+            this.linkLabel2.Size = new System.Drawing.Size(12, 13);
             this.linkLabel2.TabIndex = 33;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Tag = "glossary";
@@ -321,20 +301,18 @@ namespace Intento.MT.Plugin.PropertiesForm
             // 
             this.textBoxGlossary.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxGlossary.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxGlossary.Location = new System.Drawing.Point(22, 147);
-            this.textBoxGlossary.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBoxGlossary.Location = new System.Drawing.Point(11, 74);
             this.textBoxGlossary.Name = "textBoxGlossary";
-            this.textBoxGlossary.Size = new System.Drawing.Size(874, 37);
+            this.textBoxGlossary.Size = new System.Drawing.Size(438, 22);
             this.textBoxGlossary.TabIndex = 14;
             this.textBoxGlossary.Tag = "glossaryControl";
             this.textBoxGlossary.Visible = false;
             // 
             // labelHelpGlossary
             // 
-            this.labelHelpGlossary.Location = new System.Drawing.Point(16, 42);
-            this.labelHelpGlossary.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelHelpGlossary.Location = new System.Drawing.Point(8, 21);
             this.labelHelpGlossary.Name = "labelHelpGlossary";
-            this.labelHelpGlossary.Size = new System.Drawing.Size(854, 64);
+            this.labelHelpGlossary.Size = new System.Drawing.Size(427, 32);
             this.labelHelpGlossary.TabIndex = 13;
             this.labelHelpGlossary.Text = "Some of MT Providers enable using your custom terminology or glossary. If you hab" +
     "e one, please specify it below.";
@@ -349,10 +327,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboBoxGlossaries.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxGlossaries.FormattingEnabled = true;
             this.comboBoxGlossaries.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.comboBoxGlossaries.Location = new System.Drawing.Point(22, 122);
-            this.comboBoxGlossaries.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.comboBoxGlossaries.Location = new System.Drawing.Point(11, 61);
             this.comboBoxGlossaries.Name = "comboBoxGlossaries";
-            this.comboBoxGlossaries.Size = new System.Drawing.Size(871, 38);
+            this.comboBoxGlossaries.Size = new System.Drawing.Size(438, 21);
             this.comboBoxGlossaries.TabIndex = 10;
             this.comboBoxGlossaries.Tag = "glossaryControl";
             this.comboBoxGlossaries.Visible = false;
@@ -363,11 +340,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.groupBoxOptional.Controls.Add(this.labelDirectionChar);
             this.groupBoxOptional.Controls.Add(this.comboBoxTo);
             this.groupBoxOptional.Controls.Add(this.comboBoxFrom);
-            this.groupBoxOptional.Location = new System.Drawing.Point(24, 984);
-            this.groupBoxOptional.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBoxOptional.Location = new System.Drawing.Point(12, 492);
             this.groupBoxOptional.Name = "groupBoxOptional";
-            this.groupBoxOptional.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.groupBoxOptional.Size = new System.Drawing.Size(931, 206);
+            this.groupBoxOptional.Size = new System.Drawing.Size(466, 103);
             this.groupBoxOptional.TabIndex = 29;
             this.groupBoxOptional.TabStop = false;
             this.groupBoxOptional.Text = "OPTIONAL";
@@ -375,10 +350,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             // labelHelpOptional
             // 
             this.labelHelpOptional.BackColor = System.Drawing.SystemColors.Control;
-            this.labelHelpOptional.Location = new System.Drawing.Point(16, 42);
-            this.labelHelpOptional.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelHelpOptional.Location = new System.Drawing.Point(8, 21);
             this.labelHelpOptional.Name = "labelHelpOptional";
-            this.labelHelpOptional.Size = new System.Drawing.Size(854, 64);
+            this.labelHelpOptional.Size = new System.Drawing.Size(427, 32);
             this.labelHelpOptional.TabIndex = 33;
             this.labelHelpOptional.Text = "We will send one-character translation request to test this configuration.\r\nIf yo" +
     "u have selected custom model or glossary, please adjust the language pair:";
@@ -389,10 +363,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDirectionChar.AutoSize = true;
             this.labelDirectionChar.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDirectionChar.Location = new System.Drawing.Point(275, 118);
-            this.labelDirectionChar.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelDirectionChar.Location = new System.Drawing.Point(138, 59);
             this.labelDirectionChar.Name = "labelDirectionChar";
-            this.labelDirectionChar.Size = new System.Drawing.Size(69, 65);
+            this.labelDirectionChar.Size = new System.Drawing.Size(36, 32);
             this.labelDirectionChar.TabIndex = 14;
             this.labelDirectionChar.Tag = "fix_high_dpi";
             this.labelDirectionChar.Text = "→";
@@ -404,10 +377,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboBoxTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxTo.FormattingEnabled = true;
-            this.comboBoxTo.Location = new System.Drawing.Point(360, 136);
-            this.comboBoxTo.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.comboBoxTo.Location = new System.Drawing.Point(180, 68);
             this.comboBoxTo.Name = "comboBoxTo";
-            this.comboBoxTo.Size = new System.Drawing.Size(234, 38);
+            this.comboBoxTo.Size = new System.Drawing.Size(119, 21);
             this.comboBoxTo.TabIndex = 13;
             this.comboBoxTo.Tag = "fix_high_dpi";
             // 
@@ -420,30 +392,27 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboBoxFrom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxFrom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxFrom.FormattingEnabled = true;
-            this.comboBoxFrom.Location = new System.Drawing.Point(22, 136);
-            this.comboBoxFrom.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.comboBoxFrom.Location = new System.Drawing.Point(11, 68);
             this.comboBoxFrom.Name = "comboBoxFrom";
-            this.comboBoxFrom.Size = new System.Drawing.Size(234, 38);
+            this.comboBoxFrom.Size = new System.Drawing.Size(119, 21);
             this.comboBoxFrom.TabIndex = 10;
             this.comboBoxFrom.Tag = "fix_high_dpi";
             // 
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(794, 1414);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.buttonCancel.Location = new System.Drawing.Point(397, 707);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(162, 45);
+            this.buttonCancel.Size = new System.Drawing.Size(81, 22);
             this.buttonCancel.TabIndex = 31;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(538, 1414);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.buttonSave.Location = new System.Drawing.Point(269, 707);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(227, 45);
+            this.buttonSave.Size = new System.Drawing.Size(114, 22);
             this.buttonSave.TabIndex = 30;
             this.buttonSave.Text = "Test and save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -456,10 +425,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             // labelTMP
             // 
             this.labelTMP.AutoSize = true;
-            this.labelTMP.Location = new System.Drawing.Point(40, 1422);
-            this.labelTMP.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelTMP.Location = new System.Drawing.Point(20, 711);
             this.labelTMP.Name = "labelTMP";
-            this.labelTMP.Size = new System.Drawing.Size(103, 30);
+            this.labelTMP.Size = new System.Drawing.Size(54, 13);
             this.labelTMP.TabIndex = 32;
             this.labelTMP.Text = "labelTMP";
             this.labelTMP.Visible = false;
@@ -469,11 +437,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.groupBox1.Controls.Add(this.textBoxLabelURL);
             this.groupBox1.Controls.Add(this.labelSmartRouting);
             this.groupBox1.Controls.Add(this.comboBoxRouting);
-            this.groupBox1.Location = new System.Drawing.Point(24, 26);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox1.Location = new System.Drawing.Point(12, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.groupBox1.Size = new System.Drawing.Size(931, 141);
+            this.groupBox1.Size = new System.Drawing.Size(466, 70);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Automatic provider selection";
@@ -485,10 +451,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.textBoxLabelURL.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textBoxLabelURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxLabelURL.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.textBoxLabelURL.Location = new System.Drawing.Point(466, 38);
-            this.textBoxLabelURL.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBoxLabelURL.Location = new System.Drawing.Point(233, 19);
             this.textBoxLabelURL.Name = "textBoxLabelURL";
-            this.textBoxLabelURL.Size = new System.Drawing.Size(237, 25);
+            this.textBoxLabelURL.Size = new System.Drawing.Size(118, 13);
             this.textBoxLabelURL.TabIndex = 35;
             this.textBoxLabelURL.Tag = "https://try.inten.to/mt_report_2020";
             this.textBoxLabelURL.Text = "the Intento Benchmarks.";
@@ -496,10 +461,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             // labelSmartRouting
             // 
             this.labelSmartRouting.AutoSize = true;
-            this.labelSmartRouting.Location = new System.Drawing.Point(22, 38);
-            this.labelSmartRouting.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelSmartRouting.Location = new System.Drawing.Point(11, 19);
             this.labelSmartRouting.Name = "labelSmartRouting";
-            this.labelSmartRouting.Size = new System.Drawing.Size(432, 30);
+            this.labelSmartRouting.Size = new System.Drawing.Size(227, 13);
             this.labelSmartRouting.TabIndex = 37;
             this.labelSmartRouting.Text = "Select MT provider automatically based on ";
             // 
@@ -515,22 +479,19 @@ namespace Intento.MT.Plugin.PropertiesForm
             "Industry-specific routing based on Intento benchmarks",
             "Industry-specific routing based on Intento benchmarks 1",
             "Industry-specific routing based on Intento benchmarks 2"});
-            this.comboBoxRouting.Location = new System.Drawing.Point(29, 80);
-            this.comboBoxRouting.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.comboBoxRouting.Location = new System.Drawing.Point(14, 40);
             this.comboBoxRouting.Name = "comboBoxRouting";
-            this.comboBoxRouting.Size = new System.Drawing.Size(878, 38);
+            this.comboBoxRouting.Size = new System.Drawing.Size(441, 21);
             this.comboBoxRouting.TabIndex = 36;
             // 
             // ClientAPIBox
             // 
-            this.ClientAPIBox.AutoSize = true;
             this.ClientAPIBox.Controls.Add(this.panelExtSettings);
             this.ClientAPIBox.Controls.Add(this.comboClientAPI);
-            this.ClientAPIBox.Location = new System.Drawing.Point(27, 1202);
-            this.ClientAPIBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.ClientAPIBox.Location = new System.Drawing.Point(14, 601);
             this.ClientAPIBox.Name = "ClientAPIBox";
-            this.ClientAPIBox.Padding = new System.Windows.Forms.Padding(19, 6, 30, 6);
-            this.ClientAPIBox.Size = new System.Drawing.Size(931, 132);
+            this.ClientAPIBox.Padding = new System.Windows.Forms.Padding(10, 3, 15, 3);
+            this.ClientAPIBox.Size = new System.Drawing.Size(466, 66);
             this.ClientAPIBox.TabIndex = 34;
             this.ClientAPIBox.TabStop = false;
             this.ClientAPIBox.Text = "Client API";
@@ -538,9 +499,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             // panelExtSettings
             // 
             this.panelExtSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelExtSettings.Location = new System.Drawing.Point(19, 74);
+            this.panelExtSettings.Location = new System.Drawing.Point(10, 39);
+            this.panelExtSettings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelExtSettings.Name = "panelExtSettings";
-            this.panelExtSettings.Size = new System.Drawing.Size(882, 52);
+            this.panelExtSettings.Size = new System.Drawing.Size(441, 24);
             this.panelExtSettings.TabIndex = 1;
             // 
             // comboClientAPI
@@ -548,20 +510,20 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboClientAPI.DisplayMember = "DisplayName";
             this.comboClientAPI.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboClientAPI.FormattingEnabled = true;
-            this.comboClientAPI.Location = new System.Drawing.Point(19, 36);
-            this.comboClientAPI.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.comboClientAPI.Location = new System.Drawing.Point(10, 18);
+            this.comboClientAPI.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboClientAPI.Name = "comboClientAPI";
-            this.comboClientAPI.Size = new System.Drawing.Size(882, 38);
+            this.comboClientAPI.Size = new System.Drawing.Size(441, 21);
             this.comboClientAPI.TabIndex = 0;
             this.comboClientAPI.ValueMember = "ClientUid";
             this.comboClientAPI.SelectedValueChanged += new System.EventHandler(this.comboClientAPI_SelectedValueChanged);
             // 
             // IntentoFormOptionsMT
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(982, 1488);
+            this.ClientSize = new System.Drawing.Size(491, 744);
             this.Controls.Add(this.ClientAPIBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelTMP);
@@ -574,7 +536,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.Controls.Add(this.groupBoxProvider);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "IntentoFormOptionsMT";
