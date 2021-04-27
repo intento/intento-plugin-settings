@@ -13,6 +13,15 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 	public static class Logs
 	{
+		/// <summary>
+		/// Limiting the request rate, ms
+		/// </summary>
+		const int sleepTime = 5000;
+		/// <summary>
+		/// Limit of entries from the queue in one request
+		/// </summary>
+		const int maxEntries = 300;
+
 		static string _consumer_id;
 		static string _session_id;
 		public static string ApiKey { get; set; }
@@ -29,11 +38,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 		static ConcurrentQueue<KeyValuePair<char, string>> queue = new ConcurrentQueue<KeyValuePair<char, string>>();
 
 		const string url = "https://api.inten.to/telemetry/upload_json";
-
-		/// <summary>
-		/// Limiting the request rate, ms
-		/// </summary>
-		const int sleepTime = 5000;
 
 		public static string ConsumerId
 		{
@@ -166,12 +170,14 @@ namespace Intento.MT.Plugin.PropertiesForm
 				data["session_id"] = SessionId;
 				ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 				dynamic jsonResult;
-				while (queue.TryDequeue(out item))
+				int entries = 0;
+				while (queue.TryDequeue(out item) && entries < maxEntries)
 				{
 					if (inprogress.ContainsKey(item.Key))
 						inprogress[item.Key] += "\n" + item.Value;
 					else
 						inprogress.Add(item.Key, item.Value);
+					entries++;
 				}
 
 				foreach (KeyValuePair<char, string> kp in inprogress)
