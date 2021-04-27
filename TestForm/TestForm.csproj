@@ -32,12 +32,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IntentoSDK">
-      <HintPath>..\bin\IntentoSDK.dll</HintPath>
+    <Reference Include="IntentoSDK, Version=1.5.3.0, Culture=neutral, PublicKeyToken=7fbf26cf2c5f5508, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\IntentoSDK.1.5.3\lib\net45\IntentoSDK.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -97,7 +96,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\Plugins\packages\AWSSDK.S3.3.5.0-beta\analyzers\dotnet\cs\AWSSDK.S3.CodeAnalysis.dll" />
+    <ProjectReference Include="..\Intento.MT.Plugin.PropertiesForm\Intento.MT.Plugin.PropertiesForm.csproj">
+      <Project>{a4374128-dd01-4ce3-b62c-4cc3460620c0}</Project>
+      <Name>Intento.MT.Plugin.PropertiesForm</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

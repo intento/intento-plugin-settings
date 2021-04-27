@@ -1,22 +1,43 @@
-﻿using Intento.MT.Plugin.PropertiesForm;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
+using System.Timers;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
 
 	public static class Logs
 	{
+		/// <summary>
+		/// Limiting the request rate, ms
+		/// </summary>
+		const int sleepTime = 5000;
+		/// <summary>
+		/// Limit of entries from the queue in one request
+		/// </summary>
+		const int maxEntries = 300;
+
 		static string _consumer_id;
 		static string _session_id;
 		public static string ApiKey { get; set; }
 		public static string PluginName { get; set; }
+
+		/// <summary>
+		/// A stream instance that checks the data queue and sends it to the cloud
+		/// </summary>
+		static Timer sender;
+
+		/// <summary>
+		/// Data queue
+		/// </summary>
+		static ConcurrentQueue<KeyValuePair<char, string>> queue = new ConcurrentQueue<KeyValuePair<char, string>>();
+
+		const string url = "https://api.inten.to/telemetry/upload_json";
 
 		public static string ConsumerId
 		{
@@ -119,7 +140,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			return items;
 		}
 
-		private static async void WriteRemoteLog(char identificator, string text)
+		private static void WriteRemoteLog(char identificator, string text)
 		{
 			if (!IsLogging())
 				return;
@@ -130,22 +151,51 @@ namespace Intento.MT.Plugin.PropertiesForm
 			if (string.IsNullOrWhiteSpace(ApiKey))
 				return;
 
-			dynamic jsonResult;
-			string url = "https://api.inten.to/telemetry/upload_json";
-			JObject data = new JObject();
-			data["plugin_name"] = string.Format("{0}-{1}", PluginName, identificator);
-			data["session_id"] = SessionId;
-			data["logs"] = text;
-			var content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
-			// Call to Intento API 
-			using (var conn = new HttpClient())
+			queue.Enqueue(new KeyValuePair<char, string>(identificator, text));
+			if (sender == null)
 			{
-				conn.DefaultRequestHeaders.Add("apikey", ApiKey);
-				conn.DefaultRequestHeaders.Add("x-consumer-id", ConsumerId);
-				jsonResult = await conn.PostAsync(url, content);
+				sender = new Timer();
+				sender.Interval = sleepTime;
+				sender.Elapsed += OnTimedEvent;
+				sender.Start();
 			}
 		}
+		private static async void OnTimedEvent(Object source, ElapsedEventArgs e)
+		{
+			try
+			{
+				Dictionary<char, string> inprogress = new Dictionary<char, string>();
+				KeyValuePair<char, string> item;
+				JObject data = new JObject();
+				data["session_id"] = SessionId;
+				ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+				dynamic jsonResult;
+				int entries = 0;
+				while (queue.TryDequeue(out item) && entries < maxEntries)
+				{
+					if (inprogress.ContainsKey(item.Key))
+						inprogress[item.Key] += "\n" + item.Value;
+					else
+						inprogress.Add(item.Key, item.Value);
+					entries++;
+				}
 
+				foreach (KeyValuePair<char, string> kp in inprogress)
+				{
+					data["plugin_name"] = string.Format("{0}-{1}", PluginName, kp.Key);
+					data["logs"] = kp.Value;
+					var content = new StringContent(data.ToString(), Encoding.UTF8, "application/json");
+					// Call to Intento API 
+					using (var conn = new HttpClient())
+					{
+						conn.DefaultRequestHeaders.Add("apikey", ApiKey);
+						conn.DefaultRequestHeaders.Add("x-consumer-id", ConsumerId);
+						jsonResult = await conn.PostAsync(url, content);
+					}
+				}
+			}
+			catch { }
+		}
 	}
 
 }
