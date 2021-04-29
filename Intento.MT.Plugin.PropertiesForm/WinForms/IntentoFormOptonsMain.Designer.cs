@@ -87,7 +87,7 @@
 			this.textBoxLabel1.Name = "textBoxLabel1";
 			this.textBoxLabel1.Size = new System.Drawing.Size(118, 13);
 			this.textBoxLabel1.TabIndex = 20;
-			this.textBoxLabel1.Tag = "https://console.inten.to";
+			this.textBoxLabel1.Tag = "https://console.inten.to?utm_campaign=Localization&utm_source=appstore_trados";
 			this.textBoxLabel1.Text = "https://console.inten.to";
 			this.textBoxLabel1.Click += new System.EventHandler(this.linkLabel_LinkClicked);
 			// 
