@@ -40,10 +40,10 @@
             // 
             this.buttonOK.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonOK.Enabled = false;
-            this.buttonOK.Location = new System.Drawing.Point(441, 81);
-            this.buttonOK.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonOK.Location = new System.Drawing.Point(706, 129);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(102, 32);
+            this.buttonOK.Size = new System.Drawing.Size(163, 52);
             this.buttonOK.TabIndex = 8;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -52,10 +52,10 @@
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(4, 12);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 12, 4, 12);
+            this.label1.Location = new System.Drawing.Point(6, 19);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 19, 6, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(429, 17);
+            this.label1.Size = new System.Drawing.Size(688, 27);
             this.label1.TabIndex = 9;
             this.label1.Text = "Custom credentials (required)";
             this.label1.UseWaitCursor = true;
@@ -64,10 +64,10 @@
             // 
             this.checkBoxShowHidden.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBoxShowHidden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxShowHidden.Location = new System.Drawing.Point(4, 81);
-            this.checkBoxShowHidden.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxShowHidden.Location = new System.Drawing.Point(6, 129);
+            this.checkBoxShowHidden.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.checkBoxShowHidden.Name = "checkBoxShowHidden";
-            this.checkBoxShowHidden.Size = new System.Drawing.Size(429, 32);
+            this.checkBoxShowHidden.Size = new System.Drawing.Size(688, 52);
             this.checkBoxShowHidden.TabIndex = 17;
             this.checkBoxShowHidden.Text = "Show hidden text";
             this.checkBoxShowHidden.UseVisualStyleBackColor = true;
@@ -84,14 +84,14 @@
             this.tlpMain.Controls.Add(this.buttonOK, 1, 2);
             this.tlpMain.Controls.Add(this.tlpCustomCredentials, 0, 1);
             this.tlpMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpMain.Location = new System.Drawing.Point(10, 10);
-            this.tlpMain.Margin = new System.Windows.Forms.Padding(4);
+            this.tlpMain.Location = new System.Drawing.Point(16, 16);
+            this.tlpMain.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tlpMain.Name = "tlpMain";
             this.tlpMain.RowCount = 3;
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tlpMain.Size = new System.Drawing.Size(547, 117);
+            this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
+            this.tlpMain.Size = new System.Drawing.Size(875, 187);
             this.tlpMain.TabIndex = 18;
             // 
             // tlpCustomCredentials
@@ -103,29 +103,26 @@
             this.tlpCustomCredentials.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpCustomCredentials.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpCustomCredentials.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tlpCustomCredentials.Location = new System.Drawing.Point(4, 45);
-            this.tlpCustomCredentials.Margin = new System.Windows.Forms.Padding(4);
+            this.tlpCustomCredentials.Location = new System.Drawing.Point(6, 71);
+            this.tlpCustomCredentials.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.tlpCustomCredentials.Name = "tlpCustomCredentials";
             this.tlpCustomCredentials.RowCount = 1;
             this.tlpCustomCredentials.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpCustomCredentials.Size = new System.Drawing.Size(539, 0);
+            this.tlpCustomCredentials.Size = new System.Drawing.Size(863, 0);
             this.tlpCustomCredentials.TabIndex = 18;
             // 
             // IntentoFormProviderAuthWizard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(567, 137);
+            this.ClientSize = new System.Drawing.Size(907, 219);
             this.Controls.Add(this.tlpMain);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "IntentoFormProviderAuthWizard";
-            this.Padding = new System.Windows.Forms.Padding(10);
+            this.Padding = new System.Windows.Forms.Padding(16, 16, 16, 16);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Enter credentials";

@@ -43,7 +43,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public IntentoFormOptionsMT(IntentoTranslationProviderOptionsForm form)
         {
             InitializeComponent();
+            this.SuspendLayout();
             LocalizeContent();
+            this.ResumeLayout();
             parent = form;
             comboBoxProviders.SelectedIndexChanged += parent.comboBoxProviders_SelectedIndexChanged;
             checkBoxUseCustomModel.CheckedChanged += parent.checkBoxUseCustomModel_CheckedChanged;
