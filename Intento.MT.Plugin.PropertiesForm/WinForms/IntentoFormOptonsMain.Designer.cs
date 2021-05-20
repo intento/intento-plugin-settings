@@ -164,7 +164,7 @@
             this.groupBoxMTSettings.Margin = new System.Windows.Forms.Padding(6);
             this.groupBoxMTSettings.Name = "groupBoxMTSettings";
             this.groupBoxMTSettings.Padding = new System.Windows.Forms.Padding(16, 6, 6, 6);
-            this.groupBoxMTSettings.Size = new System.Drawing.Size(1130, 668);
+            this.groupBoxMTSettings.Size = new System.Drawing.Size(1130, 700);
             this.groupBoxMTSettings.TabIndex = 1;
             this.groupBoxMTSettings.TabStop = false;
             this.groupBoxMTSettings.Text = "Machine Translation Settings";
@@ -379,11 +379,12 @@
             // 
             // labelIAK
             // 
-            this.labelIAK.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelIAK.AutoSize = true;
+            this.labelIAK.Dock = System.Windows.Forms.DockStyle.Left;
             this.labelIAK.Location = new System.Drawing.Point(3, 3);
             this.labelIAK.Margin = new System.Windows.Forms.Padding(3);
             this.labelIAK.Name = "labelIAK";
-            this.labelIAK.Size = new System.Drawing.Size(91, 50);
+            this.labelIAK.Size = new System.Drawing.Size(87, 50);
             this.labelIAK.TabIndex = 28;
             this.labelIAK.Text = "API Key";
             this.labelIAK.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -405,12 +406,12 @@
             this.apiKey_tb.BackColor = System.Drawing.SystemColors.Info;
             this.apiKey_tb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.apiKey_tb.Dock = System.Windows.Forms.DockStyle.Top;
-            this.apiKey_tb.Location = new System.Drawing.Point(103, 10);
+            this.apiKey_tb.Location = new System.Drawing.Point(99, 10);
             this.apiKey_tb.Margin = new System.Windows.Forms.Padding(6, 10, 6, 6);
             this.apiKey_tb.Name = "apiKey_tb";
             this.apiKey_tb.PasswordChar = '*';
             this.apiKey_tb.ReadOnly = true;
-            this.apiKey_tb.Size = new System.Drawing.Size(781, 37);
+            this.apiKey_tb.Size = new System.Drawing.Size(785, 37);
             this.apiKey_tb.TabIndex = 26;
             this.apiKey_tb.UseSystemPasswordChar = true;
             this.apiKey_tb.WordWrap = false;
@@ -459,7 +460,7 @@
             this.tableLayoutPanel3.Controls.Add(this.buttonHelp, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.buttonContinue, 2, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(16, 927);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(16, 959);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(5);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
@@ -471,7 +472,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1162, 1021);
+            this.ClientSize = new System.Drawing.Size(1162, 1053);
             this.Controls.Add(this.groupBoxMTSettings);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.label1);
@@ -480,6 +481,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "IntentoTranslationProviderOptionsForm";
             this.Padding = new System.Windows.Forms.Padding(16, 16, 16, 32);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

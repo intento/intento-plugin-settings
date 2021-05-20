@@ -35,6 +35,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.toolTipHelp = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonRefresh = new System.Windows.Forms.Button();
             this.labelTMP = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -66,7 +67,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.panelConnectAccount = new System.Windows.Forms.Panel();
             this.textBoxLabelConnectAccount = new System.Windows.Forms.TextBox();
             this.comboBoxCredentialId = new System.Windows.Forms.ComboBox();
-            this.buttonRefresh = new System.Windows.Forms.Button();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.groupBoxProvider = new System.Windows.Forms.GroupBox();
             this.comboBoxProviders = new System.Windows.Forms.ComboBox();
@@ -122,6 +122,20 @@ namespace Intento.MT.Plugin.PropertiesForm
             // 
             this.toolTipHelp.IsBalloon = true;
             // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
+            this.buttonRefresh.Location = new System.Drawing.Point(1053, 60);
+            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(59, 44);
+            this.buttonRefresh.TabIndex = 37;
+            this.buttonRefresh.Tag = "accountControl";
+            this.toolTipHelp.SetToolTip(this.buttonRefresh, "refresh list your accounts for this provider");
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Visible = false;
+            // 
             // labelTMP
             // 
             this.labelTMP.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -156,7 +170,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             // 
             this.panel3.Controls.Add(this.tableLayoutPanel5);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(32, 1205);
+            this.panel3.Location = new System.Drawing.Point(32, 1219);
             this.panel3.Margin = new System.Windows.Forms.Padding(5);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1144, 69);
@@ -174,8 +188,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(32, 32);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1144, 1173);
-            this.panel4.TabIndex = 37;
+            this.panel4.Size = new System.Drawing.Size(1144, 1187);
+            this.panel4.TabIndex = 30;
             // 
             // groupBoxOptional
             // 
@@ -566,20 +580,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboBoxCredentialId.Tag = "accountControl";
             this.comboBoxCredentialId.Visible = false;
             // 
-            // buttonRefresh
-            // 
-            this.buttonRefresh.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
-            this.buttonRefresh.Location = new System.Drawing.Point(1053, 60);
-            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(59, 44);
-            this.buttonRefresh.TabIndex = 37;
-            this.buttonRefresh.Tag = "accountControl";
-            this.toolTipHelp.SetToolTip(this.buttonRefresh, "refresh list your accounts for this provider");
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Visible = false;
-            // 
             // linkLabel3
             // 
             this.linkLabel3.AutoSize = true;
@@ -702,7 +702,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(1208, 1306);
+            this.ClientSize = new System.Drawing.Size(1208, 1320);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
