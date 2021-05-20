@@ -43,11 +43,11 @@
             // labelAPI
             // 
             this.labelAPI.AutoSize = true;
-            this.labelAPI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelAPI.Dock = System.Windows.Forms.DockStyle.Left;
             this.labelAPI.Location = new System.Drawing.Point(6, 0);
             this.labelAPI.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelAPI.Name = "labelAPI";
-            this.labelAPI.Size = new System.Drawing.Size(170, 56);
+            this.labelAPI.Size = new System.Drawing.Size(167, 56);
             this.labelAPI.TabIndex = 21;
             this.labelAPI.Text = "Intento API Key:";
             this.labelAPI.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -57,10 +57,10 @@
             this.apiKey_tb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tableLayoutPanel1.SetColumnSpan(this.apiKey_tb, 3);
             this.apiKey_tb.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.apiKey_tb.Location = new System.Drawing.Point(188, 6);
+            this.apiKey_tb.Location = new System.Drawing.Point(185, 6);
             this.apiKey_tb.Margin = new System.Windows.Forms.Padding(6);
             this.apiKey_tb.Name = "apiKey_tb";
-            this.apiKey_tb.Size = new System.Drawing.Size(625, 37);
+            this.apiKey_tb.Size = new System.Drawing.Size(628, 37);
             this.apiKey_tb.TabIndex = 20;
             this.apiKey_tb.UseSystemPasswordChar = true;
             this.apiKey_tb.WordWrap = false;
@@ -88,7 +88,7 @@
             this.labelError.Location = new System.Drawing.Point(6, 100);
             this.labelError.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(306, 62);
+            this.labelError.Size = new System.Drawing.Size(304, 62);
             this.labelError.TabIndex = 23;
             this.labelError.Text = "EMPTY";
             this.toolTip1.SetToolTip(this.labelError, "1Click to copy error to clipboard");
@@ -98,10 +98,10 @@
             // buttonSave
             // 
             this.buttonSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonSave.Location = new System.Drawing.Point(324, 106);
+            this.buttonSave.Location = new System.Drawing.Point(322, 106);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(6);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(307, 50);
+            this.buttonSave.Size = new System.Drawing.Size(308, 50);
             this.buttonSave.TabIndex = 24;
             this.buttonSave.Text = "Test and save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -112,10 +112,10 @@
             this.tableLayoutPanel1.SetColumnSpan(this.buttonCancel, 2);
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonCancel.Location = new System.Drawing.Point(643, 106);
+            this.buttonCancel.Location = new System.Drawing.Point(642, 106);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(6);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(309, 50);
+            this.buttonCancel.Size = new System.Drawing.Size(310, 50);
             this.buttonCancel.TabIndex = 25;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -124,11 +124,11 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.04762F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.04762F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.64706F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.17647F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.52942F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.64706F));
             this.tableLayoutPanel1.Controls.Add(this.labelAPI, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.labelError, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 3, 2);

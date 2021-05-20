@@ -710,6 +710,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "IntentoFormOptionsMT";
             this.Padding = new System.Windows.Forms.Padding(32);
             this.ShowInTaskbar = false;
