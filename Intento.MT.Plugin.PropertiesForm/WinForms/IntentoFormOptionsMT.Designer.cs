@@ -129,12 +129,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.buttonRefresh.Location = new System.Drawing.Point(1053, 60);
             this.buttonRefresh.Margin = new System.Windows.Forms.Padding(0);
             this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(59, 44);
+            this.buttonRefresh.Size = new System.Drawing.Size(59, 52);
             this.buttonRefresh.TabIndex = 37;
             this.buttonRefresh.Tag = "accountControl";
             this.toolTipHelp.SetToolTip(this.buttonRefresh, "refresh list your accounts for this provider");
             this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Visible = false;
             // 
             // labelTMP
             // 
@@ -245,10 +244,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboBoxTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxTo.FormattingEnabled = true;
-            this.comboBoxTo.Location = new System.Drawing.Point(314, 72);
-            this.comboBoxTo.Margin = new System.Windows.Forms.Padding(0, 12, 0, 0);
+            this.comboBoxTo.Location = new System.Drawing.Point(320, 72);
+            this.comboBoxTo.Margin = new System.Windows.Forms.Padding(6, 12, 0, 0);
             this.comboBoxTo.Name = "comboBoxTo";
-            this.comboBoxTo.Size = new System.Drawing.Size(266, 38);
+            this.comboBoxTo.Size = new System.Drawing.Size(260, 38);
             this.comboBoxTo.TabIndex = 13;
             this.comboBoxTo.Tag = "fix_high_dpi";
             // 
@@ -274,10 +273,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboBoxFrom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxFrom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxFrom.FormattingEnabled = true;
-            this.comboBoxFrom.Location = new System.Drawing.Point(0, 72);
-            this.comboBoxFrom.Margin = new System.Windows.Forms.Padding(0, 12, 0, 0);
+            this.comboBoxFrom.Location = new System.Drawing.Point(6, 72);
+            this.comboBoxFrom.Margin = new System.Windows.Forms.Padding(6, 12, 0, 0);
             this.comboBoxFrom.Name = "comboBoxFrom";
-            this.comboBoxFrom.Size = new System.Drawing.Size(266, 38);
+            this.comboBoxFrom.Size = new System.Drawing.Size(260, 38);
             this.comboBoxFrom.TabIndex = 10;
             this.comboBoxFrom.Tag = "fix_high_dpi";
             // 
@@ -542,7 +541,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             // 
             this.panelConnectAccount.Controls.Add(this.textBoxLabelConnectAccount);
             this.panelConnectAccount.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelConnectAccount.Location = new System.Drawing.Point(6, 110);
+            this.panelConnectAccount.Location = new System.Drawing.Point(6, 118);
             this.panelConnectAccount.Margin = new System.Windows.Forms.Padding(6);
             this.panelConnectAccount.Name = "panelConnectAccount";
             this.panelConnectAccount.Size = new System.Drawing.Size(1041, 34);
@@ -572,10 +571,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboBoxCredentialId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCredentialId.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxCredentialId.FormattingEnabled = true;
-            this.comboBoxCredentialId.Location = new System.Drawing.Point(0, 60);
-            this.comboBoxCredentialId.Margin = new System.Windows.Forms.Padding(0);
+            this.comboBoxCredentialId.Location = new System.Drawing.Point(6, 66);
+            this.comboBoxCredentialId.Margin = new System.Windows.Forms.Padding(6);
             this.comboBoxCredentialId.Name = "comboBoxCredentialId";
-            this.comboBoxCredentialId.Size = new System.Drawing.Size(1053, 38);
+            this.comboBoxCredentialId.Size = new System.Drawing.Size(1041, 38);
             this.comboBoxCredentialId.TabIndex = 10;
             this.comboBoxCredentialId.Tag = "accountControl";
             this.comboBoxCredentialId.Visible = false;
@@ -601,7 +600,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.groupBoxProvider.Location = new System.Drawing.Point(0, 176);
             this.groupBoxProvider.Margin = new System.Windows.Forms.Padding(6);
             this.groupBoxProvider.Name = "groupBoxProvider";
-            this.groupBoxProvider.Padding = new System.Windows.Forms.Padding(16);
+            this.groupBoxProvider.Padding = new System.Windows.Forms.Padding(20, 16, 20, 16);
             this.groupBoxProvider.Size = new System.Drawing.Size(1144, 118);
             this.groupBoxProvider.TabIndex = 35;
             this.groupBoxProvider.TabStop = false;
@@ -613,10 +612,10 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboBoxProviders.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxProviders.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxProviders.FormattingEnabled = true;
-            this.comboBoxProviders.Location = new System.Drawing.Point(16, 46);
+            this.comboBoxProviders.Location = new System.Drawing.Point(20, 46);
             this.comboBoxProviders.Margin = new System.Windows.Forms.Padding(6);
             this.comboBoxProviders.Name = "comboBoxProviders";
-            this.comboBoxProviders.Size = new System.Drawing.Size(1112, 38);
+            this.comboBoxProviders.Size = new System.Drawing.Size(1104, 38);
             this.comboBoxProviders.TabIndex = 6;
             // 
             // groupBox1
