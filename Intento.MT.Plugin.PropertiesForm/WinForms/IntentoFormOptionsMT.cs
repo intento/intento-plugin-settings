@@ -59,10 +59,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 			textBoxLabelConnectAccount.Click += parent.linkLabel_LinkClicked;
 			buttonRefresh.Click += parent.comboBoxProviders_SelectedIndexChanged;
 			comboBoxRouting.Select();
-
-			move_Controls("account", false);
-            move_Controls("model", false);
-            move_Controls("glossary", false);
         }
 
         private void LocalizeContent()
@@ -240,35 +236,17 @@ namespace Intento.MT.Plugin.PropertiesForm
             switch (tag)
             {
                 case "account":
-                    labelHelpBillingAccount.Visible = !labelHelpBillingAccount.Visible;
-                    move_Controls(tag, labelHelpBillingAccount.Visible);
+                    labelHelpBillingAccount.Visible = !labelHelpBillingAccount.Visible;                    
                     break;
                 case "model":
                     labelHelpModel.Visible = !labelHelpModel.Visible;
-                    move_Controls(tag, labelHelpModel.Visible);
                     break;
                 case "glossary":
                     labelHelpGlossary.Visible = !labelHelpGlossary.Visible;
-                    move_Controls(tag, labelHelpGlossary.Visible);
                     break;
             }
         }
-
-        private void move_Controls(string tag, bool up)
-        {
-            int val = 23 * (up ? 1 : -1);
-            foreach (Control ctr in this.Controls)
-            {
-                if (ctr is GroupBox)
-                    foreach (Control ctrl in ctr.Controls)
-                    {
-                        if (ctrl.Tag != null)
-                            if (ctrl.Tag.ToString() == tag + "Control")
-                                ctrl.Top = ctrl.Top + val;
-                    }
-            }
-        }
-
+       
         private void comboBoxCredentialId_VisibleChanged(object sender, EventArgs e)
         {
 			panelConnectAccount.Visible = comboBoxCredentialId.Visible;

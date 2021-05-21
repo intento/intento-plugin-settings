@@ -14,5 +14,6 @@
   </metadata>
   <files>
     <file src="..\bin\Intento.MT.Plugin.PropertiesForm.dll" target="lib\net45" />
+    <file src="..\bin\Intento.MT.Plugin.PropertiesForm.pdb" target="lib\net45" />
   </files>  
 </package>
