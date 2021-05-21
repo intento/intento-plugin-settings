@@ -171,8 +171,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 			DialogResult = DialogResult.None;
 			var arr = originalOptions.Signature.Split('/');
-			formAdvanced.toolStripStatusLabel1.Text = arr.Count() == 3 ? String.Format("{0}/{1}", arr[0], arr[2]) : originalOptions.Signature;
-			groupBoxMTConnect2.Location = groupBoxMTConnect.Location;
+			formAdvanced.toolStripStatusLabel1.Text = arr.Count() == 3 ? String.Format("{0}/{1}", arr[0], arr[2]) : originalOptions.Signature;			
 
 			if (!string.IsNullOrWhiteSpace(apiKeyState.apiKey))
 			{

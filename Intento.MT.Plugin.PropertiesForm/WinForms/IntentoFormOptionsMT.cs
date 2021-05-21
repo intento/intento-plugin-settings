@@ -29,9 +29,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 			}
 		}
         IntentoTranslationProviderOptionsForm parent;
-        //const string testString = "1";
-        //readonly IList<string> testResultString = new ReadOnlyCollection<string> 
-        //    (new List<string> {"1", "1.", "Uno", "Uno." });
         const string testString = "14";
         readonly IList<string> testResultString = new ReadOnlyCollection<string>
             (new List<string> { "14", "14.", "Catorce" });
@@ -46,29 +43,22 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public IntentoFormOptionsMT(IntentoTranslationProviderOptionsForm form)
         {
             InitializeComponent();
+            this.SuspendLayout();
             LocalizeContent();
+            this.ResumeLayout();
             parent = form;
             comboBoxProviders.SelectedIndexChanged += parent.comboBoxProviders_SelectedIndexChanged;
-            //this.Shown += parent.IntentoTranslationProviderOptionsForm_Shown;
-            //checkBoxUseOwnCred.CheckedChanged += parent.checkBoxUseOwnCred_CheckedChanged;
             checkBoxUseCustomModel.CheckedChanged += parent.checkBoxUseCustomModel_CheckedChanged;
-            //buttonWizard.Click += parent.buttonWizard_Click;
             comboBoxModels.SelectedIndexChanged += parent.modelControls_ValueChanged;
             comboBoxCredentialId.SelectedIndexChanged += parent.comboBoxCredentialId_SelectedIndexChanged;
             textBoxModel.TextChanged += parent.modelControls_ValueChanged;
-            //checkBoxSmartRouting.CheckedChanged += parent.checkBoxSmartRouting_CheckedChanged;
 			comboBoxRouting.SelectedIndexChanged += parent.checkBoxSmartRouting_CheckedChanged;
-			//textBoxCredentials.Enter += parent.textBoxCredentials_Enter;
 			textBoxGlossary.TextChanged += parent.glossaryControls_ValueChanged;
             comboBoxGlossaries.TextChanged += parent.glossaryControls_ValueChanged;
             textBoxLabelURL.Click += parent.linkLabel_LinkClicked;
 			textBoxLabelConnectAccount.Click += parent.linkLabel_LinkClicked;
-//			buttonRefresh.Click += parent.buttonRefresh_Click;
 			buttonRefresh.Click += parent.comboBoxProviders_SelectedIndexChanged;
 			comboBoxRouting.Select();
-
-            textBoxModel.Location = comboBoxModels.Location;
-            textBoxGlossary.Location = comboBoxGlossaries.Location;
 
 			move_Controls("account", false);
             move_Controls("model", false);
@@ -78,8 +68,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         private void LocalizeContent()
         {
             Text = Resource.MTcaption;
-            labelHelpBillingAccount.Text = Resource.MTlabelHelpBillingAccount;
-            //checkBoxUseOwnCred.Text = Resource.MTcheckBoxUseOwnCred;
+            labelHelpBillingAccount.Text = Resource.MTlabelHelpBillingAccount;            
             labelHelpModel.Text = Resource.MTlabelHelpModel;
             checkBoxUseCustomModel.Text = Resource.MTcheckBoxUseCustomModel;
             labelHelpGlossary.Text = Resource.MTlabelHelpGlossary;
@@ -103,12 +92,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             if ((smartRoutingState == null || !smartRoutingState.SmartRouting) && sender != null)
             {
                 FreezeForm(true);
-                //var providerState = parent.apiKeyState.smartRoutingState.providerState;
-                //string to = comboBoxTo.SelectedIndex != -1 ?
-                //    providerState.toLanguages.Where(x => x.Value == comboBoxTo.Text).First().Key : "es";
-                //string from = comboBoxFrom.SelectedIndex != -1 ?
-                //    providerState.fromLanguages.Where(x => x.Value == comboBoxFrom.Text).First().Key : "en";
-
+                
                 IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
                 parent.apiKeyState.FillOptions(testOptions);
 				string to = testOptions.ToLanguage;
@@ -250,15 +234,6 @@ namespace Intento.MT.Plugin.PropertiesForm
 			}
             catch { }
         }
-
-        //private void checkBoxUseOwnCred_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    var value = checkBoxUseOwnCred.Checked;
-        //    comboBoxCredentialId.Enabled = value;
-        //    textBoxCredentials.Enabled = value;
-        //    buttonWizard.Enabled = value;
-        //}
-
         private void helpLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var tag = (sender as Control).Tag.ToString();
@@ -297,9 +272,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         private void comboBoxCredentialId_VisibleChanged(object sender, EventArgs e)
         {
 			panelConnectAccount.Visible = comboBoxCredentialId.Visible;
-			buttonRefresh.Visible = comboBoxCredentialId.Visible;
-			//    if (comboBoxCredentialId.Visible)
-			//        buttonWizard.Visible = false;
+			buttonRefresh.Visible = comboBoxCredentialId.Visible;			
 		}
 
 		private void IntentoFormOptionsMT_FormClosing(object sender, FormClosingEventArgs e)
