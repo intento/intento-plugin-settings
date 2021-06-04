@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Intento.MT.Plugin.PropertiesForm</id>
-    <version>2.2.25.0</version>
+    <version>2.2.26.0</version>
     <authors>Intento</authors>
     <owners>Intento</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -14,5 +14,6 @@
   </metadata>
   <files>
     <file src="..\bin\Intento.MT.Plugin.PropertiesForm.dll" target="lib\net45" />
+    <file src="..\bin\Intento.MT.Plugin.PropertiesForm.pdb" target="lib\net45" />
   </files>  
 </package>

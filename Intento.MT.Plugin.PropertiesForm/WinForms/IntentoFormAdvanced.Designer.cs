@@ -83,9 +83,9 @@
             this.groupBoxProxy.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBoxProxy.Enabled = false;
             this.groupBoxProxy.Location = new System.Drawing.Point(6, 101);
-            this.groupBoxProxy.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBoxProxy.Margin = new System.Windows.Forms.Padding(6);
             this.groupBoxProxy.Name = "groupBoxProxy";
-            this.groupBoxProxy.Padding = new System.Windows.Forms.Padding(16, 16, 16, 16);
+            this.groupBoxProxy.Padding = new System.Windows.Forms.Padding(16);
             this.groupBoxProxy.Size = new System.Drawing.Size(1213, 382);
             this.groupBoxProxy.TabIndex = 12;
             this.groupBoxProxy.TabStop = false;
@@ -100,7 +100,7 @@
             this.groupBoxAuth.Location = new System.Drawing.Point(16, 158);
             this.groupBoxAuth.Margin = new System.Windows.Forms.Padding(0);
             this.groupBoxAuth.Name = "groupBoxAuth";
-            this.groupBoxAuth.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBoxAuth.Padding = new System.Windows.Forms.Padding(6);
             this.groupBoxAuth.Size = new System.Drawing.Size(1181, 208);
             this.groupBoxAuth.TabIndex = 16;
             this.groupBoxAuth.TabStop = false;
@@ -116,7 +116,7 @@
             this.tableLayoutPanel4.Controls.Add(this.textBoxUserName, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(6, 36);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(5);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -139,7 +139,7 @@
             this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPassword.Dock = System.Windows.Forms.DockStyle.Top;
             this.textBoxPassword.Location = new System.Drawing.Point(181, 60);
-            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(982, 37);
             this.textBoxPassword.TabIndex = 7;
@@ -160,7 +160,7 @@
             this.textBoxUserName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxUserName.Dock = System.Windows.Forms.DockStyle.Top;
             this.textBoxUserName.Location = new System.Drawing.Point(181, 6);
-            this.textBoxUserName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBoxUserName.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxUserName.Name = "textBoxUserName";
             this.textBoxUserName.Size = new System.Drawing.Size(982, 37);
             this.textBoxUserName.TabIndex = 5;
@@ -184,9 +184,9 @@
             this.panel2.Controls.Add(this.checkBoxAuth);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(16, 102);
-            this.panel2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panel2.Margin = new System.Windows.Forms.Padding(5);
             this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.panel2.Padding = new System.Windows.Forms.Padding(6);
             this.panel2.Size = new System.Drawing.Size(1181, 56);
             this.panel2.TabIndex = 19;
             // 
@@ -216,7 +216,7 @@
             this.tableLayoutPanel2.Controls.Add(this.textBoxPort, 3, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(16, 46);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(5);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -272,7 +272,7 @@
             this.checkBoxProxy.Dock = System.Windows.Forms.DockStyle.Top;
             this.checkBoxProxy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxProxy.Location = new System.Drawing.Point(6, 52);
-            this.checkBoxProxy.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.checkBoxProxy.Margin = new System.Windows.Forms.Padding(6);
             this.checkBoxProxy.Name = "checkBoxProxy";
             this.checkBoxProxy.Size = new System.Drawing.Size(1201, 37);
             this.checkBoxProxy.TabIndex = 13;
@@ -285,7 +285,7 @@
             this.checkBoxSaveApiKeyInRegistry.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBoxSaveApiKeyInRegistry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxSaveApiKeyInRegistry.Location = new System.Drawing.Point(6, 151);
-            this.checkBoxSaveApiKeyInRegistry.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.checkBoxSaveApiKeyInRegistry.Margin = new System.Windows.Forms.Padding(6);
             this.checkBoxSaveApiKeyInRegistry.Name = "checkBoxSaveApiKeyInRegistry";
             this.checkBoxSaveApiKeyInRegistry.Size = new System.Drawing.Size(1169, 38);
             this.checkBoxSaveApiKeyInRegistry.TabIndex = 15;
@@ -298,7 +298,7 @@
             this.checkBoxTrace.Dock = System.Windows.Forms.DockStyle.Top;
             this.checkBoxTrace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxTrace.Location = new System.Drawing.Point(6, 6);
-            this.checkBoxTrace.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.checkBoxTrace.Margin = new System.Windows.Forms.Padding(6);
             this.checkBoxTrace.Name = "checkBoxTrace";
             this.checkBoxTrace.Size = new System.Drawing.Size(594, 34);
             this.checkBoxTrace.TabIndex = 14;
@@ -310,7 +310,7 @@
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonCancel.Location = new System.Drawing.Point(1036, 6);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(6);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(171, 57);
             this.buttonCancel.TabIndex = 33;
@@ -321,7 +321,7 @@
             // 
             this.buttonSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonSave.Location = new System.Drawing.Point(855, 6);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(6);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(169, 57);
             this.buttonSave.TabIndex = 32;
@@ -355,7 +355,7 @@
             this.textBoxCustomSettingsName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxCustomSettingsName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxCustomSettingsName.Location = new System.Drawing.Point(6, 102);
-            this.textBoxCustomSettingsName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBoxCustomSettingsName.Margin = new System.Windows.Forms.Padding(6);
             this.textBoxCustomSettingsName.Name = "textBoxCustomSettingsName";
             this.textBoxCustomSettingsName.Size = new System.Drawing.Size(1169, 37);
             this.textBoxCustomSettingsName.TabIndex = 36;
@@ -372,10 +372,10 @@
             // 
             // checkBoxCustomTagParser
             // 
-            this.checkBoxCustomTagParser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBoxCustomTagParser.Dock = System.Windows.Forms.DockStyle.Top;
             this.checkBoxCustomTagParser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxCustomTagParser.Location = new System.Drawing.Point(22, 22);
-            this.checkBoxCustomTagParser.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.checkBoxCustomTagParser.Margin = new System.Windows.Forms.Padding(6);
             this.checkBoxCustomTagParser.Name = "checkBoxCustomTagParser";
             this.checkBoxCustomTagParser.Size = new System.Drawing.Size(1169, 48);
             this.checkBoxCustomTagParser.TabIndex = 38;
@@ -388,7 +388,7 @@
             this.checkBoxCutTags.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBoxCutTags.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxCutTags.Location = new System.Drawing.Point(6, 6);
-            this.checkBoxCutTags.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.checkBoxCutTags.Margin = new System.Windows.Forms.Padding(6);
             this.checkBoxCutTags.Name = "checkBoxCutTags";
             this.checkBoxCutTags.Size = new System.Drawing.Size(1169, 36);
             this.checkBoxCutTags.TabIndex = 39;
@@ -401,7 +401,7 @@
             this.checkBoxSaveLocally.Dock = System.Windows.Forms.DockStyle.Top;
             this.checkBoxSaveLocally.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxSaveLocally.Location = new System.Drawing.Point(612, 6);
-            this.checkBoxSaveLocally.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.checkBoxSaveLocally.Margin = new System.Windows.Forms.Padding(6);
             this.checkBoxSaveLocally.Name = "checkBoxSaveLocally";
             this.checkBoxSaveLocally.Size = new System.Drawing.Size(595, 34);
             this.checkBoxSaveLocally.TabIndex = 40;
@@ -420,7 +420,7 @@
             this.tableLayoutPanel1.Controls.Add(this.checkBoxProxy, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 6);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(5);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -433,7 +433,7 @@
             this.panel1.Controls.Add(this.tableLayoutPanel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(6, 1021);
-            this.panel1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panel1.Margin = new System.Windows.Forms.Padding(5);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1213, 69);
             this.panel1.TabIndex = 42;
@@ -448,7 +448,7 @@
             this.tableLayoutPanel3.Controls.Add(this.buttonCancel, 2, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(5);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -465,7 +465,7 @@
             this.tableLayoutPanel5.Controls.Add(this.checkBoxSaveApiKeyInRegistry, 0, 3);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(16, 16);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(5);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 4;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -477,10 +477,11 @@
             // 
             // panel3
             // 
+            this.panel3.AutoSize = true;
             this.panel3.Controls.Add(this.checkBoxCustomTagParser);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(6, 483);
-            this.panel3.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panel3.Margin = new System.Windows.Forms.Padding(5);
             this.panel3.Name = "panel3";
             this.panel3.Padding = new System.Windows.Forms.Padding(22, 22, 22, 0);
             this.panel3.Size = new System.Drawing.Size(1213, 70);
@@ -491,9 +492,9 @@
             this.panel4.Controls.Add(this.tableLayoutPanel5);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(6, 553);
-            this.panel4.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.panel4.Margin = new System.Windows.Forms.Padding(5);
             this.panel4.Name = "panel4";
-            this.panel4.Padding = new System.Windows.Forms.Padding(16, 16, 16, 16);
+            this.panel4.Padding = new System.Windows.Forms.Padding(16);
             this.panel4.Size = new System.Drawing.Size(1213, 227);
             this.panel4.TabIndex = 45;
             // 
@@ -512,11 +513,12 @@
             this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "IntentoFormAdvanced";
-            this.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Padding = new System.Windows.Forms.Padding(6);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
