@@ -55,6 +55,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			comboBoxRouting.SelectedIndexChanged += parent.checkBoxSmartRouting_CheckedChanged;
 			textBoxGlossary.TextChanged += parent.glossaryControls_ValueChanged;
             comboBoxGlossaries.TextChanged += parent.glossaryControls_ValueChanged;
+            listOfIntentoGlossaries.MouseUp += parent.agnosticGlossaryControls_ValueChanged;
             textBoxLabelURL.Click += parent.linkLabel_LinkClicked;
 			textBoxLabelConnectAccount.Click += parent.linkLabel_LinkClicked;
 			buttonRefresh.Click += parent.comboBoxProviders_SelectedIndexChanged;
@@ -184,6 +185,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                         post_processing: null,
                         custom_model: testOptions.UseCustomModel ? testOptions.CustomModel : null,
                         glossary: testOptions.Glossary,
+                        intentoGlossary: testOptions.IntentoGlossaries,
                         wait_async: true,
                         trace: IntentoTranslationProviderOptionsForm.IsTrace()
                         );
@@ -288,5 +290,20 @@ namespace Intento.MT.Plugin.PropertiesForm
             }
         }
 
-	}
+        private void checkAllGlossaries_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            for (var i = 0; i < listOfIntentoGlossaries.Items.Count; i++)
+            {
+                listOfIntentoGlossaries.SetItemChecked(i, true);
+            }
+        }
+
+        private void uncheckAllGlossaries_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            for (var i = 0; i < listOfIntentoGlossaries.Items.Count; i++)
+            {
+                listOfIntentoGlossaries.SetItemChecked(i, false);
+            }
+        }
+    }
 }
