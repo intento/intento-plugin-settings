@@ -77,6 +77,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 		/// </summary>
 		public string AuthDelegatedCredentialId { get; set; }
 
+		/// <summary>
+		/// Url to console
+		/// </summary>
+		public string ConsoleUrl { get; set; }
+
 		public enum StateModeEnum
 		{
 			unknown = 0,
