@@ -137,6 +137,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// string of custom glossary
 		public string Glossary { get; set; }
 
+		/// <summary>
+		/// Array of selected intento glossaries
+		/// </summary>
+		public int[] IntentoGlossaries { get; set; }
+
 		// string of custom glossary name
 		public string GlossaryName { get; set; }
 
@@ -284,6 +289,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			res.CustomAuth = this.CustomAuth;
 			res.UseCustomModel = this.UseCustomModel;
 			res.Glossary = this.Glossary;
+			res.IntentoGlossaries = this.IntentoGlossaries;
 			res.CustomModel = this.CustomModel;
 			res.Format = this.Format;
 			res.UserAgent = this.UserAgent;

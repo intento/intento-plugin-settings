@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logs.cs" />
+    <Compile Include="ProvideAgnosticGlossaryState.cs" />
     <Compile Include="WinForms\IntentoFormIgnoreError.cs">
       <SubType>Form</SubType>
     </Compile>

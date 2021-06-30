@@ -37,6 +37,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         public bool custom_model;
         public bool custom_glossary;
         public bool delegated_credentials;
+        public bool intento_glossary;
         public List<string> providerAuthList;
         public string format;
 
@@ -83,6 +84,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             own_auth = false; 
             custom_model = false;
             custom_glossary = false;
+            intento_glossary = false;
             delegated_credentials = false;
             providerAuthList = null;
             format = null;
@@ -118,6 +120,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                     own_auth = providerData.auth != null && ((JContainer)providerData.auth).HasValues;
                     custom_model = providerData.custom_model != null && (bool)providerData.custom_model;
                     custom_glossary = providerData.custom_glossary != null && (bool)providerData.custom_glossary;
+                    intento_glossary = providerData.intento_glossary != null && (bool)providerData.intento_glossary;
 
                     // forced installation
                     //delegated_credentials = providerData.delegated_credentials != null && (bool)providerData.delegated_credentials;
