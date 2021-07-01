@@ -1,6 +1,7 @@
 ﻿using Intento.MT.Plugin.PropertiesForm.WinForms;
 using IntentoSDK;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -136,6 +137,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 					originalOptions.UseCustomModel = locallyOptions.UseCustomModel;
 					originalOptions.UseCustomAuth = locallyOptions.UseCustomAuth;
 					originalOptions.Glossary = locallyOptions.Glossary;
+					originalOptions.IntentoGlossaries = locallyOptions.IntentoGlossaries;
 					originalOptions.SaveLocally = locallyOptions.SaveLocally;
 				}
 
@@ -323,6 +325,12 @@ namespace Intento.MT.Plugin.PropertiesForm
 							&& GetValueFromRegistry("UseCustomModel", path) == "1";
 						ret.UseCustomAuth = GetValueFromRegistry("UseCustomAuth", path) != null
 							&& GetValueFromRegistry("UseCustomAuth", path) == "1";
+						var glossariesArray = JArray.Parse(GetValueFromRegistry("IntentoGlossaries", path));
+						if (glossariesArray != null)
+						{
+							ret.IntentoGlossaries = glossariesArray.Cast<int>().ToArray();
+						}
+
 					}
 				}
 				return ret;
@@ -343,6 +351,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 			SaveValueToRegistry("Glossary", options.Glossary, path);
 			SaveValueToRegistry("UseCustomModel", options.UseCustomModel, path);
 			SaveValueToRegistry("UseCustomAuth", options.UseCustomAuth, path);
+			if (options.IntentoGlossaries != null)
+			{
+				SaveValueToRegistry("IntentoGlossaries", JsonConvert.SerializeObject(options.IntentoGlossaries));
+			}
 		}
 
 		public string GetRegistryPath()
@@ -521,6 +533,14 @@ namespace Intento.MT.Plugin.PropertiesForm
 		{
 			using (new CursorFormMT(formMT))
 				apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.GetGlossaryState()?.glossaryControls_ValueChanged();
+		}
+
+		public void agnosticGlossaryControls_ValueChanged(object sender, EventArgs e)
+		{
+			using (new CursorFormMT(formMT))
+			{
+				apiKeyState?.smartRoutingState?.providerState?.GetAuthState()?.GetProviderGlossaryState()?.glossaryControls_ValueChanged();
+			}
 		}
 
 		private void buttonSetApi_Click(object sender, EventArgs e)

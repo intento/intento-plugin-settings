@@ -20,6 +20,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // Controlled components
         private ModelState modelState;
         private GlossaryState glossaryState;
+        private ProvideAgnosticGlossaryState providerAgnosticGlossary;
 
         private List<string> сonnectedAccounts;
         string error_message;
@@ -107,6 +108,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
                 ModelState.Draw(form, null);
                 GlossaryState.Draw(form, null);
+                ProvideAgnosticGlossaryState.Draw(form, null);
 
                 return null;
             }
@@ -153,6 +155,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 ModelState.Draw(form, null);
                 GlossaryState.Draw(form, null);
+                ProvideAgnosticGlossaryState.Draw(form, null);
                 return error_message;
             }
 
@@ -160,8 +163,16 @@ namespace Intento.MT.Plugin.PropertiesForm
             error_message = ModelState.Draw(form, modelSt);
             var glossarySt = GetGlossaryState();
             string error_message2 = GlossaryState.Draw(form, glossarySt);
+            var providerGlossary = GetProviderGlossaryState();
+            var errorGlossary = ProvideAgnosticGlossaryState.Draw(form, providerGlossary);
             if (string.IsNullOrEmpty(error_message))
+            {
                 error_message = error_message2;
+            }
+            if (!string.IsNullOrEmpty(errorGlossary))
+            {
+                error_message = error_message2 + errorGlossary;
+            }
 
 			if (modelSt != null && modelSt.UseModel)
 			{
@@ -243,7 +254,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             glossaryState = new GlossaryState(this, options);
             glossaryState.ClearOptions(options);
             glossaryState = null;
-
+            providerAgnosticGlossary = new ProvideAgnosticGlossaryState(this, options);
+            providerAgnosticGlossary.ClearOptions(options);
+            providerAgnosticGlossary = null;
         }
 
         public bool UseCustomAuth
@@ -264,6 +277,7 @@ namespace Intento.MT.Plugin.PropertiesForm
                 options.CustomAuth = null;
                 ModelState.FillOptions(null, options);
                 GlossaryState.FillOptions(null, options);
+                ProvideAgnosticGlossaryState.FillOptions(null, options);
             }
             else
             {
@@ -284,6 +298,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
                 ModelState.FillOptions(state.GetModelState(), options);
                 GlossaryState.FillOptions(state.GetGlossaryState(), options);
+                ProvideAgnosticGlossaryState.FillOptions(state.GetProviderGlossaryState(), options);
             }
         }
 
@@ -306,6 +321,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			{
 				GetModelState()?.ClearOptions(options);
                 GetGlossaryState()?.ClearOptions(options);
+                GetProviderGlossaryState()?.ClearOptions(options);
 			}
 			EnableDisable();
         }
@@ -371,6 +387,22 @@ namespace Intento.MT.Plugin.PropertiesForm
             else
                 glossaryState = null;
             return glossaryState;
+        }
+
+        public ProvideAgnosticGlossaryState GetProviderGlossaryState()
+        {
+            if (IsOK)
+            {
+                if (providerAgnosticGlossary == null)
+                {
+                    providerAgnosticGlossary = new ProvideAgnosticGlossaryState(this, options);
+                }
+            }
+            else
+            {
+                providerAgnosticGlossary = null;
+            }
+            return providerAgnosticGlossary;
         }
 
         #endregion Properties

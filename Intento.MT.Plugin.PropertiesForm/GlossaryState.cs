@@ -282,7 +282,9 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             formMT.groupBoxOptional.Enabled = options.UseCustomModel || currentGlossary != null;
             if (!internalControlChange)
-                GlossaryState.FillOptions(this, options);
+            {
+                FillOptions(this, options);
+            }
 			EnableDisable();
 		}
 
