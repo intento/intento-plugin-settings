@@ -106,6 +106,11 @@ namespace Intento.MT.Plugin.PropertiesForm
 			InitializeComponent();
 			LocalizeContent();
 
+			if (!string.IsNullOrWhiteSpace(options.ConsoleUrl))
+			{
+				linkLabel1.Tag = options.ConsoleUrl;
+				linkLabel1.Text = options.ConsoleUrl;
+			}
 
 			buttonHelp.Visible = options.сallHelpAction != null;
 
