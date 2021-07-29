@@ -330,12 +330,19 @@ namespace Intento.MT.Plugin.PropertiesForm
 							&& GetValueFromRegistry("UseCustomModel", path) == "1";
 						ret.UseCustomAuth = GetValueFromRegistry("UseCustomAuth", path) != null
 							&& GetValueFromRegistry("UseCustomAuth", path) == "1";
-						var glossariesArray = JArray.Parse(GetValueFromRegistry("IntentoGlossaries", path));
-						if (glossariesArray != null)
+						var glossariesVal = GetValueFromRegistry("IntentoGlossaries", path);
+						if (glossariesVal != null)
 						{
-							ret.IntentoGlossaries = glossariesArray.Cast<int>().ToArray();
+							try
+							{
+								var glossariesArray = JArray.Parse(glossariesVal);
+								ret.IntentoGlossaries = glossariesArray.Cast<int>().ToArray();
+							}
+							catch (Exception e)
+							{
+								Logs.Write('F', e.Message, ex: e);
+							}
 						}
-
 					}
 				}
 				return ret;
