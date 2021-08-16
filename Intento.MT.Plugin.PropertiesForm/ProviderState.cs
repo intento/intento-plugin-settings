@@ -285,7 +285,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (state == null)
             {
                 form.formMT.groupBoxProvider.Enabled = false;
-                Providers_ComboBox_BackColor_State(form.formMT, false);
 
                 AuthState.Draw(form, null);
                 return null;
@@ -300,11 +299,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             formMT.groupBoxProvider.Enabled = true;
             if (string.IsNullOrEmpty(formMT.comboBoxProviders.Text))
             {
-                Providers_ComboBox_BackColor_State(formMT, true);
                 AuthState.Draw(form, null);
                 return Resource.YouNeedToChooseAProviderMessage;
             }
-            Providers_ComboBox_BackColor_State(formMT, false);
             errors = AuthState.Draw(form, GetAuthState());
             return errors;
         }
@@ -412,17 +409,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 				else if (formMT.comboBoxTo.Items.Count > 0)
 					formMT.comboBoxTo.SelectedIndex = 0;
 			}
-		}
-
-
-		static void Providers_ComboBox_BackColor_State(IntentoFormOptionsMT formMT, bool hasErrors)
-        {
-            if (hasErrors)
-                formMT.comboBoxProviders.BackColor = Color.LightPink;
-            else
-                formMT.comboBoxProviders.BackColor = SystemColors.Window;
-                // formMT.comboBoxProviders.BackColor = formMT.groupBoxProvider.Enabled ? SystemColors.Window : SystemColors.Control;
-        }
+		}		
 
         #endregion methods for managing a group of controls
 
