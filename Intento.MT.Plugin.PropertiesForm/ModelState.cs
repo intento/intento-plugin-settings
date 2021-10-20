@@ -71,12 +71,51 @@ namespace Intento.MT.Plugin.PropertiesForm
 
             // set back color 
             Model_Control_BackColor_State(!string.IsNullOrEmpty(errorMessage));
-			if (SelectedModelFrom != null && providerState.fromLanguages != null)
-				formMT.comboBoxFrom.SelectedItem = providerState.fromLanguages[SelectedModelFrom];
-			if (SelectedModelTo != null && providerState.toLanguages != null)
-				formMT.comboBoxTo.SelectedItem = providerState.toLanguages[SelectedModelTo];
+            if (SelectedModelFrom != null && providerState.fromLanguages != null)
+            {
+                var lang = GetLanguage(providerState.fromLanguages, SelectedModelFrom);
+                if (!string.IsNullOrEmpty(lang))
+                {
+                    formMT.comboBoxFrom.SelectedIndex = formMT.comboBoxFrom.Items.IndexOf(lang);
+                }
+            }
 
-			return errorMessage;
+            if (SelectedModelTo != null && providerState.toLanguages != null)
+            {
+                var lang = GetLanguage(providerState.toLanguages, SelectedModelTo);
+                if (!string.IsNullOrEmpty(lang))
+                {
+                    formMT.comboBoxTo.SelectedIndex = formMT.comboBoxTo.Items.IndexOf(lang);
+                }
+            }
+
+            return errorMessage;
+        }
+
+        private string GetLanguage(Dictionary<string, string> dict, string lang)
+        {
+            if (dict.TryGetValue(lang, out var val))
+            {
+                return val;
+            }
+
+            switch (lang)
+            {
+                case "zh-TW":
+                    return dict["zh-hant"];
+                default:
+                    var index = lang.IndexOf("-", StringComparison.OrdinalIgnoreCase);
+                    if (index >= 0)
+                    {
+                        var baseLang = lang.Substring(0, index);
+                        if (dict.TryGetValue(baseLang, out var bLang))
+                        {
+                            return bLang;
+                        }
+                    }
+
+                    return null;
+            }
         }
 
         #region Properties
