@@ -396,6 +396,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 			if (toLanguages != null)
 			{
+				if (to == "zh-TW") to = "zh-hant";
 				if (!string.IsNullOrWhiteSpace(to) && toLanguages.ContainsKey(to))
 					formMT.comboBoxTo.SelectedItem = toLanguages[to];
 				else if (!string.IsNullOrWhiteSpace(options.ToLanguage) && fromLanguages.ContainsKey(options.ToLanguage))
