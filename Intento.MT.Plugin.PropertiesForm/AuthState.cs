@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Intento.MT.Plugin.PropertiesForm.Models;
 using static Intento.MT.Plugin.PropertiesForm.IntentoMTFormOptions;
 
 namespace Intento.MT.Plugin.PropertiesForm
@@ -22,11 +23,8 @@ namespace Intento.MT.Plugin.PropertiesForm
         private GlossaryState glossaryState;
         private ProvideAgnosticGlossaryState providerAgnosticGlossary;
 
-        private List<string> сonnectedAccounts;
+        private object[] сonnectedAccounts;
         string error_message;
-
-        // credentials (in json format) choosen by user, both based on credential_id and on auth. 
-        string credentials;
 
         bool firstTimeDraw = true;
 
@@ -34,8 +32,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         // in this case no change event call is required
         public static bool internalControlChange = false;
 
-		private static string defaultAccountName = "via Intento";
-
+		private const string DefaultAccountName = "via Intento";
 
 		public StateModeEnum mode;
 
@@ -129,12 +126,16 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 formMT.comboBoxCredentialId.Visible = true;
 				if (mode == StateModeEnum.required)
-					formMT.comboBoxCredentialId.Items.Remove(defaultAccountName);
+					formMT.comboBoxCredentialId.Items.Remove(DefaultAccountName);
 				else if (formMT.comboBoxCredentialId.SelectedIndex < 0)
 				{
 					formMT.comboBoxCredentialId.SelectedIndexChanged -= providerState.form.comboBoxCredentialId_SelectedIndexChanged;
-					formMT.comboBoxCredentialId.SelectedItem = defaultAccountName;
-					formMT.comboBoxCredentialId.SelectedIndexChanged += providerState.form.comboBoxCredentialId_SelectedIndexChanged;
+                    var index = formMT.comboBoxCredentialId.Items.IndexOf(new ListItem { Value = DefaultAccountName });
+                    if (index >= 0)
+                    {
+                        formMT.comboBoxCredentialId.SelectedIndex = index;
+                    }
+                    formMT.comboBoxCredentialId.SelectedIndexChanged += providerState.form.comboBoxCredentialId_SelectedIndexChanged;
 				}
 				if (mode == StateModeEnum.required && formMT.comboBoxCredentialId.SelectedIndex==-1)
 				{// Credentials required but not filled in full
@@ -199,22 +200,31 @@ namespace Intento.MT.Plugin.PropertiesForm
 			if (formMT.groupBoxBillingAccount.Enabled)
 			{
 				formMT.comboBoxCredentialId.Visible = true;
-				IList<dynamic> credentials = form.testAuthData != null ? form.testAuthData : form._translate.Accounts(providerState.currentProviderId);
-                сonnectedAccounts = credentials.Select(q => (string)q.credential_id).ToList();
-				string defaultName = credentials.Where(x => (bool)x["default"]).Select(q => (string)q.credential_id).FirstOrDefault();
+				var accounts = form.testAuthData ?? form._translate.Accounts(providerState.currentProviderId);
+                сonnectedAccounts = accounts.Select(q => new ListItem
+                {
+                    DisplayName = (string)q.credential_id, 
+                    Value = (string)q.credential_id
+                } ).ToArray();
+				var defaultName = accounts.Where(x => (bool)x["default"]).Select(q => (string)q.credential_id).FirstOrDefault();
 				if (defaultName != null)
-				{
-					defaultAccountName = "Default (" + defaultName + ")";
-					formMT.comboBoxCredentialId.Items.Clear();
-					formMT.comboBoxCredentialId.Items.Add(defaultAccountName);
+                {
+                    var defaultListItem = new ListItem
+                    {
+                        DisplayName = $"Default ({defaultName})",
+                        Value = defaultName
+                    };
+                    formMT.comboBoxCredentialId.Items.Clear();
+					formMT.comboBoxCredentialId.Items.Add(defaultListItem);
 				}
-				formMT.comboBoxCredentialId.Items.AddRange(сonnectedAccounts.ToArray());
-				if (сonnectedAccounts.Count != 0)
+				formMT.comboBoxCredentialId.Items.AddRange(сonnectedAccounts);
+				if (сonnectedAccounts.Length != 0)
 				{
-					string credential_id = providerDataAuthDict["credential_id"];
-					if (formMT.comboBoxCredentialId.Items.Contains(credential_id))
-					{
-						formMT.comboBoxCredentialId.SelectedItem = credential_id;
+					var credentialId = providerDataAuthDict["credential_id"];
+                    var index = formMT.comboBoxCredentialId.Items.IndexOf(new ListItem { Value = credentialId});
+					if (index >= 0)
+                    {
+                        formMT.comboBoxCredentialId.SelectedIndex = index;
 					}
 				}
 			}
@@ -223,8 +233,11 @@ namespace Intento.MT.Plugin.PropertiesForm
         public void Clear()
         {
             formMT.comboBoxCredentialId.Items.Clear();
-			defaultAccountName = "via Intento";
-			formMT.comboBoxCredentialId.Items.Add(defaultAccountName);
+            formMT.comboBoxCredentialId.Items.Add(new ListItem
+            {
+                DisplayName = DefaultAccountName,
+                Value = DefaultAccountName
+            });
         }
 
         // Something changed in auth settings on form. Need to clear model and glossary settings. 
@@ -233,12 +246,16 @@ namespace Intento.MT.Plugin.PropertiesForm
             if (IsDelegatedCredentials)
             {
                 // For stored/delegated creds providerDataAuthDict has simple and standard structure
-                providerDataAuthDict["credential_id"] = formMT.comboBoxCredentialId.Text;
-                credentials = "credential_id:" + formMT.comboBoxCredentialId.Text;
+                var id = formMT.comboBoxCredentialId.SelectedItem != null
+                    ? ((ListItem)formMT.comboBoxCredentialId.SelectedItem).Value
+                    : string.Empty;
+                if (!string.IsNullOrEmpty(id))
+                {
+                    providerDataAuthDict["credential_id"] = id;
+                }
             }
             else
             {
-                credentials = "";
                 foreach (string key in providerDataAuthDict.Keys.ToList())
                     providerDataAuthDict[key] = null;
             }
@@ -264,9 +281,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 			{
 				if (IsDelegatedCredentials && mode == StateModeEnum.required)
 					return !string.IsNullOrEmpty(formMT.comboBoxCredentialId.Text);
-				else
-					return formMT.comboBoxCredentialId.SelectedIndex > 0;
-			}
+                else
+                {
+                    var selectedItem = formMT.comboBoxCredentialId.SelectedItem as ListItem;
+                    if (selectedItem == null)
+                    {
+                        return false;
+                    }
+                    return selectedItem.Value != DefaultAccountName;
+                }
+            }
 		}
 
         public static void FillOptions(AuthState state, IntentoMTFormOptions options)
@@ -339,7 +363,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             get
             {
                 if (IsDelegatedCredentials)
-                    return !string.IsNullOrEmpty((string)formMT.comboBoxCredentialId.SelectedItem);
+                {
+                    if (!(formMT.comboBoxCredentialId.SelectedItem is ListItem item))
+                        return false;
+                    return !string.IsNullOrEmpty(item.Value);
+                }
                 else
                     return !providerDataAuthDict.Values.Any(i => string.IsNullOrEmpty(i));
             }
@@ -417,9 +445,12 @@ namespace Intento.MT.Plugin.PropertiesForm
             {
                 formMT.groupBoxBillingAccount.Enabled = false;
                 formMT.comboBoxCredentialId.Visible = false;
-				defaultAccountName = "via Intento";
-				formMT.comboBoxCredentialId.Items.Clear();
-				formMT.comboBoxCredentialId.Items.Add(defaultAccountName);
+                formMT.comboBoxCredentialId.Items.Clear();
+				formMT.comboBoxCredentialId.Items.Add(new ListItem
+                {
+                    DisplayName = DefaultAccountName,
+                    Value = DefaultAccountName
+                });
             }
         }
 
