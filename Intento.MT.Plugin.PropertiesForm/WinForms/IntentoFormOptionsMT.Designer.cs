@@ -42,6 +42,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.panel4 = new System.Windows.Forms.Panel();
             this.providerAgnosticGlossariesGroup = new System.Windows.Forms.GroupBox();
             this.listOfIntentoGlossaries = new System.Windows.Forms.CheckedListBox();
+            this.controlPanelForGlossaries = new System.Windows.Forms.FlowLayoutPanel();
+            this.checkAllGlossaries = new System.Windows.Forms.LinkLabel();
+            this.uncheckAllGlossaries = new System.Windows.Forms.LinkLabel();
             this.groupBoxOptional = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.labelHelpOptional = new System.Windows.Forms.Label();
@@ -77,13 +80,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxLabelURL = new System.Windows.Forms.LinkLabel();
             this.labelSmartRouting = new System.Windows.Forms.Label();
-            this.controlPanelForGlossaries = new System.Windows.Forms.FlowLayoutPanel();
-            this.checkAllGlossaries = new System.Windows.Forms.LinkLabel();
-            this.uncheckAllGlossaries = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel5.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.providerAgnosticGlossariesGroup.SuspendLayout();
+            this.controlPanelForGlossaries.SuspendLayout();
             this.groupBoxOptional.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.groupBoxGlossary.SuspendLayout();
@@ -98,7 +99,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.groupBoxProvider.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.controlPanelForGlossaries.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -219,6 +219,45 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.listOfIntentoGlossaries.Name = "listOfIntentoGlossaries";
             this.listOfIntentoGlossaries.Size = new System.Drawing.Size(497, 106);
             this.listOfIntentoGlossaries.TabIndex = 1;
+            // 
+            // controlPanelForGlossaries
+            // 
+            this.controlPanelForGlossaries.Controls.Add(this.checkAllGlossaries);
+            this.controlPanelForGlossaries.Controls.Add(this.uncheckAllGlossaries);
+            this.controlPanelForGlossaries.Dock = System.Windows.Forms.DockStyle.Top;
+            this.controlPanelForGlossaries.Location = new System.Drawing.Point(10, 20);
+            this.controlPanelForGlossaries.Name = "controlPanelForGlossaries";
+            this.controlPanelForGlossaries.Size = new System.Drawing.Size(497, 19);
+            this.controlPanelForGlossaries.TabIndex = 2;
+            // 
+            // checkAllGlossaries
+            // 
+            this.checkAllGlossaries.ActiveLinkColor = System.Drawing.Color.Black;
+            this.checkAllGlossaries.AutoSize = true;
+            this.checkAllGlossaries.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkAllGlossaries.LinkColor = System.Drawing.Color.Black;
+            this.checkAllGlossaries.Location = new System.Drawing.Point(0, 0);
+            this.checkAllGlossaries.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.checkAllGlossaries.Name = "checkAllGlossaries";
+            this.checkAllGlossaries.Size = new System.Drawing.Size(53, 13);
+            this.checkAllGlossaries.TabIndex = 0;
+            this.checkAllGlossaries.TabStop = true;
+            this.checkAllGlossaries.Text = "Check all";
+            this.checkAllGlossaries.VisitedLinkColor = System.Drawing.Color.Black;
+            this.checkAllGlossaries.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.checkAllGlossaries_LinkClicked);
+            // 
+            // uncheckAllGlossaries
+            // 
+            this.uncheckAllGlossaries.ActiveLinkColor = System.Drawing.Color.Black;
+            this.uncheckAllGlossaries.AutoSize = true;
+            this.uncheckAllGlossaries.LinkColor = System.Drawing.Color.Black;
+            this.uncheckAllGlossaries.Location = new System.Drawing.Point(59, 0);
+            this.uncheckAllGlossaries.Name = "uncheckAllGlossaries";
+            this.uncheckAllGlossaries.Size = new System.Drawing.Size(66, 13);
+            this.uncheckAllGlossaries.TabIndex = 1;
+            this.uncheckAllGlossaries.TabStop = true;
+            this.uncheckAllGlossaries.Text = "Uncheck all";
+            this.uncheckAllGlossaries.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.uncheckAllGlossaries_LinkClicked);
             // 
             // groupBoxOptional
             // 
@@ -710,7 +749,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.textBoxLabelURL.Size = new System.Drawing.Size(271, 13);
             this.textBoxLabelURL.TabIndex = 37;
             this.textBoxLabelURL.TabStop = true;
-            this.textBoxLabelURL.Tag = "https://try.inten.to/mt_report_2020";
+            this.textBoxLabelURL.Tag = "https://try.inten.to/machine-translation-report-2021";
             this.textBoxLabelURL.Text = "the Intento Benchmarks.";
             this.textBoxLabelURL.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             // 
@@ -725,45 +764,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.labelSmartRouting.TabIndex = 37;
             this.labelSmartRouting.Text = "Select MT provider automatically based on ";
             this.labelSmartRouting.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // controlPanelForGlossaries
-            // 
-            this.controlPanelForGlossaries.Controls.Add(this.checkAllGlossaries);
-            this.controlPanelForGlossaries.Controls.Add(this.uncheckAllGlossaries);
-            this.controlPanelForGlossaries.Dock = System.Windows.Forms.DockStyle.Top;
-            this.controlPanelForGlossaries.Location = new System.Drawing.Point(10, 20);
-            this.controlPanelForGlossaries.Name = "controlPanelForGlossaries";
-            this.controlPanelForGlossaries.Size = new System.Drawing.Size(497, 19);
-            this.controlPanelForGlossaries.TabIndex = 2;
-            // 
-            // checkAllGlossaries
-            // 
-            this.checkAllGlossaries.ActiveLinkColor = System.Drawing.Color.Black;
-            this.checkAllGlossaries.AutoSize = true;
-            this.checkAllGlossaries.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkAllGlossaries.LinkColor = System.Drawing.Color.Black;
-            this.checkAllGlossaries.Location = new System.Drawing.Point(0, 0);
-            this.checkAllGlossaries.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.checkAllGlossaries.Name = "checkAllGlossaries";
-            this.checkAllGlossaries.Size = new System.Drawing.Size(53, 13);
-            this.checkAllGlossaries.TabIndex = 0;
-            this.checkAllGlossaries.TabStop = true;
-            this.checkAllGlossaries.Text = "Check all";
-            this.checkAllGlossaries.VisitedLinkColor = System.Drawing.Color.Black;
-            this.checkAllGlossaries.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.checkAllGlossaries_LinkClicked);
-            // 
-            // uncheckAllGlossaries
-            // 
-            this.uncheckAllGlossaries.ActiveLinkColor = System.Drawing.Color.Black;
-            this.uncheckAllGlossaries.AutoSize = true;
-            this.uncheckAllGlossaries.LinkColor = System.Drawing.Color.Black;
-            this.uncheckAllGlossaries.Location = new System.Drawing.Point(59, 0);
-            this.uncheckAllGlossaries.Name = "uncheckAllGlossaries";
-            this.uncheckAllGlossaries.Size = new System.Drawing.Size(66, 13);
-            this.uncheckAllGlossaries.TabIndex = 1;
-            this.uncheckAllGlossaries.TabStop = true;
-            this.uncheckAllGlossaries.Text = "Uncheck all";
-            this.uncheckAllGlossaries.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.uncheckAllGlossaries_LinkClicked);
             // 
             // IntentoFormOptionsMT
             // 
@@ -789,6 +789,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.providerAgnosticGlossariesGroup.ResumeLayout(false);
+            this.controlPanelForGlossaries.ResumeLayout(false);
+            this.controlPanelForGlossaries.PerformLayout();
             this.groupBoxOptional.ResumeLayout(false);
             this.groupBoxOptional.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
@@ -814,8 +816,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.groupBox1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.controlPanelForGlossaries.ResumeLayout(false);
-            this.controlPanelForGlossaries.PerformLayout();
             this.ResumeLayout(false);
 
         }
