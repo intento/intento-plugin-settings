@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Intento.MT.Plugin.PropertiesForm
+﻿namespace Intento.MT.Plugin.PropertiesForm.WinForms
 {
     partial class IntentoFormOptionsMT
     {

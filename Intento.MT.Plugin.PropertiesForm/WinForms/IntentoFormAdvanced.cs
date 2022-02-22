@@ -1,21 +1,34 @@
-﻿using IntentoSDK;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Intento.MT.Plugin.PropertiesForm.Services;
+using Intento.SDK;
+using Intento.SDK.DI;
+using Intento.SDK.Settings;
+using Intento.SDK.Translate;
 
 namespace Intento.MT.Plugin.PropertiesForm.WinForms
 {
     public partial class IntentoFormAdvanced : Form
     {
-        IntentoTranslationProviderOptionsForm parent;
-        ProxySettings proxySettings;
+        private readonly IntentoTranslationProviderOptionsForm parent;
+        private ProxySettings proxySettings;
+        
+        private ITranslateService translateService;
+
+        private ITranslateService TranslateService
+        {
+            get { return translateService ??= Locator.Resolve<ITranslateService>(); }
+        }
+        
+        private IRemoteLogService remoteLogService;
+
+        private IRemoteLogService RemoteLogService
+        {
+            get { return remoteLogService ??= Locator.Resolve<IRemoteLogService>(); }
+        }
 
         public IntentoFormAdvanced(IntentoTranslationProviderOptionsForm form)
         {
@@ -42,10 +55,13 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			checkBoxCutTags.Text = Resource.FACheckBoxCutTags;
 			checkBoxSaveLocally.Text = Resource.FAcheckBoxSaveLocally;
 
-			var options = parent.currentOptions;
-			if (options.ForbidSaveApikey)
+			var options = parent.CurrentOptions;
+            if (options.ForbidSaveApikey)
+            {
                 checkBoxSaveApiKeyInRegistry.Visible = false;
-			checkBoxCustomTagParser.Enabled = options.MemoqAdditional != null && (bool)options.MemoqAdditional["advancedSdk"];
+            }
+
+            checkBoxCustomTagParser.Enabled = options.MemoqAdditional != null && (bool)options.MemoqAdditional["advancedSdk"];
 
 		}
 
@@ -56,50 +72,58 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            IntentoTranslationProviderOptionsForm.TraceEndTime = DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40);
-            parent.currentOptions.CustomSettingsName = string.IsNullOrWhiteSpace(textBoxCustomSettingsName.Text) ? null : textBoxCustomSettingsName.Text;
-			parent.currentOptions.CustomTagParser = checkBoxCustomTagParser.Checked;
-			parent.currentOptions.CutTag = checkBoxCutTags.Checked;
-			parent.currentOptions.SaveLocally = checkBoxSaveLocally.Checked;
+            RemoteLogService.SetTraceEndTime(DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40));
+            parent.CurrentOptions.CustomSettingsName = string.IsNullOrWhiteSpace(textBoxCustomSettingsName.Text) ? null : textBoxCustomSettingsName.Text;
+			parent.CurrentOptions.CustomTagParser = checkBoxCustomTagParser.Checked;
+			parent.CurrentOptions.CutTag = checkBoxCutTags.Checked;
+			parent.CurrentOptions.SaveLocally = checkBoxSaveLocally.Checked;
 
 			if (!checkBoxProxy.Checked)
             {
-                parent.currentOptions.proxySettings = null;
+                parent.CurrentOptions.ProxySettings = null;
                 DialogResult = DialogResult.OK;
                 Close();
             }
-            else if (isValidParams())
+            else if (IsValidParams())
             {
-                parent.currentOptions.proxySettings = new ProxySettings();
-                parent.currentOptions.proxySettings.ProxyAddress = textBoxAddress.Text;
-                parent.currentOptions.proxySettings.ProxyPort = textBoxPort.Text;
-                parent.currentOptions.proxySettings.ProxyUserName = textBoxUserName.Text;
-                parent.currentOptions.proxySettings.ProxyPassword = textBoxPassword.Text;
-                parent.currentOptions.proxySettings.ProxyEnabled = true;
-                var _intento = IntentoSDK.Intento.Create(parent.currentOptions.ApiKey, null,
+                parent.CurrentOptions.ProxySettings = new ProxySettings
+                {
+                    ProxyAddress = textBoxAddress.Text,
+                    ProxyPort = textBoxPort.Text,
+                    ProxyUserName = textBoxUserName.Text,
+                    ProxyPassword = textBoxPassword.Text,
+                    ProxyEnabled = true
+                };
+                IntentoClient.Init(new Options
+                {
+                    ApiKey = parent.CurrentOptions.ApiKey,
+                    ClientUserAgent = "ProxyForm",
+                    ServerUrl = "https://api.inten.to/",
+                    Proxy = parent.CurrentOptions.ProxySettings
+                });
+                /*var _intento = IntentoSDK.Intento.Create(parent.currentOptions.ApiKey, null,
                     path: "https://api.inten.to/",
                     userAgent: "ProxyForm",
                     loggingCallback: Logs.Logging,
-                    proxySet: parent.currentOptions.proxySettings
-                );
-                var _translate = _intento.Ai.Text.Translate;
+                    proxySet: parent.currentOptions.ProxySettings
+                );*/
                 try
                 {
-                    _translate.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } });
+                    TranslateService.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } });
                 }
                 catch (AggregateException ex2)
                 {
-                    Exception ex = ex2.InnerExceptions[0];
+                    var ex = ex2.InnerExceptions[0];
                     if (ex is HttpRequestException)
                     {
-                        parent.currentOptions.proxySettings = proxySettings;
+                        parent.CurrentOptions.ProxySettings = proxySettings;
                         labelError.Text = Resource.ProxyConnectionError;
                         labelError.Visible = true;
                         return;
                     }
                 }
-                    DialogResult = DialogResult.OK;
-                    Close();
+                DialogResult = DialogResult.OK;
+                Close();
             }
         }
 
@@ -120,12 +144,12 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             textBoxAuth_TextChanged(textBoxPassword, null);
         }
 
-        private bool isValidParams()
+        private bool IsValidParams()
         {
             try
             {
                 var port = int.Parse(textBoxPort.Text);
-                new Uri($"http://{textBoxAddress.Text}:{textBoxPort.Text}");
+                var uri = new Uri($"http://{textBoxAddress.Text}:{textBoxPort.Text}");
             }
             catch
             {
@@ -166,22 +190,22 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
         private void IntentoFormAdvanced_Shown(object sender, EventArgs e)
         {
-            proxySettings = parent.currentOptions.proxySettings;
-			textBoxCustomSettingsName.Text = parent.currentOptions.CustomSettingsName;
-			checkBoxCustomTagParser.Checked = parent.currentOptions.CustomTagParser;
-			checkBoxCutTags.Checked = parent.currentOptions.CutTag;
+            proxySettings = parent.CurrentOptions.ProxySettings;
+			textBoxCustomSettingsName.Text = parent.CurrentOptions.CustomSettingsName;
+			checkBoxCustomTagParser.Checked = parent.CurrentOptions.CustomTagParser;
+			checkBoxCutTags.Checked = parent.CurrentOptions.CutTag;
 			checkBoxCustomTagParser.Location = checkBoxCutTags.Location;
-			checkBoxSaveLocally.Checked = parent.currentOptions.SaveLocally;
-			checkBoxSaveLocally.Visible = parent.isTrados || !parent.memoqPublic;
+			checkBoxSaveLocally.Checked = parent.CurrentOptions.SaveLocally;
+			checkBoxSaveLocally.Visible = parent.IsTrados || !parent.MemoqPublic;
 
 			// Specific setting for Trados
-			textBoxCustomSettingsName.Visible = parent.isTrados;
-			labelCustomSettingsName.Visible = parent.isTrados;
-			checkBoxCutTags.Visible = parent.isTrados;
+			textBoxCustomSettingsName.Visible = parent.IsTrados;
+			labelCustomSettingsName.Visible = parent.IsTrados;
+			checkBoxCutTags.Visible = parent.IsTrados;
 
 			// Specific setting for Memoq
-			checkBoxCustomTagParser.Visible = !parent.isTrados && !parent.memoqPublic;
-			checkBoxCustomTagParser.Enabled = !parent.isTrados && parent.memoqPublic;
+			checkBoxCustomTagParser.Visible = !parent.IsTrados && !parent.MemoqPublic;
+			checkBoxCustomTagParser.Enabled = !parent.IsTrados && parent.MemoqPublic;
 
 			if (proxySettings == null)
             {
@@ -206,7 +230,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                 checkBoxProxy.Checked = proxySettings.ProxyEnabled;
             }
             labelError.Visible = false;
-            checkBoxTrace.Checked = IntentoTranslationProviderOptionsForm.TraceEndTime > DateTime.Now;
+            checkBoxTrace.Checked = RemoteLogService.GetTraceEndTime() > DateTime.Now;
         }
 
     }

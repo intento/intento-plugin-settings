@@ -1,48 +1,42 @@
-﻿using Intento.MT.Plugin.PropertiesForm.WinForms;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Intento.MT.Plugin.PropertiesForm
+namespace Intento.MT.Plugin.PropertiesForm.WinForms
 {
     public partial class IntentoFormProviderAuthWizard : Form
     {
-        public Dictionary<string, string> authParam;
+        private readonly Dictionary<string, string> authParam;
 
-        private TextBox[] tbs;
-        private Label[] lbs;
+        private readonly TextBox[] tbs;
+        private readonly Label[] lbs;
 
         public IntentoFormProviderAuthWizard(
-            Dictionary<string, string> authDict, bool showHidden, bool HideHiddenTextButton)
+            Dictionary<string, string> authDict, bool showHidden, bool hideHiddenTextButton)
         {
             InitializeComponent();
             LocalizeContent();
 
             authParam = authDict;
 
-            if (HideHiddenTextButton)
+            if (hideHiddenTextButton)
                 checkBoxShowHidden.Visible = false;
 
             byte i = 0;
-            int paramsCount = authParam.Count;
+            var paramsCount = authParam.Count;
             tlpCustomCredentials.RowCount = paramsCount;
-            for (int j = 0; j < paramsCount-1; j++)
-                this.tlpCustomCredentials.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            for (var j = 0; j < paramsCount-1; j++)
+                tlpCustomCredentials.RowStyles.Add(new RowStyle());
             lbs = new Label[paramsCount];
             tbs = new TextBox[paramsCount];
-            foreach (KeyValuePair<string, string> authField in authParam)
+            foreach (var authField in authParam)
             {
-                string key = authField.Key;
-                lbs[i] = new System.Windows.Forms.Label();
+                var key = authField.Key;
+                lbs[i] = new Label();
                 lbs[i].Parent = this;
-                lbs[i].Location = new System.Drawing.Point(0,0);
+                lbs[i].Location = new Point(0,0);
                 lbs[i].Name = "lbl" + key;
                 lbs[i].Text = key;
                 lbs[i].Visible = true;
@@ -50,17 +44,17 @@ namespace Intento.MT.Plugin.PropertiesForm
                 lbs[i].Margin = new Padding(6);
                 tlpCustomCredentials.Controls.Add(lbs[i], 0, i);
 
-                tbs[i] = new System.Windows.Forms.TextBox();
+                tbs[i] = new TextBox();
                 tbs[i].Parent = this;
-                tbs[i].BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-                tbs[i].Location = new System.Drawing.Point(0,0);
+                tbs[i].BorderStyle = BorderStyle.FixedSingle;
+                tbs[i].Location = new Point(0,0);
 
                 tbs[i].Name = key;
-                tbs[i].Size = new System.Drawing.Size(240, 20);
+                tbs[i].Size = new Size(240, 20);
                 tbs[i].Text = authField.Value;
                 tbs[i].TabIndex = i;
                 tbs[i].Visible = true;
-                tbs[i].TextChanged += new System.EventHandler(this.textBoxes_TextChanged);
+                tbs[i].TextChanged += textBoxes_TextChanged;
                 tbs[i].UseSystemPasswordChar = !checkBoxShowHidden.Checked;
                 tlpCustomCredentials.Controls.Add(tbs[i], 1, i);
 
@@ -72,10 +66,10 @@ namespace Intento.MT.Plugin.PropertiesForm
 
         private void textBoxes_TextChanged(object sender, EventArgs e)
         {
-            bool checkedForm = true;
-            foreach (TextBox tb in tbs)
+            var checkedForm = true;
+            foreach (var tb in tbs)
             {
-                if (String.IsNullOrWhiteSpace(tb.Text))
+                if (string.IsNullOrWhiteSpace(tb.Text))
                 {
                     tb.BackColor = Color.LightPink;
                     checkedForm = false;
@@ -83,22 +77,22 @@ namespace Intento.MT.Plugin.PropertiesForm
                 else
                     tb.BackColor = SystemColors.Window;
             }
-            this.buttonOK.Enabled = checkedForm;
+            buttonOK.Enabled = checkedForm;
         }
 
         private void buttonContinue_Click(object sender, EventArgs e)
         {
-            for (byte i = 0; i < tbs.Count(); i++)
+            for (byte i = 0; i < tbs.Length; i++)
             {
                 authParam[tbs[i].Name] = tbs[i].Text;
             }
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
             Close();
         }
 
         private void checkBoxShowHidden_CheckedChanged(object sender, EventArgs e)
         {
-            foreach (TextBox tb in tbs)
+            foreach (var tb in tbs)
                 tb.UseSystemPasswordChar = !checkBoxShowHidden.Checked;
         }
 

@@ -1,19 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
     <id>Intento.MT.Plugin.PropertiesForm</id>
-    <version>2.2.27.0</version>
-    <authors>Intento</authors>
-    <owners>Intento</owners>
+    <version>3.0.0.0</version>
+    <authors>Intento Inc.</authors>
+    <owners>Intento Inc.</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <projectUrl>https://inten.to/</projectUrl>
+    <iconUrl>https://cdn-dbgoh.nitrocdn.com/jHclttqYYBDOXvxjBDyknEiyjeLrNIpQ/assets/static/optimized/wp-content/uploads/2020/08/e719c2f434f66fd89a92730888cee8ca.logo-text-small-2.png</iconUrl>
+    <tags>Intento</tags>
+    <repository url="https://github.com/intento/intento-plugin-settings" />
     <description>A library with a settings form used in Intento momoQ plugin and Intento Trados plugin.</description>    
-    <copyright>Copyright © Intento 2018-2021</copyright>
+    <copyright>Copyright © Intento 2018-2022</copyright>
     <dependencies>
-        <dependency id="IntentoSDK" version="1.5.5.0" />    
+      <dependency id="Intento.SDK" version="2.0.0" />      
     </dependencies>
-  </metadata>
-  <files>
-    <file src="..\bin\Intento.MT.Plugin.PropertiesForm.dll" target="lib\net45" />
-    <file src="..\bin\Intento.MT.Plugin.PropertiesForm.pdb" target="lib\net45" />
-  </files>  
+  </metadata>  
 </package>
