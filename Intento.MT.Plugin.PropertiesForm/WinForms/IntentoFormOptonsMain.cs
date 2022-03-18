@@ -40,12 +40,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         private bool settingsIsSet;
         public bool InsideEnableDisable { get; set; }
         
-        private IRemoteLogService remoteLogService;
-
-        private IRemoteLogService RemoteLogService
-        {
-            get { return remoteLogService ??= Locator.Resolve<IRemoteLogService>(); }
-        }
+        private IRemoteLogService RemoteLogService => Locator.Resolve<IRemoteLogService>();
 
 
         // Glossary data was obtained directly, without a request to the Intento service

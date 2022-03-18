@@ -16,19 +16,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         private readonly IntentoTranslationProviderOptionsForm parent;
         private ProxySettings proxySettings;
         
-        private ITranslateService translateService;
+        private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
 
-        private ITranslateService TranslateService
-        {
-            get { return translateService ??= Locator.Resolve<ITranslateService>(); }
-        }
-        
-        private IRemoteLogService remoteLogService;
-
-        private IRemoteLogService RemoteLogService
-        {
-            get { return remoteLogService ??= Locator.Resolve<IRemoteLogService>(); }
-        }
+        private IRemoteLogService RemoteLogService => Locator.Resolve<IRemoteLogService>();
 
         public IntentoFormAdvanced(IntentoTranslationProviderOptionsForm form)
         {

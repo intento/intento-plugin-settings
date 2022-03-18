@@ -34,19 +34,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             }
         }
 
-        private ITranslateService translateService;
+        private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
 
-        private ITranslateService TranslateService
-        {
-            get { return translateService ??= Locator.Resolve<ITranslateService>(); }
-        }
-
-        private IRemoteLogService remoteLogService;
-
-        private IRemoteLogService RemoteLogService
-        {
-            get { return remoteLogService ??= Locator.Resolve<IRemoteLogService>(); }
-        }
+        private IRemoteLogService RemoteLogService => Locator.Resolve<IRemoteLogService>();
 
         private readonly IntentoTranslationProviderOptionsForm parent;
         private const string TestString = "14";

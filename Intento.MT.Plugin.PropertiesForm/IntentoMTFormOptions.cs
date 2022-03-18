@@ -296,6 +296,9 @@ namespace Intento.MT.Plugin.PropertiesForm
 			res.Routing = Routing;
 			res.RoutingDisplayName = RoutingDisplayName;
 			res._authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict);
+			res.ConsoleUrl = ConsoleUrl;
+			res.ApiPath = ApiPath;
+			res.TmsApiPath = TmsApiPath;
 		}
 
 		public IntentoMTFormOptions()

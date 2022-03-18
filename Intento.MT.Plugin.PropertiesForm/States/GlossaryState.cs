@@ -21,13 +21,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         private Dictionary<string, NativeGlossary> glossaries;
 
         private static bool _internalControlChange;
-        
-        private ITranslateService translateService;
 
-        private ITranslateService TranslateService
-        {
-            get { return translateService ??= Locator.Resolve<ITranslateService>(); }
-        }
+        private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
 
         /// <summary>
         /// Ctor

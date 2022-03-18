@@ -14,12 +14,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
     {
         private readonly ProviderState providerState;
         private readonly AuthState authState;
-        private ITranslateService translateService;
-
-        private ITranslateService TranslateService
-        {
-            get { return translateService ??= Locator.Resolve<ITranslateService>(); }
-        }
+        private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
 
         private StateModeEnum modelMode = StateModeEnum.Unknown;
         private bool isList;

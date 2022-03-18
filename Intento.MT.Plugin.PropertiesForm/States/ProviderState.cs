@@ -13,13 +13,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
     public class ProviderState : BaseState
     {
 	    public SmartRoutingState SmartRoutingState { get; }
-	    
-	    private ITranslateService translateService;
 
-	    private ITranslateService TranslateService
-	    {
-		    get { return translateService ??= Locator.Resolve<ITranslateService>(); }
-	    }
+	    private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
 
 	    // Controlled components
         private AuthState authState;
@@ -193,6 +188,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 	                from = from.Distinct().ToList();
 	                to = to.Distinct().ToList();
 	                enPairs = enPairs.Distinct().ToList();
+	                FromLanguages ??= new Dictionary<string, string>();
+	                ToLanguages ??= new Dictionary<string, string>();
 	                FillLanguageDictionary(FromLanguages, from);
 	                FillLanguageDictionary(ToLanguages, to);
 
