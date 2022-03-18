@@ -98,15 +98,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                 {
                     ApiKey = parent.CurrentOptions.ApiKey,
                     ClientUserAgent = "ProxyForm",
-                    ServerUrl = "https://api.inten.to/",
+                    ServerUrl = parent.CurrentOptions.ApiPath,
                     Proxy = parent.CurrentOptions.ProxySettings
                 });
-                /*var _intento = IntentoSDK.Intento.Create(parent.currentOptions.ApiKey, null,
-                    path: "https://api.inten.to/",
-                    userAgent: "ProxyForm",
-                    loggingCallback: Logs.Logging,
-                    proxySet: parent.currentOptions.ProxySettings
-                );*/
                 try
                 {
                     TranslateService.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } });

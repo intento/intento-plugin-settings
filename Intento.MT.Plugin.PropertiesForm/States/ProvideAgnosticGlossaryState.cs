@@ -74,7 +74,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             ReadGlossaries();
             if (glossaries == null)
             {
-                return Array.Empty<int>();
+                return new int[0];
             }
             var checkedElements = FormMt.listOfIntentoGlossaries.CheckedIndices.Cast<int>().ToList();
 

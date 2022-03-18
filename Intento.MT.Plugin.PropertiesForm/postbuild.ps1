@@ -4,7 +4,7 @@ $res = signtool.exe verify /pa /q $file
 if (!$?)
 {
 	Write-Host signing $file 
-	signtool.exe sign /q /d "Intento.MT.Plugin.PropertiesForm Library" /du "https://inten.to" /fd SHA256 /tr http://ts.ssl.com /td sha256 /sha1 d79d7faf87aa9eecc1437e7da38e81f8a547dc38 $file
+	signtool.exe sign /q /d "Intento.MT.Plugin.PropertiesForm Library" /du "https://inten.to" /fd SHA256 /tr http://ts.ssl.com /td sha256 /sha1 ceb3832e3ea926565f7dd05c82a711307b6679ee $file
 }
 else
 {

@@ -73,6 +73,16 @@ namespace Intento.MT.Plugin.PropertiesForm
 		public string ConsoleUrl { get; set; }
 
 		/// <summary>
+		/// Url of api
+		/// </summary>
+		public string ApiPath { get; set; }
+
+		/// <summary>
+		/// Url of tms backend
+		/// </summary>
+		public string TmsApiPath { get; set; }
+
+		/// <summary>
 		/// Authentication mode from provider, ignored in settings received from the application
 		/// </summary>
 		public StateModeEnum AuthMode { get; set; }
@@ -151,7 +161,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			set
 			{
 				appName = value;
-				Locator.Resolve<IRemoteLogService>().Init(value);
+				//Locator.Resolve<IRemoteLogService>().Init(value);
 			}
 		}
 

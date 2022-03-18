@@ -245,7 +245,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 options.Glossary = state.Glossary;
                 options.GlossaryMode = state.mode;
-                var mData = (state.glossaries?.Select(x => x.Value) ?? Array.Empty<NativeGlossary>())
+                var mData = (state.glossaries?.Select(x => x.Value) ?? new NativeGlossary[0])
                     .FirstOrDefault(y => y.Id == state.Glossary);
                 options.GlossaryName = mData != null ? mData.Name : state.Glossary;
 

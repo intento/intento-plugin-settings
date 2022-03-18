@@ -16,6 +16,17 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 {
     public partial class ApiKeyState : BaseState
     {
+	    private string errorReason;
+	    private IEnumerable<string> errorDetail;
+	    private readonly IntentoMTFormOptions options;
+		
+	    private ITranslateService translateService;
+		
+	    private ITranslateService TranslateService
+	    {
+		    get { return translateService ??= Locator.Resolve<ITranslateService>(); }
+	    }
+	    
 	    public string ApiKey { get; private set; }
 
 	    // Controlled components
@@ -23,37 +34,26 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
 	    public EApiKeyStatus ApiKeyStatus { get; private set; } = EApiKeyStatus.start;
 
-	    // Result of request to read a list of providers
-
 	    // Routing table query result
 		public IList<Routing> Routings { get; private set; }
 
-		private string errorReason;
-		private IEnumerable<string> errorDetail;
-		
-		private ITranslateService translateService;
-		
-		private ITranslateService TranslateService
-		{
-			get { return translateService ??= Locator.Resolve<ITranslateService>(); }
-		}
-		
 		/// <summary>
 		/// Ctor
 		/// </summary>
 		/// <param name="form"></param>
 		/// <param name="options"></param>
 		public ApiKeyState(IntentoTranslationProviderOptionsForm form, IntentoMTFormOptions options) : base(form, options)
-        {
+		{
+			this.options = options;
             ApiKey = options.ApiKey;
-
             if (options.ForbidSaveApikey)
             {
 	            return;
             }
             var apiKey2 = form.GetValueFromRegistry("ApiKey");
             if (string.IsNullOrEmpty(ApiKey) && !string.IsNullOrEmpty(options.AppName))
-            {   // read ApiKey from registry
+            {   
+	            // read ApiKey from registry
 	            ApiKey = apiKey2;
             }
 
@@ -147,6 +147,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 		{
 			IntentoClient.Init(new Options
 			{
+				ServerUrl = options.ApiPath,
+				TmsServerUrl = options.TmsApiPath,
 				ApiKey = ApiKey,
 				ClientUserAgent = $"Intento.PluginSettingsForm/{Form.Version} {additionalUserAgent}",
 				Proxy = proxySettings
