@@ -6,7 +6,6 @@ using Intento.MT.Plugin.PropertiesForm.WinForms;
 using Intento.SDK.DI;
 using Intento.SDK.Translate;
 using Intento.SDK.Translate.DTO;
-using static Intento.MT.Plugin.PropertiesForm.WinForms.IntentoTranslationProviderOptionsForm;
 
 namespace Intento.MT.Plugin.PropertiesForm.States
 {
