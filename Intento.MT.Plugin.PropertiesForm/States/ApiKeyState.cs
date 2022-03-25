@@ -16,45 +16,47 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 {
     public partial class ApiKeyState : BaseState
     {
-	    private string errorReason;
-	    private IEnumerable<string> errorDetail;
-	    private readonly IntentoMTFormOptions options;
-		
-	    private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
+        private string errorReason;
+        private IEnumerable<string> errorDetail;
+        private readonly IntentoMTFormOptions options;
 
-	    public string ApiKey { get; private set; }
+        private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
 
-	    // Controlled components
-	    public SmartRoutingState SmartRoutingState { get; set; }
+        public string ApiKey { get; private set; }
 
-	    public EApiKeyStatus ApiKeyStatus { get; private set; } = EApiKeyStatus.start;
+        // Controlled components
+        public SmartRoutingState SmartRoutingState { get; set; }
 
-	    // Routing table query result
-		public IList<Routing> Routings { get; private set; }
+        public EApiKeyStatus ApiKeyStatus { get; private set; } = EApiKeyStatus.start;
 
-		/// <summary>
-		/// Ctor
-		/// </summary>
-		/// <param name="form"></param>
-		/// <param name="options"></param>
-		public ApiKeyState(IntentoTranslationProviderOptionsForm form, IntentoMTFormOptions options) : base(form, options)
-		{
-			this.options = options;
+        // Routing table query result
+        public IList<Routing> Routings { get; private set; }
+
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="form"></param>
+        /// <param name="options"></param>
+        public ApiKeyState(IntentoTranslationProviderOptionsForm form, IntentoMTFormOptions options) : base(form,
+            options)
+        {
+            this.options = options;
             ApiKey = options.ApiKey;
             if (options.ForbidSaveApikey)
             {
-	            return;
+                return;
             }
+
             var apiKey2 = form.GetValueFromRegistry("ApiKey");
             if (string.IsNullOrEmpty(ApiKey) && !string.IsNullOrEmpty(options.AppName))
-            {   
-	            // read ApiKey from registry
-	            ApiKey = apiKey2;
+            {
+                // read ApiKey from registry
+                ApiKey = apiKey2;
             }
 
             if (!string.IsNullOrEmpty(apiKey2))
             {
-	            Form.FormAdvanced.checkBoxSaveApiKeyInRegistry.Checked = true;
+                Form.FormAdvanced.checkBoxSaveApiKeyInRegistry.Checked = true;
             }
         }
 
@@ -76,10 +78,11 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     else
                     {
                         Form.FormApi.apiKey_tb.Enabled = false;
-                        Form.FormApi.apiKey_tb.BackColor = SystemColors.Window; 
+                        Form.FormApi.apiKey_tb.BackColor = SystemColors.Window;
                         // "API key verification in progress ...."
                         errorReason = Resource.ApiKeyVerificationInProgressMessage;
                     }
+
                     break;
 
                 case EApiKeyStatus.download:
@@ -111,25 +114,27 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                         errorReason = Resource.ApiKeyVerificationInProgressMessage;
                     break;
                 default:
-	                throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException();
             }
+
             ApiKey_Set_Panel(IsOk);
             if (IsOk)
             {
-	            return SmartRoutingState.Draw(Form, SmartRoutingState);
+                return SmartRoutingState.Draw(Form, SmartRoutingState);
             }
+
             SmartRoutingState.Draw(Form, null);
             return errorReason;
         }
 
         public void SetValue(string apiKey)
         {
-	        if (ApiKey == apiKey)
-	        {
-		        return;
-	        }
+            if (ApiKey == apiKey)
+            {
+                return;
+            }
 
-	        ApiKey = apiKey;
+            ApiKey = apiKey;
             ChangeStatus(EApiKeyStatus.changed);
         }
 
@@ -138,91 +143,93 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             return errorReason;
         }
 
-		public void CreateIntentoConnection(ProxySettings proxySettings, string additionalUserAgent = null )
-		{
-			IntentoClient.Init(new Options
-			{
-				ServerUrl = options.ApiPath,
-				TmsServerUrl = options.TmsApiPath,
-				ApiKey = ApiKey,
-				ClientUserAgent = $"Intento.PluginSettingsForm/{Form.Version} {additionalUserAgent}",
-				Proxy = proxySettings
-			});
-		}
+        public void CreateIntentoConnection(ProxySettings proxySettings, string additionalUserAgent = null)
+        {
+            IntentoClient.Init(new Options
+            {
+                ServerUrl = options.ApiPath,
+                TmsServerUrl = options.TmsApiPath,
+                ApiKey = ApiKey,
+                ClientUserAgent = $"Intento.PluginSettingsForm/{Form.Version} {additionalUserAgent}",
+                Proxy = proxySettings
+            });
+        }
 
-		public IEnumerable<string> ErrorDetail()
+        public IEnumerable<string> ErrorDetail()
         {
             return errorDetail;
         }
 
         public void ReadProvidersAndRouting()
         {
-			using (new IntentoTranslationProviderOptionsForm.CursorFormMT(Form.FormMt))
-			{
-				if (string.IsNullOrEmpty(ApiKey))
-				{
-					ChangeStatus(EApiKeyStatus.changed);
-					EnableDisable();
-					return;
-				}
+            using (new IntentoTranslationProviderOptionsForm.CursorFormMT(Form.FormMt))
+            {
+                if (string.IsNullOrEmpty(ApiKey))
+                {
+                    ChangeStatus(EApiKeyStatus.changed);
+                    EnableDisable();
+                    return;
+                }
 
-				try
-				{
-					Providers = null;
-					errorReason = null;
+                try
+                {
+                    Providers = null;
+                    errorReason = null;
 
-					ChangeStatus(EApiKeyStatus.download);
+                    ChangeStatus(EApiKeyStatus.download);
 
-					//providers = form.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } }).ToList();
-					Providers = Form.TestListProvidersData ?? TranslateService.Providers(
-							filter: new Dictionary<string, string>
-								{ { "integrated", "true" }, { "mode", "async" } })
-						.ToList();
-					var additionalParams = new Dictionary<string, string> { { "pairs", "true" } };
-					Routings = TranslateService.Routing(additionalParams).ToList();
-					// SmartRoutingState created inside
-					ChangeStatus(EApiKeyStatus.ok);
-				}
-				catch (AggregateException ex2)
-				{
-					var ex = ex2.InnerExceptions[0];
-					errorReason = ex switch
-					{
-						IntentoInvalidApiKeyException => Resource.InvalidApiKeyMessage,
-						IntentoApiException exception => $"[Api] {exception.Message}: {exception.GetType().Name}",
-						IntentoSdkException => string.Format("[Sdk] {1}: {0}", ex.Message, ex.GetType().Name),
-						HttpRequestException => ex.InnerException != null
-							? $"[R] {ex.InnerException.GetType().Name}: {ex.InnerException.Message}"
-							: $"[R] {ex.GetType().Name}: {ex.Message}",
-						_ => $"[U] {ex.GetType().Name}: {ex.Message}"
-					};
+                    Providers = TranslateService.Providers(
+                            filter: new Dictionary<string, string>
+                            {
+                                { "integrated", "true" },
+                                { "mode", "async" }
+                            })
+                        .ToList();
+                    var additionalParams = new Dictionary<string, string> { { "pairs", "true" } };
+                    Routings = TranslateService.Routing(additionalParams).ToList();
+                    // SmartRoutingState created inside
+                    ChangeStatus(EApiKeyStatus.ok);
+                }
+                catch (AggregateException ex2)
+                {
+                    var ex = ex2.InnerExceptions[0];
+                    errorReason = ex switch
+                    {
+                        IntentoInvalidApiKeyException => Resource.InvalidApiKeyMessage,
+                        IntentoApiException exception => $"[Api] {exception.Message}: {exception.GetType().Name}",
+                        IntentoSdkException => string.Format("[Sdk] {1}: {0}", ex.Message, ex.GetType().Name),
+                        HttpRequestException => ex.InnerException != null
+                            ? $"[R] {ex.InnerException.GetType().Name}: {ex.InnerException.Message}"
+                            : $"[R] {ex.GetType().Name}: {ex.Message}",
+                        _ => $"[U] {ex.GetType().Name}: {ex.Message}"
+                    };
 
-					// SmartRoutingState not created inside because status is not ok
-					ChangeStatus(EApiKeyStatus.error);
-					errorDetail = RemoteLogService.LoggingEx(ex2);
-				}
-				finally
-				{
-					EnableDisable();
-				}
-			}
-		}
+                    // SmartRoutingState not created inside because status is not ok
+                    ChangeStatus(EApiKeyStatus.error);
+                    errorDetail = RemoteLogService.LoggingEx(ex2);
+                }
+                finally
+                {
+                    EnableDisable();
+                }
+            }
+        }
 
-		private void CreateChildStates()
-		{
-			SmartRoutingState = IsOk ? new SmartRoutingState(this, Options) : null;
-		}
+        private void CreateChildStates()
+        {
+            SmartRoutingState = IsOk ? new SmartRoutingState(this, Options) : null;
+        }
 
         private void ChangeStatus(EApiKeyStatus status)
         {
             ApiKeyStatus = status;
             if (ApiKeyStatus == EApiKeyStatus.download)
             {
-	            CreateIntentoConnection(Options.ProxySettings);
+                CreateIntentoConnection(Options.ProxySettings);
             }
             else
             {
-	            CreateChildStates();
+                CreateChildStates();
             }
         }
 
@@ -248,6 +255,5 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         }
 
         #endregion methods for managing a group of controls
-
     }
 }

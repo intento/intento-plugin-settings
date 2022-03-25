@@ -11,11 +11,11 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 {
     public class ProviderState : BaseState
     {
-	    public SmartRoutingState SmartRoutingState { get; }
+        public SmartRoutingState SmartRoutingState { get; }
 
-	    private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
+        private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
 
-	    // Controlled components
+        // Controlled components
         private AuthState authState;
 
         private readonly Dictionary<string, Provider> providersData;
@@ -41,12 +41,13 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         public bool DelegatedCredentials { get; private set; }
         public bool IntentoGlossary { get; private set; }
         public List<string> ProviderAuthList { get; private set; }
-        
+
         private string format;
 
-        public ProviderState(SmartRoutingState smartRoutingState, IntentoMTFormOptions options) : base(smartRoutingState, options)
+        public ProviderState(SmartRoutingState smartRoutingState, IntentoMTFormOptions options) : base(
+            smartRoutingState, options)
         {
-	        SmartRoutingState = smartRoutingState;
+            SmartRoutingState = smartRoutingState;
 
             Init();
 
@@ -64,8 +65,10 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             FormMt.comboBoxProviders.Items.Clear();
             FormMt.comboBoxProviders.Items.AddRange(items);
 
-            if (!string.IsNullOrEmpty(CurrentProviderId) && providersData.TryGetValue(CurrentProviderId, out var providerDataFromList))
-            {   // Set current provider in combo box 
+            if (!string.IsNullOrEmpty(CurrentProviderId) &&
+                providersData.TryGetValue(CurrentProviderId, out var providerDataFromList))
+            {
+                // Set current provider in combo box 
                 FormMt.comboBoxProviders.SelectedItem = providerDataFromList.Name;
                 currentProviderName = providerDataFromList.Name;
             }
@@ -82,9 +85,10 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         private void Init()
         {
             providerData = null;
-            Billable = false; ;
+            Billable = false;
+            ;
             StockModel = false;
-            OwnAuth = false; 
+            OwnAuth = false;
             CustomModel = false;
             CustomGlossary = false;
             IntentoGlossary = false;
@@ -104,24 +108,16 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             try
             {
                 if (string.IsNullOrEmpty(CurrentProviderId))
-                {   // Provider is not chosen
+                {
+                    // Provider is not chosen
                     Init();
                     return;
                 }
-
-                if (Form.TestOneProviderData != null)
-                {
-	                providerData = Form.TestOneProviderData;
-                }
-                else
-                {
-	                providerData = TranslateService.Provider(CurrentProviderId,
-		                new Dictionary<string, string> { { "fields", "auth,custom_glossary" } });
-                }
-
+                providerData = TranslateService.Provider(CurrentProviderId,
+                    new Dictionary<string, string> { { "fields", "auth,custom_glossary" } });
                 if (providerData == null)
                 {
-	                return;
+                    return;
                 }
 
                 //set flags for selected provider
@@ -137,12 +133,12 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 ProviderAuthList = null;
                 if (DelegatedCredentials)
                 {
-	                ProviderAuthList = new List<string> { "credential_id" };
+                    ProviderAuthList = new List<string> { "credential_id" };
                 }
                 else
                 {
-	                ProviderAuthList = new List<string>();
-	                /*foreach (var authField in providerData.Auth)
+                    ProviderAuthList = new List<string>();
+                    /*foreach (var authField in providerData.Auth)
                             providerAuthList.Add((string)authField.Name);*/
                 }
 
@@ -150,49 +146,50 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 var languages = providerData.Languages;
                 if (languages != null)
                 {
-	                var from = new List<string>();
-	                var to = new List<string>();
-	                enPairs = new List<string>();
-	                if (languages.Symmetric != null)
-	                {
-		                foreach (var p in languages.Symmetric)
-		                {
-			                from.Add(p);
-			                to.Add(p);
-			                enPairs.Add(p);
-		                }
+                    var from = new List<string>();
+                    var to = new List<string>();
+                    enPairs = new List<string>();
+                    if (languages.Symmetric != null)
+                    {
+                        foreach (var p in languages.Symmetric)
+                        {
+                            from.Add(p);
+                            to.Add(p);
+                            enPairs.Add(p);
+                        }
 
-		                if (from.All(x => x != "en"))
-		                {
-			                enPairs.Clear();
-		                }
-	                }
+                        if (from.All(x => x != "en"))
+                        {
+                            enPairs.Clear();
+                        }
+                    }
 
-	                // Used in Language_Comboboxes_Fill to select testing pair
-	                // for symmetris ==null
-	                // for pairs it contains all target langs for en->xx
+                    // Used in Language_Comboboxes_Fill to select testing pair
+                    // for symmetris ==null
+                    // for pairs it contains all target langs for en->xx
 
-	                if (languages.Pairs != null)
-	                {
-		                foreach (var p in languages.Pairs)
-		                {
-			                from.Add(p.From);
-			                to.Add(p.To);
-			                if (p.From == "en")
-			                {
-				                enPairs.Add(p.To);
-			                }
-		                }
-	                }
-	                from = from.Distinct().ToList();
-	                to = to.Distinct().ToList();
-	                enPairs = enPairs.Distinct().ToList();
-	                FromLanguages ??= new Dictionary<string, string>();
-	                ToLanguages ??= new Dictionary<string, string>();
-	                FillLanguageDictionary(FromLanguages, from);
-	                FillLanguageDictionary(ToLanguages, to);
+                    if (languages.Pairs != null)
+                    {
+                        foreach (var p in languages.Pairs)
+                        {
+                            from.Add(p.From);
+                            to.Add(p.To);
+                            if (p.From == "en")
+                            {
+                                enPairs.Add(p.To);
+                            }
+                        }
+                    }
 
-	                Language_Comboboxes_Fill(FromLanguages, ToLanguages);
+                    from = from.Distinct().ToList();
+                    to = to.Distinct().ToList();
+                    enPairs = enPairs.Distinct().ToList();
+                    FromLanguages ??= new Dictionary<string, string>();
+                    ToLanguages ??= new Dictionary<string, string>();
+                    FillLanguageDictionary(FromLanguages, from);
+                    FillLanguageDictionary(ToLanguages, to);
+
+                    Language_Comboboxes_Fill(FromLanguages, ToLanguages);
                 }
             }
             catch
@@ -216,84 +213,85 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         public void SelectedIndexChanged()
         {
             var provName = FormMt.comboBoxProviders.Text;
-			if (string.IsNullOrWhiteSpace(provName))
-			{
-				// No provider chosen
-				ClearOptions(Options);
-				providerData = null;
-				CurrentProviderId = null;
-				currentProviderName = null;
-				ExtractProviderData();
-			}
-			else
-			{
-				// Need to clear parameters
-				GetAuthState()?.ClearOptions(Options);
-				authState = null;
-				// another provider chosen
-				if (providersNames != null && CurrentProviderId != providersNames[provName])
-				{
-					ClearOptions(Options);
-					CurrentProviderId = providersNames[provName];
-					providerData = providersData[CurrentProviderId];
-					currentProviderName = providerData.Name;
-					ExtractProviderData();
-				}
-				else
-				{ // Selected same provider as was selected before. No changes in settings
-				}
-			}
+            if (string.IsNullOrWhiteSpace(provName))
+            {
+                // No provider chosen
+                ClearOptions(Options);
+                providerData = null;
+                CurrentProviderId = null;
+                currentProviderName = null;
+                ExtractProviderData();
+            }
+            else
+            {
+                // Need to clear parameters
+                GetAuthState()?.ClearOptions(Options);
+                authState = null;
+                // another provider chosen
+                if (providersNames != null && CurrentProviderId != providersNames[provName])
+                {
+                    ClearOptions(Options);
+                    CurrentProviderId = providersNames[provName];
+                    providerData = providersData[CurrentProviderId];
+                    currentProviderName = providerData.Name;
+                    ExtractProviderData();
+                }
+                else
+                {
+                    // Selected same provider as was selected before. No changes in settings
+                }
+            }
 
-			EnableDisable();
+            EnableDisable();
 
             return;
-
         }
 
         public AuthState GetAuthState()
         {
             if (IsOk)
             {
-	            authState ??= new AuthState(this, Options);
+                authState ??= new AuthState(this, Options);
             }
             else
             {
-	            authState = null;
+                authState = null;
             }
 
             return authState;
         }
 
-		private static bool ProviderSupportsPair(Provider provider, LangPair pair)
-		{
-			if (provider.Pairs.Any(p => p.From == pair.From && p.To == pair.To))
-			{
-				return true;
-			}
+        private static bool ProviderSupportsPair(Provider provider, LangPair pair)
+        {
+            if (provider.Pairs.Any(p => p.From == pair.From && p.To == pair.To))
+            {
+                return true;
+            }
 
-			return provider.Symmetric.Any(x => x == pair.From) && 
-			       provider.Symmetric.Any(x => x == pair.To);
-		}
+            return provider.Symmetric.Any(x => x == pair.From) &&
+                   provider.Symmetric.Any(x => x == pair.To);
+        }
 
-		private IList<Provider> FilterByLanguagePairs(IList<Provider> recProviders)
-		{
-			if (languagePairs == null)
-			{
-				return recProviders;
-			}
+        private IList<Provider> FilterByLanguagePairs(IList<Provider> recProviders)
+        {
+            if (languagePairs == null)
+            {
+                return recProviders;
+            }
 
-			// TODO this is very slow algorithm, but will do for now
+            // TODO this is very slow algorithm, but will do for now
 
-			// copy the list to keep original recProviders intact
-			var ret = new List<Provider>(recProviders);
-			foreach (var pair in languagePairs)
-			{
-				ret.RemoveAll(provider => !ProviderSupportsPair(provider, pair));
-			}
-			return ret;
-		}
+            // copy the list to keep original recProviders intact
+            var ret = new List<Provider>(recProviders);
+            foreach (var pair in languagePairs)
+            {
+                ret.RemoveAll(provider => !ProviderSupportsPair(provider, pair));
+            }
 
-		public static string Draw(IntentoTranslationProviderOptionsForm form, ProviderState state)
+            return ret;
+        }
+
+        public static string Draw(IntentoTranslationProviderOptionsForm form, ProviderState state)
         {
             if (state == null)
             {
@@ -306,14 +304,15 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             return state.Draw();
         }
 
-		private string Draw()
+        private string Draw()
         {
-	        FormMt.groupBoxProvider.Enabled = true;
+            FormMt.groupBoxProvider.Enabled = true;
             if (string.IsNullOrEmpty(FormMt.comboBoxProviders.Text))
             {
                 AuthState.Draw(Form, null);
                 return Resource.YouNeedToChooseAProviderMessage;
             }
+
             var errors = AuthState.Draw(Form, GetAuthState());
             return errors;
         }
@@ -356,30 +355,33 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
         private void FillLanguageDictionary(IDictionary<string, string> dct, IEnumerable<string> source)
         {
-	        var d = source.ToDictionary(code => code, GetCultureDisplayName)
-		        .OrderBy(x => x.Value, System.StringComparer.OrdinalIgnoreCase)
-		        .ToDictionary(x => x.Key, x => x.Value);
-	        dct.Clear();
-	        foreach (var val in d)
-	        {
-		        dct.Add(val.Key, val.Value);
-	        }
+            var d = source.ToDictionary(code => code, GetCultureDisplayName)
+                .OrderBy(x => x.Value, System.StringComparer.OrdinalIgnoreCase)
+                .ToDictionary(x => x.Key, x => x.Value);
+            dct.Clear();
+            foreach (var val in d)
+            {
+                dct.Add(val.Key, val.Value);
+            }
         }
 
-        private static string GetCultureDisplayName (string code)
+        private static string GetCultureDisplayName(string code)
         {
             try
             {
                 var ci = new CultureInfo(code);
                 if (!ci.DisplayName.StartsWith("Unknown Language"))
                 {
-	                return $"{ci.DisplayName} [{code}]";
+                    return $"{ci.DisplayName} [{code}]";
                 }
             }
-            catch { }
+            catch
+            {
+            }
 
             return $"[{code}]";
         }
+
         #region methods for managing a group of controls
 
         void Language_Comboboxes_Fill(Dictionary<string, string> from, Dictionary<string, string> to)
@@ -390,44 +392,48 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 FormMt.comboBoxFrom.Items.AddRange(from.Select(x => x.Value).ToArray());
             if (to != null)
                 FormMt.comboBoxTo.Items.AddRange(to.Select(x => x.Value).ToArray());
-			SetLanguageComboBoxes(Options.FromLanguage, Options.ToLanguage);
+            SetLanguageComboBoxes(Options.FromLanguage, Options.ToLanguage);
         }
 
-		public void SetLanguageComboBoxes(string from, string to)
-		{
-			if (FromLanguages != null)
-			{
-				if (!string.IsNullOrWhiteSpace(from) && FromLanguages.ContainsKey(from))
-					FormMt.comboBoxFrom.SelectedItem = FromLanguages[from];
-				else if (!string.IsNullOrWhiteSpace(Options.FromLanguage) && FromLanguages.ContainsKey(Options.FromLanguage))
-					FormMt.comboBoxFrom.SelectedItem = FromLanguages[Options.FromLanguage];
-				else if (FromLanguages.ContainsKey("en"))
-					FormMt.comboBoxFrom.SelectedItem = FromLanguages["en"];
-				else if (!string.IsNullOrWhiteSpace(Form.OriginalOptions.FromLanguage) && FromLanguages.ContainsKey(Form.OriginalOptions.FromLanguage))
-					FormMt.comboBoxFrom.SelectedItem = FromLanguages[Form.OriginalOptions.FromLanguage];
-				else if (FormMt.comboBoxFrom.Items.Count > 0)
-					FormMt.comboBoxFrom.SelectedIndex = 0;
-			}
+        public void SetLanguageComboBoxes(string from, string to)
+        {
+            if (FromLanguages != null)
+            {
+                if (!string.IsNullOrWhiteSpace(from) && FromLanguages.ContainsKey(from))
+                    FormMt.comboBoxFrom.SelectedItem = FromLanguages[from];
+                else if (!string.IsNullOrWhiteSpace(Options.FromLanguage) &&
+                         FromLanguages.ContainsKey(Options.FromLanguage))
+                    FormMt.comboBoxFrom.SelectedItem = FromLanguages[Options.FromLanguage];
+                else if (FromLanguages.ContainsKey("en"))
+                    FormMt.comboBoxFrom.SelectedItem = FromLanguages["en"];
+                else if (!string.IsNullOrWhiteSpace(Form.OriginalOptions.FromLanguage) &&
+                         FromLanguages.ContainsKey(Form.OriginalOptions.FromLanguage))
+                    FormMt.comboBoxFrom.SelectedItem = FromLanguages[Form.OriginalOptions.FromLanguage];
+                else if (FormMt.comboBoxFrom.Items.Count > 0)
+                    FormMt.comboBoxFrom.SelectedIndex = 0;
+            }
 
-			if (ToLanguages != null)
-			{
-				if (to == "zh-TW") to = "zh-hant";
-				if (!string.IsNullOrWhiteSpace(to) && ToLanguages.ContainsKey(to))
-					FormMt.comboBoxTo.SelectedItem = ToLanguages[to];
-				else if (FromLanguages != null && !string.IsNullOrWhiteSpace(Options.ToLanguage) && FromLanguages.ContainsKey(Options.ToLanguage))
-					FormMt.comboBoxTo.SelectedItem = FromLanguages[Options.ToLanguage];
-				else if (enPairs.Contains("es"))   // en-xx, need to check is provider support en-es or en-zh
-					FormMt.comboBoxTo.SelectedItem = ToLanguages["es"];
-				else if (enPairs.Contains("zh"))
-					FormMt.comboBoxTo.SelectedItem = ToLanguages["zh"];
-				else if (!string.IsNullOrWhiteSpace(Form.OriginalOptions.ToLanguage) && ToLanguages.ContainsKey(Form.OriginalOptions.ToLanguage) && enPairs.Contains(Form.OriginalOptions.ToLanguage))
-					FormMt.comboBoxTo.SelectedItem = ToLanguages[Form.OriginalOptions.ToLanguage];
-				else if (FormMt.comboBoxTo.Items.Count > 0)
-					FormMt.comboBoxTo.SelectedIndex = 0;
-			}
-		}		
+            if (ToLanguages != null)
+            {
+                if (to == "zh-TW") to = "zh-hant";
+                if (!string.IsNullOrWhiteSpace(to) && ToLanguages.ContainsKey(to))
+                    FormMt.comboBoxTo.SelectedItem = ToLanguages[to];
+                else if (FromLanguages != null && !string.IsNullOrWhiteSpace(Options.ToLanguage) &&
+                         FromLanguages.ContainsKey(Options.ToLanguage))
+                    FormMt.comboBoxTo.SelectedItem = FromLanguages[Options.ToLanguage];
+                else if (enPairs.Contains("es")) // en-xx, need to check is provider support en-es or en-zh
+                    FormMt.comboBoxTo.SelectedItem = ToLanguages["es"];
+                else if (enPairs.Contains("zh"))
+                    FormMt.comboBoxTo.SelectedItem = ToLanguages["zh"];
+                else if (!string.IsNullOrWhiteSpace(Form.OriginalOptions.ToLanguage) &&
+                         ToLanguages.ContainsKey(Form.OriginalOptions.ToLanguage) &&
+                         enPairs.Contains(Form.OriginalOptions.ToLanguage))
+                    FormMt.comboBoxTo.SelectedItem = ToLanguages[Form.OriginalOptions.ToLanguage];
+                else if (FormMt.comboBoxTo.Items.Count > 0)
+                    FormMt.comboBoxTo.SelectedIndex = 0;
+            }
+        }
 
         #endregion methods for managing a group of controls
-
     }
 }

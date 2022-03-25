@@ -31,7 +31,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
         // current credentials StateModeEnum
         public Dictionary<string, string> ProviderDataAuthDict { get; }
-        
+
         private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
 
         /// <summary>
@@ -40,14 +40,15 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         /// <param name="providerState"></param>
         /// <param name="options"></param>
         /// <param name="fromForm">Call from event, change of form check box may result recourcing</param>
-        public AuthState(ProviderState providerState, IntentoMTFormOptions options, bool fromForm = false) : base(providerState, options)
+        public AuthState(ProviderState providerState, IntentoMTFormOptions options, bool fromForm = false) : base(
+            providerState, options)
         {
             ProviderState = providerState;
             FormMt = providerState.Form.FormMt;
             Options = options;
 
             // set mode of checkBoxUseOwnCred
-            if (!providerState.Billable || !providerState.StockModel)  // Auth Required
+            if (!providerState.Billable || !providerState.StockModel) // Auth Required
             {
                 FormMt.groupBoxBillingAccount.Enabled = true;
                 mode = StateModeEnum.Required;
@@ -58,7 +59,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 mode = StateModeEnum.Prohibited;
             }
             else
-            {   // Auth optional
+            {
+                // Auth optional
                 FormMt.groupBoxBillingAccount.Enabled = true;
                 mode = StateModeEnum.Optional;
             }
@@ -89,6 +91,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 return state.Draw();
             }
+
             AuthGroupBoxEnabled(form.FormMt, false);
             AuthControlBackColorState(form.FormMt, false);
 
@@ -102,7 +105,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         private string Draw()
         {
             if (firstTimeDraw && FormMt.comboBoxCredentialId.SelectedIndex < 0)
-            {   // Need to fill all items - first tiem drawing after making AuthState
+            {
+                // Need to fill all items - first tiem drawing after making AuthState
                 FillCredentials();
                 firstTimeDraw = false;
             }
@@ -117,30 +121,37 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     FormMt.comboBoxCredentialId.Items.Remove(DefaultAccountName);
                 }
                 else if (FormMt.comboBoxCredentialId.SelectedIndex < 0)
-				{
-					FormMt.comboBoxCredentialId.SelectedIndexChanged -= ProviderState.Form.comboBoxCredentialId_SelectedIndexChanged;
+                {
+                    FormMt.comboBoxCredentialId.SelectedIndexChanged -=
+                        ProviderState.Form.comboBoxCredentialId_SelectedIndexChanged;
                     var index = FormMt.comboBoxCredentialId.Items.IndexOf(new ListItem { Value = DefaultAccountName });
                     if (index >= 0)
                     {
                         FormMt.comboBoxCredentialId.SelectedIndex = index;
                     }
-                    FormMt.comboBoxCredentialId.SelectedIndexChanged += ProviderState.Form.comboBoxCredentialId_SelectedIndexChanged;
-				}
-				if (mode == StateModeEnum.Required && FormMt.comboBoxCredentialId.SelectedIndex==-1)
-				{// Credentials required but not filled in full
-					AuthControlBackColorState(FormMt, true);
-					errorMessage = Resource.OwnCredentialsNeededErrorMessage;
-					// temporary! formMT.groupBoxOptional.Enabled = false;
-				}
-				else
-				{// All fields in credentals are filled
-					AuthControlBackColorState(FormMt, false);
-				}
-			}
+
+                    FormMt.comboBoxCredentialId.SelectedIndexChanged +=
+                        ProviderState.Form.comboBoxCredentialId_SelectedIndexChanged;
+                }
+
+                if (mode == StateModeEnum.Required && FormMt.comboBoxCredentialId.SelectedIndex == -1)
+                {
+                    // Credentials required but not filled in full
+                    AuthControlBackColorState(FormMt, true);
+                    errorMessage = Resource.OwnCredentialsNeededErrorMessage;
+                    // temporary! formMT.groupBoxOptional.Enabled = false;
+                }
+                else
+                {
+                    // All fields in credentals are filled
+                    AuthControlBackColorState(FormMt, false);
+                }
+            }
             else
             {
                 FormMt.comboBoxCredentialId.Visible = false;
             }
+
             if (!string.IsNullOrEmpty(errorMessage))
             {
                 ModelState.Draw(Form, null);
@@ -159,45 +170,48 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 errorMessage = newErrorMessage;
             }
+
             if (!string.IsNullOrEmpty(errorGlossary))
             {
                 errorMessage = newErrorMessage + errorGlossary;
             }
 
-			if (modelSt is { UseModel: true })
-			{
-				FormMt.groupBoxOptional.Enabled = true;
-				ProviderState.SetLanguageComboBoxes(modelSt.SelectedModelFrom, modelSt.SelectedModelTo);
-			}
-			else if (glossarySt is { CurrentGlossary: { } })
-			{
-				FormMt.groupBoxOptional.Enabled = true;
-				ProviderState.SetLanguageComboBoxes(glossarySt.SelectedGlossaryFrom, glossarySt.SelectedGlossaryTo);
-			}
-			else
-			{   // No model or glossary, we do not need to show language selection
+            if (modelSt is { UseModel: true })
+            {
+                FormMt.groupBoxOptional.Enabled = true;
+                ProviderState.SetLanguageComboBoxes(modelSt.SelectedModelFrom, modelSt.SelectedModelTo);
+            }
+            else if (glossarySt is { CurrentGlossary: { } })
+            {
+                FormMt.groupBoxOptional.Enabled = true;
+                ProviderState.SetLanguageComboBoxes(glossarySt.SelectedGlossaryFrom, glossarySt.SelectedGlossaryTo);
+            }
+            else
+            {
+                // No model or glossary, we do not need to show language selection
                 // temporary! formMT.groupBoxOptional.Enabled = false;
                 ProviderState.SetLanguageComboBoxes(null, null);
-			}
-			return errorMessage;
+            }
+
+            return errorMessage;
         }
 
         private void FillCredentials()
         {
-			// Read and fill a list of delegated credentials for this provider
-			Clear();
+            // Read and fill a list of delegated credentials for this provider
+            Clear();
             if (!FormMt.groupBoxBillingAccount.Enabled)
             {
                 return;
             }
 
             FormMt.comboBoxCredentialId.Visible = true;
-            var accounts = Form.TestAuthData ?? TranslateService.Accounts(ProviderState.CurrentProviderId);
+            var accounts = TranslateService.Accounts(ProviderState.CurrentProviderId);
             сonnectedAccounts = accounts.Select(q => new ListItem
             {
-                DisplayName = q.CredentialId, 
+                DisplayName = q.CredentialId,
                 Value = q.CredentialId
-            } ).ToArray();
+            }).ToArray();
             var defaultName = accounts
                 .Where(x => x.Default)
                 .Select(q => q.CredentialId).FirstOrDefault();
@@ -211,6 +225,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 FormMt.comboBoxCredentialId.Items.Clear();
                 FormMt.comboBoxCredentialId.Items.Add(defaultListItem);
             }
+
             FormMt.comboBoxCredentialId.Items.AddRange(сonnectedAccounts);
             if (сonnectedAccounts.Length == 0)
             {
@@ -218,7 +233,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             }
 
             var credentialId = ProviderDataAuthDict["credential_id"];
-            var index = FormMt.comboBoxCredentialId.Items.IndexOf(new ListItem { Value = credentialId});
+            var index = FormMt.comboBoxCredentialId.Items.IndexOf(new ListItem { Value = credentialId });
             if (index >= 0)
             {
                 FormMt.comboBoxCredentialId.SelectedIndex = index;
@@ -339,7 +354,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             options.UseCustomAuth = false;
             options.CustomAuth = null;
             FormMt.comboBoxCredentialId.Visible = true;
-			Clear();
+            Clear();
             ResetChildrenState();
         }
 
@@ -349,12 +364,13 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         {
             ClearCredentials();
             if (!firstTimeDraw)
-			{
-				GetModelState()?.ClearOptions(Options);
+            {
+                GetModelState()?.ClearOptions(Options);
                 GetGlossaryState()?.ClearOptions(Options);
                 GetProviderGlossaryState()?.ClearOptions(Options);
-			}
-			EnableDisable();
+            }
+
+            EnableDisable();
         }
 
         #endregion Events
@@ -372,6 +388,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 {
                     return !ProviderDataAuthDict.Values.Any(string.IsNullOrEmpty);
                 }
+
                 if (FormMt.comboBoxCredentialId.SelectedItem is not ListItem item)
                 {
                     return false;
@@ -438,6 +455,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 providerAgnosticGlossary = null;
             }
+
             return providerAgnosticGlossary;
         }
 
@@ -456,7 +474,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 formMt.groupBoxBillingAccount.Enabled = false;
                 formMt.comboBoxCredentialId.Visible = false;
                 formMt.comboBoxCredentialId.Items.Clear();
-				formMt.comboBoxCredentialId.Items.Add(new ListItem
+                formMt.comboBoxCredentialId.Items.Add(new ListItem
                 {
                     DisplayName = DefaultAccountName,
                     Value = DefaultAccountName
@@ -470,6 +488,5 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         }
 
         #endregion methods for managing a group of controls
-
     }
 }

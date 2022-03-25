@@ -8,14 +8,14 @@ using Intento.SDK.Translate.DTO;
 
 namespace Intento.MT.Plugin.PropertiesForm.States
 {
-    public class ProvideAgnosticGlossaryState: BaseState
+    public class ProvideAgnosticGlossaryState : BaseState
     {
         private readonly AuthState authState;
         private static bool _internalControlChange;
 
         private IList<GlossaryDetailed> glossaries;
         private IList<AgnosticGlossaryType> types;
-       
+
         private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
 
         /// <summary>
@@ -23,7 +23,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         /// </summary>
         /// <param name="authState"></param>
         /// <param name="options"></param>
-        public ProvideAgnosticGlossaryState(AuthState authState, IntentoMTFormOptions options) : base(authState, options)
+        public ProvideAgnosticGlossaryState(AuthState authState, IntentoMTFormOptions options) : base(authState,
+            options)
         {
             this.authState = authState;
         }
@@ -51,7 +52,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 FormMt.listOfIntentoGlossaries.Visible = true;
                 FormMt.providerAgnosticGlossariesGroup.Visible = true;
-            }           
+            }
+
             return null;
         }
 
@@ -61,6 +63,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 FillOptions(this, Options);
             }
+
             EnableDisable();
         }
 
@@ -71,9 +74,10 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 return new int[0];
             }
+
             var checkedElements = FormMt.listOfIntentoGlossaries.CheckedIndices.Cast<int>().ToList();
 
-            return checkedElements.Select(index => Convert.ToInt32(glossaries[index].Id)).ToArray();          
+            return checkedElements.Select(index => Convert.ToInt32(glossaries[index].Id)).ToArray();
         }
 
         public static void FillOptions(ProvideAgnosticGlossaryState state, IntentoMTFormOptions options)
@@ -94,6 +98,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 FormMt.listOfIntentoGlossaries.Items.Clear();
             }
+
             _internalControlChange = false;
         }
 
@@ -103,11 +108,13 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 return;
 
             if (!authState.ProviderState.IntentoGlossary)
-            {   // glossaries are not supported by provider
+            {
+                // glossaries are not supported by provider
                 FormMt.providerAgnosticGlossariesGroup.Visible = false;
                 Clear();
                 return;
             }
+
             FormMt.providerAgnosticGlossariesGroup.Visible = true;
 
             ReadGlossaries();
@@ -128,16 +135,17 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     FormMt.listOfIntentoGlossaries.SetItemChecked(n, true);
                 }
             }
-            FormMt.comboBoxGlossaries.Visible = true;
         }
 
         private bool readDone = false;
+
         private void ReadGlossaries()
         {
             if (readDone)
             {
                 return;
             }
+
             try
             {
                 glossaries = TranslateService.AgnosticGlossaries();
@@ -157,6 +165,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 return;
             }
+
             try
             {
                 types = TranslateService.AgnosticGlossariesTypes();
@@ -173,7 +182,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         private static void HideVisibility(IntentoFormOptionsMT formMt)
         {
             formMt.providerAgnosticGlossariesGroup.Visible = false;
-            formMt.listOfIntentoGlossaries.Visible = false;          
+            formMt.listOfIntentoGlossaries.Visible = false;
             formMt.listOfIntentoGlossaries.Items.Clear();
         }
 

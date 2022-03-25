@@ -42,24 +42,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         
         private IRemoteLogService RemoteLogService => Locator.Resolve<IRemoteLogService>();
 
-
-        // Glossary data was obtained directly, without a request to the Intento service
-        public List<Provider> TestListProvidersData { get; }
-
-        // Provider data was obtained directly, without a request to the Intento service
-        public Provider TestOneProviderData { get; }
-
-        // Model data was obtained directly, without a request to the Intento service
-        public IList<Model> TestModelData { get; set; }
-
-        // Credential data was obtained directly, without a request to the Intento service
-        public List<Account> TestAuthData { get; set; }
-
-        // Glossary data was obtained directly, without a request to the Intento service
-        public IList<NativeGlossary> TestGlossaryData { get; set; }
-
         // flags from app
         public bool IsTrados { get; }
+        
         private readonly string appName;
         public bool MemoqPublic { get; }
 
@@ -199,12 +184,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         public IntentoTranslationProviderOptionsForm(
             IntentoMTFormOptions options,
             LangPair[] languagePairs,
-            bool insideEnableDisable,
-            List<Provider> testListProvidersData) : this(options, languagePairs)
+            bool insideEnableDisable) : this(options, languagePairs)
         {
-           
             InsideEnableDisable = insideEnableDisable;
-            TestListProvidersData = testListProvidersData;
         }
         
         public IntentoMTFormOptions GetOptions()

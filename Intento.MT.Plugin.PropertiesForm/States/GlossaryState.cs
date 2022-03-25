@@ -41,6 +41,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 return state.Draw();
             }
+
             GlossaryGroupBoxDisable(form.FormMt);
             return null;
         }
@@ -90,6 +91,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 default:
                     throw new Exception($"Invalid mode {mode}");
             }
+
             return null;
         }
 
@@ -125,7 +127,6 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     default:
                         throw new Exception($"Invalid mode {mode}");
                 }
-
             }
         }
 
@@ -138,6 +139,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 {
                     return null;
                 }
+
                 if (isList)
                 {
                     if (!string.IsNullOrEmpty(FormMt.comboBoxGlossaries.Text))
@@ -152,54 +154,57 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                         ret = FormMt.textBoxGlossary.Text;
                     }
                 }
+
                 return ret;
             }
         }
 
-		public string SelectedGlossaryTo
-		{
-			get
-			{
-				if (!isList || CurrentGlossary == null)
-					return null;
-				dynamic glossary = glossaries[FormMt.comboBoxGlossaries.Text];
-				return (string)glossary.to;
-			}
-		}
-		public string SelectedGlossaryFrom
-		{
-			get
-			{
-				if (!isList || CurrentGlossary == null)
-					return null;
-				dynamic glossary = glossaries[FormMt.comboBoxGlossaries.Text];
-				return (string)glossary.from;
-			}
-		}
+        public string SelectedGlossaryTo
+        {
+            get
+            {
+                if (!isList || CurrentGlossary == null)
+                    return null;
+                dynamic glossary = glossaries[FormMt.comboBoxGlossaries.Text];
+                return (string)glossary.to;
+            }
+        }
 
-		#endregion Properties
+        public string SelectedGlossaryFrom
+        {
+            get
+            {
+                if (!isList || CurrentGlossary == null)
+                    return null;
+                dynamic glossary = glossaries[FormMt.comboBoxGlossaries.Text];
+                return (string)glossary.from;
+            }
+        }
+
+        #endregion Properties
 
         private void Clear(bool clearTextBox = true, bool clearComboBox = true)
-		{
-			_internalControlChange = true;
-			if (clearComboBox) FormMt.comboBoxGlossaries.Items.Clear();
-			if (clearTextBox) FormMt.textBoxGlossary.Text = string.Empty;
-			_internalControlChange = false;
-		}
+        {
+            _internalControlChange = true;
+            if (clearComboBox) FormMt.comboBoxGlossaries.Items.Clear();
+            if (clearTextBox) FormMt.textBoxGlossary.Text = string.Empty;
+            _internalControlChange = false;
+        }
 
 
-		private void FillGlossaryControls()
+        private void FillGlossaryControls()
         {
             if (!authState.IsOk)
                 return;
 
 
             if (!providerState.CustomGlossary)
-            {   // glossaries are not supported by provider
+            {
+                // glossaries are not supported by provider
                 mode = StateModeEnum.Prohibited;
                 FormMt.groupBoxGlossary.Enabled = false;
-				Clear();
-				return;
+                Clear();
+                return;
             }
 
             mode = StateModeEnum.Optional;
@@ -209,9 +214,9 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
             if (isList)
             {
-				Clear();
-				// Fill Glossary and choose SelectedIndex
-				FormMt.comboBoxGlossaries.Items.Insert(0, "");
+                Clear();
+                // Fill Glossary and choose SelectedIndex
+                FormMt.comboBoxGlossaries.Items.Insert(0, "");
                 foreach (var x in glossaries.Select(x => x.Key).OrderBy(x => x))
                 {
                     var n = FormMt.comboBoxGlossaries.Items.Add(x);
@@ -220,12 +225,13 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                         FormMt.comboBoxGlossaries.SelectedIndex = n;
                     }
                 }
+
                 FormMt.comboBoxGlossaries.Visible = true;
             }
             else
             {
-				Clear(false);
-				FormMt.textBoxGlossary.Text = Options.Glossary;
+                Clear(false);
+                FormMt.textBoxGlossary.Text = Options.Glossary;
                 FormMt.textBoxGlossary.Visible = true;
             }
         }
@@ -243,7 +249,6 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 var mData = (state.glossaries?.Select(x => x.Value) ?? new NativeGlossary[0])
                     .FirstOrDefault(y => y.Id == state.Glossary);
                 options.GlossaryName = mData != null ? mData.Name : state.Glossary;
-
             }
         }
 
@@ -254,6 +259,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         }
 
         private bool readDone;
+
         private void ReadGlossaries()
         {
             if (readDone)
@@ -262,8 +268,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
             try
             {
-                var providerGlossariesRec = Form.TestGlossaryData ?? TranslateService.Glossaries(
-                    providerState.CurrentProviderId, 
+                var providerGlossariesRec = TranslateService.Glossaries(
+                    providerState.CurrentProviderId,
                     authState.UseCustomAuth ? authState.ProviderDataAuthDict : null);
                 glossaries = new Dictionary<string, NativeGlossary>();
                 if (providerGlossariesRec != null && providerGlossariesRec.Any())
@@ -284,9 +290,11 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 isList = false;
             }
         }
-        
-        private static Dictionary<string, NativeGlossary> ProcessNativeGlossaries(ProviderState providerState, IEnumerable<NativeGlossary> raw)
-        {   // check for name duplicates and provide special naming for duplicates
+
+        private static Dictionary<string, NativeGlossary> ProcessNativeGlossaries(ProviderState providerState,
+            IEnumerable<NativeGlossary> raw)
+        {
+            // check for name duplicates and provide special naming for duplicates
             var data = new Dictionary<string, List<NativeGlossary>>();
             foreach (var item in raw)
             {
@@ -306,14 +314,16 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 {
                     foreach (var item in pair.Value)
                     {
-                        var name = MakeNativeGlossaryName(item, true, providerState.CurrentProviderId.Contains("google"));
+                        var name = MakeNativeGlossaryName(item, true,
+                            providerState.CurrentProviderId.Contains("google"));
                         res[name] = item;
                     }
                 }
             }
+
             return res;
         }
-        
+
         private static string MakeNativeGlossaryName(NativeGlossary model, bool longName = false, bool isGoogle = false)
         {
             var name = model.Name;
@@ -353,12 +363,13 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 FillOptions(this, Options);
             }
-			EnableDisable();
-		}
 
-		#endregion Events
+            EnableDisable();
+        }
 
-		#region methods for managing a group of controls
+        #endregion Events
+
+        #region methods for managing a group of controls
 
         private static void GlossaryGroupBoxDisable(IntentoFormOptionsMT formMt)
         {
@@ -370,6 +381,5 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         }
 
         #endregion methods for managing a group of controls
-
     }
 }

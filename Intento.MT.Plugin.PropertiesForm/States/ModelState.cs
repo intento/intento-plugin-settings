@@ -20,7 +20,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         private bool isList;
 
         private bool firstTimeDraw = true;
-        
+
         // Indicator of change of control status from the inside
         // in this case no change event call is required
         public static bool InternalControlChange { get; set; }
@@ -51,6 +51,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 return state.Draw();
             }
+
             ModelGroupEnabled(form.FormMt, false);
             return null;
         }
@@ -113,6 +114,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     {
                         return null;
                     }
+
                     var baseLang = lang.Substring(0, index);
                     return dict.TryGetValue(baseLang, out var bLang) ? bLang : null;
             }
@@ -150,8 +152,9 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         {
             get
             {
-                return ModelName != null && FormMt.comboBoxTo.SelectedIndex != -1 ?
-                    authState.ProviderState.ToLanguages.First(x => x.Value == FormMt.comboBoxTo.Text).Key : "es";
+                return ModelName != null && FormMt.comboBoxTo.SelectedIndex != -1
+                    ? authState.ProviderState.ToLanguages.First(x => x.Value == FormMt.comboBoxTo.Text).Key
+                    : "es";
             }
         }
 
@@ -159,43 +162,44 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         {
             get
             {
-                return ModelName != null && FormMt.comboBoxFrom.SelectedIndex != -1 ?
-                    authState.ProviderState.FromLanguages.First(x => x.Value == FormMt.comboBoxFrom.Text).Key : "en";
+                return ModelName != null && FormMt.comboBoxFrom.SelectedIndex != -1
+                    ? authState.ProviderState.FromLanguages.First(x => x.Value == FormMt.comboBoxFrom.Text).Key
+                    : "en";
             }
         }
 
-		public string SelectedModelTo
-		{
-			get
-			{
+        public string SelectedModelTo
+        {
+            get
+            {
                 if (!UseModel || !isList || ModelName == null)
                 {
                     return null;
                 }
 
-                var model =models[FormMt.comboBoxModels.Text];
-				return model.To;
-			}
-		}
-		public string SelectedModelFrom
-		{
-			get
-			{
-				if (!UseModel || !isList || ModelName == null)
-					return null;
-				var model = models[FormMt.comboBoxModels.Text];
-				return model.From;
-			}
-		}
+                var model = models[FormMt.comboBoxModels.Text];
+                return model.To;
+            }
+        }
+
+        public string SelectedModelFrom
+        {
+            get
+            {
+                if (!UseModel || !isList || ModelName == null)
+                    return null;
+                var model = models[FormMt.comboBoxModels.Text];
+                return model.From;
+            }
+        }
 
 
-
-		public bool UseModel => FormMt.checkBoxUseCustomModel.Checked;
+        public bool UseModel => FormMt.checkBoxUseCustomModel.Checked;
 
         #endregion Properties
 
         private void FillModelControls()
-        {   
+        {
             // Fill combo or text box depending on provider features
             if (!authState.IsOk)
             {
@@ -214,8 +218,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             if (modelMode == StateModeEnum.Prohibited)
             {
                 ModelGroupEnabled(FormMt, false);
-				Clear();
-				return;
+                Clear();
+                return;
             }
 
             ReadModels();
@@ -226,8 +230,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
             if (isList)
             {
-				Clear();
-				if (modelMode == StateModeEnum.Required)
+                Clear();
+                if (modelMode == StateModeEnum.Required)
                 {
                     Internal_Change_checkBoxUseCustomModel_Checked(FormMt, true);
                     FormMt.checkBoxUseCustomModel.Enabled = false;
@@ -236,6 +240,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 {
                     Internal_Change_checkBoxUseCustomModel_Checked(FormMt, Options.UseCustomModel);
                 }
+
                 FormMt.comboBoxModels.Visible = UseModel;
                 FormMt.textBoxModel.Visible = false;
 
@@ -260,7 +265,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 }
             }
             else
-            {   // Text box to enter model
+            {
+                // Text box to enter model
                 FormMt.textBoxModel.Visible = UseModel;
                 FormMt.comboBoxModels.Visible = false;
 
@@ -274,12 +280,12 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     FormMt.checkBoxUseCustomModel.Enabled = false;
                     Internal_Change_checkBoxUseCustomModel_Checked(FormMt, true);
                 }
-				if (Options.UseCustomModel)
-					FormMt.textBoxModel.Text = Options.CustomModel;
-				else
-					Clear(false);
 
-			}
+                if (Options.UseCustomModel)
+                    FormMt.textBoxModel.Text = Options.CustomModel;
+                else
+                    Clear(false);
+            }
         }
 
         public static void FillOptions(ModelState state, IntentoMTFormOptions options)
@@ -304,7 +310,6 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 options.CustomModelName = mData != null ? mData.Name : state.ModelName;
                 options.FromLanguage = options.CustomModelName == null || !options.UseCustomModel ? null : state.From;
                 options.ToLanguage = options.CustomModelName == null || !options.UseCustomModel ? null : state.To;
-
             }
         }
 
@@ -331,8 +336,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             models = new Dictionary<string, Model>();
             try
             {
-                var providerModelsRec = Form.TestModelData ?? TranslateService.Models(
-                    authState.ProviderState.CurrentProviderId, 
+                var providerModelsRec = TranslateService.Models(
+                    authState.ProviderState.CurrentProviderId,
                     authState.UseCustomAuth ? authState.ProviderDataAuthDict : null);
                 if (providerModelsRec != null)
                 {
@@ -347,7 +352,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     isList = false;
                 }
             }
-            catch {
+            catch
+            {
                 isList = false;
             }
         }
@@ -363,6 +369,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 return;
             }
+
             Options.UseCustomModel = UseModel;
             EnableDisable();
         }
@@ -376,9 +383,10 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
             EnableDisable();
         }
-        
+
         private static Dictionary<string, Model> ProcessModels(ProviderState providerState, IEnumerable<Model> raw)
-        {   // check for name duplicates and provide special naming for duplicates
+        {
+            // check for name duplicates and provide special naming for duplicates
             var data = new Dictionary<string, List<Model>>();
             foreach (var item in raw)
             {
@@ -403,9 +411,10 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     }
                 }
             }
+
             return res;
         }
-        
+
         private static string MakeModelName(Model model, bool longName = false, bool isGoogle = false)
         {
             var name = model.Name;
@@ -449,10 +458,10 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         private void Clear(bool clearTextBox = true, bool clearComboBox = true)
         {
             InternalControlChange = true;
-			if (clearComboBox)
-				FormMt.comboBoxModels.Items.Clear();
-			if (clearTextBox)
-				FormMt.textBoxModel.Text = string.Empty;
+            if (clearComboBox)
+                FormMt.comboBoxModels.Items.Clear();
+            if (clearTextBox)
+                FormMt.textBoxModel.Text = string.Empty;
             InternalControlChange = false;
         }
 
@@ -493,6 +502,5 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         }
 
         #endregion methods for managing a group of controls
-
     }
 }
