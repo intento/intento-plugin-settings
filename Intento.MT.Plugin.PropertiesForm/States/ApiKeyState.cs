@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using Intento.MT.Plugin.PropertiesForm.Services;
 using Intento.MT.Plugin.PropertiesForm.WinForms;
-using Intento.SDK;
+using Intento.SDK.Autofac;
 using Intento.SDK.DI;
 using Intento.SDK.Exceptions;
 using Intento.SDK.Settings;

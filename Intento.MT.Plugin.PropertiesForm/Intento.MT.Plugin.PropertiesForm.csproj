@@ -153,7 +153,8 @@
     <None Include="Resources\intento.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Intento.SDK" Version="2.0.29-beta" />
+    <PackageReference Include="Intento.SDK" Version="2.0.31-beta" />
+    <PackageReference Include="Intento.SDK.Autofac" Version="2.0.31-beta" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

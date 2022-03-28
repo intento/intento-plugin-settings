@@ -1,4 +1,5 @@
-﻿using Intento.MT.Plugin.PropertiesForm.Services;
+﻿using System.Collections.Generic;
+using Intento.MT.Plugin.PropertiesForm.Services;
 using Intento.SDK.DI;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,9 +8,10 @@ namespace Intento.MT.Plugin.PropertiesForm.DI
     [RegisterExtension]
     internal sealed class PropertiesFormContainerRegisterExtension: IContainerRegisterExtension
     {
-        public void Register(IServiceCollection services)
+        public IEnumerable<ServiceDescriptor> GetServices()
         {
-            services.AddSingleton<IRemoteLogService, RemoteLogService>();
+            yield return new ServiceDescriptor(typeof(IRemoteLogService), typeof(RemoteLogService),
+                ServiceLifetime.Singleton);
         }
     }
 }

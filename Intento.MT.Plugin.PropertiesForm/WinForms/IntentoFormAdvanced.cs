@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Net.Http;
 using System.Windows.Forms;
 using Intento.MT.Plugin.PropertiesForm.Services;
-using Intento.SDK;
+using Intento.SDK.Autofac;
 using Intento.SDK.DI;
 using Intento.SDK.Settings;
 using Intento.SDK.Translate;
