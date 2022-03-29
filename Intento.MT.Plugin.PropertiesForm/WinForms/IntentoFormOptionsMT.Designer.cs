@@ -708,7 +708,7 @@
             this.textBoxLabelURL.Size = new System.Drawing.Size(271, 13);
             this.textBoxLabelURL.TabIndex = 37;
             this.textBoxLabelURL.TabStop = true;
-            this.textBoxLabelURL.Tag = "https://try.inten.to/mt_report_2020";
+            this.textBoxLabelURL.Tag = "https://try.inten.to/machine-translation-report-2021";
             this.textBoxLabelURL.Text = "the Intento Benchmarks.";
             this.textBoxLabelURL.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             // 
