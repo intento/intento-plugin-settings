@@ -165,8 +165,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 if (!isList || CurrentGlossary == null)
                     return null;
-                dynamic glossary = glossaries[FormMt.comboBoxGlossaries.Text];
-                return (string)glossary.to;
+                var glossary = glossaries[FormMt.comboBoxGlossaries.Text];
+                return glossary.To;
             }
         }
 
@@ -176,8 +176,8 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 if (!isList || CurrentGlossary == null)
                     return null;
-                dynamic glossary = glossaries[FormMt.comboBoxGlossaries.Text];
-                return (string)glossary.from;
+                var glossary = glossaries[FormMt.comboBoxGlossaries.Text];
+                return glossary.From;
             }
         }
 

@@ -319,19 +319,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
         #endregion Work with local registry
 
-        private string CustomAuthJsonToString(string authJsonString)
-        {
-            var ret = String.Empty;
-            if (IsValidJson(authJsonString) == null)
-            {
-                var js = JToken.Parse(authJsonString);
-                ret = js.Cast<dynamic>().Aggregate(ret,
-                    (current, val) => current + string.Format((string)"{0}:{1} ", (object)val.Name, (object)val.Value));
-            }
-
-            return ret;
-        }
-
         private string IsValidJson(string strInput)
         {
             strInput = string.IsNullOrEmpty(strInput) ? string.Empty : strInput.Trim();
@@ -352,16 +339,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             }
 
             return result;
-        }
-
-        private bool FilterBy(dynamic x, string lang)
-        {
-            if (x == null) return true;
-            if (x.GetType().Name == "JArray")
-                return ((JArray)x).Any(q => (string)q == lang);
-            if (x.GetType().Name == "JValue")
-                return (string)x == lang;
-            return true;
         }
 
         #region events
