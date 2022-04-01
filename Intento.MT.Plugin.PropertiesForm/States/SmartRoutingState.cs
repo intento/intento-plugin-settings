@@ -3,7 +3,6 @@ using System.Linq;
 using Intento.MT.Plugin.PropertiesForm.Models;
 using Intento.MT.Plugin.PropertiesForm.WinForms;
 using Intento.SDK.Translate.DTO;
-using static Intento.MT.Plugin.PropertiesForm.WinForms.IntentoTranslationProviderOptionsForm;
 
 namespace Intento.MT.Plugin.PropertiesForm.States
 {
@@ -79,7 +78,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 			EnableDisable();
 		}
 
-		private static bool IsOK => true;
+		private static bool IsOk => true;
 
 		public bool SmartRouting => Routing != "";
 
@@ -110,7 +109,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
 		private void CreateChildStates()
 		{
-			if (IsOK)
+			if (IsOk)
 			{
 				ProviderState = new ProviderState(this, Options);
 				if (!SmartRouting) return;

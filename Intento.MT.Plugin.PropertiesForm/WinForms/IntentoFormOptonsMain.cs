@@ -8,7 +8,6 @@ using Intento.MT.Plugin.PropertiesForm.States;
 using Intento.SDK;
 using Intento.SDK.DI;
 using Intento.SDK.Settings;
-using Intento.SDK.Translate.DTO;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -229,6 +228,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                         try
                         {
                             var glossariesArray = JArray.Parse(glossariesVal);
+                            // ReSharper disable once SuspiciousTypeConversion.Global
                             ret.IntentoGlossaries = glossariesArray.Cast<int>().ToArray();
                         }
                         catch (Exception e)
@@ -318,28 +318,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         }
 
         #endregion Work with local registry
-
-        private string IsValidJson(string strInput)
-        {
-            strInput = string.IsNullOrEmpty(strInput) ? string.Empty : strInput.Trim();
-            var result = "Invalid json for own authorization parameters";
-            if (strInput.StartsWith("{") && strInput.EndsWith("}") || //For object
-                strInput.StartsWith("[") && strInput.EndsWith("]")) //For array
-            {
-                try
-                {
-                    var obj = JToken.Parse(strInput);
-                    if (obj.HasValues)
-                        result = null;
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-
-            return result;
-        }
 
         #region events
 
@@ -536,6 +514,8 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             }
         }
 
+        /// <inheritdoc />
+        // ReSharper disable once InconsistentNaming
         public class CursorFormMT : IDisposable
         {
             private readonly IntentoFormOptionsMT form;

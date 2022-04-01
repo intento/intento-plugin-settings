@@ -27,7 +27,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         // Controlled components
         public SmartRoutingState SmartRoutingState { get; set; }
 
-        public EApiKeyStatus ApiKeyStatus { get; private set; } = EApiKeyStatus.start;
+        public EApiKeyStatus ApiKeyStatus { get; private set; } = EApiKeyStatus.Start;
 
         // Routing table query result
         public IList<Routing> Routings { get; private set; }
@@ -67,7 +67,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
             switch (ApiKeyStatus)
             {
-                case EApiKeyStatus.start:
+                case EApiKeyStatus.Start:
                     if (string.IsNullOrEmpty(ApiKey))
                     {
                         Form.FormApi.apiKey_tb.Enabled = true;
@@ -85,25 +85,25 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
                     break;
 
-                case EApiKeyStatus.download:
+                case EApiKeyStatus.Download:
                     Form.FormApi.apiKey_tb.Enabled = false;
                     Form.FormApi.apiKey_tb.BackColor = SystemColors.Window;
                     // "API key verification in progress ...."
                     errorReason = Resource.ApiKeyVerificationInProgressMessage;
                     break;
 
-                case EApiKeyStatus.ok:
+                case EApiKeyStatus.Ok:
                     Form.FormApi.apiKey_tb.Enabled = true;
                     Form.FormApi.apiKey_tb.BackColor = SystemColors.Window;
                     errorReason = null;
                     break;
 
-                case EApiKeyStatus.error:
+                case EApiKeyStatus.Error:
                     Form.FormApi.apiKey_tb.Enabled = true;
                     Form.FormApi.apiKey_tb.BackColor = Color.LightPink;
                     break;
 
-                case EApiKeyStatus.changed:
+                case EApiKeyStatus.Changed:
                     Form.FormApi.apiKey_tb.Enabled = true;
                     Form.FormApi.apiKey_tb.BackColor = Color.LightPink;
                     if (string.IsNullOrEmpty(ApiKey))
@@ -135,7 +135,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             }
 
             ApiKey = apiKey;
-            ChangeStatus(EApiKeyStatus.changed);
+            ChangeStatus(EApiKeyStatus.Changed);
         }
 
         public string Error()
@@ -166,7 +166,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 if (string.IsNullOrEmpty(ApiKey))
                 {
-                    ChangeStatus(EApiKeyStatus.changed);
+                    ChangeStatus(EApiKeyStatus.Changed);
                     EnableDisable();
                     return;
                 }
@@ -176,7 +176,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     Providers = null;
                     errorReason = null;
 
-                    ChangeStatus(EApiKeyStatus.download);
+                    ChangeStatus(EApiKeyStatus.Download);
 
                     Providers = TranslateService.Providers(
                             filter: new Dictionary<string, string>
@@ -188,7 +188,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     var additionalParams = new Dictionary<string, string> { { "pairs", "true" } };
                     Routings = TranslateService.Routing(additionalParams).ToList();
                     // SmartRoutingState created inside
-                    ChangeStatus(EApiKeyStatus.ok);
+                    ChangeStatus(EApiKeyStatus.Ok);
                 }
                 catch (AggregateException ex2)
                 {
@@ -205,7 +205,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     };
 
                     // SmartRoutingState not created inside because status is not ok
-                    ChangeStatus(EApiKeyStatus.error);
+                    ChangeStatus(EApiKeyStatus.Error);
                     errorDetail = RemoteLogService.LoggingEx(ex2);
                 }
                 finally
@@ -223,7 +223,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         private void ChangeStatus(EApiKeyStatus status)
         {
             ApiKeyStatus = status;
-            if (ApiKeyStatus == EApiKeyStatus.download)
+            if (ApiKeyStatus == EApiKeyStatus.Download)
             {
                 CreateIntentoConnection(Options.ProxySettings);
             }
@@ -235,10 +235,11 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
         public IList<Provider> Providers { get; private set; }
 
-        private bool CheckPossible => ApiKeyStatus == EApiKeyStatus.changed && !string.IsNullOrEmpty(ApiKey);
+        private bool CheckPossible => ApiKeyStatus == EApiKeyStatus.Changed && !string.IsNullOrEmpty(ApiKey);
 
-        public bool IsOk => ApiKeyStatus == EApiKeyStatus.ok;
+        public bool IsOk => ApiKeyStatus == EApiKeyStatus.Ok;
 
+        // ReSharper disable once ParameterHidesMember
         public void FillOptions(IntentoMTFormOptions options)
         {
             options.ApiKey = ApiKey;

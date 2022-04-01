@@ -137,7 +137,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             }
         }
 
-        private bool readDone = false;
+        private bool readDone;
 
         private void ReadGlossaries()
         {

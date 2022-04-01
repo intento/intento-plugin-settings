@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Intento.MT.Plugin.PropertiesForm.Services;
-using Intento.SDK.DI;
 using Intento.SDK.Settings;
-using Newtonsoft.Json.Linq;
 
 namespace Intento.MT.Plugin.PropertiesForm
 {
@@ -12,6 +9,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 	/// Used to store plugin settings. The application provides the previously saved settings as an instance of the class. 
 	/// After changing the settings, they are saved to an instance of this class and, thus, passed to the application
 	/// </summary>
+	// ReSharper disable once InconsistentNaming
 	public partial class IntentoMTFormOptions
 	{
 
@@ -216,6 +214,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 		private IDictionary<string, string> authDict;
 
+		// ReSharper disable once ParameterHidesMember
 		public void SetAuthDict(Dictionary<string, string> authDict)
 		{
 			if (authDict == null)

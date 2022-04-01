@@ -4,11 +4,11 @@
     {
         public enum EApiKeyStatus
         {
-            start,          // just after start of plugin
-            download,       // during download list of providers
-            changed,        // apikey was changed recently and was not checked
-            ok,             // apikey checked
-            error           // apikey check error
+            Start,          // just after start of plugin
+            Download,       // during download list of providers
+            Changed,        // apikey was changed recently and was not checked
+            Ok,             // apikey checked
+            Error           // apikey check error
         };
     }
 }

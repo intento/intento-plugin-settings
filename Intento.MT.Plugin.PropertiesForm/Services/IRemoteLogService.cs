@@ -2,6 +2,9 @@
 
 namespace Intento.MT.Plugin.PropertiesForm.Services
 {
+    /// <summary>
+    /// Service for writing logs
+    /// </summary>
     public interface IRemoteLogService
     {
         /// <summary>

@@ -23,6 +23,7 @@ namespace Intento.MT.Plugin.PropertiesForm.Services
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="telemetryService"></param>
+        // ReSharper disable once SuggestBaseTypeForParameterInConstructor
         public RemoteLogService(ILogger<RemoteLogService> logger, ITelemetryService telemetryService)
         {
             this.logger = logger;
@@ -42,11 +43,6 @@ namespace Intento.MT.Plugin.PropertiesForm.Services
         private readonly ILogger logger;
 
         /// <summary>
-        /// Url to post logs
-        /// </summary>
-        private const string Url = "https://api.inten.to/telemetry/upload_json";
-
-        /// <summary>
         /// Limiting the request rate, ms
         /// </summary>
         const int SleepTime = 5000;
@@ -59,6 +55,7 @@ namespace Intento.MT.Plugin.PropertiesForm.Services
         /// <summary>
         /// A stream instance that checks the data queue and sends it to the cloud
         /// </summary>
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly Timer sender;
 
         /// <summary>
@@ -78,16 +75,16 @@ namespace Intento.MT.Plugin.PropertiesForm.Services
         /// <summary>
         /// Data queue
         /// </summary>
-        private ConcurrentQueue<KeyValuePair<char, string>> queue = new();
+        private readonly ConcurrentQueue<KeyValuePair<char, string>> queue = new();
 
         /// <summary>
         /// <inheritdoc />
         /// </summary>
-        public void SetTraceEndTime(DateTime traceEndTime)
+        public void SetTraceEndTime(DateTime time)
         {
             lock (syncObject)
             {
-                this.traceEndTime = traceEndTime;
+                traceEndTime = time;
             }
         }
 
@@ -105,6 +102,7 @@ namespace Intento.MT.Plugin.PropertiesForm.Services
         /// <summary>
         /// <inheritdoc />
         /// </summary>
+        // ReSharper disable once ParameterHidesMember
         public void Init(string pluginName)
         {
             lock (syncObject)
@@ -122,22 +120,19 @@ namespace Intento.MT.Plugin.PropertiesForm.Services
                 ? $"Software\\Intento\\{pluginId}"
                 : "Software\\Intento");
 
-            if (key != null)
+            var loggingReg = (string)key?.GetValue("Logging", null);
+            if (loggingReg != null)
             {
-                var loggingReg = (string)key.GetValue("Logging", null);
-                if (loggingReg != null)
-                {
-                    loggingReg = loggingReg.ToLower();
-                    if (loggingReg == "1" || loggingReg == "true")
-                        return true;
-                }
+                loggingReg = loggingReg.ToLower();
+                if (loggingReg is "1" or "true")
+                    return true;
             }
 
             var loggingEnv = Environment.GetEnvironmentVariable("intento_plugin_logging");
             if (loggingEnv != null)
             {
                 loggingEnv = loggingEnv.ToLower();
-                if (loggingEnv == "1" || loggingEnv == "true")
+                if (loggingEnv is "1" or "true")
                     return true;
             }
 
@@ -149,15 +144,14 @@ namespace Intento.MT.Plugin.PropertiesForm.Services
         /// </summary>
         public bool IsLogging(string pluginId = null)
         {
-            string env = Environment.GetEnvironmentVariable("intento_plugin_logging");
-            if (env != null)
+            var env = Environment.GetEnvironmentVariable("intento_plugin_logging");
+            if (env == null)
             {
-                env = env.ToLower();
-                if (env == "1" || env == "true")
-                    return true;
+                return IsTrace(pluginId);
             }
 
-            return IsTrace(pluginId);
+            env = env.ToLower();
+            return env is "1" or "true" || IsTrace(pluginId);
         }
 
         /// <summary>
@@ -257,7 +251,7 @@ namespace Intento.MT.Plugin.PropertiesForm.Services
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, "Can't send log to telemetry API: {0}", JsonConvert.SerializeObject(data));
+                    logger.LogError(ex, "Can't send log to telemetry API: {Error}", JsonConvert.SerializeObject(data));
                 }
             }
         }

@@ -1,5 +1,6 @@
 ﻿namespace Intento.MT.Plugin.PropertiesForm
 {
+    // ReSharper disable once InconsistentNaming
     public partial class IntentoMTFormOptions
     {
         public enum StateModeEnum

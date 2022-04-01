@@ -14,6 +14,8 @@ using static Intento.MT.Plugin.PropertiesForm.WinForms.IntentoTranslationProvide
 
 namespace Intento.MT.Plugin.PropertiesForm.WinForms
 {
+    /// <inheritdoc />
+    // ReSharper disable once InconsistentNaming
     public partial class IntentoFormOptionsMT : Form
     {
         private Dictionary<string, string> routingTable;
@@ -265,7 +267,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
         private void helpLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var tag = (sender as Control).Tag.ToString();
+            var tag = (sender as Control)?.Tag.ToString();
             switch (tag)
             {
                 case "account":

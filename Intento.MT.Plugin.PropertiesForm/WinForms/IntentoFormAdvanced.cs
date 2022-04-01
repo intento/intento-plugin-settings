@@ -132,7 +132,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         {
             try
             {
+                // ReSharper disable once UnusedVariable
                 var port = int.Parse(textBoxPort.Text);
+                // ReSharper disable once UnusedVariable
                 var uri = new Uri($"http://{textBoxAddress.Text}:{textBoxPort.Text}");
             }
             catch

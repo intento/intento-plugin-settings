@@ -39,8 +39,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         /// </summary>
         /// <param name="providerState"></param>
         /// <param name="options"></param>
-        /// <param name="fromForm">Call from event, change of form check box may result recourcing</param>
-        public AuthState(ProviderState providerState, IntentoMTFormOptions options, bool fromForm = false) : base(
+        public AuthState(ProviderState providerState, IntentoMTFormOptions options) : base(
             providerState, options)
         {
             ProviderState = providerState;
@@ -207,6 +206,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
             FormMt.comboBoxCredentialId.Visible = true;
             var accounts = TranslateService.Accounts(ProviderState.CurrentProviderId);
+            // ReSharper disable once CoVariantArrayConversion
             сonnectedAccounts = accounts.Select(q => new ListItem
             {
                 DisplayName = q.CredentialId,

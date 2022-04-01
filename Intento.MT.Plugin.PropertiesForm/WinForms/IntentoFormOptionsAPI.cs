@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -7,7 +6,9 @@ using Intento.MT.Plugin.PropertiesForm.States;
 
 namespace Intento.MT.Plugin.PropertiesForm.WinForms
 {
-    public partial class IntentoFormOptionsAPI : Form
+	/// <inheritdoc />
+	// ReSharper disable once InconsistentNaming
+	public partial class IntentoFormOptionsAPI : Form
     {
         private readonly IntentoTranslationProviderOptionsForm parent;
         private IntentoMTFormOptions options;
@@ -53,7 +54,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			if (!string.IsNullOrWhiteSpace(err))
 			{
 				var errorMsg = err == Resource.InvalidApiKeyMessage ? err : Resource.APIFlabelErrorSeePopup;
-				labelError.Text = $"ERROR: {errorMsg}"; 
+				labelError.Text = $@"ERROR: {errorMsg}"; 
 				labelError.Visible = true;
 				if (errDetail != null)
 				{
@@ -93,7 +94,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             buttonSave.Enabled = !string.IsNullOrWhiteSpace(apiKey_tb.Text);
             checkBoxShowHidden.Checked = false;
 			apiKey_tb.Text = parent.ApiKeyState.ApiKey;
-			apiKey_tb.BackColor = parent.ApiKeyState.ApiKeyStatus == ApiKeyState.EApiKeyStatus.ok ?
+			apiKey_tb.BackColor = parent.ApiKeyState.ApiKeyStatus == ApiKeyState.EApiKeyStatus.Ok ?
 				SystemColors.Window : Color.LightPink;
 			apiKey_tb.TextChanged += apiKey_tb_TextChanged;
 		}

@@ -67,7 +67,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                             FormMt.textBoxGlossary.Visible = true;
                             FormMt.comboBoxGlossaries.Visible = false;
                             FormMt.textBoxGlossary.Enabled = false;
-                            FormMt.textBoxGlossary.Text = "No glossaries available";
+                            FormMt.textBoxGlossary.Text = @"No glossaries available";
                         }
                         else
                         {
@@ -111,15 +111,11 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     case StateModeEnum.Optional:
                         if (isList)
                         {
-                            if (string.IsNullOrEmpty(FormMt.comboBoxGlossaries.Text))
-                                return null;
-                            return (string)glossaries[FormMt.comboBoxGlossaries.Text].Id;
+                            return string.IsNullOrEmpty(FormMt.comboBoxGlossaries.Text) ? null : glossaries[FormMt.comboBoxGlossaries.Text].Id;
                         }
                         else
                         {
-                            if (string.IsNullOrEmpty(FormMt.textBoxGlossary.Text))
-                                return null;
-                            return FormMt.textBoxGlossary.Text;
+                            return string.IsNullOrEmpty(FormMt.textBoxGlossary.Text) ? null : FormMt.textBoxGlossary.Text;
                         }
 
                     case StateModeEnum.Unknown:

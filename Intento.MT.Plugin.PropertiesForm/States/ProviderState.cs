@@ -63,6 +63,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             var items = providersNames.Keys.OrderBy(x => x).ToArray();
 
             FormMt.comboBoxProviders.Items.Clear();
+            // ReSharper disable once CoVariantArrayConversion
             FormMt.comboBoxProviders.Items.AddRange(items);
 
             if (!string.IsNullOrEmpty(CurrentProviderId) &&
@@ -86,7 +87,6 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         {
             providerData = null;
             Billable = false;
-            ;
             StockModel = false;
             OwnAuth = false;
             CustomModel = false;
@@ -237,15 +237,9 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     currentProviderName = providerData.Name;
                     ExtractProviderData();
                 }
-                else
-                {
-                    // Selected same provider as was selected before. No changes in settings
-                }
             }
 
             EnableDisable();
-
-            return;
         }
 
         public AuthState GetAuthState()
@@ -378,6 +372,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             }
             catch
             {
+                // ignored
             }
 
             return $"[{code}]";
@@ -385,14 +380,22 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
         #region methods for managing a group of controls
 
-        void Language_Comboboxes_Fill(Dictionary<string, string> from, Dictionary<string, string> to)
+        private void Language_Comboboxes_Fill(Dictionary<string, string> from, Dictionary<string, string> to)
         {
             FormMt.comboBoxFrom.Items.Clear();
             FormMt.comboBoxTo.Items.Clear();
             if (from != null)
+            {
+                // ReSharper disable once CoVariantArrayConversion
                 FormMt.comboBoxFrom.Items.AddRange(from.Select(x => x.Value).ToArray());
+            }
+
             if (to != null)
+            {
+                // ReSharper disable once CoVariantArrayConversion
                 FormMt.comboBoxTo.Items.AddRange(to.Select(x => x.Value).ToArray());
+            }
+
             SetLanguageComboBoxes(Options.FromLanguage, Options.ToLanguage);
         }
 
