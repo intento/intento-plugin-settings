@@ -204,7 +204,13 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                             new AuthProviderInfo
                             {
                                 Provider = testOptions.ProviderId,
-                                Key = new KeyInfo { Key = testOptions.CustomAuth }
+                                Key = new []
+                                {
+                                    new KeyInfo
+                                    {
+                                        CredentialId = testOptions.AuthDict()["credential_id"]
+                                    }
+                                }
                             }
                         }
                         : null,

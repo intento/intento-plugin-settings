@@ -138,6 +138,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 else
                 {
                     ProviderAuthList = new List<string>();
+                    
                     /*foreach (var authField in providerData.Auth)
                             providerAuthList.Add((string)authField.Name);*/
                 }

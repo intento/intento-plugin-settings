@@ -77,6 +77,7 @@
     <Compile Include="States\ProvideAgnosticGlossaryState.cs" />
     <Compile Include="States\ProviderState.cs" />
     <Compile Include="States\SmartRoutingState.cs" />
+    <Compile Include="Utilities.cs" />
     <Compile Include="WinForms\IntentoFormIgnoreError.cs" />
     <Compile Include="WinForms\IntentoFormIgnoreError.Designer.cs">
       <DependentUpon>IntentoFormIgnoreError.cs</DependentUpon>
@@ -153,8 +154,8 @@
     <None Include="Resources\intento.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Intento.SDK" Version="2.0.33-beta" />
-    <PackageReference Include="Intento.SDK.Autofac" Version="2.0.33-beta" />
+    <PackageReference Include="Intento.SDK" Version="2.0.37-beta" />
+    <PackageReference Include="Intento.SDK.Autofac" Version="2.0.37-beta" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -270,7 +270,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 var providerGlossariesRec = TranslateService.Glossaries(
                     providerState.CurrentProviderId,
-                    authState.UseCustomAuth ? authState.ProviderDataAuthDict : null);
+                    authState.UseCustomAuth ? authState.ProviderDataAuthDict["credential_id"] : null);
                 glossaries = new Dictionary<string, NativeGlossary>();
                 if (providerGlossariesRec != null && providerGlossariesRec.Any())
                 {

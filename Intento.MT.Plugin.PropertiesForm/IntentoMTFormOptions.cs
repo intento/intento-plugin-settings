@@ -214,7 +214,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		/// </summary>
 		public bool Hidden { get; set; }
 
-		private Dictionary<string, string> _authDict;
+		private IDictionary<string, string> authDict;
 
 		public void SetAuthDict(Dictionary<string, string> authDict)
 		{
@@ -227,36 +227,14 @@ namespace Intento.MT.Plugin.PropertiesForm
 			}
 		}
 
-		public Dictionary<string, string> AuthDict()
+		public IDictionary<string, string> AuthDict()
 		{
-			if (_authDict != null)
+			if (authDict != null)
 			{
-				return _authDict;
+				return authDict;
 			}
-
-			if (string.IsNullOrWhiteSpace(CustomAuth))
-			{
-				return null;
-			}
-
-			try
-			{
-				dynamic credential = JToken.Parse(CustomAuth);
-				if (((JObject)credential).HasValues)
-				{
-					_authDict = new Dictionary<string, string>();
-					foreach (JProperty param in credential)
-					{
-						_authDict.Add(param.Name, (string)param.Value);
-					}
-					return _authDict;
-				}
-			}
-			catch
-			{
-				// ignored
-			}
-			return null;
+			authDict = CustomAuth?.AuthToDictionary();
+			return authDict;
 		}
 
 		public IntentoMTFormOptions Duplicate()
@@ -295,7 +273,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			res.SaveLocally = SaveLocally;
 			res.Routing = Routing;
 			res.RoutingDisplayName = RoutingDisplayName;
-			res._authDict = _authDict == null ? null : new Dictionary<string, string>(_authDict);
+			res.authDict = authDict == null ? null : new Dictionary<string, string>(authDict);
 			res.ConsoleUrl = ConsoleUrl;
 			res.ApiPath = ApiPath;
 			res.TmsApiPath = TmsApiPath;
