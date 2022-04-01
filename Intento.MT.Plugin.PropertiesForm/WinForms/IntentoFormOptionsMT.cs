@@ -224,6 +224,11 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
                 var result = TranslateService.Fulfill(translateOptions);
 
+                if (result.Error != null)
+                {
+                    return new ErrorInfo(true, result.Error.Message, result.Error.Message);
+                }
+
 
                 // Ordinary response of operations call (result of async request)
                 if (result.Results.Any(str => str == null || testResultString.All(x => x != str)))
