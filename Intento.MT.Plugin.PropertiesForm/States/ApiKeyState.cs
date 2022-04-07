@@ -225,7 +225,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             ApiKeyStatus = status;
             if (ApiKeyStatus == EApiKeyStatus.Download)
             {
-                CreateIntentoConnection(Options.ProxySettings);
+                CreateIntentoConnection(Options.ProxySettings, Options.UserAgent);
             }
             else
             {

@@ -192,7 +192,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             RemoteLogService.Write('F', "Test Translate start");
             try
             {
-                parent.ApiKeyState.CreateIntentoConnection(testOptions.ProxySettings, "Intento.CheckSettings");
+                parent.ApiKeyState.CreateIntentoConnection(testOptions.ProxySettings, testOptions.UserAgent );
                 var translateOptions = new TranslateOptions
                 {
                     Text = TestString,
