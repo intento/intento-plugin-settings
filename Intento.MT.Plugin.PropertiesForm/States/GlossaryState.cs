@@ -22,7 +22,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
         private static bool _internalControlChange;
 
-        private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
+        private ITranslateService TranslateService => Form.Locator?.Resolve<ITranslateService>();
 
         /// <summary>
         /// Ctor

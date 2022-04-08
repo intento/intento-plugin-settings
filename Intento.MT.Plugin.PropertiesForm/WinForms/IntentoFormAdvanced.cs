@@ -16,9 +16,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         private readonly IntentoTranslationProviderOptionsForm parent;
         private ProxySettings proxySettings;
         
-        private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
+        private ITranslateService TranslateService => parent.Locator?.Resolve<ITranslateService>();
 
-        private IRemoteLogService RemoteLogService => Locator.Resolve<IRemoteLogService>();
+        private IRemoteLogService RemoteLogService => parent.Locator?.Resolve<IRemoteLogService>();
 
         public IntentoFormAdvanced(IntentoTranslationProviderOptionsForm form)
         {
@@ -84,7 +84,8 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                     ProxyPassword = textBoxPassword.Text,
                     ProxyEnabled = true
                 };
-                IntentoClient.Init(new Options
+                parent.Locator = new DefaultLocatorImpl();
+                parent.Locator.Init(new Options
                 {
                     ApiKey = parent.CurrentOptions.ApiKey,
                     ClientUserAgent = "ProxyForm",

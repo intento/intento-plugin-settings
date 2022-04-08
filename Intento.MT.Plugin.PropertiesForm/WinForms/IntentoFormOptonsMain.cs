@@ -22,6 +22,8 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         public IntentoMTFormOptions OriginalOptions { get; }
         public IntentoMTFormOptions CurrentOptions { get; set; }
 
+        public ILocatorImpl Locator { get; set; }
+
         //private int numberOfFlashes;
 
         public ApiKeyState ApiKeyState { get; }
@@ -39,7 +41,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         private bool settingsIsSet;
         public bool InsideEnableDisable { get; set; }
         
-        private IRemoteLogService RemoteLogService => Locator.Resolve<IRemoteLogService>();
+        private IRemoteLogService RemoteLogService => this.Locator?.Resolve<IRemoteLogService>();
 
         // flags from app
         public bool IsTrados { get; }
@@ -51,8 +53,10 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
         public IntentoTranslationProviderOptionsForm(
             IntentoMTFormOptions options,
-            LangPair[] languagePairs)
+            LangPair[] languagePairs,
+            ILocatorImpl locator)
         {
+            Locator = locator;
             var hidden = options.Hidden;
             var splashForm = new IntentoFormSplash();
             if (!hidden)
@@ -183,7 +187,8 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         public IntentoTranslationProviderOptionsForm(
             IntentoMTFormOptions options,
             LangPair[] languagePairs,
-            bool insideEnableDisable) : this(options, languagePairs)
+            bool insideEnableDisable,
+            ILocatorImpl locator) : this(options, languagePairs, locator)
         {
             InsideEnableDisable = insideEnableDisable;
         }

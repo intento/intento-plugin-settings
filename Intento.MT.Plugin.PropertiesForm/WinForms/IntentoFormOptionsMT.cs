@@ -36,10 +36,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             }
         }
 
-        private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
-
-        private IRemoteLogService RemoteLogService => Locator.Resolve<IRemoteLogService>();
-
         private readonly IntentoTranslationProviderOptionsForm parent;
         private const string TestString = "14";
 
@@ -189,10 +185,13 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
         private ErrorInfo TestTranslationTask(IntentoMTFormOptions testOptions)
         {
-            RemoteLogService.Write('F', "Test Translate start");
+            var remoteLogService = parent.Locator.Resolve<IRemoteLogService>();
+            remoteLogService.Write('F', "Test Translate start");
             try
             {
-                parent.ApiKeyState.CreateIntentoConnection(testOptions.ProxySettings, testOptions.UserAgent );
+                var locator = parent.ApiKeyState.CreateIntentoConnection(testOptions.ProxySettings, testOptions.UserAgent );
+                var translateService = locator.Resolve<ITranslateService>();
+                
                 var translateOptions = new TranslateOptions
                 {
                     Text = TestString,
@@ -220,11 +219,11 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                     Glossary = testOptions.Glossary,
                     IntentoGlossary = testOptions.IntentoGlossaries,
                     WaitAsync = true,
-                    Trace = RemoteLogService.IsTrace()
+                    Trace = remoteLogService.IsTrace()
                 };
                 // Call test translate intent
-
-                var result = TranslateService.Fulfill(translateOptions);
+                
+                var result = translateService.Fulfill(translateOptions);
 
                 if (result.Error != null)
                 {
@@ -240,12 +239,12 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                 }
 
 
-                RemoteLogService.Write('F', "Test Translate finish");
+                remoteLogService.Write('F', "Test Translate finish");
                 return new ErrorInfo(true, null, null);
             }
             catch (AggregateException ex2)
             {
-                RemoteLogService.Write('F', "Test Translate error", ex: ex2);
+                remoteLogService.Write('F', "Test Translate error", ex: ex2);
                 return new ErrorInfo(false, Resource.ErrorTestTranslation, ex2.Message);
             }
         }

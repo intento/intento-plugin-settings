@@ -20,7 +20,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         private IEnumerable<string> errorDetail;
         private readonly IntentoMTFormOptions options;
 
-        private ITranslateService TranslateService => Locator.Resolve<ITranslateService>();
+        private ITranslateService TranslateService => Form.Locator?.Resolve<ITranslateService>();
 
         public string ApiKey { get; private set; }
 
@@ -143,9 +143,10 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             return errorReason;
         }
 
-        public void CreateIntentoConnection(ProxySettings proxySettings, string additionalUserAgent = null)
+        public ILocatorImpl CreateIntentoConnection(ProxySettings proxySettings, string additionalUserAgent = null)
         {
-            IntentoClient.Init(new Options
+            var impl = new DefaultLocatorImpl();
+            impl.Init(new Options
             {
                 ServerUrl = options.ApiPath,
                 TmsServerUrl = options.TmsApiPath,
@@ -153,6 +154,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 ClientUserAgent = $"Intento.PluginSettingsForm/{Form.Version} {additionalUserAgent}",
                 Proxy = proxySettings
             });
+            return impl;
         }
 
         public IEnumerable<string> ErrorDetail()
@@ -225,7 +227,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             ApiKeyStatus = status;
             if (ApiKeyStatus == EApiKeyStatus.Download)
             {
-                CreateIntentoConnection(Options.ProxySettings, Options.UserAgent);
+                Form.Locator = CreateIntentoConnection(Options.ProxySettings, Options.UserAgent);
             }
             else
             {
