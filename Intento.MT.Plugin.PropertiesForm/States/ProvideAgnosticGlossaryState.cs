@@ -16,7 +16,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         private IList<GlossaryDetailed> glossaries;
         private IList<AgnosticGlossaryType> types;
 
-        private ITranslateService TranslateService => Form.Locator?.Resolve<ITranslateService>();
+        private ITranslateService TranslateService => Form.Locator.Resolve<ITranslateService>();
 
         /// <summary>
         /// Ctor

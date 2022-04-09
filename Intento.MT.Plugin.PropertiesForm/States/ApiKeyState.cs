@@ -20,7 +20,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         private IEnumerable<string> errorDetail;
         private readonly IntentoMTFormOptions options;
 
-        private ITranslateService TranslateService => Form.Locator?.Resolve<ITranslateService>();
+        private ITranslateService TranslateService => Form.Locator.Resolve<ITranslateService>();
 
         public string ApiKey { get; private set; }
 

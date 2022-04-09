@@ -13,7 +13,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
     {
         public SmartRoutingState SmartRoutingState { get; }
 
-        private ITranslateService TranslateService => Form.Locator?.Resolve<ITranslateService>();
+        private ITranslateService TranslateService => Form.Locator.Resolve<ITranslateService>();
 
         // Controlled components
         private AuthState authState;

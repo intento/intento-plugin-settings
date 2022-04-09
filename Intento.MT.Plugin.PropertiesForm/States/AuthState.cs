@@ -32,7 +32,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         // current credentials StateModeEnum
         public Dictionary<string, string> ProviderDataAuthDict { get; }
 
-        private ITranslateService TranslateService => Form.Locator?.Resolve<ITranslateService>();
+        private ITranslateService TranslateService => Form.Locator.Resolve<ITranslateService>();
 
         /// <summary>
         /// 
