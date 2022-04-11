@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Intento.MT.Plugin.PropertiesForm.Services;
-using Intento.SDK.DI;
 using Intento.SDK.Translate;
 using Intento.SDK.Translate.Options;
 using static Intento.MT.Plugin.PropertiesForm.WinForms.IntentoTranslationProviderOptionsForm;
