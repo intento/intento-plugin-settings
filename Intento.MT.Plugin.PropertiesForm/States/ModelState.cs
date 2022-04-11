@@ -266,10 +266,6 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             }
             else
             {
-                // Text box to enter model
-                FormMt.textBoxModel.Visible = UseModel;
-                FormMt.comboBoxModels.Visible = false;
-
                 if (modelMode == StateModeEnum.Optional)
                 {
                     FormMt.checkBoxUseCustomModel.Enabled = true;
@@ -285,6 +281,10 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     FormMt.textBoxModel.Text = Options.CustomModel;
                 else
                     Clear(false);
+                
+                // Text box to enter model
+                FormMt.textBoxModel.Visible = UseModel;
+                FormMt.comboBoxModels.Visible = false;
             }
         }
 

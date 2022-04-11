@@ -121,7 +121,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                     case StateModeEnum.Unknown:
                     case StateModeEnum.Required:
                     default:
-                        throw new Exception($"Invalid mode {mode}");
+                        return null;
                 }
             }
         }
