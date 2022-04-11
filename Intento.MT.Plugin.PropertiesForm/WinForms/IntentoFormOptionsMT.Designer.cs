@@ -618,6 +618,7 @@
             this.textBoxLabelConnectAccount.Location = new System.Drawing.Point(0, 0);
             this.textBoxLabelConnectAccount.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxLabelConnectAccount.Name = "textBoxLabelConnectAccount";
+            this.textBoxLabelConnectAccount.ReadOnly = true;
             this.textBoxLabelConnectAccount.Size = new System.Drawing.Size(467, 13);
             this.textBoxLabelConnectAccount.TabIndex = 37;
             this.textBoxLabelConnectAccount.Tag = "https://console.inten.to/accounts";
