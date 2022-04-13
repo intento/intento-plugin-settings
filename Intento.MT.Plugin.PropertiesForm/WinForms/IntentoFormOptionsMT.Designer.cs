@@ -68,7 +68,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.labelHelpBillingAccount = new System.Windows.Forms.Label();
             this.panelConnectAccount = new System.Windows.Forms.Panel();
-            this.textBoxLabelConnectAccount = new System.Windows.Forms.TextBox();
+            this.textBoxLabelConnectAccount = new System.Windows.Forms.LinkLabel();
             this.comboBoxCredentialId = new System.Windows.Forms.ComboBox();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.groupBoxProvider = new System.Windows.Forms.GroupBox();
@@ -609,22 +609,23 @@
             // 
             // textBoxLabelConnectAccount
             // 
+            this.textBoxLabelConnectAccount.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.textBoxLabelConnectAccount.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxLabelConnectAccount.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBoxLabelConnectAccount.CausesValidation = false;
             this.textBoxLabelConnectAccount.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textBoxLabelConnectAccount.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBoxLabelConnectAccount.Enabled = false;
             this.textBoxLabelConnectAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxLabelConnectAccount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.textBoxLabelConnectAccount.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.textBoxLabelConnectAccount.Location = new System.Drawing.Point(0, 0);
             this.textBoxLabelConnectAccount.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxLabelConnectAccount.Name = "textBoxLabelConnectAccount";
-            this.textBoxLabelConnectAccount.ReadOnly = true;
             this.textBoxLabelConnectAccount.Size = new System.Drawing.Size(467, 13);
             this.textBoxLabelConnectAccount.TabIndex = 37;
+            this.textBoxLabelConnectAccount.TabStop = true;
             this.textBoxLabelConnectAccount.Tag = "https://console.inten.to/accounts";
             this.textBoxLabelConnectAccount.Text = "Connect your own account for this provider";
+            this.textBoxLabelConnectAccount.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             // 
             // comboBoxCredentialId
             // 
@@ -803,7 +804,6 @@
             this.groupBoxBillingAccount.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panelConnectAccount.ResumeLayout(false);
-            this.panelConnectAccount.PerformLayout();
             this.groupBoxProvider.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -845,7 +845,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label labelHelpBillingAccount;
         public System.Windows.Forms.Panel panelConnectAccount;
-        public System.Windows.Forms.TextBox textBoxLabelConnectAccount;
+        public System.Windows.Forms.LinkLabel textBoxLabelConnectAccount;
         public System.Windows.Forms.ComboBox comboBoxCredentialId;
         public System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.LinkLabel linkLabel3;
