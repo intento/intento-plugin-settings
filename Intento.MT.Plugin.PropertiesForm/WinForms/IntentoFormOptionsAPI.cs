@@ -13,7 +13,8 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         private readonly IntentoTranslationProviderOptionsForm parent;
         private IntentoMTFormOptions options;
 
-        public IntentoMTFormOptions currentOptions;
+        public IntentoMTFormOptions CurrentOptions { get; set; }
+        
         private string errorInfo;
 
         public IntentoFormOptionsAPI(IntentoTranslationProviderOptionsForm form)
@@ -39,7 +40,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-			Cursor = Cursors.WaitCursor;
+	        if (string.IsNullOrWhiteSpace(apiKey_tb.Text))
+	        {
+		        parent.ApiKeyState.SetValue(string.Empty);
+		        parent.ApiKeyState.ReadProvidersAndRouting();
+		        DialogResult = DialogResult.OK;
+		        return;
+	        }
+
+	        Cursor = Cursors.WaitCursor;
 			var testOptions = new IntentoMTFormOptions
 			{
 				Hidden = true
@@ -89,9 +98,8 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
         private void IntentoFormOptionsAPI_Shown(object sender, EventArgs e)
         {
-            options = currentOptions;
+            options = CurrentOptions;
             labelError.Visible = false;
-            buttonSave.Enabled = !string.IsNullOrWhiteSpace(apiKey_tb.Text);
             checkBoxShowHidden.Checked = false;
 			apiKey_tb.Text = parent.ApiKeyState.ApiKey;
 			apiKey_tb.BackColor = parent.ApiKeyState.ApiKeyStatus == ApiKeyState.EApiKeyStatus.Ok ?
@@ -114,7 +122,8 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
 		private void apiKey_tb_TextChanged(object sender, EventArgs e)
 		{
-			buttonSave.Enabled = !string.IsNullOrWhiteSpace(apiKey_tb.Text);
+			buttonSave.Enabled = true;
+			buttonSave.Text = string.IsNullOrWhiteSpace(apiKey_tb.Text) ? "Save" : "Test and save";
 			apiKey_tb.BackColor = Color.LightPink;
 		}
 

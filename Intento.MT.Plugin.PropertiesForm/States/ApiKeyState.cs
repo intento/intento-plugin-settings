@@ -168,7 +168,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
             {
                 if (string.IsNullOrEmpty(ApiKey))
                 {
-                    ChangeStatus(EApiKeyStatus.Changed);
+                    ChangeStatus(EApiKeyStatus.Ok);
                     EnableDisable();
                     return;
                 }
@@ -237,7 +237,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
         public IList<Provider> Providers { get; private set; }
 
-        private bool CheckPossible => ApiKeyStatus == EApiKeyStatus.Changed && !string.IsNullOrEmpty(ApiKey);
+        private bool CheckPossible => ApiKeyStatus == EApiKeyStatus.Changed;
 
         public bool IsOk => ApiKeyStatus == EApiKeyStatus.Ok;
 

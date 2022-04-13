@@ -367,8 +367,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
                 if (!CurrentOptions.ForbidSaveApikey)
                 {
-                    if (!string.IsNullOrEmpty(OriginalOptions.ApiKey))
-                        SaveValueToRegistry("ApiKey", OriginalOptions.ApiKey);
+                    SaveValueToRegistry("ApiKey", OriginalOptions.ApiKey);
                 }
 
                 SaveValueToRegistry("SaveLocally", OriginalOptions.SaveLocally);
@@ -441,9 +440,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         {
             settingsIsSet = false;
             var apiKey = ApiKeyState?.ApiKey;
-            FormApi.currentOptions = CurrentOptions;
+            FormApi.CurrentOptions = CurrentOptions;
             FormApi.ShowDialog();
-            if (ApiKeyState != null && FormApi.DialogResult == DialogResult.OK && ApiKeyState.IsOk &&
+            if (ApiKeyState != null && FormApi.DialogResult == DialogResult.OK && (ApiKeyState.IsOk || string.IsNullOrWhiteSpace(ApiKeyState.ApiKey)) &&
                 ApiKeyState.ApiKey != apiKey)
             {
                 settingsIsSet = true;
@@ -559,77 +558,87 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             buttonContinue.Enabled = false;
             labelApiKeyIsChanged.Visible = false;
             var tmpOptions = new IntentoMTFormOptions();
-            if (ApiKeyState != null)
+            if (ApiKeyState == null)
             {
-                ApiKeyState.FillOptions(tmpOptions);
-                if (smartRoutingState is { SmartRouting: true })
+                return;
+            }
+
+            ApiKeyState.FillOptions(tmpOptions);
+            if (smartRoutingState is { SmartRouting: true })
+            {
+                textBoxAccount.UseSystemPasswordChar = false;
+                textBoxProviderName.Text =
+                    string.Format(Resource.MFSmartRoutingText, smartRoutingState.RoutingDescription);
+                textBoxAccount.Text = Resource.MFNa;
+                textBoxModel.Text = Resource.MFNa;
+                textBoxGlossary.Text = Resource.MFNa;
+                buttonContinue.Enabled = true;
+                if (ApiKeyState.IsOk)
                 {
-                    textBoxAccount.UseSystemPasswordChar = false;
-                    textBoxProviderName.Text =
-                        string.Format(Resource.MFSmartRoutingText, smartRoutingState.RoutingDescription);
-                    textBoxAccount.Text = Resource.MFNa;
-                    textBoxModel.Text = Resource.MFNa;
-                    textBoxGlossary.Text = Resource.MFNa;
-                    buttonContinue.Enabled = true;
-                    if (ApiKeyState.IsOk)
-                        apiKey_tb.Text = ApiKeyState.ApiKey;
+                    apiKey_tb.Text = ApiKeyState.ApiKey;
+                }
+            }
+            else
+            {
+                if (ApiKeyState.IsOk)
+                {
+                    apiKey_tb.Text = ApiKeyState.ApiKey;
+                    if (string.IsNullOrEmpty(tmpOptions.ProviderId))
+                    {
+                        textBoxProviderName.Text = Resource.NeedAChoise;
+                        buttonContinue.Enabled = string.IsNullOrWhiteSpace(ApiKeyState.ApiKey);
+                    }
+                    else
+                    {
+                        textBoxProviderName.Text = tmpOptions.ProviderName;
+                        buttonContinue.Enabled = true;
+                    }
                 }
                 else
                 {
-                    if (ApiKeyState.IsOk)
-                    {
-                        apiKey_tb.Text = ApiKeyState.ApiKey;
-                        if (string.IsNullOrEmpty(tmpOptions.ProviderId))
-                            textBoxProviderName.Text = Resource.NeedAChoise;
-                        else
-                        {
-                            textBoxProviderName.Text = tmpOptions.ProviderName;
-                            buttonContinue.Enabled = true;
-                        }
-                    }
-                    else
-                        textBoxProviderName.Text = Resource.MFNa;
+                    buttonContinue.Enabled = string.IsNullOrWhiteSpace(ApiKeyState.ApiKey);
+                    textBoxProviderName.Text = Resource.MFNa;
+                }
 
-                    if (tmpOptions.AuthMode == StateModeEnum.Prohibited || tmpOptions.AuthMode == StateModeEnum.Unknown)
-                    {
-                        textBoxAccount.UseSystemPasswordChar = false;
-                        textBoxAccount.Text = Resource.MFNa;
-                    }
-                    else if (String.IsNullOrEmpty(tmpOptions.CustomAuth))
-                    {
-                        textBoxAccount.UseSystemPasswordChar = false;
-                        textBoxAccount.Text = Resource.Empty;
-                    }
-                    else
-                    {
-                        textBoxAccount.UseSystemPasswordChar = !tmpOptions.IsAuthDelegated;
-                        textBoxAccount.Text = tmpOptions.IsAuthDelegated
-                            ? tmpOptions.AuthDelegatedCredentialId
-                            : tmpOptions.CustomAuth;
-                        labelApiKeyIsChanged.Visible = settingsIsSet;
-                    }
+                if (tmpOptions.AuthMode == StateModeEnum.Prohibited || tmpOptions.AuthMode == StateModeEnum.Unknown)
+                {
+                    textBoxAccount.UseSystemPasswordChar = false;
+                    textBoxAccount.Text = Resource.MFNa;
+                }
+                else if (String.IsNullOrEmpty(tmpOptions.CustomAuth))
+                {
+                    textBoxAccount.UseSystemPasswordChar = false;
+                    textBoxAccount.Text = Resource.Empty;
+                }
+                else
+                {
+                    textBoxAccount.UseSystemPasswordChar = !tmpOptions.IsAuthDelegated;
+                    textBoxAccount.Text = tmpOptions.IsAuthDelegated
+                        ? tmpOptions.AuthDelegatedCredentialId
+                        : tmpOptions.CustomAuth;
+                    labelApiKeyIsChanged.Visible = settingsIsSet;
+                }
 
-                    if (tmpOptions.CustomModelMode == StateModeEnum.Prohibited ||
-                        tmpOptions.CustomModelMode == StateModeEnum.Unknown)
-                        textBoxModel.Text = Resource.MFNa;
-                    else if (tmpOptions.CustomModelMode == StateModeEnum.Optional && !tmpOptions.UseCustomModel)
-                        textBoxModel.Text = Resource.Empty;
-                    else
-                    {
-                        textBoxModel.Text = tmpOptions.CustomModelName;
-                        labelApiKeyIsChanged.Visible = settingsIsSet;
-                    }
+                if (tmpOptions.CustomModelMode == StateModeEnum.Prohibited ||
+                    tmpOptions.CustomModelMode == StateModeEnum.Unknown)
+                    textBoxModel.Text = Resource.MFNa;
+                else if (tmpOptions.CustomModelMode == StateModeEnum.Optional && !tmpOptions.UseCustomModel)
+                    textBoxModel.Text = Resource.Empty;
+                else
+                {
+                    textBoxModel.Text = tmpOptions.CustomModelName;
+                    labelApiKeyIsChanged.Visible = settingsIsSet;
+                }
 
-                    if (tmpOptions.GlossaryMode == StateModeEnum.Prohibited ||
-                        tmpOptions.GlossaryMode == StateModeEnum.Unknown)
-                        textBoxGlossary.Text = Resource.MFNa;
-                    else
-                    {
-                        textBoxGlossary.Text = string.IsNullOrEmpty(tmpOptions.GlossaryName)
-                            ? Resource.Empty
-                            : tmpOptions.GlossaryName;
-                        labelApiKeyIsChanged.Visible = settingsIsSet;
-                    }
+                if (tmpOptions.GlossaryMode == StateModeEnum.Prohibited ||
+                    tmpOptions.GlossaryMode == StateModeEnum.Unknown)
+                    textBoxGlossary.Text = Resource.MFNa;
+                else
+                {
+                    textBoxGlossary.Text = string.IsNullOrEmpty(tmpOptions.GlossaryName)
+                        ? Resource.Empty
+                        : tmpOptions.GlossaryName;
+                    labelApiKeyIsChanged.Visible = settingsIsSet;
                 }
             }
         }

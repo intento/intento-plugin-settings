@@ -611,8 +611,10 @@
             // 
             this.textBoxLabelConnectAccount.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxLabelConnectAccount.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxLabelConnectAccount.CausesValidation = false;
             this.textBoxLabelConnectAccount.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textBoxLabelConnectAccount.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textBoxLabelConnectAccount.Enabled = false;
             this.textBoxLabelConnectAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxLabelConnectAccount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.textBoxLabelConnectAccount.Location = new System.Drawing.Point(0, 0);
@@ -726,9 +728,10 @@
             // textBoxLabelURL
             // 
             this.textBoxLabelURL.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.textBoxLabelURL.AutoSize = true;
             this.textBoxLabelURL.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxLabelURL.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.textBoxLabelURL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxLabelURL.Dock = System.Windows.Forms.DockStyle.Top;
             this.textBoxLabelURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxLabelURL.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.textBoxLabelURL.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
@@ -745,7 +748,8 @@
             // 
             // labelSmartRouting
             // 
-            this.labelSmartRouting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelSmartRouting.AutoSize = true;
+            this.labelSmartRouting.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelSmartRouting.Location = new System.Drawing.Point(0, 3);
             this.labelSmartRouting.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.labelSmartRouting.Name = "labelSmartRouting";
@@ -804,6 +808,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
         }
 
