@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Intento.MT.Plugin.PropertiesForm.Services;
 using Intento.SDK.Translate;
+using Intento.SDK.Translate.DTO;
 using Intento.SDK.Translate.Options;
 using static Intento.MT.Plugin.PropertiesForm.WinForms.IntentoTranslationProviderOptionsForm;
 
@@ -38,10 +39,10 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         private readonly IntentoTranslationProviderOptionsForm parent;
         private const string TestString = "14";
 
-        readonly IList<string> testResultString = new ReadOnlyCollection<string>
+        private readonly IList<string> testResultString = new ReadOnlyCollection<string>
             (new List<string> { "14", "14.", "Catorce" });
 
-        public int cursorCountMt = 0;
+        public int CursorCountMt { get; set; } = 0;
 
         private delegate void TestResultsDelegate(ErrorInfo errorInfo);
 
@@ -338,5 +339,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                 listOfIntentoGlossaries.SetItemChecked(i, false);
             }
         }
+
     }
 }

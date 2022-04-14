@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Intento.MT.Plugin.PropertiesForm.WinForms;
-using Intento.SDK.DI;
 using Intento.SDK.Translate;
 using Intento.SDK.Translate.DTO;
 
@@ -13,8 +12,9 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         private readonly AuthState authState;
         private static bool _internalControlChange;
 
-        private IList<GlossaryDetailed> glossaries;
         private IList<AgnosticGlossaryType> types;
+
+        private IList<GlossaryDetailed> allGlossaries;
 
         private ITranslateService TranslateService => Form.Locator.Resolve<ITranslateService>();
 
@@ -70,14 +70,20 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         private int[] GetGlossaries()
         {
             ReadGlossaries();
-            if (glossaries == null)
+            if (allGlossaries == null)
             {
                 return new int[0];
             }
 
             var checkedElements = FormMt.listOfIntentoGlossaries.CheckedIndices.Cast<int>().ToList();
 
-            return checkedElements.Select(index => Convert.ToInt32(glossaries[index].Id)).ToArray();
+            return checkedElements.Select(index => Convert.ToInt32(allGlossaries[index].Id)).ToArray();
+        }
+
+        public IEnumerable<GlossaryDetailed> GetGlossariesDetailed(int[] ids = null)
+        {
+            var selected = ids ?? GetGlossaries();
+            return allGlossaries.Where(g => selected.Contains(g.Id)).ToList();
         }
 
         public static void FillOptions(ProvideAgnosticGlossaryState state, IntentoMTFormOptions options)
@@ -109,7 +115,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
             if (!authState.ProviderState.IntentoGlossary)
             {
-                // glossaries are not supported by provider
+                // AllGlossaries are not supported by provider
                 FormMt.providerAgnosticGlossariesGroup.Visible = false;
                 Clear();
                 return;
@@ -122,14 +128,14 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
             Clear();
 
-            if (glossaries == null) return;
+            if (allGlossaries == null) return;
             // Fill Glossary and choose SelectedIndex
-            foreach (var x in glossaries)
+            foreach (var x in allGlossaries)
             {
                 var type = types?.FirstOrDefault(t => t.Id == x.CsType.ToString());
                 var name = x.Name + (type != null ? $" ({type.Name})" : "");
                 var n = FormMt.listOfIntentoGlossaries.Items.Add(name);
-                var currentValue = Convert.ToInt32(glossaries[n].Id);
+                var currentValue = Convert.ToInt32(allGlossaries[n].Id);
                 if (Options.IntentoGlossaries != null && Options.IntentoGlossaries.Contains(currentValue))
                 {
                     FormMt.listOfIntentoGlossaries.SetItemChecked(n, true);
@@ -148,7 +154,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
             try
             {
-                glossaries = TranslateService.AgnosticGlossaries();
+                allGlossaries = TranslateService.AgnosticGlossaries();
                 readDone = true;
             }
             catch

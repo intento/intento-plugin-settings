@@ -15,7 +15,7 @@ using static Intento.MT.Plugin.PropertiesForm.IntentoMTFormOptions;
 
 namespace Intento.MT.Plugin.PropertiesForm.WinForms
 {
-    public partial class IntentoTranslationProviderOptionsForm : Form //, IForm
+    public partial class IntentoTranslationProviderOptionsForm : Form
     {
         #region vars
 
@@ -23,8 +23,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         public IntentoMTFormOptions CurrentOptions { get; set; }
 
         public ILocatorImpl Locator { get; set; }
-
-        //private int numberOfFlashes;
 
         public ApiKeyState ApiKeyState { get; }
 
@@ -527,15 +525,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             public CursorFormMT(IntentoFormOptionsMT form)
             {
                 this.form = form;
-                if (form.cursorCountMt == 0)
+                if (form.CursorCountMt == 0)
                     form.Cursor = Cursors.WaitCursor;
-                form.cursorCountMt++;
+                form.CursorCountMt++;
             }
 
             public void Dispose()
             {
-                form.cursorCountMt--;
-                if (form.cursorCountMt == 0)
+                form.CursorCountMt--;
+                if (form.CursorCountMt == 0)
                     form.Cursor = Cursors.Default;
             }
         }
@@ -639,6 +637,19 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                         ? Resource.Empty
                         : tmpOptions.GlossaryName;
                     labelApiKeyIsChanged.Visible = settingsIsSet;
+                }
+
+                if (tmpOptions.IntentoGlossaries is { Length: > 0 })
+                {
+                    var glossariesInState = ApiKeyState?.SmartRoutingState?.ProviderState?.GetAuthState()?
+                        .GetProviderGlossaryState()?.GetGlossariesDetailed(tmpOptions.IntentoGlossaries);
+                    textBoxProviderAgnosticGloss.Text = glossariesInState != null
+                        ? string.Join(", ", glossariesInState.Select(g => g.Name))
+                        : Resource.Empty;
+                }
+                else
+                {
+                    textBoxProviderAgnosticGloss.Text = Resource.Empty;
                 }
             }
         }

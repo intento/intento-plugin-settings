@@ -35,6 +35,8 @@
             this.buttonSetApi = new System.Windows.Forms.Button();
             this.labelRegister2 = new System.Windows.Forms.Label();
             this.groupBoxMTSettings = new System.Windows.Forms.GroupBox();
+            this.groupBoxProviderAgnosticGloss = new System.Windows.Forms.GroupBox();
+            this.textBoxProviderAgnosticGloss = new System.Windows.Forms.TextBox();
             this.groupBoxGlossary = new System.Windows.Forms.GroupBox();
             this.textBoxGlossary = new System.Windows.Forms.TextBox();
             this.groupBoxModel = new System.Windows.Forms.GroupBox();
@@ -61,6 +63,7 @@
             this.groupBoxMTConnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBoxMTSettings.SuspendLayout();
+            this.groupBoxProviderAgnosticGloss.SuspendLayout();
             this.groupBoxGlossary.SuspendLayout();
             this.groupBoxModel.SuspendLayout();
             this.groupBoxBillingAccount.SuspendLayout();
@@ -155,6 +158,7 @@
             // groupBoxMTSettings
             // 
             this.groupBoxMTSettings.AutoSize = true;
+            this.groupBoxMTSettings.Controls.Add(this.groupBoxProviderAgnosticGloss);
             this.groupBoxMTSettings.Controls.Add(this.groupBoxGlossary);
             this.groupBoxMTSettings.Controls.Add(this.groupBoxModel);
             this.groupBoxMTSettings.Controls.Add(this.groupBoxBillingAccount);
@@ -164,10 +168,35 @@
             this.groupBoxMTSettings.Location = new System.Drawing.Point(0, 125);
             this.groupBoxMTSettings.Name = "groupBoxMTSettings";
             this.groupBoxMTSettings.Padding = new System.Windows.Forms.Padding(8, 3, 3, 3);
-            this.groupBoxMTSettings.Size = new System.Drawing.Size(565, 272);
+            this.groupBoxMTSettings.Size = new System.Drawing.Size(565, 330);
             this.groupBoxMTSettings.TabIndex = 1;
             this.groupBoxMTSettings.TabStop = false;
             this.groupBoxMTSettings.Text = "Machine Translation Settings";
+            // 
+            // groupBoxProviderAgnosticGloss
+            // 
+            this.groupBoxProviderAgnosticGloss.Controls.Add(this.textBoxProviderAgnosticGloss);
+            this.groupBoxProviderAgnosticGloss.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBoxProviderAgnosticGloss.Location = new System.Drawing.Point(8, 269);
+            this.groupBoxProviderAgnosticGloss.Name = "groupBoxProviderAgnosticGloss";
+            this.groupBoxProviderAgnosticGloss.Padding = new System.Windows.Forms.Padding(8);
+            this.groupBoxProviderAgnosticGloss.Size = new System.Drawing.Size(554, 58);
+            this.groupBoxProviderAgnosticGloss.TabIndex = 33;
+            this.groupBoxProviderAgnosticGloss.TabStop = false;
+            this.groupBoxProviderAgnosticGloss.Text = "Provider-agnostic glossaries";
+            // 
+            // textBoxProviderAgnosticGloss
+            // 
+            this.textBoxProviderAgnosticGloss.BackColor = System.Drawing.SystemColors.Info;
+            this.textBoxProviderAgnosticGloss.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBoxProviderAgnosticGloss.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxProviderAgnosticGloss.Enabled = false;
+            this.textBoxProviderAgnosticGloss.Location = new System.Drawing.Point(8, 23);
+            this.textBoxProviderAgnosticGloss.Name = "textBoxProviderAgnosticGloss";
+            this.textBoxProviderAgnosticGloss.ReadOnly = true;
+            this.textBoxProviderAgnosticGloss.Size = new System.Drawing.Size(538, 22);
+            this.textBoxProviderAgnosticGloss.TabIndex = 0;
+            this.textBoxProviderAgnosticGloss.Text = "N/A";
             // 
             // groupBoxGlossary
             // 
@@ -491,6 +520,8 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBoxMTSettings.ResumeLayout(false);
+            this.groupBoxProviderAgnosticGloss.ResumeLayout(false);
+            this.groupBoxProviderAgnosticGloss.PerformLayout();
             this.groupBoxGlossary.ResumeLayout(false);
             this.groupBoxGlossary.PerformLayout();
             this.groupBoxModel.ResumeLayout(false);
@@ -510,8 +541,10 @@
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
+
+        private System.Windows.Forms.GroupBox groupBoxProviderAgnosticGloss;
+        public System.Windows.Forms.TextBox textBoxProviderAgnosticGloss;
 
         #endregion
         private System.Windows.Forms.GroupBox groupBoxMTSettings;
