@@ -156,12 +156,11 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         private void TestResults(ErrorInfo errorInfo)
         {
             var msg = errorInfo.VisibleErrorText;
-            var res = errorInfo.IsError;
             if (msg != null)
             {
                 var errorForm = new IntentoFormIgnoreError();
                 errorForm.labelError.Text = msg;
-                if (res)
+                if (!errorInfo.IsError)
                 {
                     errorForm.labelError.ForeColor = Color.Blue;
                     errorForm.buttonIgnoreAndSave.Text = Resource.ButtonIgnoreAndSave_Ok;
@@ -175,12 +174,16 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                 errorForm.SetAdditionalErrorInfo(errorInfo.ClipBoardContent);
                 errorForm.ShowDialog(parent);
                 if (errorForm.DialogResult == DialogResult.OK)
+                {
                     msg = null;
+                }
             }
 
             FreezeForm(false);
             if (msg == null)
+            {
                 DialogResult = DialogResult.OK;
+            }
         }
 
         private ErrorInfo TestTranslationTask(IntentoMTFormOptions testOptions)
@@ -227,7 +230,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
                 if (result.Error != null)
                 {
-                    return new ErrorInfo(true, result.Error.Message, result.Error.Message);
+                    return new ErrorInfo(true, result.Error.Message, result.Error.Data);
                 }
 
 

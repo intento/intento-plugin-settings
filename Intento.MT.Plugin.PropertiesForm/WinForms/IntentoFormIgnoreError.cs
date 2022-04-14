@@ -22,6 +22,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 				return;
 			}
 
+			textBoxResponse.Text = msg;
 			labelError.Cursor = Cursors.Hand;
 			labelError.Click += labelError_Click;
 			toolTip1.Active = true;
@@ -39,6 +40,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			{
 				// ignored
 			}
-		}
-	}
+		}        
+    }
 }
