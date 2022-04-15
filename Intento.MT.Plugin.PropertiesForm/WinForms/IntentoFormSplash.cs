@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace Intento.MT.Plugin.PropertiesForm.WinForms
 {
@@ -8,5 +9,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         {
             InitializeComponent();
         }
+        
     }
 }

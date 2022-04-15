@@ -644,7 +644,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                     var glossariesInState = ApiKeyState?.SmartRoutingState?.ProviderState?.GetAuthState()?
                         .GetProviderGlossaryState()?.GetGlossariesDetailed(tmpOptions.IntentoGlossaries);
                     textBoxProviderAgnosticGloss.Text = glossariesInState != null
-                        ? string.Join(", ", glossariesInState.Select(g => g.Name))
+                        ? string.Join(Environment.NewLine, glossariesInState.Select(g => g.Name))
                         : Resource.Empty;
                 }
                 else
