@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Intento.MT.Plugin.PropertiesForm
 {
-    class RevisionHistory
+	internal class RevisionHistory
     {
 		// Version history
 		// 1.0.0: 2019-03-13
@@ -85,7 +79,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 		// 2.2.0: 2020-04-29
 		// - Only delegated credentional
 		// - Saving translation direction if a model is specified
-		// - Ñhange settings for connected accounts
+		// - ï¿½hange settings for connected accounts
 		// 2.2.1: 2020-05-13
 		// - Setting a language pair for a test request from model/glossary data
 		// 2.2.4: 2020-06-19

@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace Intento.MT.Plugin.PropertiesForm
+﻿namespace Intento.MT.Plugin.PropertiesForm.WinForms
 {
     partial class IntentoFormOptionsMT
     {
@@ -42,6 +40,9 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.panel4 = new System.Windows.Forms.Panel();
             this.providerAgnosticGlossariesGroup = new System.Windows.Forms.GroupBox();
             this.listOfIntentoGlossaries = new System.Windows.Forms.CheckedListBox();
+            this.controlPanelForGlossaries = new System.Windows.Forms.FlowLayoutPanel();
+            this.checkAllGlossaries = new System.Windows.Forms.LinkLabel();
+            this.uncheckAllGlossaries = new System.Windows.Forms.LinkLabel();
             this.groupBoxOptional = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.labelHelpOptional = new System.Windows.Forms.Label();
@@ -67,7 +68,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.labelHelpBillingAccount = new System.Windows.Forms.Label();
             this.panelConnectAccount = new System.Windows.Forms.Panel();
-            this.textBoxLabelConnectAccount = new System.Windows.Forms.TextBox();
+            this.textBoxLabelConnectAccount = new System.Windows.Forms.LinkLabel();
             this.comboBoxCredentialId = new System.Windows.Forms.ComboBox();
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.groupBoxProvider = new System.Windows.Forms.GroupBox();
@@ -77,13 +78,11 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxLabelURL = new System.Windows.Forms.LinkLabel();
             this.labelSmartRouting = new System.Windows.Forms.Label();
-            this.controlPanelForGlossaries = new System.Windows.Forms.FlowLayoutPanel();
-            this.checkAllGlossaries = new System.Windows.Forms.LinkLabel();
-            this.uncheckAllGlossaries = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel5.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.providerAgnosticGlossariesGroup.SuspendLayout();
+            this.controlPanelForGlossaries.SuspendLayout();
             this.groupBoxOptional.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.groupBoxGlossary.SuspendLayout();
@@ -98,7 +97,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.groupBoxProvider.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.controlPanelForGlossaries.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -220,6 +218,45 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.listOfIntentoGlossaries.Size = new System.Drawing.Size(497, 106);
             this.listOfIntentoGlossaries.TabIndex = 1;
             // 
+            // controlPanelForGlossaries
+            // 
+            this.controlPanelForGlossaries.Controls.Add(this.checkAllGlossaries);
+            this.controlPanelForGlossaries.Controls.Add(this.uncheckAllGlossaries);
+            this.controlPanelForGlossaries.Dock = System.Windows.Forms.DockStyle.Top;
+            this.controlPanelForGlossaries.Location = new System.Drawing.Point(10, 20);
+            this.controlPanelForGlossaries.Name = "controlPanelForGlossaries";
+            this.controlPanelForGlossaries.Size = new System.Drawing.Size(497, 19);
+            this.controlPanelForGlossaries.TabIndex = 2;
+            // 
+            // checkAllGlossaries
+            // 
+            this.checkAllGlossaries.ActiveLinkColor = System.Drawing.Color.Black;
+            this.checkAllGlossaries.AutoSize = true;
+            this.checkAllGlossaries.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkAllGlossaries.LinkColor = System.Drawing.Color.Black;
+            this.checkAllGlossaries.Location = new System.Drawing.Point(0, 0);
+            this.checkAllGlossaries.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.checkAllGlossaries.Name = "checkAllGlossaries";
+            this.checkAllGlossaries.Size = new System.Drawing.Size(53, 13);
+            this.checkAllGlossaries.TabIndex = 0;
+            this.checkAllGlossaries.TabStop = true;
+            this.checkAllGlossaries.Text = "Check all";
+            this.checkAllGlossaries.VisitedLinkColor = System.Drawing.Color.Black;
+            this.checkAllGlossaries.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.checkAllGlossaries_LinkClicked);
+            // 
+            // uncheckAllGlossaries
+            // 
+            this.uncheckAllGlossaries.ActiveLinkColor = System.Drawing.Color.Black;
+            this.uncheckAllGlossaries.AutoSize = true;
+            this.uncheckAllGlossaries.LinkColor = System.Drawing.Color.Black;
+            this.uncheckAllGlossaries.Location = new System.Drawing.Point(59, 0);
+            this.uncheckAllGlossaries.Name = "uncheckAllGlossaries";
+            this.uncheckAllGlossaries.Size = new System.Drawing.Size(66, 13);
+            this.uncheckAllGlossaries.TabIndex = 1;
+            this.uncheckAllGlossaries.TabStop = true;
+            this.uncheckAllGlossaries.Text = "Uncheck all";
+            this.uncheckAllGlossaries.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.uncheckAllGlossaries_LinkClicked);
+            // 
             // groupBoxOptional
             // 
             this.groupBoxOptional.AutoSize = true;
@@ -265,8 +302,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.labelHelpOptional.Name = "labelHelpOptional";
             this.labelHelpOptional.Size = new System.Drawing.Size(497, 34);
             this.labelHelpOptional.TabIndex = 33;
-            this.labelHelpOptional.Text = "We will send one-character translation request to test this configuration.\r\nIf yo" +
-    "u have selected custom model or glossary, please adjust the language pair:";
+            this.labelHelpOptional.Text = "We will send one-character translation request to test this configuration.\r\nIf yo" + "u have selected custom model or glossary, please adjust the language pair:";
             // 
             // comboBoxTo
             // 
@@ -386,8 +422,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.labelHelpGlossary.Name = "labelHelpGlossary";
             this.labelHelpGlossary.Size = new System.Drawing.Size(501, 34);
             this.labelHelpGlossary.TabIndex = 13;
-            this.labelHelpGlossary.Text = "Some of MT Providers enable using your custom terminology or glossary. If you hab" +
-    "e one, please specify it below.";
+            this.labelHelpGlossary.Text = "Some of MT Providers enable using your custom terminology or glossary. If you hab" + "e one, please specify it below.";
             this.labelHelpGlossary.Visible = false;
             // 
             // linkLabel2
@@ -483,8 +518,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.labelHelpModel.Name = "labelHelpModel";
             this.labelHelpModel.Size = new System.Drawing.Size(497, 34);
             this.labelHelpModel.TabIndex = 13;
-            this.labelHelpModel.Text = "By default, the pre-trained general-purpose MT model is used. If it\'s not availab" +
-    "le or you want to use your custom-trained model, please specify it below.";
+            this.labelHelpModel.Text = "By default, the pre-trained general-purpose MT model is used. If it\'s not availab" + "le or you want to use your custom-trained model, please specify it below.";
             this.labelHelpModel.Visible = false;
             // 
             // checkBoxUseCustomModel
@@ -559,8 +593,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.labelHelpBillingAccount.Name = "labelHelpBillingAccount";
             this.labelHelpBillingAccount.Size = new System.Drawing.Size(497, 34);
             this.labelHelpBillingAccount.TabIndex = 12;
-            this.labelHelpBillingAccount.Text = "Most of the MT Providers are available via Intento contracts, but you may also us" +
-    "e your own account at MT Provider connected via Intento Console.";
+            this.labelHelpBillingAccount.Text = "Most of the MT Providers are available via Intento contracts, but you may also us" + "e your own account at MT Provider connected via Intento Console.";
             this.labelHelpBillingAccount.Visible = false;
             // 
             // panelConnectAccount
@@ -576,19 +609,23 @@ namespace Intento.MT.Plugin.PropertiesForm
             // 
             // textBoxLabelConnectAccount
             // 
+            this.textBoxLabelConnectAccount.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.textBoxLabelConnectAccount.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxLabelConnectAccount.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxLabelConnectAccount.CausesValidation = false;
             this.textBoxLabelConnectAccount.Cursor = System.Windows.Forms.Cursors.Hand;
             this.textBoxLabelConnectAccount.Dock = System.Windows.Forms.DockStyle.Top;
             this.textBoxLabelConnectAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxLabelConnectAccount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.textBoxLabelConnectAccount.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.textBoxLabelConnectAccount.Location = new System.Drawing.Point(0, 0);
             this.textBoxLabelConnectAccount.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxLabelConnectAccount.Name = "textBoxLabelConnectAccount";
             this.textBoxLabelConnectAccount.Size = new System.Drawing.Size(467, 13);
             this.textBoxLabelConnectAccount.TabIndex = 37;
+            this.textBoxLabelConnectAccount.TabStop = true;
             this.textBoxLabelConnectAccount.Tag = "https://console.inten.to/accounts";
             this.textBoxLabelConnectAccount.Text = "Connect your own account for this provider";
+            this.textBoxLabelConnectAccount.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             // 
             // comboBoxCredentialId
             // 
@@ -662,12 +699,7 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.comboBoxRouting.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboBoxRouting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxRouting.FormattingEnabled = true;
-            this.comboBoxRouting.Items.AddRange(new object[] {
-            "Disabled",
-            "General routing based on Intento benchmarks",
-            "Industry-specific routing based on Intento benchmarks",
-            "Industry-specific routing based on Intento benchmarks 1",
-            "Industry-specific routing based on Intento benchmarks 2"});
+            this.comboBoxRouting.Items.AddRange(new object[] { "Disabled", "General routing based on Intento benchmarks", "Industry-specific routing based on Intento benchmarks", "Industry-specific routing based on Intento benchmarks 1", "Industry-specific routing based on Intento benchmarks 2" });
             this.comboBoxRouting.Location = new System.Drawing.Point(8, 42);
             this.comboBoxRouting.Name = "comboBoxRouting";
             this.comboBoxRouting.Size = new System.Drawing.Size(501, 21);
@@ -705,13 +737,14 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.textBoxLabelURL.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.textBoxLabelURL.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.textBoxLabelURL.Location = new System.Drawing.Point(227, 3);
-            this.textBoxLabelURL.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.textBoxLabelURL.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.textBoxLabelURL.Name = "textBoxLabelURL";
-            this.textBoxLabelURL.Size = new System.Drawing.Size(271, 13);
+            this.textBoxLabelURL.Size = new System.Drawing.Size(274, 13);
             this.textBoxLabelURL.TabIndex = 37;
             this.textBoxLabelURL.TabStop = true;
-            this.textBoxLabelURL.Tag = "https://try.inten.to/mt_report_2020";
+            this.textBoxLabelURL.Tag = "https://try.inten.to/machine-translation-report-2021";
             this.textBoxLabelURL.Text = "the Intento Benchmarks.";
+            this.textBoxLabelURL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.textBoxLabelURL.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             // 
             // labelSmartRouting
@@ -725,45 +758,6 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.labelSmartRouting.TabIndex = 37;
             this.labelSmartRouting.Text = "Select MT provider automatically based on ";
             this.labelSmartRouting.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // controlPanelForGlossaries
-            // 
-            this.controlPanelForGlossaries.Controls.Add(this.checkAllGlossaries);
-            this.controlPanelForGlossaries.Controls.Add(this.uncheckAllGlossaries);
-            this.controlPanelForGlossaries.Dock = System.Windows.Forms.DockStyle.Top;
-            this.controlPanelForGlossaries.Location = new System.Drawing.Point(10, 20);
-            this.controlPanelForGlossaries.Name = "controlPanelForGlossaries";
-            this.controlPanelForGlossaries.Size = new System.Drawing.Size(497, 19);
-            this.controlPanelForGlossaries.TabIndex = 2;
-            // 
-            // checkAllGlossaries
-            // 
-            this.checkAllGlossaries.ActiveLinkColor = System.Drawing.Color.Black;
-            this.checkAllGlossaries.AutoSize = true;
-            this.checkAllGlossaries.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkAllGlossaries.LinkColor = System.Drawing.Color.Black;
-            this.checkAllGlossaries.Location = new System.Drawing.Point(0, 0);
-            this.checkAllGlossaries.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.checkAllGlossaries.Name = "checkAllGlossaries";
-            this.checkAllGlossaries.Size = new System.Drawing.Size(53, 13);
-            this.checkAllGlossaries.TabIndex = 0;
-            this.checkAllGlossaries.TabStop = true;
-            this.checkAllGlossaries.Text = "Check all";
-            this.checkAllGlossaries.VisitedLinkColor = System.Drawing.Color.Black;
-            this.checkAllGlossaries.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.checkAllGlossaries_LinkClicked);
-            // 
-            // uncheckAllGlossaries
-            // 
-            this.uncheckAllGlossaries.ActiveLinkColor = System.Drawing.Color.Black;
-            this.uncheckAllGlossaries.AutoSize = true;
-            this.uncheckAllGlossaries.LinkColor = System.Drawing.Color.Black;
-            this.uncheckAllGlossaries.Location = new System.Drawing.Point(59, 0);
-            this.uncheckAllGlossaries.Name = "uncheckAllGlossaries";
-            this.uncheckAllGlossaries.Size = new System.Drawing.Size(66, 13);
-            this.uncheckAllGlossaries.TabIndex = 1;
-            this.uncheckAllGlossaries.TabStop = true;
-            this.uncheckAllGlossaries.Text = "Uncheck all";
-            this.uncheckAllGlossaries.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.uncheckAllGlossaries_LinkClicked);
             // 
             // IntentoFormOptionsMT
             // 
@@ -789,6 +783,8 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.providerAgnosticGlossariesGroup.ResumeLayout(false);
+            this.controlPanelForGlossaries.ResumeLayout(false);
+            this.controlPanelForGlossaries.PerformLayout();
             this.groupBoxOptional.ResumeLayout(false);
             this.groupBoxOptional.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
@@ -808,16 +804,12 @@ namespace Intento.MT.Plugin.PropertiesForm
             this.groupBoxBillingAccount.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panelConnectAccount.ResumeLayout(false);
-            this.panelConnectAccount.PerformLayout();
             this.groupBoxProvider.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.controlPanelForGlossaries.ResumeLayout(false);
-            this.controlPanelForGlossaries.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -853,7 +845,7 @@ namespace Intento.MT.Plugin.PropertiesForm
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label labelHelpBillingAccount;
         public System.Windows.Forms.Panel panelConnectAccount;
-        public System.Windows.Forms.TextBox textBoxLabelConnectAccount;
+        public System.Windows.Forms.LinkLabel textBoxLabelConnectAccount;
         public System.Windows.Forms.ComboBox comboBoxCredentialId;
         public System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.LinkLabel linkLabel3;

@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Intento.MT.Plugin.PropertiesForm.WinForms
 {
     public partial class IntentoFormIgnoreError : Form
     {
-		string errorInfo;
+	    private string errorInfo;
 
 		public IntentoFormIgnoreError()
         {
@@ -22,15 +15,18 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			toolTip1.SetToolTip(labelError, Resource.APIToolTipMessage);
 		}
 
-		public void setAdditionalErrorInfo(string msg)
+		public void SetAdditionalErrorInfo(string msg)
 		{
-			if (!string.IsNullOrWhiteSpace(msg))
+			if (string.IsNullOrWhiteSpace(msg))
 			{
-				labelError.Cursor = Cursors.Hand;
-				this.labelError.Click += this.labelError_Click;
-				toolTip1.Active = true;
-				errorInfo = msg;
+				return;
 			}
+
+			textBoxResponse.Text = msg;
+			labelError.Cursor = Cursors.Hand;
+			labelError.Click += labelError_Click;
+			toolTip1.Active = true;
+			errorInfo = msg;
 		}
 
 		private void labelError_Click(object sender, EventArgs e)
@@ -40,7 +36,10 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 				Clipboard.ContainsText();
 				Clipboard.SetDataObject(errorInfo, true, 10, 150);
 			}
-			catch (Exception) { }
-		}
-	}
+			catch (Exception)
+			{
+				// ignored
+			}
+		}        
+    }
 }

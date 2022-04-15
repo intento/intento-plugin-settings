@@ -24,8 +24,11 @@
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            if (!(obj is ListItem item))
+            if (obj is not ListItem item)
+            {
                 return false;
+            }
+
             return ReferenceEquals(this, obj) || Equals(item);
         }
 
@@ -34,6 +37,7 @@
             return Value == other.Value;
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return (Value != null ? Value.GetHashCode() : 0);

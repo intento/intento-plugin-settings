@@ -1,5 +1,4 @@
-﻿using Intento.MT.Plugin.PropertiesForm.WinForms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
@@ -7,65 +6,79 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Intento.MT.Plugin.PropertiesForm.IntentoTranslationProviderOptionsForm;
+using Intento.MT.Plugin.PropertiesForm.Services;
+using Intento.SDK.Translate;
+using Intento.SDK.Translate.DTO;
+using Intento.SDK.Translate.Options;
+using static Intento.MT.Plugin.PropertiesForm.WinForms.IntentoTranslationProviderOptionsForm;
 
-namespace Intento.MT.Plugin.PropertiesForm
+namespace Intento.MT.Plugin.PropertiesForm.WinForms
 {
-	public partial class IntentoFormOptionsMT : Form
+    /// <inheritdoc />
+    // ReSharper disable once InconsistentNaming
+    public partial class IntentoFormOptionsMT : Form
     {
-		private Dictionary<string, string> _routingTable;
-		public Dictionary<string, string> RoutingTable
-		{
-			get => _routingTable;
-			set
-			{
-				if (_routingTable != value)
-				{
-					_routingTable = value;
-					comboBoxRouting.DataSource = new BindingSource(value, null);
-					comboBoxRouting.ValueMember = "Key";
-					comboBoxRouting.DisplayMember = "Value";
-				}
-			}
-		}
-        IntentoTranslationProviderOptionsForm parent;
-        const string testString = "14";
-        readonly IList<string> testResultString = new ReadOnlyCollection<string>
+        private Dictionary<string, string> routingTable;
+
+        public Dictionary<string, string> RoutingTable
+        {
+            set
+            {
+                if (routingTable == value)
+                {
+                    return;
+                }
+
+                routingTable = value;
+                comboBoxRouting.DataSource = new BindingSource(value, null);
+                comboBoxRouting.ValueMember = "Key";
+                comboBoxRouting.DisplayMember = "Value";
+            }
+        }
+
+        private readonly IntentoTranslationProviderOptionsForm parent;
+        private const string TestString = "14";
+
+        private readonly IList<string> testResultString = new ReadOnlyCollection<string>
             (new List<string> { "14", "14.", "Catorce" });
-        public int cursorCountMT = 0;
-		private delegate void TestResultsDelegate(PluginHelper.ErrorInfo errorInfo);
-		//cursor while the asynchronous request is running
-		private CursorFormMT testAndSaveCursor;
+
+        public int CursorCountMt { get; set; } = 0;
+
+        private delegate void TestResultsDelegate(ErrorInfo errorInfo);
+
+        //cursor while the asynchronous request is running
+        private CursorFormMT testAndSaveCursor;
+
         // frozen controls while the asynchronous request is running
-        private List<Control> disabledControls = new List<Control>();
+        private readonly List<Control> disabledControls = new();
         private CancellationTokenSource cts;
 
-		public IntentoFormOptionsMT(IntentoTranslationProviderOptionsForm form)
+        public IntentoFormOptionsMT(IntentoTranslationProviderOptionsForm form)
         {
             InitializeComponent();
-            this.SuspendLayout();
+            SuspendLayout();
             LocalizeContent();
-            this.ResumeLayout();
+            ResumeLayout();
             parent = form;
             comboBoxProviders.SelectedIndexChanged += parent.comboBoxProviders_SelectedIndexChanged;
             checkBoxUseCustomModel.CheckedChanged += parent.checkBoxUseCustomModel_CheckedChanged;
             comboBoxModels.SelectedIndexChanged += parent.modelControls_ValueChanged;
             comboBoxCredentialId.SelectedIndexChanged += parent.comboBoxCredentialId_SelectedIndexChanged;
             textBoxModel.TextChanged += parent.modelControls_ValueChanged;
-			comboBoxRouting.SelectedIndexChanged += parent.checkBoxSmartRouting_CheckedChanged;
-			textBoxGlossary.TextChanged += parent.glossaryControls_ValueChanged;
+            comboBoxRouting.SelectedIndexChanged += parent.checkBoxSmartRouting_CheckedChanged;
+            textBoxGlossary.TextChanged += parent.glossaryControls_ValueChanged;
             comboBoxGlossaries.TextChanged += parent.glossaryControls_ValueChanged;
             listOfIntentoGlossaries.MouseUp += parent.agnosticGlossaryControls_ValueChanged;
             textBoxLabelURL.Click += parent.linkLabel_LinkClicked;
-			textBoxLabelConnectAccount.Click += parent.linkLabel_LinkClicked;
-			buttonRefresh.Click += parent.comboBoxProviders_SelectedIndexChanged;
-			comboBoxRouting.Select();
+            textBoxLabelConnectAccount.Click += parent.linkLabel_LinkClicked;
+            buttonRefresh.Click += parent.comboBoxProviders_SelectedIndexChanged;
+            comboBoxRouting.Select();
         }
 
         private void LocalizeContent()
         {
             Text = Resource.MTcaption;
-            labelHelpBillingAccount.Text = Resource.MTlabelHelpBillingAccount;            
+            labelHelpBillingAccount.Text = Resource.MTlabelHelpBillingAccount;
             labelHelpModel.Text = Resource.MTlabelHelpModel;
             checkBoxUseCustomModel.Text = Resource.MTcheckBoxUseCustomModel;
             labelHelpGlossary.Text = Resource.MTlabelHelpGlossary;
@@ -79,71 +92,75 @@ namespace Intento.MT.Plugin.PropertiesForm
             groupBoxGlossary.Text = Resource.Glossary;
             labelSmartRouting.Text = Resource.MTlabelSmartRouting;
             groupBoxProvider.Text = Resource.Provider;
-			textBoxLabelConnectAccount.Text = Resource.MTLinkConnectAccount;
-			toolTipHelp.SetToolTip(buttonRefresh, Resource.MTbuttonRefreshToolTip);
-		}
+            textBoxLabelConnectAccount.Text = Resource.MTLinkConnectAccount;
+            toolTipHelp.SetToolTip(buttonRefresh, Resource.MTbuttonRefreshToolTip);
+        }
 
-        public void buttonSave_Click(object sender, EventArgs e)
+        private void buttonSave_Click(object sender, EventArgs e)
         {
-            SmartRoutingState smartRoutingState = parent.apiKeyState?.smartRoutingState;
-            if ((smartRoutingState == null || !smartRoutingState.SmartRouting) && sender != null)
+            var smartRoutingState = parent.ApiKeyState?.SmartRoutingState;
+            if (smartRoutingState is not { SmartRouting: true } && sender != null)
             {
                 FreezeForm(true);
-                
-                IntentoMTFormOptions testOptions = new IntentoMTFormOptions();
-                parent.apiKeyState.FillOptions(testOptions);
-				string to = testOptions.ToLanguage;
-				string from = testOptions.FromLanguage;
-				if (string.IsNullOrWhiteSpace(from) || string.IsNullOrWhiteSpace(to))
-				{
-					var providerState = parent.apiKeyState.smartRoutingState.providerState;
-					if (string.IsNullOrWhiteSpace(from))
-					{
-						Dictionary<string, string> fromLanguages = providerState.fromLanguages.ToDictionary(x => x.Value, x => x.Key);
-						if (comboBoxFrom.SelectedIndex != -1 && fromLanguages.ContainsKey(comboBoxFrom.Text))
-							testOptions.FromLanguage = fromLanguages[comboBoxFrom.Text];
-						else if (fromLanguages.ContainsValue("en"))
-							testOptions.FromLanguage = "en";
-						else
-							testOptions.FromLanguage = fromLanguages.First().Value;
-					}
-					if (string.IsNullOrWhiteSpace(to))
-					{
-						Dictionary<string, string> toLanguages = providerState.toLanguages.ToDictionary(x => x.Value, x => x.Key);
-						if (comboBoxTo.SelectedIndex != -1 && toLanguages.ContainsKey(comboBoxTo.Text))
-							testOptions.ToLanguage = toLanguages[comboBoxTo.Text];
-						else if (toLanguages.ContainsValue("es"))
-							testOptions.ToLanguage = "es";
-						else
-							testOptions.ToLanguage = toLanguages.Where(x => x.Value != from).First().Value;
-					}
-				}
-				testOptions.proxySettings = parent.currentOptions.proxySettings;
-                cts = new CancellationTokenSource();
-                CancellationToken ct = cts.Token;
-				Task<PluginHelper.ErrorInfo> testTask = new Task<PluginHelper.ErrorInfo>(() => TestTranslationTask(testOptions));
-				testTask.ContinueWith((x) => DoInvokeTestResult(x.Result, ct));
-				testTask.Start();
 
+                var testOptions = new IntentoMTFormOptions();
+                if (parent.ApiKeyState != null)
+                {
+                    parent.ApiKeyState.FillOptions(testOptions);
+                    var to = testOptions.ToLanguage;
+                    var from = testOptions.FromLanguage;
+                    if (string.IsNullOrWhiteSpace(from) || string.IsNullOrWhiteSpace(to))
+                    {
+                        var providerState = parent.ApiKeyState.SmartRoutingState.ProviderState;
+                        if (string.IsNullOrWhiteSpace(from))
+                        {
+                            var fromLanguages =
+                                providerState.FromLanguages.ToDictionary(x => x.Value, x => x.Key);
+                            if (comboBoxFrom.SelectedIndex != -1 && fromLanguages.ContainsKey(comboBoxFrom.Text))
+                                testOptions.FromLanguage = fromLanguages[comboBoxFrom.Text];
+                            else if (fromLanguages.ContainsValue("en"))
+                                testOptions.FromLanguage = "en";
+                            else
+                                testOptions.FromLanguage = fromLanguages.First().Value;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(to))
+                        {
+                            var toLanguages =
+                                providerState.ToLanguages.ToDictionary(x => x.Value, x => x.Key);
+                            if (comboBoxTo.SelectedIndex != -1 && toLanguages.ContainsKey(comboBoxTo.Text))
+                                testOptions.ToLanguage = toLanguages[comboBoxTo.Text];
+                            else if (toLanguages.ContainsValue("es"))
+                                testOptions.ToLanguage = "es";
+                            else
+                                testOptions.ToLanguage = toLanguages.First(x => x.Value != from).Value;
+                        }
+                    }
+                }
+
+                testOptions.ProxySettings = parent.CurrentOptions.ProxySettings;
+                cts = new CancellationTokenSource();
+                var ct = cts.Token;
+                var testTask = new Task<ErrorInfo>(() => TestTranslationTask(testOptions));
+                testTask.ContinueWith((x) => DoInvokeTestResult(x.Result, ct));
+                testTask.Start();
             }
             else
                 this.DialogResult = DialogResult.OK;
         }
 
-		/// <summary>
-		/// callback for test asynchronous request
-		/// </summary>
-		/// <param name="res">true if there were no errors in the answer, else false</param>
-		/// <param name="msg">message for user</param>
-		private void TestResults(PluginHelper.ErrorInfo errorInfo)
-		{
-			var msg = errorInfo.visibleErrorText;
-			var res = errorInfo.isError;
-			if (msg != null)
+        /// <summary>
+        /// callback for test asynchronous request
+        /// </summary>
+        /// <param name="errorInfo"></param>
+        private void TestResults(ErrorInfo errorInfo)
+        {
+            var msg = errorInfo.VisibleErrorText;
+            if (msg != null)
             {
                 var errorForm = new IntentoFormIgnoreError();
                 errorForm.labelError.Text = msg;
-                if (res)
+                if (!errorInfo.IsError)
                 {
                     errorForm.labelError.ForeColor = Color.Blue;
                     errorForm.buttonIgnoreAndSave.Text = Resource.ButtonIgnoreAndSave_Ok;
@@ -153,92 +170,110 @@ namespace Intento.MT.Plugin.PropertiesForm
                     errorForm.labelError.ForeColor = Color.Red;
                     errorForm.buttonIgnoreAndSave.Text = Resource.ButtonIgnoreAndSave_Ignore;
                 }
-				errorForm.setAdditionalErrorInfo(errorInfo.clipBoardContent);
-				errorForm.ShowDialog(parent);
+
+                errorForm.SetAdditionalErrorInfo(errorInfo.ClipBoardContent);
+                errorForm.ShowDialog(parent);
                 if (errorForm.DialogResult == DialogResult.OK)
+                {
                     msg = null;
+                }
             }
 
             FreezeForm(false);
             if (msg == null)
-                this.DialogResult = DialogResult.OK;
+            {
+                DialogResult = DialogResult.OK;
+            }
         }
 
-		private PluginHelper.ErrorInfo TestTranslationTask(IntentoMTFormOptions testOptions)
-		{
-			Logs.Write('F', "Test Translate start");
+        private ErrorInfo TestTranslationTask(IntentoMTFormOptions testOptions)
+        {
+            var remoteLogService = parent.Locator.Resolve<IRemoteLogService>();
+            remoteLogService.Write('F', "Test Translate start");
             try
             {
-
-				var testTranslate = parent.apiKeyState.CreateIntentoConnection(testOptions.proxySettings, "Intento.CheckSettings");
-				// Call test translate intent 
-				dynamic result = testTranslate.Fulfill(
-                        testString,
-                        to: testOptions.ToLanguage,
-                        from: testOptions.FromLanguage,
-                        provider: testOptions.ProviderId,
-                        format: null,
-                        async: true,
-                        auth: testOptions.UseCustomAuth ? string.Format("{{'{0}':[{1}]}}", testOptions.ProviderId, testOptions.CustomAuth).Replace('\'', '"') : null,
-                        routing: null,
-                        pre_processing: null,
-                        post_processing: null,
-                        custom_model: testOptions.UseCustomModel ? testOptions.CustomModel : null,
-                        glossary: testOptions.Glossary,
-                        intentoGlossary: testOptions.IntentoGlossaries,
-                        wait_async: true,
-                        trace: IntentoTranslationProviderOptionsForm.IsTrace()
-                        );
-                if (result.error != null)
+                var locator = parent.ApiKeyState.CreateIntentoConnection(testOptions.ProxySettings, testOptions.UserAgent );
+                var translateService = locator.Resolve<ITranslateService>();
+                
+                var translateOptions = new TranslateOptions
                 {
-					return new PluginHelper.ErrorInfo(false, Resource.ErrorTestTranslation, result.ToString());
-				}
-                else
-                {
-                    dynamic response = result.response;
-                    if (response != null && response.First != null)
-                    {   // Ordinary response of operations call (result of async request)
-                        foreach (dynamic str in response.First.results)
+                    Text = TestString,
+                    To = testOptions.ToLanguage,
+                    From = testOptions.FromLanguage,
+                    Provider = testOptions.ProviderId,
+                    Async = true,
+                    Auth = testOptions.UseCustomAuth
+                        ? new[]
                         {
-                            string res = (string)str;
-                            if (str == null || !testResultString.Any(x => x == res))
+                            new AuthProviderInfo
                             {
-								return new PluginHelper.ErrorInfo(true, string.Format(Resource.TestTranslationWarning, testString, res), null);
-							}
+                                Provider = testOptions.ProviderId,
+                                Key = new []
+                                {
+                                    new KeyInfo
+                                    {
+                                        CredentialId = testOptions.AuthDict()["credential_id"]
+                                    }
+                                }
+                            }
                         }
-                    }
-                    else
-                    {
-						return new PluginHelper.ErrorInfo(true, Resource.ErrorTestTranslation, result.ToString());
-					}
+                        : null,
+                    CustomModel = testOptions.UseCustomModel ? testOptions.CustomModel : null,
+                    Glossary = testOptions.Glossary,
+                    IntentoGlossary = testOptions.IntentoGlossaries,
+                    WaitAsync = true,
+                    Trace = remoteLogService.IsTrace()
+                };
+                // Call test translate intent
+                
+                var result = translateService.Fulfill(translateOptions);
 
-				}
-				Logs.Write('F', "Test Translate finish");
-				return new PluginHelper.ErrorInfo(true, null, null);
-			}
+                if (result.Error != null)
+                {
+                    return new ErrorInfo(true, result.Error.Message, result.Error.Data);
+                }
+
+
+                // Ordinary response of operations call (result of async request)
+                if (result.Results.Any(str => str == null || testResultString.All(x => x != str)))
+                {
+                    return new ErrorInfo(true,
+                        string.Format(Resource.TestTranslationWarning, TestString, result.Results.First()), null);
+                }
+
+
+                remoteLogService.Write('F', "Test Translate finish");
+                return new ErrorInfo(true, null, null);
+            }
             catch (AggregateException ex2)
             {
-				Logs.Write('F', "Test Translate error", ex: ex2);
-				return new PluginHelper.ErrorInfo(false, Resource.ErrorTestTranslation, ex2.Message);
-			}
+                remoteLogService.Write('F', "Test Translate error", ex: ex2);
+                return new ErrorInfo(false, Resource.ErrorTestTranslation, ex2.Message);
+            }
         }
 
-		private void DoInvokeTestResult(PluginHelper.ErrorInfo errorInfo, CancellationToken ct)
-		{
+        private void DoInvokeTestResult(ErrorInfo errorInfo, CancellationToken ct)
+        {
             try
             {
                 if (!ct.IsCancellationRequested)
-					BeginInvoke(new TestResultsDelegate(TestResults), errorInfo);
-			}
-            catch { }
+                {
+                    BeginInvoke(new TestResultsDelegate(TestResults), errorInfo);
+                }
+            }
+            catch
+            {
+                // ignored
+            }
         }
+
         private void helpLink_Clicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var tag = (sender as Control).Tag.ToString();
+            var tag = (sender as Control)?.Tag.ToString();
             switch (tag)
             {
                 case "account":
-                    labelHelpBillingAccount.Visible = !labelHelpBillingAccount.Visible;                    
+                    labelHelpBillingAccount.Visible = !labelHelpBillingAccount.Visible;
                     break;
                 case "model":
                     labelHelpModel.Visible = !labelHelpModel.Visible;
@@ -248,14 +283,14 @@ namespace Intento.MT.Plugin.PropertiesForm
                     break;
             }
         }
-       
+
         private void comboBoxCredentialId_VisibleChanged(object sender, EventArgs e)
         {
-			panelConnectAccount.Visible = comboBoxCredentialId.Visible;
-			buttonRefresh.Visible = comboBoxCredentialId.Visible;			
-		}
+            panelConnectAccount.Visible = comboBoxCredentialId.Visible;
+            buttonRefresh.Visible = comboBoxCredentialId.Visible;
+        }
 
-		private void IntentoFormOptionsMT_FormClosing(object sender, FormClosingEventArgs e)
+        private void IntentoFormOptionsMT_FormClosing(object sender, FormClosingEventArgs e)
         {
             FreezeForm(false);
         }
@@ -268,25 +303,27 @@ namespace Intento.MT.Plugin.PropertiesForm
         {
             if (freeze)
             {
-                foreach (Control ctrl in this.Controls)
+                foreach (Control ctrl in Controls)
                 {
-					if (ctrl.Enabled && ctrl.Name != "buttonCancel")
-					{
+                    if (ctrl.Enabled && ctrl.Name != "buttonCancel")
+                    {
                         disabledControls.Add(ctrl);
                         ctrl.Enabled = false;
                     }
                 }
+
                 testAndSaveCursor = new CursorFormMT(this);
             }
             else
             {
-                foreach (Control ctrl in disabledControls)
+                foreach (var ctrl in disabledControls)
+                {
                     ctrl.Enabled = true;
+                }
+
                 disabledControls.Clear();
-                if (testAndSaveCursor != null)
-                    testAndSaveCursor.Dispose();
-                if (cts != null)
-                    cts.Cancel();
+                testAndSaveCursor?.Dispose();
+                cts?.Cancel();
             }
         }
 
@@ -305,5 +342,6 @@ namespace Intento.MT.Plugin.PropertiesForm
                 listOfIntentoGlossaries.SetItemChecked(i, false);
             }
         }
+
     }
 }
