@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31410.414
+MinimumVisualStudioVersion = 12.0.21005.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intento.MemoQMTPlugin", "Intento.MemoQMTPlugin\Intento.MemoQMTPlugin.csproj", "{62883E70-8771-47FF-BCD0-040C126BE2E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AmadeusDebug|Any CPU = AmadeusDebug|Any CPU
+		AmadeusRelease|Any CPU = AmadeusRelease|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		memoQ|Any CPU = memoQ|Any CPU
+		Release|Any CPU = Release|Any CPU
+		DebugLocal|Any CPU = DebugLocal|Any CPU
+		DebugStage|Any CPU = DebugStage|Any CPU
+		DebugPublic|Any CPU = DebugPublic|Any CPU
+		ReleasePublic|Any CPU = ReleasePublic|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.AmadeusDebug|Any CPU.ActiveCfg = AmadeusDebug|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.AmadeusDebug|Any CPU.Build.0 = AmadeusDebug|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.AmadeusRelease|Any CPU.ActiveCfg = AmadeusRelease|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.AmadeusRelease|Any CPU.Build.0 = AmadeusRelease|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.memoQ|Any CPU.ActiveCfg = memoQ|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.memoQ|Any CPU.Build.0 = memoQ|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.DebugLocal|Any CPU.ActiveCfg = DebugLocal|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.DebugLocal|Any CPU.Build.0 = DebugLocal|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.DebugStage|Any CPU.ActiveCfg = DebugStage|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.DebugStage|Any CPU.Build.0 = DebugStage|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.DebugPublic|Any CPU.ActiveCfg = DebugPublic|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.DebugPublic|Any CPU.Build.0 = DebugPublic|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.ReleasePublic|Any CPU.ActiveCfg = ReleasePublic|Any CPU
+		{62883E70-8771-47FF-BCD0-040C126BE2E5}.ReleasePublic|Any CPU.Build.0 = ReleasePublic|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59B308F2-F15A-4296-A12D-191DAE6E91BF}
+	EndGlobalSection
+EndGlobal
