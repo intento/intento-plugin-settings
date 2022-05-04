@@ -168,8 +168,8 @@
     <None Include="Resources\intento.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Intento.SDK" Version="2.1.3-beta" />
-    <PackageReference Include="Intento.SDK.Autofac" Version="2.1.3-beta" />
+    <PackageReference Include="Intento.SDK" Version="2.1.4-beta" />
+    <PackageReference Include="Intento.SDK.Autofac" Version="2.1.4-beta" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\intento.png" />
