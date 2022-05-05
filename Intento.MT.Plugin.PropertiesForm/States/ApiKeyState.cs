@@ -154,6 +154,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 ClientUserAgent = $"Intento.PluginSettingsForm/{Form.Version} {additionalUserAgent}",
                 Proxy = proxySettings
             });
+            impl.Resolve<IRemoteLogService>().SetTraceEndTime(Options.TraceEndTime);
             return impl;
         }
 

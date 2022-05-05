@@ -121,6 +121,11 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             FormApi = new IntentoFormOptionsAPI(this);
             FormMt = new IntentoFormOptionsMT(this);
             ApiKeyState = new ApiKeyState(this, CurrentOptions);
+            if (string.IsNullOrEmpty(options.ApiKey) && !string.IsNullOrEmpty(ApiKeyState.ApiKey))
+            {
+                options.ApiKey = ApiKeyState.ApiKey;
+            }
+
             if (GetValueFromRegistry("ProxyEnabled") != null && GetValueFromRegistry("ProxyEnabled") == "1")
             {
                 CurrentOptions.ProxySettings = new ProxySettings()
@@ -382,13 +387,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             System.Diagnostics.Process.Start(((Control)sender).Tag.ToString());
         }
 
-        //private void linkLabel_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
-        //{
-        //    System.Windows.Forms.LinkLabel control = (System.Windows.Forms.LinkLabel)sender;
-        //    SizeF stringSize = e.Graphics.MeasureString(control.Text, control.Font);
-        //    control.Font = new Font(FontFamily.GenericSansSerif, control.Font.Size);
-        //}
-
         private void buttonHelp_Click(object sender, EventArgs e)
         {
             GetOptions().СallHelpAction?.Invoke();
@@ -416,7 +414,6 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                 if (ApiKeyState != null)
                     ApiKeyState?.SmartRoutingState?.CheckedChanged();
         }
-
 
         public void glossaryControls_ValueChanged(object sender, EventArgs e)
         {
