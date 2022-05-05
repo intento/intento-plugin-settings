@@ -69,8 +69,21 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
 			if (!checkBoxProxy.Checked)
             {
+                if (parent.CurrentOptions.ProxySettings != null)
+                {
+                    parent.Locator = new DefaultLocatorImpl();
+                    parent.Locator.Init(new Options
+                    {
+                        ServerUrl = parent.CurrentOptions.ApiPath,
+                        TmsServerUrl = parent.CurrentOptions.TmsApiPath,
+                        ApiKey = parent.CurrentOptions.ApiKey,
+                        ClientUserAgent = $"Intento.PluginSettingsForm/{parent.Version}"                 
+                    });
+                }
+
                 parent.CurrentOptions.ProxySettings = null;
                 DialogResult = DialogResult.OK;
+                
                 Close();
             }
             else if (IsValidParams())
@@ -87,7 +100,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                 parent.Locator.Init(new Options
                 {
                     ApiKey = parent.CurrentOptions.ApiKey,
-                    ClientUserAgent = "ProxyForm",
+                    ClientUserAgent = $"Intento.PluginSettingsForm/{parent.Version}",
                     ServerUrl = parent.CurrentOptions.ApiPath,
                     Proxy = parent.CurrentOptions.ProxySettings
                 });
