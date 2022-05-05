@@ -1,42 +1,25 @@
-# Intento memoQ plugin
+# Build public plugin with Visual Studio
 
-A plugin for memoQ to query Intento Machine Translation.
+Open solution <code>Intento.MemoQMTPlugin.sln</code>
+Set build configuration to <code>ReleasePublic</code>
+Build solution. Plugin will be in folder <code>..\build</code>
 
-## About Intento
+# Build plugin
 
-Intento provides a single API to Cognitive AI services from many vendors.
+To build plugin you should edit and after that run file <code>**buid.bat**</code>.
 
-To get more information check out [the site](https://inten.to/).
+```
+@echo off
 
-[API User Manual](https://github.com/intento/intento-api).
+set Configuration=Release
+set DoSign=0
 
-In case you don't have a key to use Intento API, please register here [console.inten.to](https://console.inten.to).
+"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe" build.memoQ.proj
+```
 
-## Direct plugin download
+First of all, you should set <code>**Configuration**</code>.
 
-Get the latest plugin version [here](https://drive.google.com/drive/folders/11U4Tsp08VVixyCEZCuSqyFqiNU5qazh7).
+-[x] For public plugin: <code>**DebugPublic**</code> and <code>**ReleasePublic**</code>
+-[x] For private plugin: <code>**Other configurations**</code>
 
-## Development
-
-To compile the memoQ IntentoMT plugin (Visual Studio 2017), you need to clone 3 repositories:
-
-- [intento-csharp](https://github.com/intento/intento-csharp) - contains connector to the Intento API.
-- [intento-plugin-settings](https://github.com/intento/intento-plugin-settings) - contains a settings form for the plugin.
-- [intento-plugin-memoq](https://github.com/intento/intento-plugin-memoq) - current repository.
-
-Clone repositories with original names with exact same roots as listed below (do not specify a directory name in gitclone, so directory will be created automatically with original repository name):
-
-- `C:\repos\Intento\intento-csharp`
-- `C:\repos\Intento\intento-plugin-settings`
-- `C:\repos\Intento\intento-plugin-memoq`
-
-Сompile repositories in the following order:
-
-1. `intento-csharp`
-2. `intento-plugin-settings`
-3. `intento-plugin-memoq`
-
-When compiled you may find plugin files here:
-
-- `intento-plugin-memoq\IntentoMTPlugin\Intento.MemoQMTPlugin.dll`
-- `intento-plugin-memoq\IntentoMTPlugin\Intento.MemoQMTPlugin.kgsign`
+After that, you should check path to <code>MSBuild</code>
