@@ -53,7 +53,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			{
 				Hidden = true
 			};
-			var apiKeyState = new ApiKeyState(new IntentoTranslationProviderOptionsForm(testOptions, parent.LanguagePairs, parent.Locator), options);
+			var apiKeyState = new ApiKeyState(new IntentoTranslationProviderOptionsForm(testOptions, parent.LanguagePairs, parent.Locator, parent.InitLocatorFunc), options);
 			apiKeyState.SetValue(apiKey_tb.Text.Trim());
 			apiKeyState.ReadProvidersAndRouting();
 			var err = apiKeyState.Error();

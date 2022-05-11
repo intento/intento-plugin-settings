@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Net.Http;
 using System.Windows.Forms;
 using Intento.MT.Plugin.PropertiesForm.Services;
-using Intento.SDK.Autofac;
 using Intento.SDK.Settings;
 using Intento.SDK.Translate;
 
@@ -71,8 +70,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             {
                 if (parent.CurrentOptions.ProxySettings != null)
                 {
-                    parent.Locator = new DefaultLocatorImpl();
-                    parent.Locator.Init(new Options
+                    parent.Locator = parent.InitLocatorFunc(new Options
                     {
                         ServerUrl = parent.CurrentOptions.ApiPath,
                         TmsServerUrl = parent.CurrentOptions.TmsApiPath,
@@ -96,8 +94,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                     ProxyPassword = textBoxPassword.Text,
                     ProxyEnabled = true
                 };
-                parent.Locator = new DefaultLocatorImpl();
-                parent.Locator.Init(new Options
+                parent.Locator = parent.InitLocatorFunc(new Options
                 {
                     ApiKey = parent.CurrentOptions.ApiKey,
                     ClientUserAgent = $"Intento.PluginSettingsForm/{parent.Version}",
