@@ -47,14 +47,19 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         private readonly string appName;
         public bool MemoqPublic { get; }
 
+        public Func<Options, ILocatorImpl> InitLocatorFunc { get; }
+
         #endregion vars
 
         public IntentoTranslationProviderOptionsForm(
             IntentoMTFormOptions options,
             LangPair[] languagePairs,
-            ILocatorImpl locator)
+            ILocatorImpl locator,
+            Func<Options, ILocatorImpl> initLocatorFunc)
         {
             Locator = locator;
+            InitLocatorFunc = initLocatorFunc;
+            
             var hidden = options.Hidden;
             var splashForm = new IntentoFormSplash();
             if (!hidden)
@@ -191,7 +196,8 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             IntentoMTFormOptions options,
             LangPair[] languagePairs,
             bool insideEnableDisable,
-            ILocatorImpl locator) : this(options, languagePairs, locator)
+            ILocatorImpl locator,
+            Func<Options, ILocatorImpl> initLocatorFunc) : this(options, languagePairs, locator, initLocatorFunc)
         {
             InsideEnableDisable = insideEnableDisable;
         }

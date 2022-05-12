@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net.Http;
 using Intento.MT.Plugin.PropertiesForm.Services;
 using Intento.MT.Plugin.PropertiesForm.WinForms;
-using Intento.SDK.Autofac;
 using Intento.SDK.DI;
 using Intento.SDK.Exceptions;
 using Intento.SDK.Settings;
@@ -37,7 +36,9 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         /// </summary>
         /// <param name="form"></param>
         /// <param name="options"></param>
-        public ApiKeyState(IntentoTranslationProviderOptionsForm form, IntentoMTFormOptions options) : base(form,
+        /// <param name="initLocatorFunc"></param>
+        public ApiKeyState(IntentoTranslationProviderOptionsForm form, 
+            IntentoMTFormOptions options) : base(form,
             options)
         {
             this.options = options;
@@ -145,8 +146,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
         public ILocatorImpl CreateIntentoConnection(ProxySettings proxySettings, string additionalUserAgent = null)
         {
-            var impl = new DefaultLocatorImpl();
-            impl.Init(new Options
+            var impl = Form.InitLocatorFunc.Invoke(new Options
             {
                 ServerUrl = options.ApiPath,
                 TmsServerUrl = options.TmsApiPath,
