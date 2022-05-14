@@ -5,6 +5,12 @@ VisualStudioVersion = 17.0.31410.414
 MinimumVisualStudioVersion = 12.0.21005.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intento.MemoQMTPlugin", "Intento.MemoQMTPlugin\Intento.MemoQMTPlugin.csproj", "{62883E70-8771-47FF-BCD0-040C126BE2E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intento.MT.Plugin.PropertiesForm.Submodule", "intento-plugin-settings\Intento.MT.Plugin.PropertiesForm\Intento.MT.Plugin.PropertiesForm.Submodule.csproj", "{A4374128-DD01-4CE3-B62C-4CC3460620C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intento.SDK.Submodule", "intento-csharp\Intento.SDK\Intento.SDK.Submodule.csproj", "{64A1C30C-F04C-4D71-84B9-044798B80632}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intento.SDK.DependencyInjection.Lite.Submodule", "intento-csharp\Intento.SDK.DependencyInjection.Lite\Intento.SDK.DependencyInjection.Lite.Submodule.csproj", "{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AmadeusDebug|Any CPU = AmadeusDebug|Any CPU
@@ -36,6 +42,60 @@ Global
 		{62883E70-8771-47FF-BCD0-040C126BE2E5}.DebugPublic|Any CPU.Build.0 = DebugPublic|Any CPU
 		{62883E70-8771-47FF-BCD0-040C126BE2E5}.ReleasePublic|Any CPU.ActiveCfg = ReleasePublic|Any CPU
 		{62883E70-8771-47FF-BCD0-040C126BE2E5}.ReleasePublic|Any CPU.Build.0 = ReleasePublic|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.AmadeusDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.AmadeusDebug|Any CPU.Build.0 = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.AmadeusRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.AmadeusRelease|Any CPU.Build.0 = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.memoQ|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.memoQ|Any CPU.Build.0 = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.DebugStage|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.DebugStage|Any CPU.Build.0 = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.DebugPublic|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.DebugPublic|Any CPU.Build.0 = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.ReleasePublic|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4374128-DD01-4CE3-B62C-4CC3460620C0}.ReleasePublic|Any CPU.Build.0 = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.AmadeusDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.AmadeusDebug|Any CPU.Build.0 = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.AmadeusRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.AmadeusRelease|Any CPU.Build.0 = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.memoQ|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.memoQ|Any CPU.Build.0 = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.DebugStage|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.DebugStage|Any CPU.Build.0 = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.DebugPublic|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.DebugPublic|Any CPU.Build.0 = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.ReleasePublic|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A1C30C-F04C-4D71-84B9-044798B80632}.ReleasePublic|Any CPU.Build.0 = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.AmadeusDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.AmadeusDebug|Any CPU.Build.0 = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.AmadeusRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.AmadeusRelease|Any CPU.Build.0 = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.memoQ|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.memoQ|Any CPU.Build.0 = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.DebugStage|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.DebugStage|Any CPU.Build.0 = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.DebugPublic|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.DebugPublic|Any CPU.Build.0 = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.ReleasePublic|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1C4C7F0-5A31-485E-80D9-FC92961C08B9}.ReleasePublic|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -31,8 +31,8 @@ if not exist build mkdir build
 del build\*.* /Q
 
 echo --- ilmerge ---
-echo ilmerge\ilmerge /targetplatform:v4 /out:Merged\Intento.MemoQMTPlugin.dll bin\Intento.MemoQMTPlugin.dll bin\Intento.MT.Plugin.PropertiesForm.dll bin\Intento.SDK.dll bin\Intento.SDK.Autofac.dll bin\Autofac.dll bin\AWSSDK.S3.dll bin\AWSSDK.Core.dll bin\UrlCombineLib.dll
-ilmerge\ilmerge /targetplatform:v4 /out:Merged\Intento.MemoQMTPlugin.dll bin\Intento.MemoQMTPlugin.dll bin\Intento.MT.Plugin.PropertiesForm.dll bin\Intento.SDK.dll bin\Intento.SDK.Autofac.dll bin\Autofac.dll bin\AWSSDK.S3.dll bin\AWSSDK.Core.dll bin\UrlCombineLib.dll 
+echo ilmerge\ilmerge /targetplatform:v4 /out:Merged\Intento.MemoQMTPlugin.dll bin\Intento.MemoQMTPlugin.dll bin\Intento.MT.Plugin.PropertiesForm.dll bin\Intento.SDK.dll bin\Intento.SDK.DependencyInjection.Lite.dll
+ilmerge\ilmerge /targetplatform:v4 /out:Merged\Intento.MemoQMTPlugin.dll bin\Intento.MemoQMTPlugin.dll bin\Intento.MT.Plugin.PropertiesForm.dll bin\Intento.SDK.dll bin\Intento.SDK.DependencyInjection.Lite.dll
 
 
 echo --- signing ---

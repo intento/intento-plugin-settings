@@ -11,8 +11,6 @@ namespace IntentoMemoQMTPlugin
     {
         private readonly string categoryName;
 
-        private readonly object syncObj = new();
-
         /// <summary>
         /// Ctor
         /// </summary>
@@ -30,20 +28,8 @@ namespace IntentoMemoQMTPlugin
             {
                 return;
             }
-
-            lock (syncObj)
-            {
-                try
-                {
-                    using var streamWriter = new StreamWriter(MemoQLoggerProvider.LogFilePath, true);
-                    streamWriter.WriteLine(
-                        $"[{eventId.Id,2}: {logLevel,-12}] {categoryName} {formatter(state, exception)}");
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
+            
+            Kilgray.Utils.Log.WriteInfo( $"[{eventId.Id,2}: {logLevel,-12}] {categoryName} {formatter(state, exception)}");
         }
 
         /// <inheritdoc />

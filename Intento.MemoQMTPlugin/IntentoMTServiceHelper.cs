@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Intento.MT.Plugin.PropertiesForm;
 using Intento.MT.Plugin.PropertiesForm.Services;
-using Intento.SDK.Autofac;
+using Intento.SDK.DependencyInjection.Lite;
 using Intento.SDK.DI;
 using Intento.SDK.Settings;
 using Intento.SDK.Translate;
@@ -210,18 +210,6 @@ namespace IntentoMTPlugin
                 throw;
             }
             
-        }
-
-        private static void AddString(ICollection<string> res, string name, Func<string> f)
-        {
-            try
-            {
-                res.Add($"{name}/{f()}");
-            }
-            catch(Exception ex)
-            {
-                res.Add($"{name}: Error {ex.Message}");
-            }
         }
 
         /// <summary>
