@@ -1,0 +1,8 @@
+[submodule "intento-csharp"]
+	path = intento-csharp
+	url = https://github.com/intento/intento-csharp.git
+	branch = master
+[submodule "intento-plugin-settings"]
+	path = intento-plugin-settings
+	url = https://github.com/intento/intento-plugin-settings.git
+	branch = master

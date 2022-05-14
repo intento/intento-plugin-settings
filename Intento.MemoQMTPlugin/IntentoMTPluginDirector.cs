@@ -10,7 +10,8 @@ using MemoQ.MTInterfaces;
 using Intento.MT.Plugin.PropertiesForm;
 using Intento.MT.Plugin.PropertiesForm.Services;
 using Intento.MT.Plugin.PropertiesForm.WinForms;
-using Intento.SDK.Autofac;
+using Intento.SDK.DependencyInjection;
+using Intento.SDK.DependencyInjection.Lite;
 using Intento.SDK.Settings;
 using Intento.SDK.Translate;
 using IntentoMemoQMTPlugin;
@@ -354,7 +355,13 @@ namespace IntentoMTPlugin
 				using var form = new IntentoTranslationProviderOptionsForm(
 					formOptions,
 					null,
-					intentoMTServiceHelper.Locator
+					intentoMTServiceHelper.Locator,
+					o =>
+					{
+						var impl = new DefaultLocatorImpl();
+						impl.Init(o);
+						return impl;
+					}
 				);
 				form.Visible = false;
 				if (form.ShowDialog(parentForm) == DialogResult.OK)
