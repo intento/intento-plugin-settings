@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A4374128-DD01-4CE3-B62C-4CC3460620C0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Intento.MT.Plugin.PropertiesForm</RootNamespace>
+    <AssemblyName>Intento.MT.Plugin.PropertiesForm</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <DoSign Condition="'$(DoSign)' == ''">0</DoSign>
+    <IntentoSDKPath Condition="'$(IntentoSDKPath)' == ''">..\intento-csharp\bin\</IntentoSDKPath>
+    <LangVersion>default</LangVersion>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath Condition="'$(OutputPath)' == ''">bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath Condition="'$(OutputPath)' == ''">bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>intento_sn.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.8\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>..\..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.8\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DI\PropertiesFormContainerRegisterExtension.cs" />
+    <Compile Include="ErrorInfo.cs" />
+    <Compile Include="IntentoMTFormOptions.StateModeEnum.cs" />
+    <Compile Include="Models\LangPair.cs" />
+    <Compile Include="Models\ListItem.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\IRemoteLogService.cs" />
+    <Compile Include="Services\RemoteLogService.cs" />
+    <Compile Include="States\ApiKeyState.cs" />
+    <Compile Include="States\ApiKeyState.EApiKeyStatus.cs" />
+    <Compile Include="States\AuthState.cs" />
+    <Compile Include="States\BaseState.cs" />
+    <Compile Include="States\GlossaryState.cs" />
+    <Compile Include="States\ModelState.cs" />
+    <Compile Include="States\ProvideAgnosticGlossaryState.cs" />
+    <Compile Include="States\ProviderState.cs" />
+    <Compile Include="States\SmartRoutingState.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="WinForms\IntentoFormIgnoreError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormIgnoreError.Designer.cs">
+      <DependentUpon>IntentoFormIgnoreError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormProviderAuthWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormProviderAuthWizard.Designer.cs">
+      <DependentUpon>IntentoFormProviderAuthWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormAdvanced.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormAdvanced.Designer.cs">
+      <DependentUpon>IntentoFormAdvanced.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormOptionsAPI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormOptionsAPI.Designer.cs">
+      <DependentUpon>IntentoFormOptionsAPI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IntentoMTFormOptions.cs" />
+    <Compile Include="WinForms\IntentoFormOptionsMT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormOptionsMT.Designer.cs">
+      <DependentUpon>IntentoFormOptionsMT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormOptonsMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormOptonsMain.Designer.cs">
+      <DependentUpon>IntentoFormOptonsMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RevisionHistory.cs" />
+    <Compile Include="WinForms\IntentoFormSplash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\IntentoFormSplash.Designer.cs">
+      <DependentUpon>IntentoFormSplash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\IntentoFormIgnoreError.resx">
+      <DependentUpon>IntentoFormIgnoreError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\IntentoFormProviderAuthWizard.resx">
+      <DependentUpon>IntentoFormProviderAuthWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\IntentoFormAdvanced.resx">
+      <DependentUpon>IntentoFormAdvanced.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\IntentoFormOptionsAPI.resx">
+      <DependentUpon>IntentoFormOptionsAPI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\IntentoFormOptionsMT.resx">
+      <DependentUpon>IntentoFormOptionsMT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\IntentoFormOptonsMain.resx">
+      <DependentUpon>IntentoFormOptonsMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\IntentoFormSplash.resx">
+      <DependentUpon>IntentoFormSplash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="intento_sn.snk" />
+    <None Include="Properties\Intento.MT.Plugin.PropertiesForm.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\intento.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\intento.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\intento-csharp\Intento.SDK\Intento.SDK.Submodule.csproj">
+      <Project>{b183fc58-2924-4d11-a6a9-34d52034184d}</Project>
+      <Name>Intento.SDK.Submodule</Name>
+    </ProjectReference>
+  </ItemGroup>  
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent Condition="'$(DoSign)' == '1'">powershell -ExecutionPolicy RemoteSigned $(ProjectDir)postbuild.ps1 '$(TargetDir)$(TargetName).dll'</PostBuildEvent>
+  </PropertyGroup>
+</Project>
