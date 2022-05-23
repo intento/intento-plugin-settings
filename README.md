@@ -1,25 +1,17 @@
-# Build public plugin with Visual Studio
+# intento-plugin-settings
 
-Open solution <code>Intento.MemoQMTPlugin.sln</code>
-Set build configuration to <code>ReleasePublic</code>
-Build solution. Plugin will be in folder <code>..\build</code>
+A library with a settings form used in Intento MemoQ plugin and Intento Trados plugin.
 
-# Build plugin
+## About Intento
+                                                             
+Intento provides a single API to Cognitive AI services from many vendors.
 
-To build plugin you should edit and after that run file <code>**buid.bat**</code>.
+To get more information check out [the site](https://inten.to/).
 
-```
-@echo off
+[API User Manual](https://github.com/intento/intento-api).
 
-set Configuration=Release
-set DoSign=0
+In case you don't have a key to use Intento API, please register here [console.inten.to](https://console.inten.to).
 
-"%ProgramFiles(x86)%\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe" build.memoQ.proj
-```
+### Dependencies
 
-First of all, you should set <code>**Configuration**</code>.
-
--[x] For public plugin: <code>**DebugPublic**</code> and <code>**ReleasePublic**</code>
--[x] For private plugin: <code>**Other configurations**</code>
-
-After that, you should check path to <code>MSBuild</code>
+- Intento.SDK 2.0.0

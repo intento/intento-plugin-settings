@@ -3,6 +3,7 @@
 Thumbs.db
 #Ignore files build by Visual Studio
 *.obj
+*.exe
 *.pdb
 *.user
 *.aps
@@ -26,22 +27,9 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
-Intento.MT/sdlplugin.*/
 .vs/
-*.kgsign
-*.skgsign
-*.dll
-*.7z
-!References/8/*
-!References/9/*
+
 #Ignore file with github hash
 GitHash.cs
-app.config
-/Referenses/AssemblyInfo.cs
-/Referenses/Embed.bat
-/IntentoMTPlugin/app.config
-/IntentoMTPlugin/Properties/AssemblyInfo.cs
-/packagesRepository
-/packages
-/.idea/.idea.Intento.MemoQMTPlugin/.idea
-/log.txt
+/.idea/.idea.Intento.MT.Plugin.PropertiesForm/.idea
+/build
