@@ -169,7 +169,7 @@
     <value>Use Connected Account</value>
   </data>
   <data name="MTgroupBoxOptional" xml:space="preserve">
-    <value>OPTIONAL</value>
+    <value>Optional</value>
   </data>
   <data name="MTlabelHelpBillingAccount" xml:space="preserve">
     <value>Most of the MT Providers are available via Intento contracts, but you may also use your own account at MT Provider connected via Intento Console.</value>
