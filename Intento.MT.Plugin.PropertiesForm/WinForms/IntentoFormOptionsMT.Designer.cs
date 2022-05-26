@@ -76,9 +76,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBoxRouting = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.labelSmartRouting = new System.Windows.Forms.Label();
-            this.textBoxLabelURL = new System.Windows.Forms.LinkLabel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.textBoxLabelURL = new System.Windows.Forms.LinkLabel();
+            this.labelSmartRouting = new System.Windows.Forms.Label();
             this.tableLayoutPanel5.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -721,17 +721,15 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(518, 20);
             this.tableLayoutPanel1.TabIndex = 38;
             // 
-            // labelSmartRouting
+            // panel5
             // 
-            this.labelSmartRouting.AutoSize = true;
-            this.labelSmartRouting.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelSmartRouting.Location = new System.Drawing.Point(0, 0);
-            this.labelSmartRouting.Margin = new System.Windows.Forms.Padding(0);
-            this.labelSmartRouting.Name = "labelSmartRouting";
-            this.labelSmartRouting.Size = new System.Drawing.Size(227, 13);
-            this.labelSmartRouting.TabIndex = 38;
-            this.labelSmartRouting.Text = "Select MT provider automatically based on ";
-            this.labelSmartRouting.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.panel5.Controls.Add(this.textBoxLabelURL);
+            this.panel5.Controls.Add(this.labelSmartRouting);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(3, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(512, 14);
+            this.panel5.TabIndex = 39;
             // 
             // textBoxLabelURL
             // 
@@ -754,15 +752,17 @@
             this.textBoxLabelURL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.textBoxLabelURL.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             // 
-            // panel5
+            // labelSmartRouting
             // 
-            this.panel5.Controls.Add(this.textBoxLabelURL);
-            this.panel5.Controls.Add(this.labelSmartRouting);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(3, 3);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(512, 14);
-            this.panel5.TabIndex = 39;
+            this.labelSmartRouting.AutoSize = true;
+            this.labelSmartRouting.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelSmartRouting.Location = new System.Drawing.Point(0, 0);
+            this.labelSmartRouting.Margin = new System.Windows.Forms.Padding(0);
+            this.labelSmartRouting.Name = "labelSmartRouting";
+            this.labelSmartRouting.Size = new System.Drawing.Size(227, 13);
+            this.labelSmartRouting.TabIndex = 38;
+            this.labelSmartRouting.Text = "Select MT provider automatically based on ";
+            this.labelSmartRouting.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // IntentoFormOptionsMT
             // 
