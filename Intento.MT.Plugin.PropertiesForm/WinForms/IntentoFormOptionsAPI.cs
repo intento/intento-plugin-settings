@@ -113,6 +113,12 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			{
 				Clipboard.ContainsText();
 				Clipboard.SetDataObject(errorInfo, true, 10, 150);
+				using var form = new IntentoFormIgnoreError();
+				form.labelError.Visible = false;
+				form.SetButtonContinueEdit(null, false);
+				form.SetButtonIgnoreAndSave("Close", true);
+				form.SetAdditionalErrorInfo(errorInfo);
+				form.ShowDialog();
 			}
 			catch (Exception)
 			{

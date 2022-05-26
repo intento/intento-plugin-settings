@@ -90,14 +90,14 @@
             this.tableLayoutPanel1.Controls.Add(this.textBoxResponse, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(16, 16);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(386, 274);
-            this.tableLayoutPanel1.TabIndex = 35;           
+            this.tableLayoutPanel1.TabIndex = 35;
             // 
             // textBoxResponse
             // 
@@ -123,7 +123,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "IntentoFormIgnoreError";
-            this.Padding = new System.Windows.Forms.Padding(16, 16, 16, 16);
+            this.Padding = new System.Windows.Forms.Padding(16);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -132,7 +132,6 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion

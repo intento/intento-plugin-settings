@@ -489,8 +489,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             buttonMTSetting.Text = Resource.MFbuttonMTSetting;
             buttonSetApi.Text = Resource.EnterIntentoAPIKey;
             Text = Resource.MFcaption;
-            groupBoxMTSettings.Text = Resource.MFgroupBoxMTSettings;
-            labelRegister1.Text = Resource.MFlabelRegister1;
+            groupBoxMTSettings.Text = Resource.MFgroupBoxMTSettings;           
             labelRegister2.Text = Resource.MFlabelRegister2;
             buttonCheck.Text = Resource.MFbuttonCheck;
             labelIAK.Text = Resource.APIFlabelAPI;
