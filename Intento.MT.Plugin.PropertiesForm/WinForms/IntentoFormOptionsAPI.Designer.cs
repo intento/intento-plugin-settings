@@ -36,17 +36,19 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelAPI
             // 
-            this.labelAPI.AutoSize = true;
             this.labelAPI.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelAPI.Location = new System.Drawing.Point(3, 0);
+            this.labelAPI.Location = new System.Drawing.Point(0, 8);
             this.labelAPI.Name = "labelAPI";
-            this.labelAPI.Size = new System.Drawing.Size(87, 28);
+            this.labelAPI.Size = new System.Drawing.Size(93, 23);
             this.labelAPI.TabIndex = 21;
             this.labelAPI.Text = "Intento API Key:";
             this.labelAPI.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -54,11 +56,10 @@
             // apiKey_tb
             // 
             this.apiKey_tb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tableLayoutPanel1.SetColumnSpan(this.apiKey_tb, 3);
             this.apiKey_tb.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.apiKey_tb.Location = new System.Drawing.Point(96, 3);
+            this.apiKey_tb.Location = new System.Drawing.Point(93, 8);
             this.apiKey_tb.Name = "apiKey_tb";
-            this.apiKey_tb.Size = new System.Drawing.Size(332, 22);
+            this.apiKey_tb.Size = new System.Drawing.Size(326, 22);
             this.apiKey_tb.TabIndex = 20;
             this.apiKey_tb.UseSystemPasswordChar = true;
             this.apiKey_tb.WordWrap = false;
@@ -67,9 +68,10 @@
             // 
             this.checkBoxShowHidden.Dock = System.Windows.Forms.DockStyle.Right;
             this.checkBoxShowHidden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxShowHidden.Location = new System.Drawing.Point(438, 3);
+            this.checkBoxShowHidden.Location = new System.Drawing.Point(419, 8);
             this.checkBoxShowHidden.Name = "checkBoxShowHidden";
-            this.checkBoxShowHidden.Size = new System.Drawing.Size(73, 22);
+            this.checkBoxShowHidden.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.checkBoxShowHidden.Size = new System.Drawing.Size(73, 23);
             this.checkBoxShowHidden.TabIndex = 22;
             this.checkBoxShowHidden.Text = "Unmask";
             this.checkBoxShowHidden.UseVisualStyleBackColor = true;
@@ -77,13 +79,12 @@
             // 
             // labelError
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.labelError, 2);
             this.labelError.Cursor = System.Windows.Forms.Cursors.Hand;
             this.labelError.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelError.ForeColor = System.Drawing.Color.Red;
-            this.labelError.Location = new System.Drawing.Point(3, 50);
+            this.labelError.Location = new System.Drawing.Point(0, 0);
             this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(194, 31);
+            this.labelError.Size = new System.Drawing.Size(302, 26);
             this.labelError.TabIndex = 23;
             this.labelError.Text = "EMPTY";
             this.labelError.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -93,10 +94,10 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonSave.Location = new System.Drawing.Point(203, 53);
+            this.buttonSave.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonSave.Location = new System.Drawing.Point(302, 0);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(151, 25);
+            this.buttonSave.Size = new System.Drawing.Size(90, 26);
             this.buttonSave.TabIndex = 24;
             this.buttonSave.Text = "Test and save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -104,52 +105,60 @@
             // 
             // buttonCancel
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.buttonCancel, 2);
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonCancel.Location = new System.Drawing.Point(360, 53);
+            this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonCancel.Location = new System.Drawing.Point(402, 0);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(151, 25);
+            this.buttonCancel.Size = new System.Drawing.Size(90, 26);
             this.buttonCancel.TabIndex = 25;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // tableLayoutPanel1
+            // panel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.41568F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.29216F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.5772F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.5F));
-            this.tableLayoutPanel1.Controls.Add(this.labelAPI, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelError, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 3, 2);
-            this.tableLayoutPanel1.Controls.Add(this.apiKey_tb, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.buttonSave, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.checkBoxShowHidden, 4, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(16, 16);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(514, 81);
-            this.tableLayoutPanel1.TabIndex = 26;
+            this.panel1.Controls.Add(this.apiKey_tb);
+            this.panel1.Controls.Add(this.checkBoxShowHidden);
+            this.panel1.Controls.Add(this.labelAPI);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(16, 16);
+            this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(0, 8, 0, 8);
+            this.panel1.Size = new System.Drawing.Size(492, 39);
+            this.panel1.TabIndex = 27;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.labelError);
+            this.panel3.Controls.Add(this.buttonSave);
+            this.panel3.Controls.Add(this.panel4);
+            this.panel3.Controls.Add(this.buttonCancel);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(16, 71);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(492, 26);
+            this.panel3.TabIndex = 28;
+            // 
+            // panel4
+            // 
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel4.Location = new System.Drawing.Point(392, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(10, 26);
+            this.panel4.TabIndex = 26;
             // 
             // IntentoFormOptionsAPI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(546, 113);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(524, 113);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(540, 152);
             this.Name = "IntentoFormOptionsAPI";
             this.Padding = new System.Windows.Forms.Padding(16);
             this.ShowInTaskbar = false;
@@ -158,8 +167,9 @@
             this.Text = "ApiForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.IntentoFormOptionsAPI_FormClosed);
             this.Shown += new System.EventHandler(this.IntentoFormOptionsAPI_Shown);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -173,6 +183,8 @@
         private System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
     }
 }

@@ -84,8 +84,8 @@
             this.groupBoxProxy.Enabled = false;
             this.groupBoxProxy.Location = new System.Drawing.Point(3, 50);
             this.groupBoxProxy.Name = "groupBoxProxy";
-            this.groupBoxProxy.Padding = new System.Windows.Forms.Padding(8, 8, 8, 8);
-            this.groupBoxProxy.Size = new System.Drawing.Size(655, 191);
+            this.groupBoxProxy.Padding = new System.Windows.Forms.Padding(8);
+            this.groupBoxProxy.Size = new System.Drawing.Size(519, 191);
             this.groupBoxProxy.TabIndex = 12;
             this.groupBoxProxy.TabStop = false;
             // 
@@ -99,7 +99,7 @@
             this.groupBoxAuth.Location = new System.Drawing.Point(8, 79);
             this.groupBoxAuth.Margin = new System.Windows.Forms.Padding(0);
             this.groupBoxAuth.Name = "groupBoxAuth";
-            this.groupBoxAuth.Size = new System.Drawing.Size(639, 104);
+            this.groupBoxAuth.Size = new System.Drawing.Size(503, 104);
             this.groupBoxAuth.TabIndex = 16;
             this.groupBoxAuth.TabStop = false;
             // 
@@ -114,12 +114,12 @@
             this.tableLayoutPanel4.Controls.Add(this.textBoxUserName, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 18);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(633, 53);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(497, 53);
             this.tableLayoutPanel4.TabIndex = 8;
             // 
             // labelUserName
@@ -127,7 +127,7 @@
             this.labelUserName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelUserName.Location = new System.Drawing.Point(3, 0);
             this.labelUserName.Name = "labelUserName";
-            this.labelUserName.Size = new System.Drawing.Size(88, 28);
+            this.labelUserName.Size = new System.Drawing.Size(68, 28);
             this.labelUserName.TabIndex = 4;
             this.labelUserName.Text = "User name:";
             // 
@@ -135,9 +135,9 @@
             // 
             this.textBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPassword.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBoxPassword.Location = new System.Drawing.Point(97, 31);
+            this.textBoxPassword.Location = new System.Drawing.Point(77, 31);
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(533, 22);
+            this.textBoxPassword.Size = new System.Drawing.Size(417, 22);
             this.textBoxPassword.TabIndex = 7;
             this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxAuth_TextChanged);
             // 
@@ -146,7 +146,7 @@
             this.labelPassword.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelPassword.Location = new System.Drawing.Point(3, 28);
             this.labelPassword.Name = "labelPassword";
-            this.labelPassword.Size = new System.Drawing.Size(88, 42);
+            this.labelPassword.Size = new System.Drawing.Size(68, 42);
             this.labelPassword.TabIndex = 6;
             this.labelPassword.Text = "Password:";
             // 
@@ -154,9 +154,9 @@
             // 
             this.textBoxUserName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxUserName.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBoxUserName.Location = new System.Drawing.Point(97, 3);
+            this.textBoxUserName.Location = new System.Drawing.Point(77, 3);
             this.textBoxUserName.Name = "textBoxUserName";
-            this.textBoxUserName.Size = new System.Drawing.Size(533, 22);
+            this.textBoxUserName.Size = new System.Drawing.Size(417, 22);
             this.textBoxUserName.TabIndex = 5;
             this.textBoxUserName.TextChanged += new System.EventHandler(this.textBoxAuth_TextChanged);
             // 
@@ -166,7 +166,7 @@
             this.labelError.ForeColor = System.Drawing.Color.Red;
             this.labelError.Location = new System.Drawing.Point(3, 71);
             this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(633, 30);
+            this.labelError.Size = new System.Drawing.Size(497, 30);
             this.labelError.TabIndex = 34;
             this.labelError.Text = "Proxy connection error";
             this.labelError.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -177,10 +177,10 @@
             this.panel2.Controls.Add(this.checkBoxAuth);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(8, 51);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.panel2.Size = new System.Drawing.Size(639, 28);
+            this.panel2.Padding = new System.Windows.Forms.Padding(3);
+            this.panel2.Size = new System.Drawing.Size(503, 28);
             this.panel2.TabIndex = 19;
             // 
             // checkBoxAuth
@@ -190,7 +190,7 @@
             this.checkBoxAuth.Location = new System.Drawing.Point(3, 3);
             this.checkBoxAuth.Margin = new System.Windows.Forms.Padding(0);
             this.checkBoxAuth.Name = "checkBoxAuth";
-            this.checkBoxAuth.Size = new System.Drawing.Size(633, 22);
+            this.checkBoxAuth.Size = new System.Drawing.Size(497, 22);
             this.checkBoxAuth.TabIndex = 17;
             this.checkBoxAuth.Text = "Authorization required";
             this.checkBoxAuth.UseVisualStyleBackColor = true;
@@ -199,21 +199,21 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.Controls.Add(this.labelAddress, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.textBoxAddress, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.labelPort, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.textBoxPort, 3, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(8, 23);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(639, 28);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(503, 28);
             this.tableLayoutPanel2.TabIndex = 18;
             // 
             // labelAddress
@@ -234,13 +234,13 @@
             this.textBoxAddress.Location = new System.Drawing.Point(220, 5);
             this.textBoxAddress.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.textBoxAddress.Name = "textBoxAddress";
-            this.textBoxAddress.Size = new System.Drawing.Size(249, 22);
+            this.textBoxAddress.Size = new System.Drawing.Size(159, 22);
             this.textBoxAddress.TabIndex = 13;
             // 
             // labelPort
             // 
             this.labelPort.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelPort.Location = new System.Drawing.Point(475, 0);
+            this.labelPort.Location = new System.Drawing.Point(385, 0);
             this.labelPort.Name = "labelPort";
             this.labelPort.Size = new System.Drawing.Size(32, 28);
             this.labelPort.TabIndex = 14;
@@ -251,10 +251,10 @@
             // 
             this.textBoxPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxPort.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxPort.Location = new System.Drawing.Point(513, 5);
+            this.textBoxPort.Location = new System.Drawing.Point(423, 5);
             this.textBoxPort.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(123, 22);
+            this.textBoxPort.Size = new System.Drawing.Size(77, 22);
             this.textBoxPort.TabIndex = 15;
             this.textBoxPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPort_KeyPress);
             // 
@@ -265,7 +265,7 @@
             this.checkBoxProxy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxProxy.Location = new System.Drawing.Point(3, 26);
             this.checkBoxProxy.Name = "checkBoxProxy";
-            this.checkBoxProxy.Size = new System.Drawing.Size(649, 18);
+            this.checkBoxProxy.Size = new System.Drawing.Size(513, 18);
             this.checkBoxProxy.TabIndex = 13;
             this.checkBoxProxy.Text = "checkBoxProxy";
             this.checkBoxProxy.UseVisualStyleBackColor = true;
@@ -277,7 +277,7 @@
             this.checkBoxSaveApiKeyInRegistry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxSaveApiKeyInRegistry.Location = new System.Drawing.Point(3, 77);
             this.checkBoxSaveApiKeyInRegistry.Name = "checkBoxSaveApiKeyInRegistry";
-            this.checkBoxSaveApiKeyInRegistry.Size = new System.Drawing.Size(633, 18);
+            this.checkBoxSaveApiKeyInRegistry.Size = new System.Drawing.Size(497, 18);
             this.checkBoxSaveApiKeyInRegistry.TabIndex = 15;
             this.checkBoxSaveApiKeyInRegistry.Text = "checkBoxSaveApiKeyInRegistry";
             this.checkBoxSaveApiKeyInRegistry.UseVisualStyleBackColor = true;
@@ -289,7 +289,7 @@
             this.checkBoxTrace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxTrace.Location = new System.Drawing.Point(3, 3);
             this.checkBoxTrace.Name = "checkBoxTrace";
-            this.checkBoxTrace.Size = new System.Drawing.Size(321, 17);
+            this.checkBoxTrace.Size = new System.Drawing.Size(253, 17);
             this.checkBoxTrace.TabIndex = 14;
             this.checkBoxTrace.Text = "checkBoxTrace";
             this.checkBoxTrace.UseVisualStyleBackColor = true;
@@ -298,9 +298,9 @@
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonCancel.Location = new System.Drawing.Point(559, 3);
+            this.buttonCancel.Location = new System.Drawing.Point(443, 3);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(93, 28);
+            this.buttonCancel.Size = new System.Drawing.Size(73, 28);
             this.buttonCancel.TabIndex = 33;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -308,9 +308,9 @@
             // buttonSave
             // 
             this.buttonSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonSave.Location = new System.Drawing.Point(461, 3);
+            this.buttonSave.Location = new System.Drawing.Point(366, 3);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(92, 28);
+            this.buttonSave.Size = new System.Drawing.Size(71, 28);
             this.buttonSave.TabIndex = 32;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -321,10 +321,10 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(3, 525);
+            this.statusStrip1.Location = new System.Drawing.Point(3, 478);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.statusStrip1.Size = new System.Drawing.Size(655, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(519, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 35;
             this.statusStrip1.Text = "statusStrip1";
@@ -342,7 +342,7 @@
             this.textBoxCustomSettingsName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxCustomSettingsName.Location = new System.Drawing.Point(3, 49);
             this.textBoxCustomSettingsName.Name = "textBoxCustomSettingsName";
-            this.textBoxCustomSettingsName.Size = new System.Drawing.Size(633, 22);
+            this.textBoxCustomSettingsName.Size = new System.Drawing.Size(497, 22);
             this.textBoxCustomSettingsName.TabIndex = 36;
             // 
             // labelCustomSettingsName
@@ -350,7 +350,7 @@
             this.labelCustomSettingsName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelCustomSettingsName.Location = new System.Drawing.Point(3, 23);
             this.labelCustomSettingsName.Name = "labelCustomSettingsName";
-            this.labelCustomSettingsName.Size = new System.Drawing.Size(633, 23);
+            this.labelCustomSettingsName.Size = new System.Drawing.Size(497, 23);
             this.labelCustomSettingsName.TabIndex = 37;
             this.labelCustomSettingsName.Text = "Custom name for plugin settings (leave blank to use default name)";
             // 
@@ -360,7 +360,7 @@
             this.checkBoxCustomTagParser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxCustomTagParser.Location = new System.Drawing.Point(11, 11);
             this.checkBoxCustomTagParser.Name = "checkBoxCustomTagParser";
-            this.checkBoxCustomTagParser.Size = new System.Drawing.Size(633, 24);
+            this.checkBoxCustomTagParser.Size = new System.Drawing.Size(497, 24);
             this.checkBoxCustomTagParser.TabIndex = 38;
             this.checkBoxCustomTagParser.Text = "CustomTagParser";
             this.checkBoxCustomTagParser.UseVisualStyleBackColor = true;
@@ -372,7 +372,7 @@
             this.checkBoxCutTags.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBoxCutTags.Location = new System.Drawing.Point(3, 3);
             this.checkBoxCutTags.Name = "checkBoxCutTags";
-            this.checkBoxCutTags.Size = new System.Drawing.Size(633, 17);
+            this.checkBoxCutTags.Size = new System.Drawing.Size(497, 17);
             this.checkBoxCutTags.TabIndex = 39;
             this.checkBoxCutTags.Text = "checkBoxCutTags";
             this.checkBoxCutTags.UseVisualStyleBackColor = true;
@@ -382,9 +382,9 @@
             // 
             this.checkBoxSaveLocally.Dock = System.Windows.Forms.DockStyle.Top;
             this.checkBoxSaveLocally.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxSaveLocally.Location = new System.Drawing.Point(330, 3);
+            this.checkBoxSaveLocally.Location = new System.Drawing.Point(262, 3);
             this.checkBoxSaveLocally.Name = "checkBoxSaveLocally";
-            this.checkBoxSaveLocally.Size = new System.Drawing.Size(322, 17);
+            this.checkBoxSaveLocally.Size = new System.Drawing.Size(254, 17);
             this.checkBoxSaveLocally.TabIndex = 40;
             this.checkBoxSaveLocally.Text = "checkBoxSaveLocally";
             this.checkBoxSaveLocally.UseVisualStyleBackColor = true;
@@ -401,22 +401,22 @@
             this.tableLayoutPanel1.Controls.Add(this.checkBoxProxy, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(655, 47);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(519, 47);
             this.tableLayoutPanel1.TabIndex = 41;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.tableLayoutPanel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 491);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Location = new System.Drawing.Point(3, 444);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(655, 34);
+            this.panel1.Size = new System.Drawing.Size(519, 34);
             this.panel1.TabIndex = 42;
             // 
             // tableLayoutPanel3
@@ -429,11 +429,11 @@
             this.tableLayoutPanel3.Controls.Add(this.buttonCancel, 2, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(655, 34);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(519, 34);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // tableLayoutPanel5
@@ -446,14 +446,14 @@
             this.tableLayoutPanel5.Controls.Add(this.checkBoxSaveApiKeyInRegistry, 0, 3);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(8, 8);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 4;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(639, 98);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(503, 98);
             this.tableLayoutPanel5.TabIndex = 43;
             // 
             // panel3
@@ -462,10 +462,10 @@
             this.panel3.Controls.Add(this.checkBoxCustomTagParser);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(3, 241);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
             this.panel3.Padding = new System.Windows.Forms.Padding(11, 11, 11, 0);
-            this.panel3.Size = new System.Drawing.Size(655, 35);
+            this.panel3.Size = new System.Drawing.Size(519, 35);
             this.panel3.TabIndex = 44;
             // 
             // panel4
@@ -473,10 +473,10 @@
             this.panel4.Controls.Add(this.tableLayoutPanel5);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(3, 276);
-            this.panel4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
-            this.panel4.Padding = new System.Windows.Forms.Padding(8, 8, 8, 8);
-            this.panel4.Size = new System.Drawing.Size(655, 114);
+            this.panel4.Padding = new System.Windows.Forms.Padding(8);
+            this.panel4.Size = new System.Drawing.Size(519, 114);
             this.panel4.TabIndex = 45;
             // 
             // IntentoFormAdvanced
@@ -485,7 +485,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(661, 550);
+            this.ClientSize = new System.Drawing.Size(525, 503);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
@@ -496,9 +496,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(408, 319);
+            this.MinimumSize = new System.Drawing.Size(408, 502);
             this.Name = "IntentoFormAdvanced";
-            this.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Padding = new System.Windows.Forms.Padding(3);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
