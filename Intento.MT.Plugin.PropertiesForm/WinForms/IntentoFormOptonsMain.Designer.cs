@@ -31,6 +31,9 @@
             this.groupBoxMTConnect = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonSetApi = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
             this.labelRegister2 = new System.Windows.Forms.Label();
             this.groupBoxMTSettings = new System.Windows.Forms.GroupBox();
             this.groupBoxProviderAgnosticGloss = new System.Windows.Forms.GroupBox();
@@ -42,7 +45,7 @@
             this.groupBoxBillingAccount = new System.Windows.Forms.GroupBox();
             this.textBoxAccount = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxProvider = new System.Windows.Forms.GroupBox();
             this.textBoxProviderName = new System.Windows.Forms.TextBox();
             this.buttonMTSetting = new System.Windows.Forms.Button();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
@@ -58,25 +61,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBoxMTConnect.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.groupBoxMTSettings.SuspendLayout();
             this.groupBoxProviderAgnosticGloss.SuspendLayout();
             this.groupBoxGlossary.SuspendLayout();
             this.groupBoxModel.SuspendLayout();
             this.groupBoxBillingAccount.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxProvider.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.groupBoxMTConnect2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMTConnect
@@ -87,7 +86,7 @@
             this.groupBoxMTConnect.Location = new System.Drawing.Point(0, 0);
             this.groupBoxMTConnect.Name = "groupBoxMTConnect";
             this.groupBoxMTConnect.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBoxMTConnect.Size = new System.Drawing.Size(565, 62);
+            this.groupBoxMTConnect.Size = new System.Drawing.Size(501, 62);
             this.groupBoxMTConnect.TabIndex = 0;
             this.groupBoxMTConnect.TabStop = false;
             this.groupBoxMTConnect.Text = "Connect to Intento MT HUB";
@@ -105,19 +104,58 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(549, 31);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(485, 31);
             this.tableLayoutPanel1.TabIndex = 22;
             // 
             // buttonSetApi
             // 
-            this.buttonSetApi.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonSetApi.Location = new System.Drawing.Point(3, 3);
             this.buttonSetApi.Name = "buttonSetApi";
-            this.buttonSetApi.Size = new System.Drawing.Size(250, 25);
+            this.buttonSetApi.Size = new System.Drawing.Size(178, 25);
             this.buttonSetApi.TabIndex = 0;
-            this.buttonSetApi.Text = "Enter your Intento API key";
+            this.buttonSetApi.Text = "Enter your API key";
             this.buttonSetApi.UseVisualStyleBackColor = true;
             this.buttonSetApi.Click += new System.EventHandler(this.buttonSetApi_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.linkLabel1);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(187, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(5);
+            this.panel2.Size = new System.Drawing.Size(359, 25);
+            this.panel2.TabIndex = 31;
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.linkLabel1.LinkVisited = true;
+            this.linkLabel1.Location = new System.Drawing.Point(151, 5);
+            this.linkLabel1.Margin = new System.Windows.Forms.Padding(0);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(129, 13);
+            this.linkLabel1.TabIndex = 32;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Tag = "https://console.inten.to?utm_campaign=Localization&utm_source=appstore_trados";
+            this.linkLabel1.Text = "https://console.inten.to";
+            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label2.Location = new System.Drawing.Point(5, 5);
+            this.label2.Margin = new System.Windows.Forms.Padding(0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(146, 13);
+            this.label2.TabIndex = 31;
+            this.label2.Text = "or register here to get one:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelRegister2
             // 
@@ -141,7 +179,7 @@
             this.groupBoxMTSettings.Location = new System.Drawing.Point(0, 125);
             this.groupBoxMTSettings.Name = "groupBoxMTSettings";
             this.groupBoxMTSettings.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBoxMTSettings.Size = new System.Drawing.Size(565, 406);
+            this.groupBoxMTSettings.Size = new System.Drawing.Size(501, 400);
             this.groupBoxMTSettings.TabIndex = 1;
             this.groupBoxMTSettings.TabStop = false;
             this.groupBoxMTSettings.Text = "Machine Translation Settings";
@@ -153,7 +191,7 @@
             this.groupBoxProviderAgnosticGloss.Location = new System.Drawing.Point(8, 274);
             this.groupBoxProviderAgnosticGloss.Name = "groupBoxProviderAgnosticGloss";
             this.groupBoxProviderAgnosticGloss.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBoxProviderAgnosticGloss.Size = new System.Drawing.Size(549, 124);
+            this.groupBoxProviderAgnosticGloss.Size = new System.Drawing.Size(485, 118);
             this.groupBoxProviderAgnosticGloss.TabIndex = 33;
             this.groupBoxProviderAgnosticGloss.TabStop = false;
             this.groupBoxProviderAgnosticGloss.Text = "Provider-agnostic glossaries";
@@ -168,7 +206,7 @@
             this.textBoxProviderAgnosticGloss.Name = "textBoxProviderAgnosticGloss";
             this.textBoxProviderAgnosticGloss.ReadOnly = true;
             this.textBoxProviderAgnosticGloss.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxProviderAgnosticGloss.Size = new System.Drawing.Size(533, 93);
+            this.textBoxProviderAgnosticGloss.Size = new System.Drawing.Size(469, 87);
             this.textBoxProviderAgnosticGloss.TabIndex = 0;
             this.textBoxProviderAgnosticGloss.Text = "N/A";
             // 
@@ -179,7 +217,7 @@
             this.groupBoxGlossary.Location = new System.Drawing.Point(8, 216);
             this.groupBoxGlossary.Name = "groupBoxGlossary";
             this.groupBoxGlossary.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBoxGlossary.Size = new System.Drawing.Size(549, 58);
+            this.groupBoxGlossary.Size = new System.Drawing.Size(485, 58);
             this.groupBoxGlossary.TabIndex = 4;
             this.groupBoxGlossary.TabStop = false;
             this.groupBoxGlossary.Text = "Glossary";
@@ -192,7 +230,7 @@
             this.textBoxGlossary.Location = new System.Drawing.Point(8, 23);
             this.textBoxGlossary.Name = "textBoxGlossary";
             this.textBoxGlossary.ReadOnly = true;
-            this.textBoxGlossary.Size = new System.Drawing.Size(533, 22);
+            this.textBoxGlossary.Size = new System.Drawing.Size(469, 22);
             this.textBoxGlossary.TabIndex = 0;
             this.textBoxGlossary.Text = "N/A";
             // 
@@ -203,7 +241,7 @@
             this.groupBoxModel.Location = new System.Drawing.Point(8, 158);
             this.groupBoxModel.Name = "groupBoxModel";
             this.groupBoxModel.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBoxModel.Size = new System.Drawing.Size(549, 58);
+            this.groupBoxModel.Size = new System.Drawing.Size(485, 58);
             this.groupBoxModel.TabIndex = 3;
             this.groupBoxModel.TabStop = false;
             this.groupBoxModel.Text = "Model";
@@ -216,7 +254,7 @@
             this.textBoxModel.Location = new System.Drawing.Point(8, 23);
             this.textBoxModel.Name = "textBoxModel";
             this.textBoxModel.ReadOnly = true;
-            this.textBoxModel.Size = new System.Drawing.Size(533, 22);
+            this.textBoxModel.Size = new System.Drawing.Size(469, 22);
             this.textBoxModel.TabIndex = 0;
             this.textBoxModel.Text = "N/A";
             // 
@@ -227,7 +265,7 @@
             this.groupBoxBillingAccount.Location = new System.Drawing.Point(8, 100);
             this.groupBoxBillingAccount.Name = "groupBoxBillingAccount";
             this.groupBoxBillingAccount.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBoxBillingAccount.Size = new System.Drawing.Size(549, 58);
+            this.groupBoxBillingAccount.Size = new System.Drawing.Size(485, 58);
             this.groupBoxBillingAccount.TabIndex = 2;
             this.groupBoxBillingAccount.TabStop = false;
             this.groupBoxBillingAccount.Text = "Billing Account";
@@ -240,7 +278,7 @@
             this.textBoxAccount.Location = new System.Drawing.Point(8, 23);
             this.textBoxAccount.Name = "textBoxAccount";
             this.textBoxAccount.ReadOnly = true;
-            this.textBoxAccount.Size = new System.Drawing.Size(533, 22);
+            this.textBoxAccount.Size = new System.Drawing.Size(469, 22);
             this.textBoxAccount.TabIndex = 0;
             this.textBoxAccount.Text = "N/A";
             // 
@@ -249,7 +287,7 @@
             this.tableLayoutPanel4.ColumnCount = 2;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel4.Controls.Add(this.groupBox1, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.groupBoxProvider, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.buttonMTSetting, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(8, 42);
@@ -257,21 +295,21 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(549, 58);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(485, 58);
             this.tableLayoutPanel4.TabIndex = 32;
             // 
-            // groupBox1
+            // groupBoxProvider
             // 
-            this.groupBox1.Controls.Add(this.textBoxProviderName);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBox1.Size = new System.Drawing.Size(384, 58);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Provider";
+            this.groupBoxProvider.Controls.Add(this.textBoxProviderName);
+            this.groupBoxProvider.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxProvider.Location = new System.Drawing.Point(0, 0);
+            this.groupBoxProvider.Margin = new System.Windows.Forms.Padding(0);
+            this.groupBoxProvider.Name = "groupBoxProvider";
+            this.groupBoxProvider.Padding = new System.Windows.Forms.Padding(8);
+            this.groupBoxProvider.Size = new System.Drawing.Size(339, 58);
+            this.groupBoxProvider.TabIndex = 0;
+            this.groupBoxProvider.TabStop = false;
+            this.groupBoxProvider.Text = "Provider";
             // 
             // textBoxProviderName
             // 
@@ -281,17 +319,17 @@
             this.textBoxProviderName.Location = new System.Drawing.Point(8, 23);
             this.textBoxProviderName.Name = "textBoxProviderName";
             this.textBoxProviderName.ReadOnly = true;
-            this.textBoxProviderName.Size = new System.Drawing.Size(368, 22);
+            this.textBoxProviderName.Size = new System.Drawing.Size(323, 22);
             this.textBoxProviderName.TabIndex = 0;
             this.textBoxProviderName.Text = "N/A";
             // 
             // buttonMTSetting
             // 
             this.buttonMTSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonMTSetting.Location = new System.Drawing.Point(394, 20);
+            this.buttonMTSetting.Location = new System.Drawing.Point(349, 20);
             this.buttonMTSetting.Margin = new System.Windows.Forms.Padding(10, 20, 2, 12);
             this.buttonMTSetting.Name = "buttonMTSetting";
-            this.buttonMTSetting.Size = new System.Drawing.Size(153, 26);
+            this.buttonMTSetting.Size = new System.Drawing.Size(134, 26);
             this.buttonMTSetting.TabIndex = 1;
             this.buttonMTSetting.Text = "Change MT Settings";
             this.buttonMTSetting.UseVisualStyleBackColor = true;
@@ -309,14 +347,14 @@
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(549, 19);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(485, 19);
             this.tableLayoutPanel5.TabIndex = 31;
             // 
             // labelApiKeyIsChanged
             // 
             this.labelApiKeyIsChanged.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelApiKeyIsChanged.ForeColor = System.Drawing.Color.Red;
-            this.labelApiKeyIsChanged.Location = new System.Drawing.Point(257, 0);
+            this.labelApiKeyIsChanged.Location = new System.Drawing.Point(193, 0);
             this.labelApiKeyIsChanged.Name = "labelApiKeyIsChanged";
             this.labelApiKeyIsChanged.Size = new System.Drawing.Size(289, 19);
             this.labelApiKeyIsChanged.TabIndex = 29;
@@ -327,9 +365,9 @@
             // 
             this.buttonContinue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonContinue.Enabled = false;
-            this.buttonContinue.Location = new System.Drawing.Point(455, 11);
+            this.buttonContinue.Location = new System.Drawing.Point(403, 11);
             this.buttonContinue.Name = "buttonContinue";
-            this.buttonContinue.Size = new System.Drawing.Size(107, 28);
+            this.buttonContinue.Size = new System.Drawing.Size(95, 28);
             this.buttonContinue.TabIndex = 19;
             this.buttonContinue.Text = "Close";
             this.buttonContinue.UseVisualStyleBackColor = true;
@@ -345,7 +383,7 @@
             this.groupBoxMTConnect2.Margin = new System.Windows.Forms.Padding(0);
             this.groupBoxMTConnect2.Name = "groupBoxMTConnect2";
             this.groupBoxMTConnect2.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBoxMTConnect2.Size = new System.Drawing.Size(565, 63);
+            this.groupBoxMTConnect2.Size = new System.Drawing.Size(501, 63);
             this.groupBoxMTConnect2.TabIndex = 21;
             this.groupBoxMTConnect2.TabStop = false;
             this.groupBoxMTConnect2.Text = "Connect to Intento MT HUB";
@@ -366,7 +404,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(549, 32);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(485, 32);
             this.tableLayoutPanel2.TabIndex = 29;
             // 
             // labelIAK
@@ -384,7 +422,7 @@
             // buttonCheck
             // 
             this.buttonCheck.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonCheck.Location = new System.Drawing.Point(445, 3);
+            this.buttonCheck.Location = new System.Drawing.Point(381, 3);
             this.buttonCheck.Name = "buttonCheck";
             this.buttonCheck.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.buttonCheck.Size = new System.Drawing.Size(101, 26);
@@ -403,7 +441,7 @@
             this.apiKey_tb.Name = "apiKey_tb";
             this.apiKey_tb.PasswordChar = '*';
             this.apiKey_tb.ReadOnly = true;
-            this.apiKey_tb.Size = new System.Drawing.Size(387, 22);
+            this.apiKey_tb.Size = new System.Drawing.Size(323, 22);
             this.apiKey_tb.TabIndex = 26;
             this.apiKey_tb.UseSystemPasswordChar = true;
             this.apiKey_tb.WordWrap = false;
@@ -413,7 +451,7 @@
             this.buttonAdvanced.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonAdvanced.Location = new System.Drawing.Point(3, 11);
             this.buttonAdvanced.Name = "buttonAdvanced";
-            this.buttonAdvanced.Size = new System.Drawing.Size(107, 28);
+            this.buttonAdvanced.Size = new System.Drawing.Size(94, 28);
             this.buttonAdvanced.TabIndex = 22;
             this.buttonAdvanced.Text = "Adnanced";
             this.buttonAdvanced.UseVisualStyleBackColor = true;
@@ -422,7 +460,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Dock = System.Windows.Forms.DockStyle.Left;
-            this.buttonHelp.Location = new System.Drawing.Point(116, 11);
+            this.buttonHelp.Location = new System.Drawing.Point(103, 11);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(101, 28);
             this.buttonHelp.TabIndex = 23;
@@ -449,13 +487,13 @@
             this.tableLayoutPanel3.Controls.Add(this.buttonHelp, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.buttonContinue, 2, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(8, 539);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(8, 533);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(565, 42);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(501, 42);
             this.tableLayoutPanel3.TabIndex = 25;
             // 
             // panel1
@@ -468,71 +506,20 @@
             this.panel1.Location = new System.Drawing.Point(8, 8);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(565, 531);
+            this.panel1.Size = new System.Drawing.Size(501, 525);
             this.panel1.TabIndex = 26;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label2.Location = new System.Drawing.Point(5, 5);
-            this.label2.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 13);
-            this.label2.TabIndex = 31;
-            this.label2.Text = "or register at";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.linkLabel1.LinkVisited = true;
-            this.linkLabel1.Location = new System.Drawing.Point(78, 5);
-            this.linkLabel1.Margin = new System.Windows.Forms.Padding(0);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(129, 13);
-            this.linkLabel1.TabIndex = 32;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Tag = "https://console.inten.to?utm_campaign=Localization&utm_source=appstore_trados";
-            this.linkLabel1.Text = "https://console.inten.to";
-            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.linkLabel1);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(259, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(5);
-            this.panel2.Size = new System.Drawing.Size(287, 25);
-            this.panel2.TabIndex = 31;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label3.Location = new System.Drawing.Point(207, 5);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 13);
-            this.label3.TabIndex = 33;
-            this.label3.Text = "to get one.";
             // 
             // IntentoTranslationProviderOptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(581, 589);
+            this.ClientSize = new System.Drawing.Size(517, 583);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(408, 319);
+            this.MinimumSize = new System.Drawing.Size(533, 622);
             this.Name = "IntentoTranslationProviderOptionsForm";
             this.Padding = new System.Windows.Forms.Padding(8);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -540,6 +527,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.IntentoTranslationProviderOptionsForm_FormClosing);
             this.groupBoxMTConnect.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.groupBoxMTSettings.ResumeLayout(false);
             this.groupBoxProviderAgnosticGloss.ResumeLayout(false);
             this.groupBoxProviderAgnosticGloss.PerformLayout();
@@ -550,8 +539,8 @@
             this.groupBoxBillingAccount.ResumeLayout(false);
             this.groupBoxBillingAccount.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxProvider.ResumeLayout(false);
+            this.groupBoxProvider.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.groupBoxMTConnect2.ResumeLayout(false);
             this.groupBoxMTConnect2.PerformLayout();
@@ -560,8 +549,6 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -577,7 +564,7 @@
         private System.Windows.Forms.GroupBox groupBoxGlossary;
         private System.Windows.Forms.GroupBox groupBoxModel;
         private System.Windows.Forms.GroupBox groupBoxBillingAccount;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxProvider;
         private System.Windows.Forms.Label labelIAK;
         public System.Windows.Forms.TextBox apiKey_tb;
         public System.Windows.Forms.Button buttonCheck;
@@ -600,7 +587,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label2;
     }
