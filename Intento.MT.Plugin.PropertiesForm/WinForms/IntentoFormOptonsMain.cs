@@ -496,6 +496,10 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             buttonAdvanced.Text = Resource.MFbuttonAdvanced;
             Icon = Resource.intento;
             labelApiKeyIsChanged.Text = Resource.MFlabelApiKeyIsChanged;
+            label2.Text = Resource.RegisterAccountText;
+            groupBoxMTConnect.Text = groupBoxMTConnect2.Text = Resource.ConnectToMTHUB;
+            groupBoxProvider.Text = Resource.Provider;
+            groupBoxProviderAgnosticGloss.Text = Resource.ProviderAgnosticGlossaries;
         }
 
         public class CursorForm : IDisposable

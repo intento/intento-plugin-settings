@@ -127,7 +127,7 @@
     <value>Billing account</value>
   </data>
   <data name="EnterIntentoAPIKey" xml:space="preserve">
-    <value>Enter your Intento API key</value>
+    <value>Enter your API key</value>
   </data>
   <data name="Glossary" xml:space="preserve">
     <value>Glossary</value>
@@ -309,7 +309,7 @@ If you have selected custom model or glossary, please adjust the language pair:<
     <value>We tried to translate "{0}", but received an unexpected answer "{1}"</value>
   </data>
   <data name="APIToolTipMessage" xml:space="preserve">
-    <value>Click to copy error to clipboard</value>
+    <value>Details will be copied to clipboard</value>
   </data>
   <data name="FAlabelCustomSettingsName" xml:space="preserve">
     <value>Custom name for plugin settings (leave blank to use default name)</value>
@@ -336,6 +336,24 @@ If you have selected custom model or glossary, please adjust the language pair:<
     <value>General routing based on Intento benchmarks</value>
   </data>
   <data name="APIFlabelErrorSeePopup" xml:space="preserve">
-    <value>See the popup for details</value>
+    <value>Invalid API key / Click here for details</value>
+  </data>
+  <data name="CheckAll" xml:space="preserve">
+    <value>Check all</value>
+  </data>
+  <data name="ConnectToMTHUB" xml:space="preserve">
+    <value>Connect to Intento MT HUB</value>
+  </data>
+  <data name="ProviderAgnosticGlossaries" xml:space="preserve">
+    <value>Provider-agnostic glossaries</value>
+  </data>
+  <data name="RegisterAccountText" xml:space="preserve">
+    <value>or register here to get one:</value>
+  </data>
+  <data name="SplashText" xml:space="preserve">
+    <value>Initializing and checking current options...</value>
+  </data>
+  <data name="UncheckAll" xml:space="preserve">
+    <value>Uncheck all</value>
   </data>
 </root>

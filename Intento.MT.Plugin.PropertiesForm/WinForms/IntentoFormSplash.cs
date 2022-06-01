@@ -8,6 +8,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         public IntentoFormSplash()
         {
             InitializeComponent();
+            label1.Text = Resource.SplashText;
         }
         
     }

@@ -19,7 +19,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resource {
@@ -79,7 +79,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to See the popup for details.
+        ///   Looks up a localized string similar to Invalid API key / Click here for details.
         /// </summary>
         internal static string APIFlabelErrorSeePopup {
             get {
@@ -106,7 +106,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click to copy error to clipboard.
+        ///   Looks up a localized string similar to Details will be copied to clipboard.
         /// </summary>
         internal static string APIToolTipMessage {
             get {
@@ -178,6 +178,24 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check all.
+        /// </summary>
+        internal static string CheckAll {
+            get {
+                return ResourceManager.GetString("CheckAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect to Intento MT HUB.
+        /// </summary>
+        internal static string ConnectToMTHUB {
+            get {
+                return ResourceManager.GetString("ConnectToMTHUB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom credentials (required).
         /// </summary>
         internal static string CustomCredentials {
@@ -214,7 +232,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter your Intento API key.
+        ///   Looks up a localized string similar to Enter your API key.
         /// </summary>
         internal static string EnterIntentoAPIKey {
             get {
@@ -666,11 +684,29 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Provider-agnostic glossaries.
+        /// </summary>
+        internal static string ProviderAgnosticGlossaries {
+            get {
+                return ResourceManager.GetString("ProviderAgnosticGlossaries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Proxy connection error.
         /// </summary>
         internal static string ProxyConnectionError {
             get {
                 return ResourceManager.GetString("ProxyConnectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to or register here to get one:.
+        /// </summary>
+        internal static string RegisterAccountText {
+            get {
+                return ResourceManager.GetString("RegisterAccountText", resourceCulture);
             }
         }
         
@@ -693,6 +729,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Initializing and checking current options....
+        /// </summary>
+        internal static string SplashText {
+            get {
+                return ResourceManager.GetString("SplashText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test and save.
         /// </summary>
         internal static string TestAndSave {
@@ -707,6 +752,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         internal static string TestTranslationWarning {
             get {
                 return ResourceManager.GetString("TestTranslationWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uncheck all.
+        /// </summary>
+        internal static string UncheckAll {
+            get {
+                return ResourceManager.GetString("UncheckAll", resourceCulture);
             }
         }
         

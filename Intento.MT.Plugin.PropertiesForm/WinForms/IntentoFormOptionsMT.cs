@@ -94,6 +94,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             groupBoxProvider.Text = Resource.Provider;
             textBoxLabelConnectAccount.Text = Resource.MTLinkConnectAccount;
             toolTipHelp.SetToolTip(buttonRefresh, Resource.MTbuttonRefreshToolTip);
+            providerAgnosticGlossariesGroup.Text = Resource.ProviderAgnosticGlossaries;
+            checkAllGlossaries.Text = Resource.CheckAll;
+            uncheckAllGlossaries.Text = Resource.UncheckAll;
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
