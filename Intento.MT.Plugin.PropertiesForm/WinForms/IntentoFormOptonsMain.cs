@@ -489,14 +489,17 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             buttonMTSetting.Text = Resource.MFbuttonMTSetting;
             buttonSetApi.Text = Resource.EnterIntentoAPIKey;
             Text = Resource.MFcaption;
-            groupBoxMTSettings.Text = Resource.MFgroupBoxMTSettings;
-            labelRegister1.Text = Resource.MFlabelRegister1;
+            groupBoxMTSettings.Text = Resource.MFgroupBoxMTSettings;           
             labelRegister2.Text = Resource.MFlabelRegister2;
             buttonCheck.Text = Resource.MFbuttonCheck;
             labelIAK.Text = Resource.APIFlabelAPI;
             buttonAdvanced.Text = Resource.MFbuttonAdvanced;
             Icon = Resource.intento;
             labelApiKeyIsChanged.Text = Resource.MFlabelApiKeyIsChanged;
+            label2.Text = Resource.RegisterAccountText;
+            groupBoxMTConnect.Text = groupBoxMTConnect2.Text = Resource.ConnectToMTHUB;
+            groupBoxProvider.Text = Resource.Provider;
+            groupBoxProviderAgnosticGloss.Text = Resource.ProviderAgnosticGlossaries;
         }
 
         public class CursorForm : IDisposable

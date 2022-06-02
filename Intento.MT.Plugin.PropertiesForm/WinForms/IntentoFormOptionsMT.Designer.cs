@@ -76,6 +76,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBoxRouting = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.textBoxLabelURL = new System.Windows.Forms.LinkLabel();
             this.labelSmartRouting = new System.Windows.Forms.Label();
             this.tableLayoutPanel5.SuspendLayout();
@@ -97,15 +98,16 @@
             this.groupBoxProvider.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonCancel.Location = new System.Drawing.Point(429, 3);
+            this.buttonCancel.Location = new System.Drawing.Point(337, 3);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(102, 28);
+            this.buttonCancel.Size = new System.Drawing.Size(102, 29);
             this.buttonCancel.TabIndex = 31;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -113,9 +115,9 @@
             // buttonSave
             // 
             this.buttonSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonSave.Location = new System.Drawing.Point(323, 3);
+            this.buttonSave.Location = new System.Drawing.Point(231, 3);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(100, 28);
+            this.buttonSave.Size = new System.Drawing.Size(100, 29);
             this.buttonSave.TabIndex = 30;
             this.buttonSave.Text = "Test and save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -128,7 +130,7 @@
             // buttonRefresh
             // 
             this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
-            this.buttonRefresh.Location = new System.Drawing.Point(476, 39);
+            this.buttonRefresh.Location = new System.Drawing.Point(401, 39);
             this.buttonRefresh.Margin = new System.Windows.Forms.Padding(3, 1, 3, 3);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(22, 23);
@@ -143,7 +145,7 @@
             this.labelTMP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelTMP.Location = new System.Drawing.Point(3, 0);
             this.labelTMP.Name = "labelTMP";
-            this.labelTMP.Size = new System.Drawing.Size(314, 34);
+            this.labelTMP.Size = new System.Drawing.Size(222, 35);
             this.labelTMP.TabIndex = 32;
             this.labelTMP.Text = "labelTMP";
             this.labelTMP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -152,29 +154,30 @@
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 3;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel5.Controls.Add(this.labelTMP, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.buttonCancel, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.buttonSave, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 8);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(534, 34);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(442, 35);
             this.tableLayoutPanel5.TabIndex = 35;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.tableLayoutPanel5);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(16, 666);
+            this.panel3.Location = new System.Drawing.Point(16, 733);
             this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(534, 34);
+            this.panel3.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
+            this.panel3.Size = new System.Drawing.Size(442, 43);
             this.panel3.TabIndex = 36;
             // 
             // panel4
@@ -191,7 +194,7 @@
             this.panel4.Location = new System.Drawing.Point(16, 16);
             this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(534, 650);
+            this.panel4.Size = new System.Drawing.Size(442, 717);
             this.panel4.TabIndex = 30;
             // 
             // providerAgnosticGlossariesGroup
@@ -199,11 +202,11 @@
             this.providerAgnosticGlossariesGroup.AutoSize = true;
             this.providerAgnosticGlossariesGroup.Controls.Add(this.listOfIntentoGlossaries);
             this.providerAgnosticGlossariesGroup.Controls.Add(this.controlPanelForGlossaries);
-            this.providerAgnosticGlossariesGroup.Dock = System.Windows.Forms.DockStyle.Top;
-            this.providerAgnosticGlossariesGroup.Location = new System.Drawing.Point(0, 591);
+            this.providerAgnosticGlossariesGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.providerAgnosticGlossariesGroup.Location = new System.Drawing.Point(0, 636);
             this.providerAgnosticGlossariesGroup.Name = "providerAgnosticGlossariesGroup";
-            this.providerAgnosticGlossariesGroup.Padding = new System.Windows.Forms.Padding(10, 5, 10, 10);
-            this.providerAgnosticGlossariesGroup.Size = new System.Drawing.Size(517, 155);
+            this.providerAgnosticGlossariesGroup.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
+            this.providerAgnosticGlossariesGroup.Size = new System.Drawing.Size(442, 81);
             this.providerAgnosticGlossariesGroup.TabIndex = 41;
             this.providerAgnosticGlossariesGroup.TabStop = false;
             this.providerAgnosticGlossariesGroup.Text = "Provider-agnostic glossaries";
@@ -211,11 +214,11 @@
             // listOfIntentoGlossaries
             // 
             this.listOfIntentoGlossaries.CheckOnClick = true;
-            this.listOfIntentoGlossaries.Dock = System.Windows.Forms.DockStyle.Top;
+            this.listOfIntentoGlossaries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listOfIntentoGlossaries.FormattingEnabled = true;
-            this.listOfIntentoGlossaries.Location = new System.Drawing.Point(10, 39);
+            this.listOfIntentoGlossaries.Location = new System.Drawing.Point(8, 42);
             this.listOfIntentoGlossaries.Name = "listOfIntentoGlossaries";
-            this.listOfIntentoGlossaries.Size = new System.Drawing.Size(497, 106);
+            this.listOfIntentoGlossaries.Size = new System.Drawing.Size(426, 23);
             this.listOfIntentoGlossaries.TabIndex = 1;
             // 
             // controlPanelForGlossaries
@@ -223,9 +226,9 @@
             this.controlPanelForGlossaries.Controls.Add(this.checkAllGlossaries);
             this.controlPanelForGlossaries.Controls.Add(this.uncheckAllGlossaries);
             this.controlPanelForGlossaries.Dock = System.Windows.Forms.DockStyle.Top;
-            this.controlPanelForGlossaries.Location = new System.Drawing.Point(10, 20);
+            this.controlPanelForGlossaries.Location = new System.Drawing.Point(8, 23);
             this.controlPanelForGlossaries.Name = "controlPanelForGlossaries";
-            this.controlPanelForGlossaries.Size = new System.Drawing.Size(497, 19);
+            this.controlPanelForGlossaries.Size = new System.Drawing.Size(426, 19);
             this.controlPanelForGlossaries.TabIndex = 2;
             // 
             // checkAllGlossaries
@@ -262,13 +265,13 @@
             this.groupBoxOptional.AutoSize = true;
             this.groupBoxOptional.Controls.Add(this.tableLayoutPanel6);
             this.groupBoxOptional.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxOptional.Location = new System.Drawing.Point(0, 497);
+            this.groupBoxOptional.Location = new System.Drawing.Point(0, 534);
             this.groupBoxOptional.Name = "groupBoxOptional";
-            this.groupBoxOptional.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBoxOptional.Size = new System.Drawing.Size(517, 94);
+            this.groupBoxOptional.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
+            this.groupBoxOptional.Size = new System.Drawing.Size(442, 102);
             this.groupBoxOptional.TabIndex = 39;
             this.groupBoxOptional.TabStop = false;
-            this.groupBoxOptional.Text = "OPTIONAL";
+            this.groupBoxOptional.Text = "Optional";
             // 
             // tableLayoutPanel6
             // 
@@ -289,7 +292,7 @@
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(501, 63);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(426, 63);
             this.tableLayoutPanel6.TabIndex = 34;
             // 
             // labelHelpOptional
@@ -300,19 +303,22 @@
             this.labelHelpOptional.Location = new System.Drawing.Point(2, 2);
             this.labelHelpOptional.Margin = new System.Windows.Forms.Padding(2);
             this.labelHelpOptional.Name = "labelHelpOptional";
-            this.labelHelpOptional.Size = new System.Drawing.Size(497, 34);
+            this.labelHelpOptional.Size = new System.Drawing.Size(422, 34);
             this.labelHelpOptional.TabIndex = 33;
-            this.labelHelpOptional.Text = "We will send one-character translation request to test this configuration.\r\nIf yo" + "u have selected custom model or glossary, please adjust the language pair:";
+            this.labelHelpOptional.Text = "We will send one-character translation request to test this configuration.\r\nIf yo" +
+    "u have selected custom model or glossary, please adjust the language pair:";
             // 
             // comboBoxTo
             // 
+            this.comboBoxTo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxTo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTo.FormattingEnabled = true;
-            this.comboBoxTo.Location = new System.Drawing.Point(145, 40);
+            this.comboBoxTo.Location = new System.Drawing.Point(126, 40);
             this.comboBoxTo.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxTo.Name = "comboBoxTo";
-            this.comboBoxTo.Size = new System.Drawing.Size(115, 21);
+            this.comboBoxTo.Size = new System.Drawing.Size(96, 21);
             this.comboBoxTo.TabIndex = 13;
             this.comboBoxTo.Tag = "fix_high_dpi";
             // 
@@ -320,7 +326,7 @@
             // 
             this.labelDirectionChar.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelDirectionChar.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.labelDirectionChar.Location = new System.Drawing.Point(119, 38);
+            this.labelDirectionChar.Location = new System.Drawing.Point(100, 38);
             this.labelDirectionChar.Margin = new System.Windows.Forms.Padding(0);
             this.labelDirectionChar.Name = "labelDirectionChar";
             this.labelDirectionChar.Size = new System.Drawing.Size(24, 22);
@@ -331,7 +337,7 @@
             // 
             // comboBoxFrom
             // 
-            this.comboBoxFrom.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.comboBoxFrom.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBoxFrom.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxFrom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxFrom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -339,7 +345,7 @@
             this.comboBoxFrom.Location = new System.Drawing.Point(2, 40);
             this.comboBoxFrom.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxFrom.Name = "comboBoxFrom";
-            this.comboBoxFrom.Size = new System.Drawing.Size(115, 21);
+            this.comboBoxFrom.Size = new System.Drawing.Size(96, 21);
             this.comboBoxFrom.TabIndex = 10;
             this.comboBoxFrom.Tag = "fix_high_dpi";
             // 
@@ -349,10 +355,10 @@
             this.groupBoxGlossary.Controls.Add(this.tableLayoutPanel4);
             this.groupBoxGlossary.Controls.Add(this.linkLabel2);
             this.groupBoxGlossary.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxGlossary.Location = new System.Drawing.Point(0, 385);
+            this.groupBoxGlossary.Location = new System.Drawing.Point(0, 414);
             this.groupBoxGlossary.Name = "groupBoxGlossary";
-            this.groupBoxGlossary.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBoxGlossary.Size = new System.Drawing.Size(517, 112);
+            this.groupBoxGlossary.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
+            this.groupBoxGlossary.Size = new System.Drawing.Size(442, 120);
             this.groupBoxGlossary.TabIndex = 38;
             this.groupBoxGlossary.TabStop = false;
             this.groupBoxGlossary.Text = "Glossary";
@@ -371,7 +377,7 @@
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(501, 81);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(426, 81);
             this.tableLayoutPanel4.TabIndex = 34;
             // 
             // panel2
@@ -383,11 +389,13 @@
             this.panel2.Location = new System.Drawing.Point(2, 36);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(497, 43);
+            this.panel2.Size = new System.Drawing.Size(422, 43);
             this.panel2.TabIndex = 35;
             // 
             // comboBoxGlossaries
             // 
+            this.comboBoxGlossaries.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxGlossaries.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxGlossaries.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboBoxGlossaries.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxGlossaries.Enabled = false;
@@ -396,7 +404,7 @@
             this.comboBoxGlossaries.Location = new System.Drawing.Point(0, 22);
             this.comboBoxGlossaries.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxGlossaries.Name = "comboBoxGlossaries";
-            this.comboBoxGlossaries.Size = new System.Drawing.Size(497, 21);
+            this.comboBoxGlossaries.Size = new System.Drawing.Size(422, 21);
             this.comboBoxGlossaries.TabIndex = 10;
             this.comboBoxGlossaries.Tag = "glossaryControl";
             this.comboBoxGlossaries.Visible = false;
@@ -409,7 +417,7 @@
             this.textBoxGlossary.Location = new System.Drawing.Point(0, 0);
             this.textBoxGlossary.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxGlossary.Name = "textBoxGlossary";
-            this.textBoxGlossary.Size = new System.Drawing.Size(497, 22);
+            this.textBoxGlossary.Size = new System.Drawing.Size(422, 22);
             this.textBoxGlossary.TabIndex = 14;
             this.textBoxGlossary.Tag = "glossaryControl";
             this.textBoxGlossary.Visible = false;
@@ -420,9 +428,10 @@
             this.labelHelpGlossary.Location = new System.Drawing.Point(0, 0);
             this.labelHelpGlossary.Margin = new System.Windows.Forms.Padding(0);
             this.labelHelpGlossary.Name = "labelHelpGlossary";
-            this.labelHelpGlossary.Size = new System.Drawing.Size(501, 34);
+            this.labelHelpGlossary.Size = new System.Drawing.Size(426, 34);
             this.labelHelpGlossary.TabIndex = 13;
-            this.labelHelpGlossary.Text = "Some of MT Providers enable using your custom terminology or glossary. If you hab" + "e one, please specify it below.";
+            this.labelHelpGlossary.Text = "Some of MT Providers enable using your custom terminology or glossary. If you hab" +
+    "e one, please specify it below.";
             this.labelHelpGlossary.Visible = false;
             // 
             // linkLabel2
@@ -446,10 +455,10 @@
             this.groupBoxModel.Controls.Add(this.linkLabel1);
             this.groupBoxModel.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBoxModel.Enabled = false;
-            this.groupBoxModel.Location = new System.Drawing.Point(0, 246);
+            this.groupBoxModel.Location = new System.Drawing.Point(0, 267);
             this.groupBoxModel.Name = "groupBoxModel";
-            this.groupBoxModel.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBoxModel.Size = new System.Drawing.Size(517, 139);
+            this.groupBoxModel.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
+            this.groupBoxModel.Size = new System.Drawing.Size(442, 147);
             this.groupBoxModel.TabIndex = 37;
             this.groupBoxModel.TabStop = false;
             this.groupBoxModel.Text = "Model";
@@ -469,7 +478,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(501, 108);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(426, 108);
             this.tableLayoutPanel3.TabIndex = 14;
             // 
             // panel1
@@ -481,7 +490,7 @@
             this.panel1.Location = new System.Drawing.Point(2, 63);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(497, 43);
+            this.panel1.Size = new System.Drawing.Size(422, 43);
             this.panel1.TabIndex = 15;
             // 
             // textBoxModel
@@ -492,20 +501,22 @@
             this.textBoxModel.Location = new System.Drawing.Point(0, 21);
             this.textBoxModel.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxModel.Name = "textBoxModel";
-            this.textBoxModel.Size = new System.Drawing.Size(497, 22);
+            this.textBoxModel.Size = new System.Drawing.Size(422, 22);
             this.textBoxModel.TabIndex = 14;
             this.textBoxModel.Tag = "modelControl";
             this.textBoxModel.Visible = false;
             // 
             // comboBoxModels
             // 
+            this.comboBoxModels.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxModels.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxModels.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboBoxModels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxModels.FormattingEnabled = true;
             this.comboBoxModels.ItemHeight = 13;
             this.comboBoxModels.Location = new System.Drawing.Point(0, 0);
             this.comboBoxModels.Name = "comboBoxModels";
-            this.comboBoxModels.Size = new System.Drawing.Size(497, 21);
+            this.comboBoxModels.Size = new System.Drawing.Size(422, 21);
             this.comboBoxModels.TabIndex = 10;
             this.comboBoxModels.Tag = "modelControl";
             this.comboBoxModels.Visible = false;
@@ -516,9 +527,10 @@
             this.labelHelpModel.Location = new System.Drawing.Point(2, 2);
             this.labelHelpModel.Margin = new System.Windows.Forms.Padding(2);
             this.labelHelpModel.Name = "labelHelpModel";
-            this.labelHelpModel.Size = new System.Drawing.Size(497, 34);
+            this.labelHelpModel.Size = new System.Drawing.Size(422, 34);
             this.labelHelpModel.TabIndex = 13;
-            this.labelHelpModel.Text = "By default, the pre-trained general-purpose MT model is used. If it\'s not availab" + "le or you want to use your custom-trained model, please specify it below.";
+            this.labelHelpModel.Text = "By default, the pre-trained general-purpose MT model is used. If it\'s not availab" +
+    "le or you want to use your custom-trained model, please specify it below.";
             this.labelHelpModel.Visible = false;
             // 
             // checkBoxUseCustomModel
@@ -553,11 +565,10 @@
             this.groupBoxBillingAccount.Controls.Add(this.tableLayoutPanel2);
             this.groupBoxBillingAccount.Controls.Add(this.linkLabel3);
             this.groupBoxBillingAccount.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxBillingAccount.Location = new System.Drawing.Point(0, 127);
-            this.groupBoxBillingAccount.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBoxBillingAccount.Location = new System.Drawing.Point(0, 140);
             this.groupBoxBillingAccount.Name = "groupBoxBillingAccount";
-            this.groupBoxBillingAccount.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBoxBillingAccount.Size = new System.Drawing.Size(517, 119);
+            this.groupBoxBillingAccount.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
+            this.groupBoxBillingAccount.Size = new System.Drawing.Size(442, 127);
             this.groupBoxBillingAccount.TabIndex = 36;
             this.groupBoxBillingAccount.TabStop = false;
             this.groupBoxBillingAccount.Text = "Billing account";
@@ -580,7 +591,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(501, 88);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(426, 88);
             this.tableLayoutPanel2.TabIndex = 40;
             // 
             // labelHelpBillingAccount
@@ -591,9 +602,10 @@
             this.labelHelpBillingAccount.Location = new System.Drawing.Point(2, 2);
             this.labelHelpBillingAccount.Margin = new System.Windows.Forms.Padding(2);
             this.labelHelpBillingAccount.Name = "labelHelpBillingAccount";
-            this.labelHelpBillingAccount.Size = new System.Drawing.Size(497, 34);
+            this.labelHelpBillingAccount.Size = new System.Drawing.Size(422, 34);
             this.labelHelpBillingAccount.TabIndex = 12;
-            this.labelHelpBillingAccount.Text = "Most of the MT Providers are available via Intento contracts, but you may also us" + "e your own account at MT Provider connected via Intento Console.";
+            this.labelHelpBillingAccount.Text = "Most of the MT Providers are available via Intento contracts, but you may also us" +
+    "e your own account at MT Provider connected via Intento Console.";
             this.labelHelpBillingAccount.Visible = false;
             // 
             // panelConnectAccount
@@ -602,7 +614,7 @@
             this.panelConnectAccount.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelConnectAccount.Location = new System.Drawing.Point(3, 68);
             this.panelConnectAccount.Name = "panelConnectAccount";
-            this.panelConnectAccount.Size = new System.Drawing.Size(467, 17);
+            this.panelConnectAccount.Size = new System.Drawing.Size(392, 17);
             this.panelConnectAccount.TabIndex = 39;
             this.panelConnectAccount.Tag = "accountControl";
             this.panelConnectAccount.Visible = false;
@@ -620,7 +632,7 @@
             this.textBoxLabelConnectAccount.Location = new System.Drawing.Point(0, 0);
             this.textBoxLabelConnectAccount.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxLabelConnectAccount.Name = "textBoxLabelConnectAccount";
-            this.textBoxLabelConnectAccount.Size = new System.Drawing.Size(467, 13);
+            this.textBoxLabelConnectAccount.Size = new System.Drawing.Size(392, 13);
             this.textBoxLabelConnectAccount.TabIndex = 37;
             this.textBoxLabelConnectAccount.TabStop = true;
             this.textBoxLabelConnectAccount.Tag = "https://console.inten.to/accounts";
@@ -629,12 +641,14 @@
             // 
             // comboBoxCredentialId
             // 
+            this.comboBoxCredentialId.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxCredentialId.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxCredentialId.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboBoxCredentialId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCredentialId.FormattingEnabled = true;
             this.comboBoxCredentialId.Location = new System.Drawing.Point(3, 41);
             this.comboBoxCredentialId.Name = "comboBoxCredentialId";
-            this.comboBoxCredentialId.Size = new System.Drawing.Size(467, 21);
+            this.comboBoxCredentialId.Size = new System.Drawing.Size(392, 21);
             this.comboBoxCredentialId.TabIndex = 10;
             this.comboBoxCredentialId.Tag = "accountControl";
             this.comboBoxCredentialId.Visible = false;
@@ -659,23 +673,24 @@
             this.groupBoxProvider.AutoSize = true;
             this.groupBoxProvider.Controls.Add(this.comboBoxProviders);
             this.groupBoxProvider.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxProvider.Location = new System.Drawing.Point(0, 71);
-            this.groupBoxProvider.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBoxProvider.Location = new System.Drawing.Point(0, 80);
             this.groupBoxProvider.Name = "groupBoxProvider";
-            this.groupBoxProvider.Padding = new System.Windows.Forms.Padding(10);
-            this.groupBoxProvider.Size = new System.Drawing.Size(517, 56);
+            this.groupBoxProvider.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
+            this.groupBoxProvider.Size = new System.Drawing.Size(442, 60);
             this.groupBoxProvider.TabIndex = 35;
             this.groupBoxProvider.TabStop = false;
             this.groupBoxProvider.Text = "Provider";
             // 
             // comboBoxProviders
             // 
+            this.comboBoxProviders.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxProviders.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxProviders.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboBoxProviders.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxProviders.FormattingEnabled = true;
-            this.comboBoxProviders.Location = new System.Drawing.Point(10, 25);
+            this.comboBoxProviders.Location = new System.Drawing.Point(8, 23);
             this.comboBoxProviders.Name = "comboBoxProviders";
-            this.comboBoxProviders.Size = new System.Drawing.Size(497, 21);
+            this.comboBoxProviders.Size = new System.Drawing.Size(426, 21);
             this.comboBoxProviders.TabIndex = 6;
             // 
             // groupBox1
@@ -685,46 +700,55 @@
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(8);
-            this.groupBox1.Size = new System.Drawing.Size(517, 71);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
+            this.groupBox1.Size = new System.Drawing.Size(442, 80);
             this.groupBox1.TabIndex = 40;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Automatic provider selection";
             // 
             // comboBoxRouting
             // 
+            this.comboBoxRouting.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboBoxRouting.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxRouting.DisplayMember = "(none)";
             this.comboBoxRouting.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboBoxRouting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxRouting.FormattingEnabled = true;
-            this.comboBoxRouting.Items.AddRange(new object[] { "Disabled", "General routing based on Intento benchmarks", "Industry-specific routing based on Intento benchmarks", "Industry-specific routing based on Intento benchmarks 1", "Industry-specific routing based on Intento benchmarks 2" });
-            this.comboBoxRouting.Location = new System.Drawing.Point(8, 42);
+            this.comboBoxRouting.Items.AddRange(new object[] {
+            "Disabled",
+            "General routing based on Intento benchmarks",
+            "Industry-specific routing based on Intento benchmarks",
+            "Industry-specific routing based on Intento benchmarks 1",
+            "Industry-specific routing based on Intento benchmarks 2"});
+            this.comboBoxRouting.Location = new System.Drawing.Point(8, 43);
             this.comboBoxRouting.Name = "comboBoxRouting";
-            this.comboBoxRouting.Size = new System.Drawing.Size(501, 21);
+            this.comboBoxRouting.Size = new System.Drawing.Size(426, 21);
             this.comboBoxRouting.TabIndex = 36;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.textBoxLabelURL, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelSmartRouting, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panel5, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(8, 23);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(501, 19);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(426, 20);
             this.tableLayoutPanel1.TabIndex = 38;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.textBoxLabelURL);
+            this.panel5.Controls.Add(this.labelSmartRouting);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(3, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(512, 14);
+            this.panel5.TabIndex = 39;
             // 
             // textBoxLabelURL
             // 
@@ -732,14 +756,14 @@
             this.textBoxLabelURL.AutoSize = true;
             this.textBoxLabelURL.BackColor = System.Drawing.SystemColors.Control;
             this.textBoxLabelURL.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.textBoxLabelURL.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textBoxLabelURL.Dock = System.Windows.Forms.DockStyle.Left;
             this.textBoxLabelURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxLabelURL.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.textBoxLabelURL.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.textBoxLabelURL.Location = new System.Drawing.Point(227, 3);
+            this.textBoxLabelURL.Location = new System.Drawing.Point(227, 0);
             this.textBoxLabelURL.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.textBoxLabelURL.Name = "textBoxLabelURL";
-            this.textBoxLabelURL.Size = new System.Drawing.Size(274, 13);
+            this.textBoxLabelURL.Size = new System.Drawing.Size(123, 13);
             this.textBoxLabelURL.TabIndex = 37;
             this.textBoxLabelURL.TabStop = true;
             this.textBoxLabelURL.Tag = "https://try.inten.to/machine-translation-report-2021";
@@ -750,12 +774,12 @@
             // labelSmartRouting
             // 
             this.labelSmartRouting.AutoSize = true;
-            this.labelSmartRouting.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelSmartRouting.Location = new System.Drawing.Point(0, 3);
-            this.labelSmartRouting.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.labelSmartRouting.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelSmartRouting.Location = new System.Drawing.Point(0, 0);
+            this.labelSmartRouting.Margin = new System.Windows.Forms.Padding(0);
             this.labelSmartRouting.Name = "labelSmartRouting";
             this.labelSmartRouting.Size = new System.Drawing.Size(227, 13);
-            this.labelSmartRouting.TabIndex = 37;
+            this.labelSmartRouting.TabIndex = 38;
             this.labelSmartRouting.Text = "Select MT provider automatically based on ";
             this.labelSmartRouting.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -764,14 +788,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(566, 716);
+            this.ClientSize = new System.Drawing.Size(474, 792);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(408, 319);
+            this.MinimumSize = new System.Drawing.Size(490, 831);
             this.Name = "IntentoFormOptionsMT";
             this.Padding = new System.Windows.Forms.Padding(16);
             this.ShowInTaskbar = false;
@@ -808,8 +832,10 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -853,13 +879,14 @@
         public System.Windows.Forms.ComboBox comboBoxProviders;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label labelSmartRouting;
         public System.Windows.Forms.ComboBox comboBoxRouting;
-        private System.Windows.Forms.LinkLabel textBoxLabelURL;
         public System.Windows.Forms.GroupBox providerAgnosticGlossariesGroup;
         public System.Windows.Forms.CheckedListBox listOfIntentoGlossaries;
         private System.Windows.Forms.FlowLayoutPanel controlPanelForGlossaries;
         private System.Windows.Forms.LinkLabel checkAllGlossaries;
         private System.Windows.Forms.LinkLabel uncheckAllGlossaries;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.LinkLabel textBoxLabelURL;
+        private System.Windows.Forms.Label labelSmartRouting;
     }
 }
