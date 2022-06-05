@@ -2,7 +2,10 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Intento.MT.Plugin.PropertiesForm.Models;
 using Intento.MT.Plugin.PropertiesForm.States;
+using Intento.SDK.DI;
+using Intento.SDK.Settings;
 
 namespace Intento.MT.Plugin.PropertiesForm.WinForms
 {
@@ -10,22 +13,31 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 	// ReSharper disable once InconsistentNaming
 	public partial class IntentoFormOptionsAPI : Form
     {
-        private readonly IntentoTranslationProviderOptionsForm parent;
         private IntentoMTFormOptions options;
+		private readonly Func<IntentoMTFormOptions, string, ValidateInfo> testConnectionFunc;
 
-        public IntentoMTFormOptions CurrentOptions { get; set; }
+		public string ApiKey
+		{
+			get => apiKey_tb.Text;
+			set => apiKey_tb.Text = value;
+		}
+
+		public ApiKeyState.EApiKeyStatus ApiKeyStatus
+		{
+			get;
+			set;
+		}
+
+		public IntentoMTFormOptions CurrentOptions { get; set; }
         
         private string errorInfo;
 
-        public IntentoFormOptionsAPI(IntentoTranslationProviderOptionsForm form)
+        public IntentoFormOptionsAPI(bool hideHiddenTextButton, Func<IntentoMTFormOptions, string, ValidateInfo> testConnectionFunc)
         {
             InitializeComponent();
             LocalizeContent();
-            parent = form;
-            if (form.GetOptions().HideHiddenTextButton)
-            {
-	            checkBoxShowHidden.Visible = false;
-            }
+			this.testConnectionFunc = testConnectionFunc;
+            checkBoxShowHidden.Visible = !hideHiddenTextButton;            
         }
 
         private void LocalizeContent()
@@ -37,52 +49,33 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             buttonSave.Text = Resource.TestAndSave;
 			toolTip1.SetToolTip(labelError, Resource.APIToolTipMessage);
 		}
+		
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
 	        if (string.IsNullOrWhiteSpace(apiKey_tb.Text))
 	        {
-		        parent.ApiKeyState.SetValue(string.Empty);
-		        parent.ApiKeyState.ReadProvidersAndRouting();
 		        DialogResult = DialogResult.OK;
-		        return;
-	        }
-
-	        Cursor = Cursors.WaitCursor;
-			var testOptions = new IntentoMTFormOptions
-			{
-				Hidden = true
-			};
-			var apiKeyState = new ApiKeyState(new IntentoTranslationProviderOptionsForm(testOptions, parent.LanguagePairs, parent.Locator, parent.InitLocatorFunc), options);
-			apiKeyState.SetValue(apiKey_tb.Text.Trim());
-			apiKeyState.ReadProvidersAndRouting();
-			var err = apiKeyState.Error();
-			var errDetail = apiKeyState.ErrorDetail();
-			Cursor = Cursors.Default;
-			var nl = Environment.NewLine;
-			if (!string.IsNullOrWhiteSpace(err))
-			{
-				var errorMsg = err == Resource.InvalidApiKeyMessage ? err : Resource.APIFlabelErrorSeePopup;
-				labelError.Text = $@"{errorMsg}"; 
-				labelError.Visible = true;
-				if (errDetail != null)
-				{
-					errorInfo = string.Format("{0:yyyy-MM-dd HH:mm:ss}{1}---------------------------{1}{2}", DateTime.UtcNow,
-						nl,
-						string.Join(nl, errDetail.ToArray())
-					);
-
-					toolTip1.SetToolTip(labelError, Resource.APIToolTipMessage);
-				}
+		        return;	        
 			}
-			else
+
+			if (testConnectionFunc != null)
 			{
-				Cursor = Cursors.WaitCursor;
-				parent.ApiKeyState.SetValue(apiKey_tb.Text.Trim());
-				parent.ApiKeyState.ReadProvidersAndRouting();
-				parent.ApiKeyState.EnableDisable();
-				Cursor = Cursors.Default;
-				DialogResult = DialogResult.OK;
+				var res = testConnectionFunc.Invoke(options, apiKey_tb.Text.Trim());
+				if (res.IsValid)
+				{
+					DialogResult = DialogResult.OK;
+				}
+				else
+				{
+					labelError.Text = res.Message; 
+					labelError.Visible = true;
+					if (res.Description != null)
+					{
+						errorInfo = res.Description;
+						toolTip1.SetToolTip(labelError, Resource.APIToolTipMessage);
+					}
+				}
 			}
         }
 
@@ -101,8 +94,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             options = CurrentOptions;
             labelError.Visible = false;
             checkBoxShowHidden.Checked = false;
-			apiKey_tb.Text = parent.ApiKeyState.ApiKey;
-			apiKey_tb.BackColor = parent.ApiKeyState.ApiKeyStatus == ApiKeyState.EApiKeyStatus.Ok ?
+            apiKey_tb.BackColor = ApiKeyStatus == ApiKeyState.EApiKeyStatus.Ok ?
 				SystemColors.Window : Color.LightPink;
 			apiKey_tb.TextChanged += apiKey_tb_TextChanged;
 		}
