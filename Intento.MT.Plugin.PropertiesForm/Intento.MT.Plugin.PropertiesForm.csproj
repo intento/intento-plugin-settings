@@ -61,6 +61,7 @@
     <Compile Include="IntentoMTFormOptions.StateModeEnum.cs" />
     <Compile Include="Models\LangPair.cs" />
     <Compile Include="Models\ListItem.cs" />
+    <Compile Include="Models\ValidateInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -168,7 +169,7 @@
     <None Include="Resources\intento.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Intento.SDK" Version="2.2.4" />    
+    <PackageReference Include="Intento.SDK" Version="2.2.4" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\intento.png" />

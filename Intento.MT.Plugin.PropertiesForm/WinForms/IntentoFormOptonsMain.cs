@@ -123,7 +123,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
             RemoteLogService.SetTraceEndTime(OriginalOptions.TraceEndTime);
             FormAdvanced = new IntentoFormAdvanced(this);
-            FormApi = new IntentoFormOptionsAPI(this);
+            FormApi = new IntentoFormOptionsAPI(GetOptions().HideHiddenTextButton, TestConnection);
             FormMt = new IntentoFormOptionsMT(this);
             ApiKeyState = new ApiKeyState(this, CurrentOptions);
             if (string.IsNullOrEmpty(options.ApiKey) && !string.IsNullOrEmpty(ApiKeyState.ApiKey))
@@ -205,6 +205,48 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         public IntentoMTFormOptions GetOptions()
         {
             return CurrentOptions;
+        }
+
+        public ValidateInfo TestConnection(IntentoMTFormOptions options, string key)
+        {
+            var res = new ValidateInfo
+            {
+                IsValid = true
+            };
+            Cursor = Cursors.WaitCursor;
+            var testOptions = new IntentoMTFormOptions
+            {
+                Hidden = true
+            };
+            var apiKeyState = new ApiKeyState(new IntentoTranslationProviderOptionsForm(testOptions, LanguagePairs, Locator, InitLocatorFunc), options);
+            apiKeyState.SetValue(key);
+            apiKeyState.ReadProvidersAndRouting();
+            var err = apiKeyState.Error();
+            var errDetail = apiKeyState.ErrorDetail();
+            Cursor = Cursors.Default;
+            var nl = Environment.NewLine;
+            if (!string.IsNullOrWhiteSpace(err))
+            {
+                var errorMsg = err == Resource.InvalidApiKeyMessage ? err : Resource.APIFlabelErrorSeePopup;
+                res.Message = $@"{errorMsg}";                
+                if (errDetail != null)
+                {
+                    res.Description = string.Format("{0:yyyy-MM-dd HH:mm:ss}{1}---------------------------{1}{2}", DateTime.UtcNow,
+                        nl,
+                        string.Join(nl, errDetail.ToArray())
+                    );                    
+                }
+                res.IsValid = false;
+            }
+            else
+            {
+                Cursor = Cursors.WaitCursor;
+                ApiKeyState.SetValue(key);
+                ApiKeyState.ReadProvidersAndRouting();
+                ApiKeyState.EnableDisable();
+                Cursor = Cursors.Default;                
+            }
+            return res;
         }
 
         public LangPair[] LanguagePairs { get; }
@@ -441,14 +483,26 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         {
             settingsIsSet = false;
             var apiKey = ApiKeyState?.ApiKey;
+            FormApi.ApiKey = apiKey;
+            if (ApiKeyState != null)
+            {
+                FormApi.ApiKeyStatus = ApiKeyState.ApiKeyStatus;
+            }
+
             FormApi.CurrentOptions = CurrentOptions;
             FormApi.ShowDialog();
-            if (ApiKeyState != null && FormApi.DialogResult == DialogResult.OK && (ApiKeyState.IsOk || string.IsNullOrWhiteSpace(ApiKeyState.ApiKey)) &&
-                ApiKeyState.ApiKey != apiKey)
+            if (ApiKeyState != null)
             {
-                settingsIsSet = true;
-                CurrentOptions.ApiKey = ApiKeyState.ApiKey;
-                RefreshFormInfo();
+                ApiKeyState.SetValue(FormApi.ApiKey?.Trim());
+                ApiKeyState.ReadProvidersAndRouting();
+                ApiKeyState.EnableDisable();
+                if (FormApi.DialogResult == DialogResult.OK && (ApiKeyState.IsOk || string.IsNullOrWhiteSpace(ApiKeyState.ApiKey)) &&
+                    ApiKeyState.ApiKey != apiKey)
+                {
+                    settingsIsSet = true;
+                    CurrentOptions.ApiKey = ApiKeyState.ApiKey;
+                    RefreshFormInfo();
+                }
             }
         }
 

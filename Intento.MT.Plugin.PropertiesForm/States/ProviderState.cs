@@ -143,7 +143,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                             providerAuthList.Add((string)authField.Name);*/
                 }
 
-                format = providerData.Format != null ? providerData.Format.ToString() : "";
+                format = providerData.Format != null && providerData.Format.Contains("html") ? "html" : "text";
                 var languages = providerData.Languages;
                 if (languages != null)
                 {
