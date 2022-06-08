@@ -105,9 +105,10 @@
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonCancel.Location = new System.Drawing.Point(394, 3);
+            this.buttonCancel.Location = new System.Drawing.Point(788, 6);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(6);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(102, 29);
+            this.buttonCancel.Size = new System.Drawing.Size(204, 58);
             this.buttonCancel.TabIndex = 31;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -115,9 +116,10 @@
             // buttonSave
             // 
             this.buttonSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonSave.Location = new System.Drawing.Point(288, 3);
+            this.buttonSave.Location = new System.Drawing.Point(576, 6);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(6);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(100, 29);
+            this.buttonSave.Size = new System.Drawing.Size(200, 58);
             this.buttonSave.TabIndex = 30;
             this.buttonSave.Text = "Test and save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -130,10 +132,10 @@
             // buttonRefresh
             // 
             this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
-            this.buttonRefresh.Location = new System.Drawing.Point(458, 39);
-            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(3, 1, 3, 3);
+            this.buttonRefresh.Location = new System.Drawing.Point(882, 70);
+            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(6, 2, 6, 6);
             this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(22, 23);
+            this.buttonRefresh.Size = new System.Drawing.Size(44, 46);
             this.buttonRefresh.TabIndex = 37;
             this.buttonRefresh.Tag = "accountControl";
             this.toolTipHelp.SetToolTip(this.buttonRefresh, "refresh list your accounts for this provider");
@@ -143,9 +145,10 @@
             // labelTMP
             // 
             this.labelTMP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelTMP.Location = new System.Drawing.Point(3, 0);
+            this.labelTMP.Location = new System.Drawing.Point(6, 0);
+            this.labelTMP.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.labelTMP.Name = "labelTMP";
-            this.labelTMP.Size = new System.Drawing.Size(279, 35);
+            this.labelTMP.Size = new System.Drawing.Size(558, 70);
             this.labelTMP.TabIndex = 32;
             this.labelTMP.Text = "labelTMP";
             this.labelTMP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -161,23 +164,23 @@
             this.tableLayoutPanel5.Controls.Add(this.buttonCancel, 2, 0);
             this.tableLayoutPanel5.Controls.Add(this.buttonSave, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 8);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(2);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 16);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(499, 35);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(998, 70);
             this.tableLayoutPanel5.TabIndex = 35;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.tableLayoutPanel5);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(16, 676);
-            this.panel3.Margin = new System.Windows.Forms.Padding(2);
+            this.panel3.Location = new System.Drawing.Point(32, 1452);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Padding = new System.Windows.Forms.Padding(0, 8, 0, 0);
-            this.panel3.Size = new System.Drawing.Size(499, 43);
+            this.panel3.Padding = new System.Windows.Forms.Padding(0, 16, 0, 0);
+            this.panel3.Size = new System.Drawing.Size(998, 86);
             this.panel3.TabIndex = 36;
             // 
             // panel4
@@ -191,22 +194,22 @@
             this.panel4.Controls.Add(this.groupBoxProvider);
             this.panel4.Controls.Add(this.groupBox1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(16, 16);
-            this.panel4.Margin = new System.Windows.Forms.Padding(2);
+            this.panel4.Location = new System.Drawing.Point(32, 32);
+            this.panel4.Margin = new System.Windows.Forms.Padding(4);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(499, 660);
+            this.panel4.Size = new System.Drawing.Size(998, 1420);
             this.panel4.TabIndex = 30;
             // 
             // providerAgnosticGlossariesGroup
             // 
-            this.providerAgnosticGlossariesGroup.AutoSize = true;
             this.providerAgnosticGlossariesGroup.Controls.Add(this.listOfIntentoGlossaries);
             this.providerAgnosticGlossariesGroup.Controls.Add(this.controlPanelForGlossaries);
-            this.providerAgnosticGlossariesGroup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.providerAgnosticGlossariesGroup.Location = new System.Drawing.Point(0, 636);
+            this.providerAgnosticGlossariesGroup.Dock = System.Windows.Forms.DockStyle.Top;
+            this.providerAgnosticGlossariesGroup.Location = new System.Drawing.Point(0, 1114);
+            this.providerAgnosticGlossariesGroup.Margin = new System.Windows.Forms.Padding(6);
             this.providerAgnosticGlossariesGroup.Name = "providerAgnosticGlossariesGroup";
-            this.providerAgnosticGlossariesGroup.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
-            this.providerAgnosticGlossariesGroup.Size = new System.Drawing.Size(499, 24);
+            this.providerAgnosticGlossariesGroup.Padding = new System.Windows.Forms.Padding(16, 16, 16, 32);
+            this.providerAgnosticGlossariesGroup.Size = new System.Drawing.Size(964, 512);
             this.providerAgnosticGlossariesGroup.TabIndex = 41;
             this.providerAgnosticGlossariesGroup.TabStop = false;
             this.providerAgnosticGlossariesGroup.Text = "Provider-agnostic glossaries";
@@ -216,9 +219,10 @@
             this.listOfIntentoGlossaries.CheckOnClick = true;
             this.listOfIntentoGlossaries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listOfIntentoGlossaries.FormattingEnabled = true;
-            this.listOfIntentoGlossaries.Location = new System.Drawing.Point(8, 42);
+            this.listOfIntentoGlossaries.Location = new System.Drawing.Point(16, 84);
+            this.listOfIntentoGlossaries.Margin = new System.Windows.Forms.Padding(6);
             this.listOfIntentoGlossaries.Name = "listOfIntentoGlossaries";
-            this.listOfIntentoGlossaries.Size = new System.Drawing.Size(483, 0);
+            this.listOfIntentoGlossaries.Size = new System.Drawing.Size(932, 396);
             this.listOfIntentoGlossaries.TabIndex = 1;
             // 
             // controlPanelForGlossaries
@@ -226,9 +230,10 @@
             this.controlPanelForGlossaries.Controls.Add(this.checkAllGlossaries);
             this.controlPanelForGlossaries.Controls.Add(this.uncheckAllGlossaries);
             this.controlPanelForGlossaries.Dock = System.Windows.Forms.DockStyle.Top;
-            this.controlPanelForGlossaries.Location = new System.Drawing.Point(8, 23);
+            this.controlPanelForGlossaries.Location = new System.Drawing.Point(16, 46);
+            this.controlPanelForGlossaries.Margin = new System.Windows.Forms.Padding(6);
             this.controlPanelForGlossaries.Name = "controlPanelForGlossaries";
-            this.controlPanelForGlossaries.Size = new System.Drawing.Size(483, 19);
+            this.controlPanelForGlossaries.Size = new System.Drawing.Size(932, 38);
             this.controlPanelForGlossaries.TabIndex = 2;
             // 
             // checkAllGlossaries
@@ -238,9 +243,9 @@
             this.checkAllGlossaries.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkAllGlossaries.LinkColor = System.Drawing.Color.Black;
             this.checkAllGlossaries.Location = new System.Drawing.Point(0, 0);
-            this.checkAllGlossaries.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.checkAllGlossaries.Margin = new System.Windows.Forms.Padding(0, 0, 6, 0);
             this.checkAllGlossaries.Name = "checkAllGlossaries";
-            this.checkAllGlossaries.Size = new System.Drawing.Size(53, 13);
+            this.checkAllGlossaries.Size = new System.Drawing.Size(99, 30);
             this.checkAllGlossaries.TabIndex = 0;
             this.checkAllGlossaries.TabStop = true;
             this.checkAllGlossaries.Text = "Check all";
@@ -252,9 +257,10 @@
             this.uncheckAllGlossaries.ActiveLinkColor = System.Drawing.Color.Black;
             this.uncheckAllGlossaries.AutoSize = true;
             this.uncheckAllGlossaries.LinkColor = System.Drawing.Color.Black;
-            this.uncheckAllGlossaries.Location = new System.Drawing.Point(59, 0);
+            this.uncheckAllGlossaries.Location = new System.Drawing.Point(111, 0);
+            this.uncheckAllGlossaries.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.uncheckAllGlossaries.Name = "uncheckAllGlossaries";
-            this.uncheckAllGlossaries.Size = new System.Drawing.Size(66, 13);
+            this.uncheckAllGlossaries.Size = new System.Drawing.Size(122, 30);
             this.uncheckAllGlossaries.TabIndex = 1;
             this.uncheckAllGlossaries.TabStop = true;
             this.uncheckAllGlossaries.Text = "Uncheck all";
@@ -265,10 +271,11 @@
             this.groupBoxOptional.AutoSize = true;
             this.groupBoxOptional.Controls.Add(this.tableLayoutPanel6);
             this.groupBoxOptional.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxOptional.Location = new System.Drawing.Point(0, 534);
+            this.groupBoxOptional.Location = new System.Drawing.Point(0, 924);
+            this.groupBoxOptional.Margin = new System.Windows.Forms.Padding(6);
             this.groupBoxOptional.Name = "groupBoxOptional";
-            this.groupBoxOptional.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
-            this.groupBoxOptional.Size = new System.Drawing.Size(499, 102);
+            this.groupBoxOptional.Padding = new System.Windows.Forms.Padding(16, 16, 16, 32);
+            this.groupBoxOptional.Size = new System.Drawing.Size(964, 190);
             this.groupBoxOptional.TabIndex = 39;
             this.groupBoxOptional.TabStop = false;
             this.groupBoxOptional.Text = "Optional";
@@ -286,24 +293,25 @@
             this.tableLayoutPanel6.Controls.Add(this.labelDirectionChar, 1, 1);
             this.tableLayoutPanel6.Controls.Add(this.comboBoxFrom, 0, 1);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(8, 23);
-            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(2);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(16, 46);
+            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(483, 63);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(932, 112);
             this.tableLayoutPanel6.TabIndex = 34;
             // 
             // labelHelpOptional
             // 
+            this.labelHelpOptional.AutoSize = true;
             this.labelHelpOptional.BackColor = System.Drawing.SystemColors.Control;
             this.tableLayoutPanel6.SetColumnSpan(this.labelHelpOptional, 4);
             this.labelHelpOptional.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelHelpOptional.Location = new System.Drawing.Point(2, 2);
-            this.labelHelpOptional.Margin = new System.Windows.Forms.Padding(2);
+            this.labelHelpOptional.Location = new System.Drawing.Point(4, 4);
+            this.labelHelpOptional.Margin = new System.Windows.Forms.Padding(4);
             this.labelHelpOptional.Name = "labelHelpOptional";
-            this.labelHelpOptional.Size = new System.Drawing.Size(479, 34);
+            this.labelHelpOptional.Size = new System.Drawing.Size(924, 60);
             this.labelHelpOptional.TabIndex = 33;
             this.labelHelpOptional.Text = "We will send one-character translation request to test this configuration.\r\nIf yo" +
     "u have selected custom model or glossary, please adjust the language pair:";
@@ -315,10 +323,10 @@
             this.comboBoxTo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxTo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTo.FormattingEnabled = true;
-            this.comboBoxTo.Location = new System.Drawing.Point(140, 40);
-            this.comboBoxTo.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxTo.Location = new System.Drawing.Point(273, 72);
+            this.comboBoxTo.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxTo.Name = "comboBoxTo";
-            this.comboBoxTo.Size = new System.Drawing.Size(110, 21);
+            this.comboBoxTo.Size = new System.Drawing.Size(213, 38);
             this.comboBoxTo.TabIndex = 13;
             this.comboBoxTo.Tag = "fix_high_dpi";
             // 
@@ -326,10 +334,10 @@
             // 
             this.labelDirectionChar.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelDirectionChar.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.labelDirectionChar.Location = new System.Drawing.Point(114, 38);
+            this.labelDirectionChar.Location = new System.Drawing.Point(221, 68);
             this.labelDirectionChar.Margin = new System.Windows.Forms.Padding(0);
             this.labelDirectionChar.Name = "labelDirectionChar";
-            this.labelDirectionChar.Size = new System.Drawing.Size(24, 22);
+            this.labelDirectionChar.Size = new System.Drawing.Size(48, 44);
             this.labelDirectionChar.TabIndex = 14;
             this.labelDirectionChar.Tag = "fix_high_dpi";
             this.labelDirectionChar.Text = "→";
@@ -342,10 +350,10 @@
             this.comboBoxFrom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBoxFrom.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxFrom.FormattingEnabled = true;
-            this.comboBoxFrom.Location = new System.Drawing.Point(2, 40);
-            this.comboBoxFrom.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxFrom.Location = new System.Drawing.Point(4, 72);
+            this.comboBoxFrom.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxFrom.Name = "comboBoxFrom";
-            this.comboBoxFrom.Size = new System.Drawing.Size(110, 21);
+            this.comboBoxFrom.Size = new System.Drawing.Size(213, 38);
             this.comboBoxFrom.TabIndex = 10;
             this.comboBoxFrom.Tag = "fix_high_dpi";
             // 
@@ -355,10 +363,11 @@
             this.groupBoxGlossary.Controls.Add(this.tableLayoutPanel4);
             this.groupBoxGlossary.Controls.Add(this.linkLabel2);
             this.groupBoxGlossary.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxGlossary.Location = new System.Drawing.Point(0, 414);
+            this.groupBoxGlossary.Location = new System.Drawing.Point(0, 733);
+            this.groupBoxGlossary.Margin = new System.Windows.Forms.Padding(6);
             this.groupBoxGlossary.Name = "groupBoxGlossary";
-            this.groupBoxGlossary.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
-            this.groupBoxGlossary.Size = new System.Drawing.Size(499, 120);
+            this.groupBoxGlossary.Padding = new System.Windows.Forms.Padding(16, 16, 16, 32);
+            this.groupBoxGlossary.Size = new System.Drawing.Size(964, 191);
             this.groupBoxGlossary.TabIndex = 38;
             this.groupBoxGlossary.TabStop = false;
             this.groupBoxGlossary.Text = "Glossary";
@@ -371,13 +380,13 @@
             this.tableLayoutPanel4.Controls.Add(this.panel2, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.labelHelpGlossary, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(8, 23);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(16, 46);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(483, 81);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(932, 143);
             this.tableLayoutPanel4.TabIndex = 34;
             // 
             // panel2
@@ -386,10 +395,10 @@
             this.panel2.Controls.Add(this.comboBoxGlossaries);
             this.panel2.Controls.Add(this.textBoxGlossary);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(2, 36);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2);
+            this.panel2.Location = new System.Drawing.Point(4, 64);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(479, 43);
+            this.panel2.Size = new System.Drawing.Size(924, 75);
             this.panel2.TabIndex = 35;
             // 
             // comboBoxGlossaries
@@ -401,10 +410,10 @@
             this.comboBoxGlossaries.Enabled = false;
             this.comboBoxGlossaries.FormattingEnabled = true;
             this.comboBoxGlossaries.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.comboBoxGlossaries.Location = new System.Drawing.Point(0, 22);
-            this.comboBoxGlossaries.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxGlossaries.Location = new System.Drawing.Point(0, 37);
+            this.comboBoxGlossaries.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxGlossaries.Name = "comboBoxGlossaries";
-            this.comboBoxGlossaries.Size = new System.Drawing.Size(479, 21);
+            this.comboBoxGlossaries.Size = new System.Drawing.Size(924, 38);
             this.comboBoxGlossaries.TabIndex = 10;
             this.comboBoxGlossaries.Tag = "glossaryControl";
             this.comboBoxGlossaries.Visible = false;
@@ -415,20 +424,21 @@
             this.textBoxGlossary.Dock = System.Windows.Forms.DockStyle.Top;
             this.textBoxGlossary.ForeColor = System.Drawing.SystemColors.WindowText;
             this.textBoxGlossary.Location = new System.Drawing.Point(0, 0);
-            this.textBoxGlossary.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxGlossary.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxGlossary.Name = "textBoxGlossary";
-            this.textBoxGlossary.Size = new System.Drawing.Size(479, 22);
+            this.textBoxGlossary.Size = new System.Drawing.Size(924, 37);
             this.textBoxGlossary.TabIndex = 14;
             this.textBoxGlossary.Tag = "glossaryControl";
             this.textBoxGlossary.Visible = false;
             // 
             // labelHelpGlossary
             // 
+            this.labelHelpGlossary.AutoSize = true;
             this.labelHelpGlossary.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelHelpGlossary.Location = new System.Drawing.Point(0, 0);
             this.labelHelpGlossary.Margin = new System.Windows.Forms.Padding(0);
             this.labelHelpGlossary.Name = "labelHelpGlossary";
-            this.labelHelpGlossary.Size = new System.Drawing.Size(483, 34);
+            this.labelHelpGlossary.Size = new System.Drawing.Size(932, 60);
             this.labelHelpGlossary.TabIndex = 13;
             this.labelHelpGlossary.Text = "Some of MT Providers enable using your custom terminology or glossary. If you hab" +
     "e one, please specify it below.";
@@ -438,9 +448,10 @@
             // 
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.linkLabel2.Location = new System.Drawing.Point(54, 0);
+            this.linkLabel2.Location = new System.Drawing.Point(108, 0);
+            this.linkLabel2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(12, 13);
+            this.linkLabel2.Size = new System.Drawing.Size(23, 30);
             this.linkLabel2.TabIndex = 33;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Tag = "glossary";
@@ -455,10 +466,11 @@
             this.groupBoxModel.Controls.Add(this.linkLabel1);
             this.groupBoxModel.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBoxModel.Enabled = false;
-            this.groupBoxModel.Location = new System.Drawing.Point(0, 267);
+            this.groupBoxModel.Location = new System.Drawing.Point(0, 488);
+            this.groupBoxModel.Margin = new System.Windows.Forms.Padding(6);
             this.groupBoxModel.Name = "groupBoxModel";
-            this.groupBoxModel.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
-            this.groupBoxModel.Size = new System.Drawing.Size(499, 147);
+            this.groupBoxModel.Padding = new System.Windows.Forms.Padding(16, 16, 16, 32);
+            this.groupBoxModel.Size = new System.Drawing.Size(964, 245);
             this.groupBoxModel.TabIndex = 37;
             this.groupBoxModel.TabStop = false;
             this.groupBoxModel.Text = "Model";
@@ -472,13 +484,14 @@
             this.tableLayoutPanel3.Controls.Add(this.labelHelpModel, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.checkBoxUseCustomModel, 0, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(8, 23);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(16, 46);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(6);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(483, 108);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(932, 197);
             this.tableLayoutPanel3.TabIndex = 14;
             // 
             // panel1
@@ -487,10 +500,10 @@
             this.panel1.Controls.Add(this.textBoxModel);
             this.panel1.Controls.Add(this.comboBoxModels);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(2, 63);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Location = new System.Drawing.Point(4, 118);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(479, 43);
+            this.panel1.Size = new System.Drawing.Size(924, 75);
             this.panel1.TabIndex = 15;
             // 
             // textBoxModel
@@ -498,10 +511,10 @@
             this.textBoxModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBoxModel.Dock = System.Windows.Forms.DockStyle.Top;
             this.textBoxModel.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBoxModel.Location = new System.Drawing.Point(0, 21);
-            this.textBoxModel.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxModel.Location = new System.Drawing.Point(0, 38);
+            this.textBoxModel.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxModel.Name = "textBoxModel";
-            this.textBoxModel.Size = new System.Drawing.Size(479, 22);
+            this.textBoxModel.Size = new System.Drawing.Size(924, 37);
             this.textBoxModel.TabIndex = 14;
             this.textBoxModel.Tag = "modelControl";
             this.textBoxModel.Visible = false;
@@ -513,21 +526,23 @@
             this.comboBoxModels.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboBoxModels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxModels.FormattingEnabled = true;
-            this.comboBoxModels.ItemHeight = 13;
+            this.comboBoxModels.ItemHeight = 30;
             this.comboBoxModels.Location = new System.Drawing.Point(0, 0);
+            this.comboBoxModels.Margin = new System.Windows.Forms.Padding(6);
             this.comboBoxModels.Name = "comboBoxModels";
-            this.comboBoxModels.Size = new System.Drawing.Size(479, 21);
+            this.comboBoxModels.Size = new System.Drawing.Size(924, 38);
             this.comboBoxModels.TabIndex = 10;
             this.comboBoxModels.Tag = "modelControl";
             this.comboBoxModels.Visible = false;
             // 
             // labelHelpModel
             // 
+            this.labelHelpModel.AutoSize = true;
             this.labelHelpModel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelHelpModel.Location = new System.Drawing.Point(2, 2);
-            this.labelHelpModel.Margin = new System.Windows.Forms.Padding(2);
+            this.labelHelpModel.Location = new System.Drawing.Point(4, 4);
+            this.labelHelpModel.Margin = new System.Windows.Forms.Padding(4);
             this.labelHelpModel.Name = "labelHelpModel";
-            this.labelHelpModel.Size = new System.Drawing.Size(479, 34);
+            this.labelHelpModel.Size = new System.Drawing.Size(924, 60);
             this.labelHelpModel.TabIndex = 13;
             this.labelHelpModel.Text = "By default, the pre-trained general-purpose MT model is used. If it\'s not availab" +
     "le or you want to use your custom-trained model, please specify it below.";
@@ -537,9 +552,10 @@
             // 
             this.checkBoxUseCustomModel.AutoSize = true;
             this.checkBoxUseCustomModel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBoxUseCustomModel.Location = new System.Drawing.Point(3, 41);
+            this.checkBoxUseCustomModel.Location = new System.Drawing.Point(6, 74);
+            this.checkBoxUseCustomModel.Margin = new System.Windows.Forms.Padding(6);
             this.checkBoxUseCustomModel.Name = "checkBoxUseCustomModel";
-            this.checkBoxUseCustomModel.Size = new System.Drawing.Size(136, 17);
+            this.checkBoxUseCustomModel.Size = new System.Drawing.Size(258, 34);
             this.checkBoxUseCustomModel.TabIndex = 11;
             this.checkBoxUseCustomModel.Tag = "modelControl";
             this.checkBoxUseCustomModel.Text = "Use custom MT model";
@@ -549,9 +565,10 @@
             // 
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.linkLabel1.Location = new System.Drawing.Point(44, 0);
+            this.linkLabel1.Location = new System.Drawing.Point(88, 0);
+            this.linkLabel1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(12, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(23, 30);
             this.linkLabel1.TabIndex = 7;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Tag = "model";
@@ -565,10 +582,11 @@
             this.groupBoxBillingAccount.Controls.Add(this.tableLayoutPanel2);
             this.groupBoxBillingAccount.Controls.Add(this.linkLabel3);
             this.groupBoxBillingAccount.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxBillingAccount.Location = new System.Drawing.Point(0, 140);
+            this.groupBoxBillingAccount.Location = new System.Drawing.Point(0, 272);
+            this.groupBoxBillingAccount.Margin = new System.Windows.Forms.Padding(6);
             this.groupBoxBillingAccount.Name = "groupBoxBillingAccount";
-            this.groupBoxBillingAccount.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
-            this.groupBoxBillingAccount.Size = new System.Drawing.Size(499, 127);
+            this.groupBoxBillingAccount.Padding = new System.Windows.Forms.Padding(16, 16, 16, 32);
+            this.groupBoxBillingAccount.Size = new System.Drawing.Size(964, 216);
             this.groupBoxBillingAccount.TabIndex = 36;
             this.groupBoxBillingAccount.TabStop = false;
             this.groupBoxBillingAccount.Text = "Billing account";
@@ -584,25 +602,26 @@
             this.tableLayoutPanel2.Controls.Add(this.comboBoxCredentialId, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.buttonRefresh, 1, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(8, 23);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(16, 46);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(483, 88);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(932, 168);
             this.tableLayoutPanel2.TabIndex = 40;
             // 
             // labelHelpBillingAccount
             // 
+            this.labelHelpBillingAccount.AutoSize = true;
             this.labelHelpBillingAccount.BackColor = System.Drawing.SystemColors.Control;
             this.tableLayoutPanel2.SetColumnSpan(this.labelHelpBillingAccount, 2);
             this.labelHelpBillingAccount.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelHelpBillingAccount.Location = new System.Drawing.Point(2, 2);
-            this.labelHelpBillingAccount.Margin = new System.Windows.Forms.Padding(2);
+            this.labelHelpBillingAccount.Location = new System.Drawing.Point(4, 4);
+            this.labelHelpBillingAccount.Margin = new System.Windows.Forms.Padding(4);
             this.labelHelpBillingAccount.Name = "labelHelpBillingAccount";
-            this.labelHelpBillingAccount.Size = new System.Drawing.Size(479, 34);
+            this.labelHelpBillingAccount.Size = new System.Drawing.Size(924, 60);
             this.labelHelpBillingAccount.TabIndex = 12;
             this.labelHelpBillingAccount.Text = "Most of the MT Providers are available via Intento contracts, but you may also us" +
     "e your own account at MT Provider connected via Intento Console.";
@@ -612,9 +631,10 @@
             // 
             this.panelConnectAccount.Controls.Add(this.textBoxLabelConnectAccount);
             this.panelConnectAccount.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelConnectAccount.Location = new System.Drawing.Point(3, 68);
+            this.panelConnectAccount.Location = new System.Drawing.Point(6, 128);
+            this.panelConnectAccount.Margin = new System.Windows.Forms.Padding(6);
             this.panelConnectAccount.Name = "panelConnectAccount";
-            this.panelConnectAccount.Size = new System.Drawing.Size(449, 17);
+            this.panelConnectAccount.Size = new System.Drawing.Size(864, 34);
             this.panelConnectAccount.TabIndex = 39;
             this.panelConnectAccount.Tag = "accountControl";
             this.panelConnectAccount.Visible = false;
@@ -630,9 +650,9 @@
             this.textBoxLabelConnectAccount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.textBoxLabelConnectAccount.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.textBoxLabelConnectAccount.Location = new System.Drawing.Point(0, 0);
-            this.textBoxLabelConnectAccount.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxLabelConnectAccount.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxLabelConnectAccount.Name = "textBoxLabelConnectAccount";
-            this.textBoxLabelConnectAccount.Size = new System.Drawing.Size(449, 13);
+            this.textBoxLabelConnectAccount.Size = new System.Drawing.Size(864, 26);
             this.textBoxLabelConnectAccount.TabIndex = 37;
             this.textBoxLabelConnectAccount.TabStop = true;
             this.textBoxLabelConnectAccount.Tag = "https://console.inten.to/accounts";
@@ -646,9 +666,10 @@
             this.comboBoxCredentialId.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboBoxCredentialId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCredentialId.FormattingEnabled = true;
-            this.comboBoxCredentialId.Location = new System.Drawing.Point(3, 41);
+            this.comboBoxCredentialId.Location = new System.Drawing.Point(6, 74);
+            this.comboBoxCredentialId.Margin = new System.Windows.Forms.Padding(6);
             this.comboBoxCredentialId.Name = "comboBoxCredentialId";
-            this.comboBoxCredentialId.Size = new System.Drawing.Size(449, 21);
+            this.comboBoxCredentialId.Size = new System.Drawing.Size(864, 38);
             this.comboBoxCredentialId.TabIndex = 10;
             this.comboBoxCredentialId.Tag = "accountControl";
             this.comboBoxCredentialId.Visible = false;
@@ -658,9 +679,10 @@
             // 
             this.linkLabel3.AutoSize = true;
             this.linkLabel3.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.linkLabel3.Location = new System.Drawing.Point(88, 0);
+            this.linkLabel3.Location = new System.Drawing.Point(176, 0);
+            this.linkLabel3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(12, 13);
+            this.linkLabel3.Size = new System.Drawing.Size(23, 30);
             this.linkLabel3.TabIndex = 33;
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Tag = "account";
@@ -673,10 +695,11 @@
             this.groupBoxProvider.AutoSize = true;
             this.groupBoxProvider.Controls.Add(this.comboBoxProviders);
             this.groupBoxProvider.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBoxProvider.Location = new System.Drawing.Point(0, 80);
+            this.groupBoxProvider.Location = new System.Drawing.Point(0, 156);
+            this.groupBoxProvider.Margin = new System.Windows.Forms.Padding(6);
             this.groupBoxProvider.Name = "groupBoxProvider";
-            this.groupBoxProvider.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
-            this.groupBoxProvider.Size = new System.Drawing.Size(499, 60);
+            this.groupBoxProvider.Padding = new System.Windows.Forms.Padding(16, 16, 16, 32);
+            this.groupBoxProvider.Size = new System.Drawing.Size(964, 116);
             this.groupBoxProvider.TabIndex = 35;
             this.groupBoxProvider.TabStop = false;
             this.groupBoxProvider.Text = "Provider";
@@ -688,9 +711,10 @@
             this.comboBoxProviders.Dock = System.Windows.Forms.DockStyle.Top;
             this.comboBoxProviders.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxProviders.FormattingEnabled = true;
-            this.comboBoxProviders.Location = new System.Drawing.Point(8, 23);
+            this.comboBoxProviders.Location = new System.Drawing.Point(16, 46);
+            this.comboBoxProviders.Margin = new System.Windows.Forms.Padding(6);
             this.comboBoxProviders.Name = "comboBoxProviders";
-            this.comboBoxProviders.Size = new System.Drawing.Size(483, 21);
+            this.comboBoxProviders.Size = new System.Drawing.Size(932, 38);
             this.comboBoxProviders.TabIndex = 6;
             // 
             // groupBox1
@@ -700,9 +724,10 @@
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(8, 8, 8, 16);
-            this.groupBox1.Size = new System.Drawing.Size(499, 80);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(16, 16, 16, 32);
+            this.groupBox1.Size = new System.Drawing.Size(964, 156);
             this.groupBox1.TabIndex = 40;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Automatic provider selection";
@@ -721,9 +746,10 @@
             "Industry-specific routing based on Intento benchmarks",
             "Industry-specific routing based on Intento benchmarks 1",
             "Industry-specific routing based on Intento benchmarks 2"});
-            this.comboBoxRouting.Location = new System.Drawing.Point(8, 43);
+            this.comboBoxRouting.Location = new System.Drawing.Point(16, 86);
+            this.comboBoxRouting.Margin = new System.Windows.Forms.Padding(6);
             this.comboBoxRouting.Name = "comboBoxRouting";
-            this.comboBoxRouting.Size = new System.Drawing.Size(483, 21);
+            this.comboBoxRouting.Size = new System.Drawing.Size(932, 38);
             this.comboBoxRouting.TabIndex = 36;
             // 
             // tableLayoutPanel1
@@ -733,11 +759,12 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.panel5, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(8, 23);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(16, 46);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(6);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(483, 20);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(932, 40);
             this.tableLayoutPanel1.TabIndex = 38;
             // 
             // panel5
@@ -745,9 +772,10 @@
             this.panel5.Controls.Add(this.textBoxLabelURL);
             this.panel5.Controls.Add(this.labelSmartRouting);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(3, 3);
+            this.panel5.Location = new System.Drawing.Point(6, 6);
+            this.panel5.Margin = new System.Windows.Forms.Padding(6);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(512, 14);
+            this.panel5.Size = new System.Drawing.Size(1024, 28);
             this.panel5.TabIndex = 39;
             // 
             // textBoxLabelURL
@@ -760,10 +788,10 @@
             this.textBoxLabelURL.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBoxLabelURL.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.textBoxLabelURL.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.textBoxLabelURL.Location = new System.Drawing.Point(227, 0);
-            this.textBoxLabelURL.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.textBoxLabelURL.Location = new System.Drawing.Point(432, 0);
+            this.textBoxLabelURL.Margin = new System.Windows.Forms.Padding(0, 6, 0, 6);
             this.textBoxLabelURL.Name = "textBoxLabelURL";
-            this.textBoxLabelURL.Size = new System.Drawing.Size(123, 13);
+            this.textBoxLabelURL.Size = new System.Drawing.Size(248, 26);
             this.textBoxLabelURL.TabIndex = 37;
             this.textBoxLabelURL.TabStop = true;
             this.textBoxLabelURL.Tag = "https://try.inten.to/machine-translation-report-2021";
@@ -778,26 +806,28 @@
             this.labelSmartRouting.Location = new System.Drawing.Point(0, 0);
             this.labelSmartRouting.Margin = new System.Windows.Forms.Padding(0);
             this.labelSmartRouting.Name = "labelSmartRouting";
-            this.labelSmartRouting.Size = new System.Drawing.Size(227, 13);
+            this.labelSmartRouting.Size = new System.Drawing.Size(432, 30);
             this.labelSmartRouting.TabIndex = 38;
             this.labelSmartRouting.Text = "Select MT provider automatically based on ";
             this.labelSmartRouting.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // IntentoFormOptionsMT
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScroll = true;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(531, 735);
+            this.ClientSize = new System.Drawing.Size(1062, 1570);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(490, 500);
+            this.MinimumSize = new System.Drawing.Size(954, 929);
             this.Name = "IntentoFormOptionsMT";
-            this.Padding = new System.Windows.Forms.Padding(16);
+            this.Padding = new System.Windows.Forms.Padding(32);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "IntentoFormOptionsMT";
@@ -812,6 +842,7 @@
             this.groupBoxOptional.ResumeLayout(false);
             this.groupBoxOptional.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
             this.groupBoxGlossary.ResumeLayout(false);
             this.groupBoxGlossary.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
@@ -827,6 +858,7 @@
             this.groupBoxBillingAccount.ResumeLayout(false);
             this.groupBoxBillingAccount.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.panelConnectAccount.ResumeLayout(false);
             this.groupBoxProvider.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
