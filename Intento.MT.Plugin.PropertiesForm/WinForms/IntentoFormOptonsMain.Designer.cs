@@ -144,6 +144,7 @@
             this.linkLabel1.Text = "https://console.inten.to";
             this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.linkLabel1.Click += new System.EventHandler(this.linkLabel_LinkClicked);
             // 
             // label2
             // 
