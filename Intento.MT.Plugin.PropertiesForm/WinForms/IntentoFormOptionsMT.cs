@@ -225,7 +225,8 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                     Glossary = testOptions.Glossary,
                     IntentoGlossary = testOptions.IntentoGlossaries,
                     WaitAsync = true,
-                    Trace = remoteLogService.IsTrace()
+                    Trace = remoteLogService.IsTrace(),
+                    PlainText = testOptions.CutTag
                 };
                 // Call test translate intent
                 
