@@ -491,12 +491,12 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
             FormApi.CurrentOptions = CurrentOptions;
             FormApi.ShowDialog();
-            if (ApiKeyState != null)
+            if (ApiKeyState != null && FormApi.DialogResult == DialogResult.OK)
             {
                 ApiKeyState.SetValue(FormApi.ApiKey?.Trim());
                 ApiKeyState.ReadProvidersAndRouting();
                 ApiKeyState.EnableDisable();
-                if (FormApi.DialogResult == DialogResult.OK && (ApiKeyState.IsOk || string.IsNullOrWhiteSpace(ApiKeyState.ApiKey)) &&
+                if (ApiKeyState.IsOk || string.IsNullOrWhiteSpace(ApiKeyState.ApiKey) &&
                     ApiKeyState.ApiKey != apiKey)
                 {
                     settingsIsSet = true;
