@@ -6,6 +6,7 @@
         <Version Condition=" '$(Version)' == '' ">3.0.0</Version>        
         <DoSign Condition="'$(DoSign)' == ''">0</DoSign>
         <CertificateFingerprint>ceb3832e3ea926565f7dd05c82a711307b6679ee</CertificateFingerprint>
+	<Timestamper>http://timestamp.entrust.net/rfc3161ts2</Timestamper>
     </PropertyGroup>
 
     <Target Name="BuildAll">
@@ -32,7 +33,7 @@
     </Target>
     
     <Target Name="SignNuget">
-        <Exec Command="dotnet nuget sign $(ProjectDir)build/Intento.MT.Plugin.PropertiesForm.$(Version).nupkg --certificate-fingerprint $(CertificateFingerprint) --timestamper http://ts.ssl.com" />
+        <Exec Command="dotnet nuget sign $(ProjectDir)build/Intento.MT.Plugin.PropertiesForm.$(Version).nupkg --certificate-fingerprint $(CertificateFingerprint) --timestamper $(Timestamper)" />
     </Target>
 
 </Project>
