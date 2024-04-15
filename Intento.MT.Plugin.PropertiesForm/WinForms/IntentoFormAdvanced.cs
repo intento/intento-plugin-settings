@@ -40,6 +40,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             Text = Resource.FAcaption;
             labelCustomSettingsName.Text = Resource.FAlabelCustomSettingsName;
 			checkBoxCustomTagParser.Text = Resource.FAcheckBoxCustomTagParser;
+            labelMaxDegreeOfParallelism.Text = Resource.FAMaxDegreeOfParallelism;
 			checkBoxCutTags.Text = Resource.FACheckBoxCutTags;
 			checkBoxSaveLocally.Text = Resource.FAcheckBoxSaveLocally;
 
@@ -50,8 +51,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             }
 
             checkBoxCustomTagParser.Enabled = options.MemoqAdditional != null && (bool)options.MemoqAdditional["advancedSdk"];
-
-		}
+            maxDegreeOfParallelism.Visible = options.MemoqAdditional != null && (bool)options.MemoqAdditional["maxDegreeOfParallelism"];
+            labelMaxDegreeOfParallelism.Visible = options.MemoqAdditional != null && (bool)options.MemoqAdditional["maxDegreeOfParallelism"];
+        }
 
         private void checkBoxProxy_CheckedChanged(object sender, EventArgs e)
         {
@@ -63,6 +65,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             RemoteLogService.SetTraceEndTime(DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40));
             parent.CurrentOptions.CustomSettingsName = string.IsNullOrWhiteSpace(textBoxCustomSettingsName.Text) ? null : textBoxCustomSettingsName.Text;
 			parent.CurrentOptions.CustomTagParser = checkBoxCustomTagParser.Checked;
+            parent.CurrentOptions.MaxDegreeOfParallelism = Convert.ToInt32(maxDegreeOfParallelism.Text);
 			parent.CurrentOptions.CutTag = checkBoxCutTags.Checked;
 			parent.CurrentOptions.SaveLocally = checkBoxSaveLocally.Checked;
 
@@ -189,6 +192,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             proxySettings = parent.CurrentOptions.ProxySettings;
 			textBoxCustomSettingsName.Text = parent.CurrentOptions.CustomSettingsName;
 			checkBoxCustomTagParser.Checked = parent.CurrentOptions.CustomTagParser;
+            maxDegreeOfParallelism.Text = parent.CurrentOptions.MaxDegreeOfParallelism.ToString();
 			checkBoxCutTags.Checked = parent.CurrentOptions.CutTag;
 			checkBoxCustomTagParser.Location = checkBoxCutTags.Location;
 			checkBoxSaveLocally.Checked = parent.CurrentOptions.SaveLocally;

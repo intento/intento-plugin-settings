@@ -124,7 +124,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             RemoteLogService.SetTraceEndTime(OriginalOptions.TraceEndTime);
             FormAdvanced = new IntentoFormAdvanced(this);
             FormApi = new IntentoFormOptionsAPI(GetOptions().HideHiddenTextButton, TestConnection);
-            FormMt = new IntentoFormOptionsMT(this);
+            FormMt = new IntentoFormOptionsMT(options, this);
             ApiKeyState = new ApiKeyState(this, CurrentOptions);
             if (string.IsNullOrEmpty(options.ApiKey) && !string.IsNullOrEmpty(ApiKeyState.ApiKey))
             {

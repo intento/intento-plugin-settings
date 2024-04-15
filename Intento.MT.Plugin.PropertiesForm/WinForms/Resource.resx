@@ -326,6 +326,9 @@ If you have selected custom model or glossary, please adjust the language pair:<
   <data name="FAcheckBoxCustomTagParser" xml:space="preserve">
     <value>Custom HTML tags parser</value>
   </data>
+  <data name="FAMaxDegreeOfParallelism" xml:space="preserve">
+    <value>Max degree of parallelism </value>
+  </data>
   <data name="FACheckBoxCutTags" xml:space="preserve">
     <value>Translate as plain text</value>
   </data>

@@ -53,7 +53,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
         private readonly List<Control> disabledControls = new();
         private CancellationTokenSource cts;
 
-        public IntentoFormOptionsMT(IntentoTranslationProviderOptionsForm form)
+        public IntentoFormOptionsMT(IntentoMTFormOptions options, IntentoTranslationProviderOptionsForm form)
         {
             InitializeComponent();
             SuspendLayout();
@@ -73,6 +73,11 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             textBoxLabelConnectAccount.Click += parent.linkLabel_LinkClicked;
             buttonRefresh.Click += parent.comboBoxProviders_SelectedIndexChanged;
             comboBoxRouting.Select();
+            
+            if (!string.IsNullOrWhiteSpace(options.ConsoleUrl))
+            {
+                textBoxLabelConnectAccount.Tag = $"{options.ConsoleUrl}/accounts";
+            }
         }
 
         private void LocalizeContent()

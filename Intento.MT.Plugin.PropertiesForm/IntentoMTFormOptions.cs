@@ -183,6 +183,8 @@ namespace Intento.MT.Plugin.PropertiesForm
 
 		// Remove tags from source text. Now (2020-08-10) used only in the Trados plugin
 		public bool CutTag { get; set; }
+		// MaxDegreeOfParallelism property for MemoQ
+		public int MaxDegreeOfParallelism { get; set; }
 
 		// Special options for public memoQ plugin special requirements
 		// Forbid to save ApiKey in registry 
@@ -276,6 +278,7 @@ namespace Intento.MT.Plugin.PropertiesForm
 			res.ConsoleUrl = ConsoleUrl;
 			res.ApiPath = ApiPath;
 			res.TmsApiPath = TmsApiPath;
+			res.MaxDegreeOfParallelism = MaxDegreeOfParallelism;
 		}
 
 		public IntentoMTFormOptions()
