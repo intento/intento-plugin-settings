@@ -58,6 +58,11 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             groupBoxProxy.Enabled = checkBoxProxy.Checked;
         }
 
+        private void checkBoxEmptySegments_CheckedChanged(object sender, EventArgs e)
+        {
+            spinBoxEmptySegmentsPercent.Enabled = checkBoxEmptySegments.Checked;
+        }
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
             RemoteLogService.SetTraceEndTime(DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40));

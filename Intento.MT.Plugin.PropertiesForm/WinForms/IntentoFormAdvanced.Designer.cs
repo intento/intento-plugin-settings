@@ -56,6 +56,7 @@
             this.checkBoxCustomTagParser = new System.Windows.Forms.CheckBox();
             this.checkBoxCutTags = new System.Windows.Forms.CheckBox();
             this.checkBoxSaveLocally = new System.Windows.Forms.CheckBox();
+            this.spinBoxEmptySegmentsPercent = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -269,6 +270,7 @@
             this.checkBoxEmptySegments.TabIndex = 14;
             this.checkBoxEmptySegments.Text = "checkBoxEmptySegments";
             this.checkBoxEmptySegments.UseVisualStyleBackColor = true;
+            this.checkBoxEmptySegments.CheckedChanged += new System.EventHandler(this.checkBoxEmptySegments_CheckedChanged);
             // 
             // checkBoxProxy
             // 
@@ -402,6 +404,19 @@
             this.checkBoxSaveLocally.UseVisualStyleBackColor = true;
             this.checkBoxSaveLocally.Visible = false;
             // 
+            // spinBoxEmptySegmentsPercent
+            // 
+            this.spinBoxEmptySegmentsPercent.Dock = System.Windows.Forms.DockStyle.Top;
+            this.spinBoxEmptySegmentsPercent.Enabled = false;
+            this.spinBoxEmptySegmentsPercent.Location = new System.Drawing.Point(262, 26);
+            this.spinBoxEmptySegmentsPercent.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.spinBoxEmptySegmentsPercent.Maximum = new decimal(new int[] {100, 0, 0, 0});
+            this.spinBoxEmptySegmentsPercent.Minimum = new decimal(new int[] {0, 0, 0, 0});
+            this.spinBoxEmptySegmentsPercent.Name = "spinBoxEmptySegmentsPercent";
+            this.spinBoxEmptySegmentsPercent.Size = new System.Drawing.Size(254, 22);
+            this.spinBoxEmptySegmentsPercent.TabIndex = 41;
+            this.spinBoxEmptySegmentsPercent.Value = new decimal(new int[] {0, 0, 0, 0});
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoSize = true;
@@ -411,6 +426,7 @@
             this.tableLayoutPanel1.Controls.Add(this.checkBoxTrace, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxSaveLocally, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxEmptySegments, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.spinBoxEmptySegmentsPercent, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxProxy, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
@@ -555,6 +571,7 @@
         private System.Windows.Forms.Label labelAddress;
         public System.Windows.Forms.CheckBox checkBoxProxy;
         public System.Windows.Forms.CheckBox checkBoxEmptySegments;
+        public System.Windows.Forms.NumericUpDown spinBoxEmptySegmentsPercent;
         public System.Windows.Forms.CheckBox checkBoxSaveApiKeyInRegistry;
         public System.Windows.Forms.CheckBox checkBoxTrace;
         private System.Windows.Forms.Button buttonCancel;
