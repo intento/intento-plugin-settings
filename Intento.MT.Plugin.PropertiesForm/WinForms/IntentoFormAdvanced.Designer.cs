@@ -44,6 +44,7 @@
             this.labelPort = new System.Windows.Forms.Label();
             this.textBoxPort = new System.Windows.Forms.TextBox();
             this.checkBoxProxy = new System.Windows.Forms.CheckBox();
+            this.checkBoxEmptySegments = new System.Windows.Forms.CheckBox();
             this.checkBoxSaveApiKeyInRegistry = new System.Windows.Forms.CheckBox();
             this.checkBoxTrace = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -55,6 +56,9 @@
             this.checkBoxCustomTagParser = new System.Windows.Forms.CheckBox();
             this.checkBoxCutTags = new System.Windows.Forms.CheckBox();
             this.checkBoxSaveLocally = new System.Windows.Forms.CheckBox();
+            this.spinBoxEmptySegmentsPercent = new System.Windows.Forms.NumericUpDown();
+            this.labelEmptySegmentsPercentage = new System.Windows.Forms.Label();
+            this.panelEmptySegmentsPercent = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -67,6 +71,7 @@
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.panelEmptySegmentsPercent.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -100,7 +105,7 @@
             this.groupBoxAuth.Margin = new System.Windows.Forms.Padding(0);
             this.groupBoxAuth.Name = "groupBoxAuth";
             this.groupBoxAuth.Size = new System.Drawing.Size(503, 104);
-            this.groupBoxAuth.TabIndex = 16;
+            this.groupBoxAuth.TabIndex = 17;
             this.groupBoxAuth.TabStop = false;
             // 
             // tableLayoutPanel4
@@ -181,7 +186,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(3);
             this.panel2.Size = new System.Drawing.Size(503, 28);
-            this.panel2.TabIndex = 19;
+            this.panel2.TabIndex = 20;
             // 
             // checkBoxAuth
             // 
@@ -191,7 +196,7 @@
             this.checkBoxAuth.Margin = new System.Windows.Forms.Padding(0);
             this.checkBoxAuth.Name = "checkBoxAuth";
             this.checkBoxAuth.Size = new System.Drawing.Size(497, 22);
-            this.checkBoxAuth.TabIndex = 17;
+            this.checkBoxAuth.TabIndex = 18;
             this.checkBoxAuth.Text = "Authorization required";
             this.checkBoxAuth.UseVisualStyleBackColor = true;
             this.checkBoxAuth.CheckedChanged += new System.EventHandler(this.checkBoxAuth_CheckedChanged);
@@ -214,7 +219,7 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(503, 28);
-            this.tableLayoutPanel2.TabIndex = 18;
+            this.tableLayoutPanel2.TabIndex = 19;
             // 
             // labelAddress
             // 
@@ -255,7 +260,7 @@
             this.textBoxPort.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(77, 22);
-            this.textBoxPort.TabIndex = 15;
+            this.textBoxPort.TabIndex = 16;
             this.textBoxPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPort_KeyPress);
             // 
             // checkBoxProxy
@@ -266,10 +271,23 @@
             this.checkBoxProxy.Location = new System.Drawing.Point(3, 26);
             this.checkBoxProxy.Name = "checkBoxProxy";
             this.checkBoxProxy.Size = new System.Drawing.Size(513, 18);
-            this.checkBoxProxy.TabIndex = 13;
+            this.checkBoxProxy.TabIndex = 15;
             this.checkBoxProxy.Text = "checkBoxProxy";
             this.checkBoxProxy.UseVisualStyleBackColor = true;
             this.checkBoxProxy.CheckedChanged += new System.EventHandler(this.checkBoxProxy_CheckedChanged);
+            // 
+            // checkBoxEmptySegments
+            // 
+            this.checkBoxEmptySegments.Dock = System.Windows.Forms.DockStyle.Top;
+            this.checkBoxEmptySegments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxEmptySegments.Location = new System.Drawing.Point(6, 52);
+            this.checkBoxEmptySegments.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.checkBoxEmptySegments.Name = "checkBoxEmptySegments";
+            this.checkBoxEmptySegments.Size = new System.Drawing.Size(507, 34);
+            this.checkBoxEmptySegments.TabIndex = 14;
+            this.checkBoxEmptySegments.Text = "checkBoxEmptySegments";
+            this.checkBoxEmptySegments.UseVisualStyleBackColor = true;
+            this.checkBoxEmptySegments.CheckedChanged += new System.EventHandler(this.checkBoxEmptySegments_CheckedChanged);
             // 
             // checkBoxSaveApiKeyInRegistry
             // 
@@ -390,6 +408,38 @@
             this.checkBoxSaveLocally.UseVisualStyleBackColor = true;
             this.checkBoxSaveLocally.Visible = false;
             // 
+            // spinBoxEmptySegmentsPercent
+            // 
+            this.spinBoxEmptySegmentsPercent.Dock = System.Windows.Forms.DockStyle.Right;
+            this.spinBoxEmptySegmentsPercent.Enabled = false;
+            this.spinBoxEmptySegmentsPercent.Location = new System.Drawing.Point(347, 0);
+            this.spinBoxEmptySegmentsPercent.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.spinBoxEmptySegmentsPercent.Name = "spinBoxEmptySegmentsPercent";
+            this.spinBoxEmptySegmentsPercent.Size = new System.Drawing.Size(160, 37);
+            this.spinBoxEmptySegmentsPercent.TabIndex = 41;
+            // 
+            // labelEmptySegmentsPercentage
+            // 
+            this.labelEmptySegmentsPercentage.Dock = System.Windows.Forms.DockStyle.Left;
+            this.labelEmptySegmentsPercentage.Location = new System.Drawing.Point(0, 0);
+            this.labelEmptySegmentsPercentage.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.labelEmptySegmentsPercentage.Name = "labelEmptySegmentsPercentage";
+            this.labelEmptySegmentsPercentage.Size = new System.Drawing.Size(160, 44);
+            this.labelEmptySegmentsPercentage.TabIndex = 42;
+            this.labelEmptySegmentsPercentage.Text = "labelEmptySegmentsPercentage";
+            this.labelEmptySegmentsPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panelEmptySegmentsPercent
+            // 
+            this.panelEmptySegmentsPercent.Controls.Add(this.spinBoxEmptySegmentsPercent);
+            this.panelEmptySegmentsPercent.Controls.Add(this.labelEmptySegmentsPercentage);
+            this.panelEmptySegmentsPercent.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelEmptySegmentsPercent.Location = new System.Drawing.Point(525, 52);
+            this.panelEmptySegmentsPercent.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.panelEmptySegmentsPercent.Name = "panelEmptySegmentsPercent";
+            this.panelEmptySegmentsPercent.Size = new System.Drawing.Size(507, 44);
+            this.panelEmptySegmentsPercent.TabIndex = 43;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoSize = true;
@@ -398,15 +448,18 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.checkBoxTrace, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxSaveLocally, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.checkBoxProxy, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.checkBoxEmptySegments, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panelEmptySegmentsPercent, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.checkBoxProxy, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(519, 47);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(519, 72);
             this.tableLayoutPanel1.TabIndex = 41;
             // 
             // panel1
@@ -540,6 +593,8 @@
         private System.Windows.Forms.TextBox textBoxAddress;
         private System.Windows.Forms.Label labelAddress;
         public System.Windows.Forms.CheckBox checkBoxProxy;
+        public System.Windows.Forms.CheckBox checkBoxEmptySegments;
+        public System.Windows.Forms.NumericUpDown spinBoxEmptySegmentsPercent;
         public System.Windows.Forms.CheckBox checkBoxSaveApiKeyInRegistry;
         public System.Windows.Forms.CheckBox checkBoxTrace;
         private System.Windows.Forms.Button buttonCancel;
@@ -561,5 +616,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label labelEmptySegmentsPercentage;
+        private System.Windows.Forms.Panel panelEmptySegmentsPercent;
     }
 }

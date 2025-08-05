@@ -44,6 +44,17 @@ namespace Intento.MT.Plugin.PropertiesForm
 		/// </summary>
 		public string ProviderName { get; set; }
 
+		// --------------------------- Empty segments settings -------------------------------
+		/// <summary>
+		/// Fail translation on empty segments
+		/// </summary>
+		public bool EmptySegmentsCheckEnabled { get; set; }
+
+		/// <summary>
+		/// Percentage of empty segments to fail translation
+		/// </summary>
+		public int EmptySegmentsPercentage { get; set; }
+
 		// --------------------------- Account and provider authentication parameters -------------------------------
 		/// <summary>
 		/// Using external authentication (not "Via Intento")

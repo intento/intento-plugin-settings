@@ -31,12 +31,13 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             checkBoxProxy.Text = Resource.FAcheckBoxProxy;
             labelAddress.Text = Resource.FAlabelAddress;
             checkBoxTrace.Text = Resource.FAcheckBoxTrace;
+            checkBoxEmptySegments.Text = Resource.FAcheckBoxEmptySegments;
+            labelEmptySegmentsPercentage.Text = Resource.FAlabelEmptySegmentsPercentage;
             labelPassword.Text = Resource.FAlabelPassword;
             labelPort.Text = Resource.FAlabelPort;
             labelUserName.Text = Resource.FAlabelUserName;
             buttonCancel.Text = Resource.Cancel;
-            buttonSave.Text = Resource.Save;
-            checkBoxTrace.Text = Resource.FAcheckBoxTrace;
+            buttonSave.Text = Resource.Save;            
             Text = Resource.FAcaption;
             labelCustomSettingsName.Text = Resource.FAlabelCustomSettingsName;
 			checkBoxCustomTagParser.Text = Resource.FAcheckBoxCustomTagParser;
@@ -58,6 +59,11 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             groupBoxProxy.Enabled = checkBoxProxy.Checked;
         }
 
+        private void checkBoxEmptySegments_CheckedChanged(object sender, EventArgs e)
+        {
+            panelEmptySegmentsPercent.Enabled = checkBoxEmptySegments.Checked;
+        }
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
             RemoteLogService.SetTraceEndTime(DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40));
@@ -65,6 +71,10 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			parent.CurrentOptions.CustomTagParser = checkBoxCustomTagParser.Checked;
 			parent.CurrentOptions.CutTag = checkBoxCutTags.Checked;
 			parent.CurrentOptions.SaveLocally = checkBoxSaveLocally.Checked;
+
+            parent.CurrentOptions.EmptySegmentsCheckEnabled = checkBoxEmptySegments.Checked;
+            // TODO do we need to check that value is in range?
+            parent.CurrentOptions.EmptySegmentsPercentage = (int)spinBoxEmptySegmentsPercent.Value;
 
 			if (!checkBoxProxy.Checked)
             {
@@ -193,6 +203,11 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 			checkBoxCustomTagParser.Location = checkBoxCutTags.Location;
 			checkBoxSaveLocally.Checked = parent.CurrentOptions.SaveLocally;
 			checkBoxSaveLocally.Visible = parent.IsTrados || !parent.MemoqPublic;
+
+            checkBoxEmptySegments.Checked = parent.CurrentOptions.EmptySegmentsCheckEnabled;            
+            // TODO shouldn't this be called after setting the value?
+            checkBoxEmptySegments_CheckedChanged(null, null);
+            spinBoxEmptySegmentsPercent.Value = parent.CurrentOptions.EmptySegmentsPercentage;
 
 			// Specific setting for Trados
 			textBoxCustomSettingsName.Visible = parent.IsTrados;

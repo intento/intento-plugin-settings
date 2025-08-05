@@ -356,4 +356,10 @@ If you have selected custom model or glossary, please adjust the language pair:<
   <data name="UncheckAll" xml:space="preserve">
     <value>Uncheck all</value>
   </data>
+  <data name="FAcheckBoxEmptySegments" xml:space="preserve">
+    <value>Empty segments check</value>
+  </data>
+  <data name="FAlabelEmptySegmentsPercentage" xml:space="preserve">
+    <value>Percentage</value>
+  </data>
 </root>
