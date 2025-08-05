@@ -31,12 +31,12 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             checkBoxProxy.Text = Resource.FAcheckBoxProxy;
             labelAddress.Text = Resource.FAlabelAddress;
             checkBoxTrace.Text = Resource.FAcheckBoxTrace;
+            checkBoxEmptySegments.Text = Resource.FAcheckBoxEmptySegments;
             labelPassword.Text = Resource.FAlabelPassword;
             labelPort.Text = Resource.FAlabelPort;
             labelUserName.Text = Resource.FAlabelUserName;
             buttonCancel.Text = Resource.Cancel;
-            buttonSave.Text = Resource.Save;
-            checkBoxTrace.Text = Resource.FAcheckBoxTrace;
+            buttonSave.Text = Resource.Save;            
             Text = Resource.FAcaption;
             labelCustomSettingsName.Text = Resource.FAlabelCustomSettingsName;
 			checkBoxCustomTagParser.Text = Resource.FAcheckBoxCustomTagParser;

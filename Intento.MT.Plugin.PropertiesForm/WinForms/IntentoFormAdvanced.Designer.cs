@@ -44,6 +44,7 @@
             this.labelPort = new System.Windows.Forms.Label();
             this.textBoxPort = new System.Windows.Forms.TextBox();
             this.checkBoxProxy = new System.Windows.Forms.CheckBox();
+            this.checkBoxEmptySegments = new System.Windows.Forms.CheckBox();
             this.checkBoxSaveApiKeyInRegistry = new System.Windows.Forms.CheckBox();
             this.checkBoxTrace = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -100,7 +101,7 @@
             this.groupBoxAuth.Margin = new System.Windows.Forms.Padding(0);
             this.groupBoxAuth.Name = "groupBoxAuth";
             this.groupBoxAuth.Size = new System.Drawing.Size(503, 104);
-            this.groupBoxAuth.TabIndex = 16;
+            this.groupBoxAuth.TabIndex = 17;
             this.groupBoxAuth.TabStop = false;
             // 
             // tableLayoutPanel4
@@ -181,7 +182,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(3);
             this.panel2.Size = new System.Drawing.Size(503, 28);
-            this.panel2.TabIndex = 19;
+            this.panel2.TabIndex = 20;
             // 
             // checkBoxAuth
             // 
@@ -191,7 +192,7 @@
             this.checkBoxAuth.Margin = new System.Windows.Forms.Padding(0);
             this.checkBoxAuth.Name = "checkBoxAuth";
             this.checkBoxAuth.Size = new System.Drawing.Size(497, 22);
-            this.checkBoxAuth.TabIndex = 17;
+            this.checkBoxAuth.TabIndex = 18;
             this.checkBoxAuth.Text = "Authorization required";
             this.checkBoxAuth.UseVisualStyleBackColor = true;
             this.checkBoxAuth.CheckedChanged += new System.EventHandler(this.checkBoxAuth_CheckedChanged);
@@ -214,7 +215,7 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(503, 28);
-            this.tableLayoutPanel2.TabIndex = 18;
+            this.tableLayoutPanel2.TabIndex = 19;
             // 
             // labelAddress
             // 
@@ -255,8 +256,19 @@
             this.textBoxPort.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(77, 22);
-            this.textBoxPort.TabIndex = 15;
+            this.textBoxPort.TabIndex = 16;
             this.textBoxPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPort_KeyPress);
+            //
+            // checkBoxEmptySegments
+            //
+            this.checkBoxEmptySegments.Dock = System.Windows.Forms.DockStyle.Top;
+            this.checkBoxEmptySegments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBoxEmptySegments.Location = new System.Drawing.Point(3, 26);
+            this.checkBoxEmptySegments.Name = "checkBoxEmptySegments";
+            this.checkBoxEmptySegments.Size = new System.Drawing.Size(253, 17);
+            this.checkBoxEmptySegments.TabIndex = 14;
+            this.checkBoxEmptySegments.Text = "checkBoxEmptySegments";
+            this.checkBoxEmptySegments.UseVisualStyleBackColor = true;
             // 
             // checkBoxProxy
             // 
@@ -266,7 +278,7 @@
             this.checkBoxProxy.Location = new System.Drawing.Point(3, 26);
             this.checkBoxProxy.Name = "checkBoxProxy";
             this.checkBoxProxy.Size = new System.Drawing.Size(513, 18);
-            this.checkBoxProxy.TabIndex = 13;
+            this.checkBoxProxy.TabIndex = 15;
             this.checkBoxProxy.Text = "checkBoxProxy";
             this.checkBoxProxy.UseVisualStyleBackColor = true;
             this.checkBoxProxy.CheckedChanged += new System.EventHandler(this.checkBoxProxy_CheckedChanged);
@@ -398,15 +410,17 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.checkBoxTrace, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.checkBoxSaveLocally, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.checkBoxProxy, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.checkBoxEmptySegments, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.checkBoxProxy, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(519, 47);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(519, 72);
             this.tableLayoutPanel1.TabIndex = 41;
             // 
             // panel1
@@ -540,6 +554,7 @@
         private System.Windows.Forms.TextBox textBoxAddress;
         private System.Windows.Forms.Label labelAddress;
         public System.Windows.Forms.CheckBox checkBoxProxy;
+        public System.Windows.Forms.CheckBox checkBoxEmptySegments;
         public System.Windows.Forms.CheckBox checkBoxSaveApiKeyInRegistry;
         public System.Windows.Forms.CheckBox checkBoxTrace;
         private System.Windows.Forms.Button buttonCancel;
