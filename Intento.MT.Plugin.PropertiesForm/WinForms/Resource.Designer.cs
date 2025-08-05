@@ -295,6 +295,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Empty segments check.
+        /// </summary>
+        internal static string FAcheckBoxEmptySegments {
+            get {
+                return ResourceManager.GetString("FAcheckBoxEmptySegments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable proxy server (Attention! Proxy settings apply to all sets of settings).
         /// </summary>
         internal static string FAcheckBoxProxy {
@@ -345,6 +354,15 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms {
         internal static string FAlabelCustomSettingsName {
             get {
                 return ResourceManager.GetString("FAlabelCustomSettingsName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Percentage.
+        /// </summary>
+        internal static string FAlabelEmptySegmentsPercentage {
+            get {
+                return ResourceManager.GetString("FAlabelEmptySegmentsPercentage", resourceCulture);
             }
         }
         

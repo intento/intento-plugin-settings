@@ -32,6 +32,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             labelAddress.Text = Resource.FAlabelAddress;
             checkBoxTrace.Text = Resource.FAcheckBoxTrace;
             checkBoxEmptySegments.Text = Resource.FAcheckBoxEmptySegments;
+            labelEmptySegmentsPercentage.Text = Resource.FAlabelEmptySegmentsPercentage;
             labelPassword.Text = Resource.FAlabelPassword;
             labelPort.Text = Resource.FAlabelPort;
             labelUserName.Text = Resource.FAlabelUserName;
@@ -60,7 +61,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
         private void checkBoxEmptySegments_CheckedChanged(object sender, EventArgs e)
         {
-            spinBoxEmptySegmentsPercent.Enabled = checkBoxEmptySegments.Checked;
+            panelEmptySegmentsPercent.Enabled = checkBoxEmptySegments.Checked;
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
