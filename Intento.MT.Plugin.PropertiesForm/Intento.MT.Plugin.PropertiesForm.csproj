@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientUserAgentComposer.cs" />
     <Compile Include="DI\PropertiesFormContainerRegisterExtension.cs" />
     <Compile Include="ErrorInfo.cs" />
     <Compile Include="IntentoMTFormOptions.StateModeEnum.cs" />
@@ -169,7 +170,7 @@
     <None Include="Resources\intento.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Intento.SDK" Version="2.2.19" />
+    <PackageReference Include="Intento.SDK" Version="2.4.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\intento.png" />
