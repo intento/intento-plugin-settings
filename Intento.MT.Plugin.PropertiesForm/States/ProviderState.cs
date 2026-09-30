@@ -258,12 +258,13 @@ namespace Intento.MT.Plugin.PropertiesForm.States
 
         private static bool ProviderSupportsPair(Provider provider, LangPair pair)
         {
-            if (provider.Pairs.Any(p => p.From == pair.From && p.To == pair.To))
+            if (provider.Pairs != null && provider.Pairs.Any(p => p.From == pair.From && p.To == pair.To))
             {
                 return true;
             }
 
-            return provider.Symmetric.Any(x => x == pair.From) &&
+            return provider.Symmetric != null &&
+                   provider.Symmetric.Any(x => x == pair.From) &&
                    provider.Symmetric.Any(x => x == pair.To);
         }
 
