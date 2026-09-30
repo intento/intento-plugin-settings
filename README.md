@@ -14,4 +14,4 @@ In case you don't have a key to use Intento API, please register here [console.i
 
 ### Dependencies
 
-- Intento.SDK 2.0.0
+- Intento.SDK 2.4.0
