@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientUserAgentComposer.cs" />
     <Compile Include="DI\PropertiesFormContainerRegisterExtension.cs" />
     <Compile Include="ErrorInfo.cs" />
     <Compile Include="IntentoMTFormOptions.StateModeEnum.cs" />

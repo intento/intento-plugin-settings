@@ -60,7 +60,11 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            RemoteLogService.SetTraceEndTime(DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40));
+            // Kept on the options too: rebuilding the locator below resolves a fresh log service,
+            // which reads its trace window from CurrentOptions.
+            var traceEndTime = DateTime.Now.AddMinutes(checkBoxTrace.Checked ? 30 : -40);
+            parent.CurrentOptions.TraceEndTime = traceEndTime;
+            RemoteLogService.SetTraceEndTime(traceEndTime);
             parent.CurrentOptions.CustomSettingsName = string.IsNullOrWhiteSpace(textBoxCustomSettingsName.Text) ? null : textBoxCustomSettingsName.Text;
 			parent.CurrentOptions.CustomTagParser = checkBoxCustomTagParser.Checked;
 			parent.CurrentOptions.CutTag = checkBoxCutTags.Checked;
@@ -70,13 +74,7 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
             {
                 if (parent.CurrentOptions.ProxySettings != null)
                 {
-                    parent.Locator = parent.InitLocatorFunc(new Options
-                    {
-                        ServerUrl = parent.CurrentOptions.ApiPath,
-                        TmsServerUrl = parent.CurrentOptions.TmsApiPath,
-                        ApiKey = parent.CurrentOptions.ApiKey,
-                        ClientUserAgent = $"Intento.PluginSettingsForm/{parent.Version}"                 
-                    });
+                    parent.Locator = parent.ApiKeyState.CreateIntentoConnection(null, parent.CurrentOptions.UserAgent);
                 }
 
                 parent.CurrentOptions.ProxySettings = null;
@@ -94,13 +92,9 @@ namespace Intento.MT.Plugin.PropertiesForm.WinForms
                     ProxyPassword = textBoxPassword.Text,
                     ProxyEnabled = true
                 };
-                parent.Locator = parent.InitLocatorFunc(new Options
-                {
-                    ApiKey = parent.CurrentOptions.ApiKey,
-                    ClientUserAgent = $"Intento.PluginSettingsForm/{parent.Version}",
-                    ServerUrl = parent.CurrentOptions.ApiPath,
-                    Proxy = parent.CurrentOptions.ProxySettings
-                });
+                parent.Locator = parent.ApiKeyState.CreateIntentoConnection(
+                    parent.CurrentOptions.ProxySettings,
+                    parent.CurrentOptions.UserAgent);
                 try
                 {
                     TranslateService.Providers(filter: new Dictionary<string, string> { { "integrated", "true" }, { "mode", "async" } });
