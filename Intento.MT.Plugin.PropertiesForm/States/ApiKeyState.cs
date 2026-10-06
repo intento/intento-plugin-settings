@@ -151,7 +151,7 @@ namespace Intento.MT.Plugin.PropertiesForm.States
                 ServerUrl = options.ApiPath,
                 TmsServerUrl = options.TmsApiPath,
                 ApiKey = ApiKey,
-                ClientUserAgent = $"Intento.PluginSettingsForm/{Form.Version} {additionalUserAgent}",
+                ClientUserAgent = ClientUserAgentComposer.Compose(Form.Version, additionalUserAgent),
                 Proxy = proxySettings
             });
             impl.Resolve<IRemoteLogService>().SetTraceEndTime(Options.TraceEndTime);
@@ -246,6 +246,9 @@ namespace Intento.MT.Plugin.PropertiesForm.States
         public void FillOptions(IntentoMTFormOptions options)
         {
             options.ApiKey = ApiKey;
+            // Carries the host product token, which every connection built from these options
+            // has to end its User-Agent with.
+            options.UserAgent = Options.UserAgent;
             SmartRoutingState.FillOptions(SmartRoutingState, options);
         }
 
